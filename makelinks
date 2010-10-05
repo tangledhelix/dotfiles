@@ -1,0 +1,20 @@
+#!/bin/sh
+
+DIR=".dotfiles"
+
+FILES="bash_profile bashrc bash inputrc vimrc vim tcshrc cvsrc emacs"
+FILES="$FILES screenrc gitconfig"
+
+cd $HOME
+
+for file in $FILES; do
+    rm -rf .$file
+    ln -s .dotfiles/$file .$file
+    echo ".$file -> .dotfiles/$file"
+done
+
+cd $HOME/.ssh
+rm -f config
+ln -s ../.dotfiles/ssh/config config
+echo ".ssh/config -> .dotfiles/ssh/config"
+

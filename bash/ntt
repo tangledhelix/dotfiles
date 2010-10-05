@@ -1,0 +1,14 @@
+
+# Config tools stuff
+[[ "$HOST" = "eng0.dllstx09.us.to.gin.ntt.net" ]] && {
+    export CVSROOT="/home/eng/.CVS"
+    export PGLIB="/usr/local/pgsql/lib"
+    export PGDATA="/usr/local/pgsql/data"
+}
+
+test -d /apps/oracle/product/9.2.0 &&
+    export ORACLE_HOME="/apps/oracle/product/9.2.0"
+
+test -d /apps/oracle/product/10.2.0 &&
+    export ORACLE_HOME="/apps/oracle/product/10.2.0"
+

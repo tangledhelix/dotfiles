@@ -1,0 +1,28 @@
+
+# "h" shows the history
+# "h <pattern>" shows you history entries matching the string
+function h {
+    test -n "$1" && history | grep -i "$1" || history
+}
+
+# Look up error codes
+function errno {
+    perl -e "\$! = $1; print \"\$! \\n\";"
+}
+
+# machine type, on solaris
+function hw {
+    [[ "$OS" != "SunOS" ]] && {
+        echo "'hw' is only available in SunOS."
+        return
+    }
+    prtdiag | head -1 | \
+        sed "s/^System Configuration: *Sun Microsystems *//" | \
+        sed "s/^`uname -m` *//"
+}
+
+# Translate AS numbers / RR communities
+function astr {
+    echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
+}
+

@@ -1,0 +1,48 @@
+
+umask 0022
+
+test -n "$INTERACTIVE" && {
+
+    # Suppress local mail notices
+    shopt -u mailwarn >/dev/null 2>&1
+    unset MAILCHECK
+
+    # Do not try to complete when the command is empty/whitespace
+    shopt -s no_empty_cmd_completion >/dev/null 2>&1
+
+    # Append history to ~/.bash_history on shell exit
+    shopt -s histappend >/dev/null 2>&1
+
+    # Get a version of the hostname stripped to first two atoms.
+    # If the hostname is a single atom then it's just left that way
+    # because the regex won't match anyway.
+    #
+    # Zsh was able to do this natively with %2m. Get with it, bash.
+    #
+    _shorthost="$(echo $HOST|perl -p -e 's/^([^.]+\.[^.]+).*$/$1/;s/\.local//;')"
+
+    # Prompt
+    #
+    # \u    Username
+    # \w    Current working directory
+    # \$?    Expands to $?, i.e. exit value of last command executed
+    # \$    $ or # (depending on uid)
+    #
+    export PS1="\u@$_shorthost:\w{\$?}\\$ "
+
+    # An approximate tcsh equivalent is:
+    # set prompt = '%n@%M:%c{%?}%# '
+
+    stty erase '^?' -parenb -istrip echo echoe echoctl echoke tabs cs8
+
+    # Use emacs keybindings at the prompt
+    set -o emacs
+
+    # notify of bg job completion immediately
+    set -o notify
+
+    # set the titlebar
+    echo -ne "\x1b]2;$HOST\x07\x1b]1;$HOST\x07"
+
+}
+

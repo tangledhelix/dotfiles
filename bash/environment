@@ -1,0 +1,129 @@
+: ${HOME=~}
+
+: ${LOGNAME=$(id -un)}
+: ${UNAME=$(uname)}
+
+# readline config
+: ${INPUTRC=~/.inputrc}
+
+export HOME LOGNAME UNAME INPUTRC
+
+# Collect some info about the local system
+export HOST="$(uname -n)"
+export OS="$(uname -s)"
+
+# Tunnel CVS via SSH
+export CVS_RSH="ssh"
+
+# Tell CVS where it lives remotely. This will be fine for ISS hosts,
+# but could break something else?
+export CVS_SERVER="/usr/local/bin/cvs"
+
+# Erase duplicate entries from history
+export HISTCONTROL="erasedups"
+
+# Increase history size
+export HISTSIZE="10000"
+
+#######################################################################
+# Command search path
+
+unset PATH
+
+# configtools path prefix
+[[ "$HOST" = "eng0.dllstx09.us.to.gin.ntt.net" ]] && {
+    PATH="/opt/gums/bin:/usr/local/pgsql/bin:/home/eng/config/tools/bin"
+    PATH="$PATH:/home/eng/bin:~/config/tools/mpls:~/config/tools/scripts"
+}
+
+for _this in \
+    ~/local/bin \
+    ~/bin \
+    /admin/bin \
+    /usr/local/bin \
+    /bin \
+    /usr/bin \
+    /usr/ccs/bin \
+    /sbin \
+    /usr/sbin \
+    /usr/local/sbin \
+    /usr/proc/bin \
+    /usr/openwin/bin \
+    /usr/dt/bin \
+    /admin/tools/system \
+    /admin/tools/mail/bin \
+    /admin/tools/mail/sbin \
+    /usr/local/pkg/perl/bin \
+    /usr/local/pkg/mailman/bin \
+    /usr/local/pkg/mysql/bin \
+    /usr/local/pkg/pgsql/bin \
+    /usr/local/pkg/openldap/bin \
+    /usr/local/pkg/openldap/sbin \
+    /opt/openldap/bin \
+    /usr/sfw/bin \
+    /usr/local/teTeX/bin/i386-apple-darwin-current \
+    /usr/X11R6/bin \
+    /usr/local/git/bin \
+    /Developer/usr/bin \
+    ~/Dropbox/bin \
+    ~/tools
+do
+    test -d $_this && {
+        test -n "$PATH" && PATH="$PATH:$_this" || PATH="$_this"
+    }
+done
+
+export PATH
+
+#######################################################################
+# Man page search path
+
+unset MANPATH
+
+for _this in \
+    /usr/man \
+    /usr/share/man \
+    /usr/local/man \
+    /usr/local/share/man \
+    /usr/local/pkg/perl/man \
+    /usr/dt/man \
+    /usr/openwin/man \
+    /usr/sfw/man \
+    /usr/local/git/share/man \
+    ~/local/man \
+    ~/local/share/man \
+    ~/Dropbox/man
+do
+    test -d $_this && {
+        test -n "$MANPATH" && MANPATH="$MANPATH:$_this" || MANPATH="$_this"
+    }
+done
+
+export MANPATH
+
+#######################################################################
+# Editor
+
+HAVE_VIM="$(command -v vim)"
+test -n "$HAVE_VIM" && EDITOR=vim || EDITOR=vi
+VISUAL="$EDITOR"
+
+export EDITOR VISUAL
+
+#######################################################################
+# Pager
+
+if test -n "$(command -v less)" ; then
+    PAGER="less -FirSwX"
+    MANPAGER="less -FiRswX"
+    alias more="less"
+else
+    PAGER=more
+    MANPAGER="$PAGER"
+fi
+
+#LESS="-eIMq"
+#LESS="-IMq"
+
+export PAGER MANPAGER
+

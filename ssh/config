@@ -1,0 +1,68 @@
+######################################################################
+# General options
+
+StrictHostKeyChecking no
+
+######################################################################
+# Specific NTT systems
+
+# Routers & switches
+Host o0?.*.us.to*
+    ForwardAgent no
+
+Host r??.*.us.to*
+    ForwardAgent no
+
+Host s??.*.us.to*
+    ForwardAgent no
+
+# Sun service processors
+Host sp?.*
+    ForwardAgent no
+
+# Legacy IPE hosts
+Host eng*.verio.net
+    User dlowe
+
+# phone system
+Host sip-server*
+    User dlowe
+
+Host voip.gin.ntt.net
+    User dlowe
+
+# Netapps
+Host scd-nfs*
+    User root
+    ForwardAgent no
+
+Host rlm0.scd-nfs*
+    User naroot
+    ForwardAgent no
+
+######################################################################
+# Specific Non-NTT systems
+
+Host *tangledhelix.com
+  User scsiboy
+
+Host *mig.sourceforge.net
+  User tangledhelix
+
+Host *mig.sf.net
+  User tangledhelix
+
+Host *crazyhorse.com
+  User danlowe
+
+Host gafc.dreamhost.com
+  User danlowe
+
+######################################################################
+# Defaults
+
+Host *
+  ForwardAgent yes
+  Protocol 2
+  User dan
+

@@ -1,0 +1,59 @@
+
+# Show me file types in ls output.
+alias ls="/bin/ls -F"
+
+# Lets me queue up a beep if I want, i.e. "make ; beep"
+alias beep='echo -ne "\a"'
+
+# Common typos
+alias whios="whois"
+alias mroe="more"
+alias More="more"
+alias Grep="grep"
+
+# print the directory structure from the current directory in tree format
+alias dirf='find . -type d|sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"'
+
+alias fn="find . -name"
+
+# Show me time in GMT / UTC
+alias utc="TZ=UTC date"
+alias gmt="TZ=GMT date"
+# Time in Tokyo
+alias jst="TZ=Asia/Tokyo date"
+
+test -x /usr/bin/mailx && alias mail="/usr/bin/mailx"
+test -x /usr/ucb/Mail && alias Mail="/usr/ucb/Mail"
+
+HAVE_VIMDIFF="$(command -v vimdiff)"
+test -n "$HAVE_VIMDIFF" && alias vdiff="$HAVE_VIMDIFF -O"
+
+# Solaris diff sucks, use GNU diff instead.
+test -x /usr/local/pkg/diffutils/bin/diff &&
+    alias diff="/usr/local/pkg/diffutils/bin/diff"
+
+# Tell me what OS this is
+alias os="uname -srm"
+
+# Shortcut to ssh with X11 forwarding explicitly enabled and disabled
+alias sshx="ssh -X"
+alias sshnx="ssh -x"
+
+# Tail a file even if it's rotated out (e.g. log files) - needs GNU tail
+alias tailf="tail --follow=name"
+
+# Strip comment / blank lines from an output
+alias stripcomments="egrep -v '^(#|$)'"
+
+# Check for hosed SMF services
+alias xv="svcs -xv"
+
+# Show my path
+alias path='echo $PATH'
+
+# reload bash config
+alias reload=". ~/.bashrc"
+
+# commands starting with % for pasting from web
+alias %=" "
+

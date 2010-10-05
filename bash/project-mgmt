@@ -1,0 +1,105 @@
+
+test -n "$INTERACTIVE" && {
+
+    # This will create a project directory with the current date and a label,
+    # e.g. 20100904-openssh-upgrade. Optionally supply a ticket number to be
+    # inserted after the date, e.g. 20100904-29714-openssh-upgrade.
+
+    function mkproj {
+        _usage="Usage: mkproj <description> [<ticket>]"
+
+        if [[ "$1" = "-h" ]]; then
+            echo $_usage
+            return
+        fi
+
+        _date=`date +"%Y%m%d"`
+
+        if test -n "$2"; then
+            _projdir="$_date-$2-$1"
+        elif test -n "$1"; then
+            _projdir="$_date-$1"
+        else
+            echo $_usage
+            return
+        fi
+
+        mkdir ~/$_projdir && cd ~/$_projdir
+    }
+
+    # Find a project. If only one project matches, just go there.
+    # If multiple do, print a list for me to select from. Hit enter to
+    # choose the last option automatically.
+    #
+    # If this doesn't work, SUNWxcu4 probably needs to be installed.
+
+    function proj {
+
+        test -x /usr/xpg4/bin/awk && _awk="/usr/xpg4/bin/awk" || _awk="awk"
+
+        if [[ "$1" = "-h" ]]; then
+            echo "Usage: proj <pattern>"
+            return
+        fi
+
+        cd ~
+
+        # if no pattern is given, go to the newest project (by mtime).
+        test -z "$1" && {
+            _newest=`ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|tail -1`
+            test -d $_newest && cd $_newest || echo "No match."
+            return
+        }
+
+        # Get a count of projects (by pattern match).
+        _projcount="`ls -ltr|$_awk '/^d/ {if (\$9~/^[0-9]{8}-/) {print \$9}}'|grep -ci \"$1\"`"
+
+        # Case 1: there aren't any.
+        if [[ $_projcount -eq 0 ]]; then
+            echo "No match."
+            return
+
+        # Case 2: there's only one. Go there automatically.
+        elif [[ $_projcount -eq 1 ]]; then
+            _dir=`ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`
+            test -d $_dir && cd $_dir || echo "Error: not a directory."
+
+        # Case 3: it's not 0 or 1. Go over them and let me pick from a menu.
+        else
+
+            # Build an array of found projects in _projlist. Starts at 1, not 0.
+            _counter=1
+            for _this in `ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`; do
+                _projlist[$_counter]="$_this"
+                _counter=$((_counter + 1))
+            done
+
+            # Print out a menu of choices
+            _counter=1
+            for _this in ${_projlist[@]}; do
+                echo "[$_counter] $_this"
+                _counter=$((_counter + 1))
+            done
+
+            # Collect the choice. No choice means "go to last displayed option".
+            echo -n "=> "
+            read _choice
+
+            # If the answer was null, back off one from the counter
+            test -z "$_choice" && _choice=$((_counter - 1))
+
+            if [[ $_choice -lt 1 ]]; then
+                echo "Out of range"
+                return
+            fi
+            if [[ -z "${_projlist[$_choice]}" ]]; then
+                echo "Out of range"
+                return
+            fi
+
+            _dir=${_projlist[$_choice]}
+            test -d $_dir && cd $_dir || echo "Error: not a directory."
+        fi
+    }
+}
+

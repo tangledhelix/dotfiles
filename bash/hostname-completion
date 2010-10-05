@@ -1,0 +1,26 @@
+
+test -n "$INTERACTIVE" && {
+
+    # Hostname completion using ssh known_hosts file
+
+    shopt -s progcomp
+
+    _known_hosts() {
+        local _cur
+        local _ssh
+
+        test -f ~/.ssh/known_hosts &&
+            _ssh="`cat ~/.ssh/known_hosts|cut -f 1 -d ' '|sed -e 's/,.*//g'|uniq|grep -v "\["`"
+
+        COMPREPLY=()
+        _cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=($(compgen -W '$( echo $_ssh )' -- $_cur))
+        return 0
+    }
+
+    complete -F _known_hosts \
+        ssh sftp scp sdist host dig nslookup ping telnet mtr traceroute \
+        cons clogin load seed for sshx sperl
+
+}
+

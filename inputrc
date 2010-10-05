@@ -1,0 +1,13 @@
+# Ignore case when doing completion. Works on HFS+, UFS, whatever.
+set completion-ignore-case On
+
+# Show all matches when there's ambiguity.
+set show-all-if-ambiguous On
+
+# Search backward through history with ESC-p. Type a partial command, hit
+# ESC-p, you get completions matching prefix. Hit again to move to next match.
+"\ep": history-search-backward
+
+# Append file-type indicator to end of filenames in completions (cf. ls -F).
+set visible-stats On
+
