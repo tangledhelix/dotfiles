@@ -31,3 +31,30 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+# Easy clone of a project that lives on Dreamhost
+dh_gitclone() {
+    _user="scsiboy"
+    _server="git.tangledhelix.com"
+
+    test -n "$1" || {
+        echo "Missing argument (repo to clone)"
+        return
+    }
+
+    git clone ssh://$_user@$_server/~/git/$1
+}
+
+# NTT git environment is a little weird, streamline it.
+ntt_gitclone() {
+    _path="/usr/local/bin/git-upload-pack"
+    _user="dan"
+    _server="admin1.mlpsca01.us.to.gin.ntt.net"
+
+    test -n "$1" || {
+        echo "Missing argument (repo to clone)"
+        return
+    }
+
+    git clone -o ntt -u $_path ssh://$_user@$_server/~/git/$1
+}
+
