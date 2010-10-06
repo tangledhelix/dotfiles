@@ -41,7 +41,7 @@ dh_gitclone() {
         return
     }
 
-    git clone ssh://$_user@$_server/~/git/$1
+    git clone ssh://$_user@$_server/~/git/$1 $2
 }
 
 # NTT git environment is a little weird, streamline it.
@@ -55,6 +55,6 @@ ntt_gitclone() {
         return
     }
 
-    git clone -o ntt -u $_path ssh://$_user@$_server/~/git/$1
+    git clone -o ntt -u $_path ssh://$_user@$_server/~/git/$1 $2
 }
 
