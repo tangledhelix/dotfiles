@@ -110,6 +110,8 @@ VISUAL="$EDITOR"
 
 export EDITOR VISUAL
 
+test -n "$HAVE_VIM" && alias vi="vim"
+
 #######################################################################
 # Pager
 
