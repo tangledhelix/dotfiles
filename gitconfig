@@ -4,4 +4,5 @@
 
 [remote "ntt"]
 	receivepack = /usr/local/bin/git-receive-pack
+    uploadpack = /usr/local/bin/git-upload-pack
 
