@@ -1,3 +1,7 @@
 [user]
 	name = Dan Lowe
 	email = dan@tangledhelix.com
+
+[remote "ntt"]
+	receivepack = /usr/local/bin/git-receive-pack
+
