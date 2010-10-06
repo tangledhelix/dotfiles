@@ -2,3 +2,4 @@
 .*.swp
 *~
 .netrwhist
+vim/bundle/*/doc/tags

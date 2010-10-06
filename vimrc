@@ -7,6 +7,7 @@
 " ,<space>      clear search highlight
 " ,4            set tab stop to 4
 " ,8            set tab stop to 8
+" ,c            used by NERD_commenter plugin
 " ,C            center current line
 " ,h            toggle highlight setting
 " ,H            create an html version of current syntax
@@ -21,6 +22,7 @@
 " ,spy          syntax: python
 " ,sr           syntax: ruby
 " ,ss           syntax: shell
+" ,sw           syntax: wiki (mediawiki)
 " ,t            code tab settings
 " ,T            non-code tab settings
 " ,ve           edit .vimrc
@@ -38,9 +40,9 @@ let mapleader=","
 set pastetoggle=,,
 
 " Load Pathogen (manages other plugins)
-"filetype off
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
+filetype off
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 " Use filetype detection, including syntax-aware indenting
 filetype plugin indent on
@@ -166,6 +168,9 @@ set notitle
 
 " Show the status line
 set laststatus=2
+
+" Status line format
+set statusline=%<%f\ %h%m%r%y\ %=%-14.(%l,%c%V%)\ %P
 
 " I don't want line numbers.
 set nonumber
@@ -376,6 +381,9 @@ map <leader>sc :set syntax=c ai et ts=4 sts=4 sw=4 tw=0<CR>
 map <leader>ss :set syntax=sh ai et ts=4 sts=4 sw=4 tw=0<CR>
 " Ruby
 map <leader>sr :set syntax=ruby ai et ts=2 sts=2 sw=2 tw=0<CR>
+" Mediawiki
+map <leader>sw :set syntax=mediawiki ai et ts=4 sts=4 sw=4 tw=78<CR>
+
 
 " --------------------------------------------------------------------
 " General Editing
@@ -413,6 +421,9 @@ autocmd BufEnter *.com syntax off
 
 " GNU M4
 autocmd BufEnter *.global set syntax=m4 ai et ts=4 sts=4 sw=4 tw=0
+
+" Mediawiki
+autocmd BufRead,BufNewFile *.wiki setfiletype mediawiki
 
 " For syntax highlighting
 " I thought this was outdated, but it still breaks the terminal (2010).
