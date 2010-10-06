@@ -6,7 +6,8 @@ case "$-" in
 esac
 
 source ~/.bash/environment
-source ~/.bash/general
+source ~/.bash/colordefs
+source ~/.bash/config
 source ~/.bash/aliases
 source ~/.bash/functions
 source ~/.bash/mac

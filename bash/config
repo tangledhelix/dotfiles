@@ -21,6 +21,18 @@ test -n "$INTERACTIVE" && {
     #
     _shorthost="$(echo $HOST|perl -p -e 's/^([^.]+\.[^.]+).*$/$1/;s/\.local//;')"
 
+    ESC="\033"
+    BRIGHT=1
+    FG_RED=31
+    BRIGHT_RED="\[$ESC[${BRIGHT};${FG_RED}m\]"
+
+    RED="\[\033[0;31m\]"
+    BROWN="\[\033[0;33m\]"
+    GREY="\[\033[0;97m\]"
+    BLUE="\[\033[0;34m\]"
+    PS_CLEAR="\[\033[0m\]"
+    SCREEN_ESC="\[\033k\033\134\]"
+
     # Prompt
     #
     # \u    Username
@@ -30,7 +42,7 @@ test -n "$INTERACTIVE" && {
     # \$    $ or # (depending on uid)
     # \j    Number of jobs currently managed by the shell
     #
-    export PS1="\u@$_shorthost[\j]:\W{\$?}\$(parse_git_branch)\\$ "
+    export PS1="${BRIGHT_BLUE}[\j] ${BRIGHT_VIOLET}\w${BRIGHT_RED}\$(parse_git_branch)\n${BRIGHT_BLACK}\u@$_shorthost{\$?}\\$ ${RESET}"
 
     # An approximate tcsh equivalent is:
     # set prompt = '%n@%M:%c{%?}%# '
