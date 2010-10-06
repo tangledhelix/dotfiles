@@ -17,6 +17,8 @@ source ~/.bash/non-root
 
 test -f ~/.bashrc.local && source ~/.bashrc.local
 
+test -f ~/.bash_profile.local && echo "   === .bash_profile.local exists ==="
+
 # to look into:
 
 # put the current git branch in your prompt
