@@ -5,7 +5,7 @@ test -n "$INTERACTIVE" && {
     # e.g. 20100904-openssh-upgrade. Optionally supply a ticket number to be
     # inserted after the date, e.g. 20100904-29714-openssh-upgrade.
 
-    function mkproj {
+    mkproj() {
         _usage="Usage: mkproj <description> [<ticket>]"
 
         if [[ "$1" = "-h" ]]; then
@@ -33,7 +33,7 @@ test -n "$INTERACTIVE" && {
     #
     # If this doesn't work, SUNWxcu4 probably needs to be installed.
 
-    function proj {
+    proj() {
 
         test -x /usr/xpg4/bin/awk && _awk="/usr/xpg4/bin/awk" || _awk="awk"
 

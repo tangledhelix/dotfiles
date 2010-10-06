@@ -11,7 +11,7 @@
 #   yn y "Do you want to continue?" || exit
 #   yn n "Remove $FILE?" && rm -f $FILE
 
-function yn {
+yn() {
     _default="$1"
     _question="$2"
 
@@ -21,6 +21,7 @@ function yn {
     }
 
     echo -n "$_question "
+
     if [[ "$_default" = "y" || "$_default" = "Y" ]]; then
         echo -n "[Y/n] "
     elif [[ "$_default" = "n" || "$_default" = "N" ]]; then

@@ -1,17 +1,17 @@
 
-# "h" shows the history
+# "h" shows entire history
 # "h <pattern>" shows you history entries matching the string
-function h {
+h() {
     test -n "$1" && history | grep -i "$1" || history
 }
 
 # Look up error codes
-function errno {
+errno() {
     perl -e "\$! = $1; print \"\$! \\n\";"
 }
 
 # machine type, on solaris
-function hw {
+hw() {
     [[ "$OS" != "SunOS" ]] && {
         echo "'hw' is only available in SunOS."
         return
@@ -22,7 +22,12 @@ function hw {
 }
 
 # Translate AS numbers / RR communities
-function astr {
+astr() {
     echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
+}
+
+# Get the current git branch (for shell prompt)
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 

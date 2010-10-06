@@ -25,10 +25,12 @@ test -n "$INTERACTIVE" && {
     #
     # \u    Username
     # \w    Current working directory
-    # \$?    Expands to $?, i.e. exit value of last command executed
+    # \W    Name of this directory (not full dir)
+    # \$?   Expands to $?, i.e. exit value of last command executed
     # \$    $ or # (depending on uid)
+    # \j    Number of jobs currently managed by the shell
     #
-    export PS1="\u@$_shorthost:\w{\$?}\\$ "
+    export PS1="\u@$_shorthost[\j]:\W{\$?}\$(parse_git_branch)\\$ "
 
     # An approximate tcsh equivalent is:
     # set prompt = '%n@%M:%c{%?}%# '
