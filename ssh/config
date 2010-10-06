@@ -28,7 +28,7 @@ Host eng*.verio.net
 Host sip-server*
     User dlowe
 
-Host voip.gin.ntt.net
+Host voip*
     User dlowe
 
 # Netapps
