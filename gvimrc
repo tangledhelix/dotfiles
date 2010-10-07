@@ -28,7 +28,7 @@ set clipboard+=unnamed
 highlight Comment guifg=#858585
 highlight Statement guifg=blue
 highlight Identifier guifg=darkcyan gui=bold
-" for invisibles...
+" invisibles...
 highlight NonText guifg=#cdcdcd
 highlight SpecialKey guifg=#cdcdcd
 

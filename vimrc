@@ -8,7 +8,8 @@
 " ,/            toggle NERDTree browser
 " ,4            set tab stop to 4
 " ,8            set tab stop to 8
-" ,c            used by NERD_commenter plugin
+" ,A            toggle autoclose mode
+" ,c            manage commenting (plugin: nerd_commenter)
 " ,C            center current line
 " ,h            toggle highlight setting
 " ,H            create an html version of current syntax
@@ -25,8 +26,9 @@
 " ,S            toggle syntax highlighting
 " ,t            code tab settings
 " ,T            non-code tab settings
-" ,ve           edit .vimrc
-" ,vr           reload .vimrc
+" ,ve           edit .vimrc ($MYVIMRC)
+" ,vg           edit .gvimrc ($MYGVIMRC)
+" ,vr           reload .vimrc (breaks colorscheme in MacVim...)
 " ------------------------------------------------------------------------
 " General
 
@@ -87,6 +89,7 @@ nmap <leader>/ :NERDTreeToggle<CR>
 
 " Edit vim config.
 nmap <leader>ve :e $MYVIMRC<CR>
+nmap <leader>vg :e $MYGVIMRC<CR>
 
 " Reload vim config.
 nmap <leader>vr :so $MYVIMRC<CR>
@@ -292,6 +295,9 @@ nmap Q gqap
 " Center a line of text
 map <leader>C :center<CR>
 
+" Toggle autoclose mode
+nmap <leader>A <Plug>ToggleAutoCloseMappings
+
 " --------------------------------------------------------------------
 " Navigation
 
@@ -316,12 +322,15 @@ nnoremap k gk
 " ----------------------------------------------------------------------
 " Syntax-related mappings
 
-" Toggle syntax highlighting
-"nmap <leader>S :if exists("g:syntax_on") <Bar>
-    "\   syntax off <Bar>
-    "\ else <Bar>
-    "\   syntax enable <Bar>
-    "\ endif <CR>
+" Toggle syntax highlighting.
+" This works, but due to some other bug, turning syntax off and on
+" does not function correctly, so if you disable and enable, you end up
+" with the wrong colors. I'm not sure yet why.
+nmap <leader>S :if exists("g:syntax_on") <Bar>
+    \   syntax off <Bar>
+    \ else <Bar>
+    \   syntax enable <Bar>
+    \ endif <CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 map <leader>H :TOhtml<CR>
@@ -491,8 +500,7 @@ highlight Comment ctermfg=darkgrey
 highlight Statement ctermfg=blue cterm=bold
 highlight Identifier ctermfg=darkcyan cterm=bold
 highlight ColorColumn ctermbg=lightgrey ctermfg=black
-
-" ... for invisible.
+" invisibles...
 highlight NonText ctermfg=grey
 highlight SpecialKey ctermfg=grey
 
