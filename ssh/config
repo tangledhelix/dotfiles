@@ -10,6 +10,10 @@ StrictHostKeyChecking no
 Host o0?.*.us.to*
     ForwardAgent no
 
+Host o0?.*.us.to*
+    ForwardAgent no
+    Protocol 1
+
 Host r??.*.us.to*
     ForwardAgent no
 
