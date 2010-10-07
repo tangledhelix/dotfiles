@@ -104,8 +104,8 @@ export MANPATH
 #######################################################################
 # Editor
 
-HAVE_VIM="$(command -v vim)"
-HAVE_MVIM="$(command -v mvim)"
+HAVE_VIM="$(command -v vim 2>/dev/null)"
+HAVE_MVIM="$(command -v mvim 2>/dev/null)"
 
 test -n "$HAVE_MVIM" && EDITOR="mvim" || {
     test -n "$HAVE_VIM" && EDITOR="vim" || EDITOR="vi"
@@ -124,7 +124,7 @@ test -n "$HAVE_MVIM" && {
 #######################################################################
 # Pager
 
-if test -n "$(command -v less)" ; then
+if test -n "$(command -v less 2>/dev/null)" ; then
     PAGER="less -FirSwX"
     MANPAGER="less -FiRswX"
     alias more="less"

@@ -468,6 +468,7 @@ if has("autocmd")
 
     " Mediawiki
     autocmd BufRead,BufNewFile *.wiki set filetype=mediawiki
+    autocmd BufRead,BufNewFile *ISSwiki* set filetype=mediawiki
 
     " Bash configs
     autocmd BufRead,BufNewFile .bash* set filetype=sh
