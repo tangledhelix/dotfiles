@@ -20,3 +20,6 @@ test -f ~/.bashrc.local && source ~/.bashrc.local
 
 test -f ~/.bash_profile.local && echo "   === .bash_profile.local exists ==="
 
+# Make $? happy so new shells don't always start with {1} in the prompt.
+test "true"
+

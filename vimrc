@@ -5,6 +5,7 @@
 "
 " ,,            toggle paste mode
 " ,<space>      clear search highlight
+" ,/            toggle NERDTree browser
 " ,4            set tab stop to 4
 " ,8            set tab stop to 8
 " ,c            used by NERD_commenter plugin
@@ -13,8 +14,6 @@
 " ,H            create an html version of current syntax
 " ,i            toggle invisibles
 " ,n            toggle relative line numbering
-" ,s0           turn syntax highlighting off
-" ,s1           turn syntax highlighting on
 " ,sc           syntax: C
 " ,spe          syntax: perl
 " ,sph          syntax: php
@@ -23,11 +22,13 @@
 " ,sr           syntax: ruby
 " ,ss           syntax: shell
 " ,sw           syntax: wiki (mediawiki)
+" ,S            toggle syntax highlighting
 " ,t            code tab settings
 " ,T            non-code tab settings
 " ,ve           edit .vimrc
 " ,vr           reload .vimrc
 " ------------------------------------------------------------------------
+" General
 
 " This needs to be first, because it changes Vim's behavior in many places.
 " Turn off vi compatibility. If I wanted vi, I'd use vi.
@@ -51,10 +52,44 @@ filetype plugin indent on
 " XML tags, stuff like that, instead of just brackets.
 runtime macros/matchit.vim
 
+" --------------------------------------------------------------------
+" Convenience / misc. mappings
+"
 " Use jj to get back to command mode instead of ESC. ESC can be a pita
 " to hit sometimes. This is going to take some time to get used to. ESC is
 " still functional, so it shouldn't be too painful.
 inoremap jj <ESC>
+
+" Swap ` and '
+" By default, ' jumps to the line you marked, and ` jumps to line -and-
+" col that you marked. So ` is more useful. But harder to type. So swap.
+noremap ' `
+noremap ` '
+
+" Swap ; in place of : for commands - no need to hit the shift key.
+nnoremap ; :
+
+" Define "del" char to be the same backspace (saves a LOT of trouble!)
+" As the angle notation cannot be use with the LeftHandSide
+" with mappings you must type this in *literally*!
+" map <C-V>127 <C-H>
+"cmap <C-V>127 <C-H>
+" the same for Linux Debian which uses
+imap <Esc>[3~ <C-H>
+imap        <C-H>
+cmap        <C-H>
+
+" Duplicate a selection
+vmap D y'>p
+
+" Toggle the NERDTree window
+nmap <leader>/ :NERDTreeToggle<CR>
+
+" Edit vim config.
+nmap <leader>ve :e $MYVIMRC<CR>
+
+" Reload vim config.
+nmap <leader>vr :so $MYVIMRC<CR>
 
 " --------------------------------------------------------------------
 " Tab settings
@@ -70,11 +105,28 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 
+" coding tab settings (should match defaults)
+map <leader>t :set ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
+
+" non-code tab settings
+map <leader>T :set noai nosi noci noet sw=8 ts=8 sts=8 tw=75<CR>
+
+" set tab width to 4
+map <leader>4 :set ts=4 sts=4<CR>
+
+" set tab width to 8
+map <leader>8 :set ts=8 sts=8<CR>
+
 " --------------------------------------------------------------------
 " Indenting
 
 "  Good for coding. Handles indenting of blocks automatically.
 set autoindent
+
+" Copies the indentation characters of the previous line. This will
+" help avoid situations where I edit a file and my expandtab makes
+" a space-indented line just below a tab-indented line.
+set copyindent
 
 " An indent is automatically inserted: 
 " - After a line ending in '{'.
@@ -93,6 +145,9 @@ set smartindent
 " This prevents smartindent from pushing # to the start of a line, I want
 " it at the same indent I'm currently at, usually.
 inoremap # X#
+
+" When changing indent with < and >, use a multiple of shiftwidth.
+set shiftround
 
 " --------------------------------------------------------------------
 " Wrapping
@@ -143,6 +198,11 @@ set ignorecase
 " Ignore case in search patterns unless an uppercase character is used
 " in the search, then pay attention to case. Requires ignorecase.
 set smartcase
+
+" Turn off vim's default regex and use normal regexes (behaves more
+" like Perl regex now...)
+nnoremap / /\v
+vnoremap / /\v
 
 " --------------------------------------------------------------------
 " Sounds and alerts
@@ -202,21 +262,103 @@ set showmode
 " Warn on long lines. Looks like crap in a terminal, great in MacVim.
 "set colorcolumn=81
 
+" Don't show invisibles by default
+set nolist
+set listchars=tab:>-,eol:$
+
+" Turn invisibles on/off.
+nmap <leader>i :set list!<CR>
+
 " --------------------------------------------------------------------
-
-set nottybuiltin
-
-" Automatically save modifications to files when you use
-" critical (rxternal) commands.
-set autowrite
-
-" Allow usage of cursor keys within insert mode.
-set esckeys
+" Formatting
 
 " Options for the "text format" command ("gq").
 " May consider 'o' with inserts the comment leader when creating a new
 " line with either 'o' or 'O' in insert mode.
 set formatoptions=qrn1
+
+" Insert two spaces after a period with every joining of lines.
+" Bah! The 'two spaces' rule is archaic typewriter-era crap.
+set nojoinspaces
+
+" Use explicit markers for folding
+set foldmethod=marker
+
+" Reformat a selection
+vmap Q gq
+" ... or the current paragraph
+nmap Q gqap
+
+" Center a line of text
+map <leader>C :center<CR>
+
+" --------------------------------------------------------------------
+" Navigation
+
+" Allow usage of cursor keys within insert mode.
+set esckeys
+
+" Do not jump to first character with page commands, i.e.
+" keep the cursor in the current column.
+set nostartofline
+
+" Start scrolling before I reach the bottom of the screen, to keep more
+" context around cursor.
+set scrolloff=3
+
+" When I have long lines and 'wrap' is true, I often use j/k to move up or
+" down, and it skips over to the next real line, rather than the next line
+" on the display, and that's annoying. These remaps make j and k honor the
+" _displayed_ lines instead of the actual lines.
+nnoremap j gj
+nnoremap k gk
+
+" ----------------------------------------------------------------------
+" Syntax-related mappings
+
+" Toggle syntax highlighting
+"nmap <leader>S :if exists("g:syntax_on") <Bar>
+    "\   syntax off <Bar>
+    "\ else <Bar>
+    "\   syntax enable <Bar>
+    "\ endif <CR>
+
+" Create an HTML version of our syntax highlighting for display or printing.
+map <leader>H :TOhtml<CR>
+
+" Perl
+map <leader>spe :set syntax=perl ai et ts=4 sts=4 sw=4 tw=0<CR>
+" a Perl stub header
+map <leader>sps :set paste<CR>a#!/usr/local/bin/perl<CR><CR>use strict;<CR>use warnings;<CR><CR><ESC>:set nopaste<CR>a
+
+" Python
+map <leader>spy :set syntax=python ai et ts=4 sts=4 sw=4 tw=0<CR>
+" PHP
+map <leader>sph :set syntax=php ai et ts=4 sts=4 sw=4 tw=0<CR>
+" C/C++
+map <leader>sc :set syntax=c ai et ts=4 sts=4 sw=4 tw=0<CR>
+" Shell
+map <leader>ss :set syntax=sh ai et ts=4 sts=4 sw=4 tw=0<CR>
+" Ruby
+map <leader>sr :set syntax=ruby ai et ts=2 sts=2 sw=2 tw=0<CR>
+" Mediawiki
+map <leader>sw :set syntax=mediawiki ai et ts=4 sts=4 sw=4 tw=78<CR>
+
+" ----------------------------------------------------------------------
+" Windows
+
+" Easier navigation keys (ctrl + normal movement keys h,j,k,l)
+map <C-h> :wincmd h<CR>
+map <C-j> :wincmd j<CR>
+map <C-k> :wincmd k<CR>
+map <C-l> :wincmd l<CR>
+
+" --------------------------------------------------------------------
+" TODO: this section
+
+" Automatically save modifications to files when you use
+" critical (rxternal) commands.
+set autowrite
 
 " Zero disables this, use default split window height.
 set helpheight=0
@@ -234,10 +376,6 @@ set noinsertmode
 " Add the dash ('-'), the dot ('.'), and the '@' as "letters" to "words".
 " This makes it possible to expand email addresses, e.g. guckes-www@vim.org
 set iskeyword=@,48-57,_,192-255,-,.,@-@
-
-" Insert two spaces after a period with every joining of lines.
-" Bah! The 'two spaces' rule is archaic typewriter-era crap.
-set nojoinspaces
 
 " Use 'magic' patterns (extended regex) in search patterns. ("\s\+")
 set magic
@@ -257,19 +395,11 @@ let &shell="/bin/sh"
 " ":edit" command. Most of these are files created by LaTeX.
 set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.tgz,.sit,.dmg,.hqx
 
-" Do not jump to first character with page commands, i.e.
-" keep the cursor in the current column.
-set nostartofline
-
 " Create new windows below current one.
 set splitbelow
 
 " Are we using a fast terminal?
 set ttyfast
-
-" Start scrolling before I reach the bottom of the screen, to keep more
-" context around cursor.
-set scrolloff=3
 
 " What info to store from an editing session in the viminfo file;
 " can be used at next session.
@@ -290,142 +420,58 @@ set wildmode=list:longest
 set nobackup
 set nowritebackup
 
-" Use explicit markers for folding
-set foldmethod=marker
-
 set encoding=utf-8
 
 " Create an undo cache file for each edited file, so we can undo even
 " after closing/opening a file (<filename>.un~).
 "set undofile
 
-" --------------------------------------------------------------------
-" Mappings
-
-" Caveat:  Mapping must be "prefix free", ie no mapping must be the
-" prefix of any other mapping.  Example:  "map ,abc foo" and
-" "map ,abcd bar" will give you the error message "Ambigous mapping".
-
-" Turn off vim's default regex and use normal regexes (behaves more
-" like Perl regex now...)
-nnoremap / /\v
-vnoremap / /\v
-
-" Swap ` and '
-" By default, ' jumps to the line you marked, and ` jumps to line -and-
-" col that you marked. So ` is more useful. But harder to type. So swap.
-noremap ' `
-noremap ` '
-
-" Reformat a selection
-vmap Q gq
-" ... or the current paragraph
-nmap Q gqip
-
-" Duplicate a selection
-vmap D y'>p
-
-" Disable the command 'K' (keyword lookup)
-map K <NUL>
-
-" coding tab settings (defaults)
-" since et is set, no tabs will be created
-" sw=4 means I'll use an indent of 4, ts (tabstop matches)
-map <leader>t :set ai et sw=4 ts=4 sts=4 tw=0<CR>
-
-" non-code tab settings
-map <leader>T :set noai noet sw=4 ts=8 sts=8 tw=75<CR>
-
-" set tab width to 4
-map <leader>4 :set ts=4 sts=4<CR>
-
-" set tab width to 8
-map <leader>8 :set ts=8 sts=8<CR>
-
-" Center a line of text
-map <leader>C :center<CR>
-
-" Don't show invisibles by default
-set nolist
-set listchars=tab:>-,eol:$
-
-" Turn invisibles on/off.
-nmap <leader>i :set list!<CR>
-
-" Edit vim config.
-nmap <leader>ve :e ~/.vimrc<CR>
-
-" Reload vim config.
-nmap <leader>vr :so ~/.vimrc<CR>
-
-" Syntax modes
-
-map <leader>s0 :syntax off<CR>
-map <leader>s1 :syntax on<CR>
-
-" Create an HTML version of our syntax! SWEET!
-map <leader>H :run! syntax/2html.vim<CR>
-
-" Perl
-map <leader>spe :set syntax=perl ai et ts=4 sts=4 sw=4 tw=0<CR>
-" a Perl stub header
-map <leader>sps :set paste<CR>a#!/usr/local/bin/perl<CR><CR>use strict;<CR>use warnings;<CR><CR><ESC>:set nopaste<CR>a
-
-" Python
-map <leader>spy :set syntax=python ai et ts=4 sts=4 sw=4 tw=0<CR>
-" PHP
-map <leader>sph :set syntax=php ai et ts=4 sts=4 sw=4 tw=0<CR>
-" C/C++
-map <leader>sc :set syntax=c ai et ts=4 sts=4 sw=4 tw=0<CR>
-" Shell
-map <leader>ss :set syntax=sh ai et ts=4 sts=4 sw=4 tw=0<CR>
-" Ruby
-map <leader>sr :set syntax=ruby ai et ts=2 sts=2 sw=2 tw=0<CR>
-" Mediawiki
-map <leader>sw :set syntax=mediawiki ai et ts=4 sts=4 sw=4 tw=78<CR>
-
+" Increase the history size (default is 20).
+set history=100
 
 " --------------------------------------------------------------------
-" General Editing
-"
-" Define "del" char to be the same backspace (saves a LOT of trouble!)
-" As the angle notation cannot be use with the LeftHandSide
-" with mappings you must type this in *literally*!
-" map <C-V>127 <C-H>
-"cmap <C-V>127 <C-H>
-" the same for Linux Debian which uses
-imap <Esc>[3~ <C-H>
-imap        <C-H>
-cmap        <C-H>
+" Auto-command triggers
 
-" ===================================================================
-" Remove ALL auto-commands.  This avoids having the
-" autocommands twice when the vimrc file is sourced again.
-autocmd!
+if has("autocmd")
 
-" Set File type to 'text' for files ending in .txt
-autocmd BufNewFile,BufRead *.txt setfiletype text
+    " Remove ALL auto-commands.  This avoids having the
+    " autocommands twice when the vimrc file is sourced again.
+    autocmd!
 
-" Use 'normal' tab settings for Makefiles
-" Makefiles NEED tabs. Spaces do NOT work.
-autocmd BufEnter [Mm]akefile* set noet ts=8 sts=8 sw=8
+    " Set File type to 'text' for files ending in .txt
+    autocmd BufNewFile,BufRead *.txt setfiletype text
 
-" .t is generally a perl test script
-autocmd BufEnter *.t set syntax=perl ai et ts=4 sts=4 sw=4 tw=0
+    " Makefiles NEED tabs. Spaces do NOT work.
+    autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
+    autocmd FileType make set noet ts=8 sts=8 sw=8
 
-" .inc is generally PHP
-autocmd BufEnter *.inc set syntax=php ai et ts=4 sts=4 sw=4 tw=0
+    " .t is generally a perl test script
+    autocmd BufNewFile,BufRead *.t set filetype=perl
 
-" No highlighting at all for these file types
-autocmd BufEnter *.com syntax off
+    " .inc is generally PHP
+    autocmd BufNewFile,BufRead *.inc set filetype=php
 
-" GNU M4
-autocmd BufEnter *.global set syntax=m4 ai et ts=4 sts=4 sw=4 tw=0
+    " No highlighting at all for these file types
+    autocmd BufNewFile,BufRead *.com syntax off
 
-" Mediawiki
-autocmd BufRead,BufNewFile *.wiki setfiletype mediawiki
+    " GNU M4
+    autocmd BufNewFile,BufRead *.global set filetype=m4
 
-" For syntax highlighting
+    " Mediawiki
+    autocmd BufRead,BufNewFile *.wiki set filetype=mediawiki
+
+    " Bash configs
+    autocmd BufRead,BufNewFile .bash* set filetype=sh
+    autocmd BufRead,BufNewFile .dotfiles/bash* set filetype=sh
+
+    " Different tab settings for Ruby code
+    autocmd FileType ruby set ai et ts=2 sts=2 sw=2 tw=0
+
+endif
+
+" --------------------------------------------------------------------
+" Colors
+
 " I thought this was outdated, but it still breaks the terminal (2010).
 if !has("gui") && has("terminfo")
     set t_Co=16
@@ -438,7 +484,7 @@ else
 endif
 
 " Activate syntax highlighting
-syntax on
+syntax enable
 
 " Custom colors
 highlight Comment ctermfg=darkgrey

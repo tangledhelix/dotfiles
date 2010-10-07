@@ -105,12 +105,21 @@ export MANPATH
 # Editor
 
 HAVE_VIM="$(command -v vim)"
-test -n "$HAVE_VIM" && EDITOR=vim || EDITOR=vi
-VISUAL="$EDITOR"
+HAVE_MVIM="$(command -v mvim)"
 
+test -n "$HAVE_MVIM" && EDITOR="mvim" || {
+    test -n "$HAVE_VIM" && EDITOR="vim" || EDITOR="vi"
+}
+
+VISUAL="$EDITOR"
 export EDITOR VISUAL
 
 test -n "$HAVE_VIM" && alias vi="vim"
+
+test -n "$HAVE_MVIM" && {
+    alias vi="mvim"
+    alias vim="mvim"
+}
 
 #######################################################################
 # Pager
