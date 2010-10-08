@@ -62,6 +62,10 @@ Host *crazyhorse.com
 Host gafc.dreamhost.com
   User danlowe
 
+Host github.com
+  IdentityFile ~/.ssh/github
+  User git
+
 ######################################################################
 # Defaults
 
