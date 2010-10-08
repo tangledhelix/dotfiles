@@ -301,8 +301,10 @@ nmap <leader>A <Plug>ToggleAutoCloseMappings
 " --------------------------------------------------------------------
 " Navigation
 
-" Allow usage of cursor keys within insert mode.
-set esckeys
+" Disallow usage of cursor keys within insert mode. Currently the arrow
+" keys are being used by the arrow-key-remap plugin, which seems to
+" override this setting anyway.
+set noesckeys
 
 " Do not jump to first character with page commands, i.e.
 " keep the cursor in the current column.
