@@ -73,4 +73,5 @@ Host *
   ForwardAgent yes
   Protocol 2
   User dan
+  IdentityFile ~/.ssh/id_rsa
 
