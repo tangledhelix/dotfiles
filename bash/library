@@ -1,4 +1,4 @@
-# Bash function library
+# Bash function library, for use in scripts
 
 # ----------------------------------------------------------------------
 # yn <default> <question>

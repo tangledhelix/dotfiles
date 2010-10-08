@@ -1,3 +1,5 @@
+# readline config (used by bash and others)
+
 # Ignore case when doing completion. Works on HFS+, UFS, whatever.
 set completion-ignore-case On
 

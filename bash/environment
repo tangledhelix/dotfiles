@@ -30,12 +30,6 @@ export HISTSIZE="10000"
 
 unset PATH
 
-# configtools path prefix
-[[ "$HOST" = "eng0.dllstx09.us.to.gin.ntt.net" ]] && {
-    PATH="/opt/gums/bin:/usr/local/pgsql/bin:/home/eng/config/tools/bin"
-    PATH="$PATH:/home/eng/bin:~/config/tools/mpls:~/config/tools/scripts"
-}
-
 for _this in \
     ~/local/bin \
     ~/bin \
@@ -137,4 +131,15 @@ fi
 #LESS="-IMq"
 
 export PAGER MANPAGER
+
+#######################################################################
+# Oracle
+
+test -d /apps/oracle/product/9.2.0 &&
+    export ORACLE_HOME="/apps/oracle/product/9.2.0"
+
+test -d /apps/oracle/product/10.2.0 &&
+    export ORACLE_HOME="/apps/oracle/product/10.2.0"
+
+#######################################################################
 

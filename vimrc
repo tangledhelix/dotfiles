@@ -1,39 +1,53 @@
 " Vim configuration
-"
+
 " ------------------------------------------------------------------------
-" <leader> key map
-"
+" <leader> key map {{{
+
 " ,,            toggle paste mode
-" ,<space>      clear search highlight
+" ,<space>      hide current search highlight
 " ,/            toggle NERDTree browser
 " ,4            set tab stop to 4
 " ,8            set tab stop to 8
+" ,a            reserved for future use for Ack (grep replacement)
 " ,A            toggle autoclose mode
-" ,c            manage commenting (plugin: nerd_commenter)
-" ,C            center current line
-" ,h            toggle highlight setting
-" ,H            create an html version of current syntax
-" ,i            toggle invisibles
+" ,c            manage commenting (defined by plugin: nerd_commenter)
+"                   ,c<space> toggles comment for current line/selection
+" ,C            center current line or selection
+" ,ft           fold current tag in HTML (should also work in XML)
+" ,h            toggle search highlighting
+" ,H            create an html version of this file w/ syntax coloring
+" ,i            toggle viewing of invisible characters
 " ,n            toggle relative line numbering
-" ,sc           syntax: C
-" ,spe          syntax: perl
-" ,sph          syntax: php
-" ,sps          syntax: perl stub header
-" ,spy          syntax: python
-" ,sr           syntax: ruby
-" ,ss           syntax: shell
-" ,sw           syntax: wiki (mediawiki)
-" ,S            toggle syntax highlighting
-" ,t            code tab settings
-" ,T            non-code tab settings
-" ,ve           edit .vimrc ($MYVIMRC)
-" ,vg           edit .gvimrc ($MYGVIMRC)
-" ,vr           reload .vimrc (breaks colorscheme in MacVim...)
+" ,sc           set syntax: C
+" ,spe          set syntax: perl
+" ,sph          set syntax: php
+" ,sps          add a perl stub header
+" ,spy          set syntax: python
+" ,sr           set syntax: ruby
+" ,ss           set syntax: shell
+" ,sw           set syntax: wiki (mediawiki)
+" ,S            toggle syntax highlighting (buggy in MacVim)
+" ,t            coding tab settings (soft tabs, 4, textwidth 0)
+" ,T            non-coding settings (regular tabs, 8, textwidth < 80)
+" ,v            reselect what was just pasted
+" ,VE           edit .vimrc ($MYVIMRC)
+" ,VG           edit .gvimrc ($MYGVIMRC)
+" ,VR           reload .vimrc (breaks the colorscheme in MacVim)
+" ,w            create new vertical window and switch to it
+" ,W            strip all trailing whitespace in this file
+" ,zd           gui only: return to default size (defined in .gvimrc)
+" ,zf           gui only: zoom to full screen (defined in .gvimrc)
+" ,zw           gui only: grow to max width (defined in .gvimrc)
+" ,zW           gui only: return to default width (defined in .gvimrc)
+" ,zz           gui only: grow to max height (defined in .gvimrc)
+" ,zZ           gui only: return to default height (defined in .gvimrc)
+
+" }}}
 " ------------------------------------------------------------------------
-" General
+" General config and plugin/library loading {{{
 
 " This needs to be first, because it changes Vim's behavior in many places.
-" Turn off vi compatibility. If I wanted vi, I'd use vi.
+" Turn off vi compatibility. If I wanted vi, I would use vi.
 set nocompatible
 
 " Define my leader key (my personal namespace in the keymap).
@@ -42,7 +56,7 @@ let mapleader=","
 " Key combo to toggle paste-mode
 set pastetoggle=,,
 
-" Load Pathogen (manages other plugins)
+" Load Pathogen (sanely manages/compartmentalizes bundles/plugins)
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -51,24 +65,20 @@ call pathogen#helptags()
 filetype plugin indent on
 
 " Load matchit library. This lets % match if/elsif/else/end, open/close
-" XML tags, stuff like that, instead of just brackets.
+" XML tags, stuff like that, instead of just brackets and parens.
 runtime macros/matchit.vim
 
+" }}}
 " --------------------------------------------------------------------
-" Convenience / misc. mappings
-"
-" Use jj to get back to command mode instead of ESC. ESC can be a pita
-" to hit sometimes. This is going to take some time to get used to. ESC is
-" still functional, so it shouldn't be too painful.
+" Convenience / misc. mappings {{{
+
+" Use jj to get back to command mode instead of ESC, which is out of the
+" way. ESC still works too.
 inoremap jj <ESC>
 
-" Swap ` and '
-" By default, ' jumps to the line you marked, and ` jumps to line -and-
-" col that you marked. So ` is more useful. But harder to type. So swap.
-noremap ' `
-noremap ` '
-
-" Swap ; in place of : for commands - no need to hit the shift key.
+" Swap ; in place of : for commands - no need to hit shift constantly.
+" Note: do not map : back to ; to try to reclaim the ';' functionality,
+" it'll break half the plugins.
 nnoremap ; :
 
 " Define "del" char to be the same backspace (saves a LOT of trouble!)
@@ -81,32 +91,43 @@ imap <Esc>[3~ <C-H>
 imap        <C-H>
 cmap        <C-H>
 
-" Duplicate a selection
+" Duplicate current selection (best used for lines, but can be used
+" with any selection). Pastes duplicate at end of select region.
 vmap D y'>p
 
-" Toggle the NERDTree window
+" Reselect what was just pasted so I can so something with it.
+nnoremap <leader>v V`]
+
+" Toggle the NERDTree browser.
 nmap <leader>/ :NERDTreeToggle<CR>
 
-" Edit vim config.
-nmap <leader>ve :e $MYVIMRC<CR>
-nmap <leader>vg :e $MYGVIMRC<CR>
+" Edit vim configs.
+nmap <leader>VE :e $MYVIMRC<CR>
+nmap <leader>VG :e $MYGVIMRC<CR>
 
-" Reload vim config.
-nmap <leader>vr :so $MYVIMRC<CR>
+" Reload vim config. This screws up MacVim's colors for some reason.
+nmap <leader>VR :so $MYVIMRC<CR>
 
+" Remap F1 to ESC, because they're right next to each other, and I know how
+" to type ":help" already, thank you very much.
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" }}}
 " --------------------------------------------------------------------
-" Tab settings
+" Tab settings {{{
 
 " Expand tabs to spaces (soft tabs). I HATE TABS.
 set expandtab
-
-" Number of spaces to use for each insertion of (auto)indent.
-set shiftwidth=4
 
 " My tab width is 4. Because 8 is too much, but 2 is visually too small
 " for code nesting IMO.
 set tabstop=4
 set softtabstop=4
+
+" Number of spaces to use for (auto)indent.
+set shiftwidth=4
 
 " coding tab settings (should match defaults)
 map <leader>t :set ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
@@ -114,14 +135,15 @@ map <leader>t :set ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
 " non-code tab settings
 map <leader>T :set noai nosi noci noet sw=8 ts=8 sts=8 tw=75<CR>
 
-" set tab width to 4
+" Set tab width to 4 - does not touch shiftwidth...
 map <leader>4 :set ts=4 sts=4<CR>
 
-" set tab width to 8
+" Set tab width to 8 - does not touch shiftwidth...
 map <leader>8 :set ts=8 sts=8<CR>
 
+" }}}
 " --------------------------------------------------------------------
-" Indenting
+" Indenting {{{
 
 "  Good for coding. Handles indenting of blocks automatically.
 set autoindent
@@ -152,8 +174,9 @@ inoremap # X#
 " When changing indent with < and >, use a multiple of shiftwidth.
 set shiftround
 
+" }}}
 " --------------------------------------------------------------------
-" Wrapping
+" Wrapping {{{
 
 " I use Vim mostly to write code, but this doesn't auto-wrap lines, it
 " only does a visual wrap.
@@ -179,8 +202,9 @@ set backspace=indent,eol,start
 " Wrap the line when we get this close to the right margin.
 "set wrapmargin=4
 
+" }}}
 " --------------------------------------------------------------------
-" Searching
+" Search and replace {{{
 
 " Highlight search - show the current search pattern.
 " This is a nice feature, but it can get in the way visually.
@@ -207,8 +231,16 @@ set smartcase
 nnoremap / /\v
 vnoremap / /\v
 
+" Use 'magic' patterns (extended regex) in search patterns. ("\s\+")
+set magic
+
+" Assume /g at the end of any substitution (:%s/../../).
+" This is nearly always what you want anyway.
+set gdefault
+
+" }}}
 " --------------------------------------------------------------------
-" Sounds and alerts
+" Sounds and alerts {{{
 
 set noerrorbells
 
@@ -224,9 +256,11 @@ set visualbell
 " Terminal's visual bell - turned off to make Vim quiet.
 set t_vb=
 
+" }}}
 " --------------------------------------------------------------------
-" Status indicators
-"
+" Status indicators {{{
+
+" Do not put the current file / buffer name in the title bar.
 set notitle
 
 " Show the status line
@@ -238,11 +272,14 @@ set statusline=%<%f\ %h%m%r%y\ %=%-14.(%l,%c%V%)\ %P
 " I don't want line numbers.
 set nonumber
 
-" Show line numbers as relative to current, not as absolute.
-" (This feature is new in 7.3.)
+" Show line numbers as relative to current, not as absolute. This makes it
+" easy to use count-based commands, e.g. 5dd or 10j.
 if v:version >= 703
     set relativenumber
 endif
+
+" Toggle number column. Very handy for terminal-based vim when I want to
+" copy something.
 nmap <leader>n :set relativenumber!<CR>
 
 " Show row/col of cursor position, and percentage into the file we are.
@@ -251,7 +288,7 @@ set ruler
 " Show current uncompleted command.
 set showcmd
 
-" Show the matching bracket for the last ')'.
+" When positioned on a bracket, highlight its partner.
 set showmatch
 
 " Show the current mode.
@@ -259,10 +296,10 @@ set showmode
 
 " Show current cursor line position.
 " I don't know if I like this; in a terminal, it underlines the entire
-" line, which is a bit odd. It's great in MacVim.
+" line, which is a bit odd. It's great in MacVim (see .gvimrc).
 "set cursorline
 
-" Warn on long lines. Looks like crap in a terminal, great in MacVim.
+" Warn on long lines. Looks like crap in a terminal (see .gvimrc).
 "set colorcolumn=81
 
 " Don't show invisibles by default
@@ -272,11 +309,12 @@ set listchars=tab:>-,eol:$
 " Turn invisibles on/off.
 nmap <leader>i :set list!<CR>
 
+" }}}
 " --------------------------------------------------------------------
-" Formatting
+" Formatting {{{
 
-" Options for the "text format" command ("gq").
-" May consider 'o' with inserts the comment leader when creating a new
+" Text formatting options, used by 'gq' and elsewhere.
+" May consider 'o', which inserts the comment leader when creating a new
 " line with either 'o' or 'O' in insert mode.
 set formatoptions=qrn1
 
@@ -284,50 +322,73 @@ set formatoptions=qrn1
 " Bah! The 'two spaces' rule is archaic typewriter-era crap.
 set nojoinspaces
 
-" Use explicit markers for folding
-set foldmethod=marker
-
 " Reformat a selection
 vmap Q gq
 " ... or the current paragraph
-nmap Q gqap
+nmap Q gqip
 
-" Center a line of text
+" Center current line or selection
 map <leader>C :center<CR>
 
 " Toggle autoclose mode
 nmap <leader>A <Plug>ToggleAutoCloseMappings
 
-" --------------------------------------------------------------------
-" Navigation
+" Strip trailing whitespace file-wide.
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" Disallow usage of cursor keys within insert mode. Currently the arrow
-" keys are being used by the arrow-key-remap plugin, which seems to
-" override this setting anyway.
+" }}}
+" --------------------------------------------------------------------
+" Navigation {{{
+
+" Disallow usage of cursor keys within insert mode. Currently the arrow keys
+" are being used by the arrow-key-remap plugin, which seems to override this
+" setting anyway.
 set noesckeys
 
-" Do not jump to first character with page commands, i.e.
-" keep the cursor in the current column.
+" Do not jump to first character with page commands, i.e. keep the cursor in
+" the current column.
 set nostartofline
 
 " Start scrolling before I reach the bottom of the screen, to keep more
-" context around cursor.
+" context around cursor. (top of screen too)
 set scrolloff=3
 
-" When I have long lines and 'wrap' is true, I often use j/k to move up or
-" down, and it skips over to the next real line, rather than the next line
+" Swap ` and '
+" By default, ' jumps to the line you marked, and ` jumps to line -and- col
+" that you marked. So ` is more useful. But harder to type. So swap them.
+noremap ' `
+noremap ` '
+
+" When I have long lines and 'wrap' is true, I often use j,k to move up or
+" down, and it skips to the next real line, rather than the next line
 " on the display, and that's annoying. These remaps make j and k honor the
 " _displayed_ lines instead of the actual lines.
 nnoremap j gj
 nnoremap k gk
 
-" ----------------------------------------------------------------------
-" Syntax-related mappings
+" Go to matching brace / delimiter using <tab>. % still works.
+nnoremap <tab> %
+vnoremap <tab> %
 
-" Toggle syntax highlighting.
-" This works, but due to some other bug, turning syntax off and on
-" does not function correctly, so if you disable and enable, you end up
-" with the wrong colors. I'm not sure yet why.
+" Philosophy: Stay out of insert mode as much as humanly possible.
+set noinsertmode
+
+" }}}
+" ----------------------------------------------------------------------
+" Folding {{{
+
+" Use explicit markers for folding (triple curly-brace)
+set foldmethod=marker
+
+" Fold current HTML tag.
+nnoremap <leader>ft Vatzf
+
+" }}}
+" ----------------------------------------------------------------------
+" Syntax-related mappings {{{
+
+" Toggle syntax highlighting. Toggling off/on in MacVim will break colors
+" for some reason I haven't worked out yet.
 nmap <leader>S :if exists("g:syntax_on") <Bar>
     \   syntax off <Bar>
     \ else <Bar>
@@ -339,24 +400,37 @@ map <leader>H :TOhtml<CR>
 
 " Perl
 map <leader>spe :set syntax=perl ai et ts=4 sts=4 sw=4 tw=0<CR>
+
 " a Perl stub header
 map <leader>sps :set paste<CR>a#!/usr/local/bin/perl<CR><CR>use strict;<CR>use warnings;<CR><CR><ESC>:set nopaste<CR>a
 
 " Python
 map <leader>spy :set syntax=python ai et ts=4 sts=4 sw=4 tw=0<CR>
+
 " PHP
 map <leader>sph :set syntax=php ai et ts=4 sts=4 sw=4 tw=0<CR>
+
 " C/C++
 map <leader>sc :set syntax=c ai et ts=4 sts=4 sw=4 tw=0<CR>
+
 " Shell
 map <leader>ss :set syntax=sh ai et ts=4 sts=4 sw=4 tw=0<CR>
+
 " Ruby
 map <leader>sr :set syntax=ruby ai et ts=2 sts=2 sw=2 tw=0<CR>
+
 " Mediawiki
 map <leader>sw :set syntax=mediawiki ai et ts=4 sts=4 sw=4 tw=78<CR>
 
+" }}}
 " ----------------------------------------------------------------------
-" Windows
+" Vim pseudo-windows {{{
+
+" Create new windows below current one, if no direction was specified.
+set splitbelow
+
+" Create a new vertical window to the right, and switch to it.
+nnoremap <leader>w :wincmd v<CR>:wincmd l<CR>
 
 " Easier navigation keys (ctrl + normal movement keys h,j,k,l)
 map <C-h> :wincmd h<CR>
@@ -364,57 +438,40 @@ map <C-j> :wincmd j<CR>
 map <C-k> :wincmd k<CR>
 map <C-l> :wincmd l<CR>
 
+" Use default split window height (0 disables special help height).
+set helpheight=0
+
+" }}}
 " --------------------------------------------------------------------
-" TODO: this section
+" File handling, system interaction {{{
 
 " Automatically save modifications to files when you use
 " critical (rxternal) commands.
 set autowrite
 
-" Zero disables this, use default split window height.
-set helpheight=0
-
-" Allow "hidden" buffers.
-set hidden
-
-" Assume /g at the end of any substitution (:%s/../../).
-" This is nearly always what you want anyway.
-set gdefault
-
-" Philosophy: Stay out of insert mode as much as humanly possible.
-set noinsertmode
-
-" Add the dash ('-'), the dot ('.'), and the '@' as "letters" to "words".
-" This makes it possible to expand email addresses, e.g. guckes-www@vim.org
-set iskeyword=@,48-57,_,192-255,-,.,@-@
-
-" Use 'magic' patterns (extended regex) in search patterns. ("\s\+")
-set magic
-
-" Modelines are kind of ugly, and I've read there are security problems
-" with them. Disabling.
-set nomodeline
-set modelines=0
-
 " List of directories to search when I specify a file with an edit command.
 set path=.
-
-" Shell to use. Stick with the old standard.
-let &shell="/bin/sh"
 
 " Ignore filename with any of these suffixes when using the
 " ":edit" command. Most of these are files created by LaTeX.
 set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.tgz,.sit,.dmg,.hqx
 
-" Create new windows below current one.
-set splitbelow
+" Write a backup before overwriting a file. This backup is then erased,
+" unless 'backup' is also set. I hate tilde files, isn't this what the
+" .<filename>.swp file is for?
+set nobackup
+set nowritebackup
 
-" Are we using a fast terminal?
-set ttyfast
+" Shell to use. Stick with the old standard.
+let &shell="/bin/sh"
 
-" What info to store from an editing session in the viminfo file;
-" can be used at next session.
-set viminfo=%,'50,\"100,:100,n~/.viminfo
+" }}}
+" --------------------------------------------------------------------
+" Expansion {{{
+
+" Add the dash ('-'), the dot ('.'), and the '@' as "letters" to "words".
+" This makes it possible to expand email addresses, e.g. guckes-www@vim.org
+set iskeyword=@,48-57,_,192-255,-,.,@-@
 
 " The char/key-combo used for "expansion" on the command line. Default is ^E.
 set wildchar=<TAB>
@@ -425,34 +482,51 @@ set wildmenu
 " Behave like a shell, show me completion only to point of ambiguity.
 set wildmode=list:longest
 
-" Write a backup before overwriting a file. This backup is then erased,
-" unless 'backup' is also set. I hate tilde files, isn't this what the
-" .swp files are for?
-set nobackup
-set nowritebackup
+" }}}
+" --------------------------------------------------------------------
+" History and undo {{{
 
-set encoding=utf-8
-
-" Create an undo cache file for each edited file, so we can undo even
-" after closing/opening a file (<filename>.un~).
-"set undofile
+" What info to store from an editing session in the viminfo file;
+" can be used at next session.
+set viminfo=%,'50,\"100,:100,n~/.viminfo
 
 " Increase the history size (default is 20).
 set history=100
 
+" Create an undo cache file for each edited file, so we can undo even
+" after closing/opening a file (<filename>.un~). This has some appeal,
+" but I don't want the litter.
+"set undofile
+
+" }}}
 " --------------------------------------------------------------------
-" Auto-command triggers
+" Misc. settings {{{
+
+" Allow "hidden" buffers. See :help hidden
+set hidden
+
+" Modelines are kind of ugly, and I've read there are security problems
+" with them. Disabling.
+set nomodeline
+set modelines=0
+
+" Are we using a fast terminal?
+set ttyfast
+
+" }}}
+" --------------------------------------------------------------------
+" Auto-command triggers {{{
 
 if has("autocmd")
 
-    " Remove ALL auto-commands.  This avoids having the
-    " autocommands twice when the vimrc file is sourced again.
+    " Remove ALL auto-commands.  This avoids running the autocommands
+    " twice when .vimrc is sourced again.
     autocmd!
 
     " Set File type to 'text' for files ending in .txt
     autocmd BufNewFile,BufRead *.txt setfiletype text
 
-    " Makefiles NEED tabs. Spaces do NOT work.
+    " Makefiles NEED tabs. Spaces do NOT always work.
     autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
     autocmd FileType make set noet ts=8 sts=8 sw=8
 
@@ -462,27 +536,32 @@ if has("autocmd")
     " .inc is generally PHP
     autocmd BufNewFile,BufRead *.inc set filetype=php
 
-    " No highlighting at all for these file types
-    autocmd BufNewFile,BufRead *.com syntax off
+    " .com for me is probably a DNS zone file
+    autocmd BufNewFile,BufRead *.com set syntax=bindzone
 
-    " GNU M4
+    " .global for me is probably M4
     autocmd BufNewFile,BufRead *.global set filetype=m4
 
-    " Mediawiki
+    " Mediawiki (needs mediawiki bundle)
     autocmd BufRead,BufNewFile *.wiki set filetype=mediawiki
     autocmd BufRead,BufNewFile *ISSwiki* set filetype=mediawiki
 
-    " Bash configs
+    " Bash config files
     autocmd BufRead,BufNewFile .bash* set filetype=sh
     autocmd BufRead,BufNewFile .dotfiles/bash* set filetype=sh
 
     " Different tab settings for Ruby code
     autocmd FileType ruby set ai et ts=2 sts=2 sw=2 tw=0
 
+    " Save all unclean buffers when focus is lost (ala TextMate).
+    " Not sure whether I like this idea yet.
+    "au FocusLost * :wa
+
 endif
 
+" }}}
 " --------------------------------------------------------------------
-" Colors
+" Colors {{{
 
 " I thought this was outdated, but it still breaks the terminal (2010).
 if !has("gui") && has("terminfo")
@@ -498,7 +577,7 @@ endif
 " Activate syntax highlighting
 syntax enable
 
-" Custom colors
+" Custom colors (MacVim colors are in .gvimrc)
 highlight Comment ctermfg=darkgrey
 highlight Statement ctermfg=blue cterm=bold
 highlight Identifier ctermfg=darkcyan cterm=bold
@@ -507,3 +586,5 @@ highlight ColorColumn ctermbg=lightgrey ctermfg=black
 highlight NonText ctermfg=grey
 highlight SpecialKey ctermfg=grey
 
+" }}}
+" --------------------------------------------------------------------

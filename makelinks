@@ -1,4 +1,9 @@
 #!/bin/sh
+#
+# Install stuff in ~/.dotfiles to ~/
+#
+# This is slightly destructive, but I've been too lazy to make it safer.
+# If anybody else ever uses this, be careful about it.
 
 DIR=".dotfiles"
 
