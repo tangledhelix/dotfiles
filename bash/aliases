@@ -1,6 +1,18 @@
 
-# Show me file types in ls output.
-alias ls="/bin/ls -F"
+# -F shows file type as a single-character postfix.
+# GNU ls (Linux, GINgnu-coreutils on ISS systems): --color
+# FreeBSD and Darwin support color with -G
+
+if [[ -x /usr/local/pkg/gnu-coreutils/bin/ls ]]; then
+    # GNU Coreutils as installed on ISS systems.
+    alias ls='/usr/local/pkg/gnu-coreutils/bin/ls --color -F'
+elif [[ "$OS" = "Linux" ]]; then
+    alias ls='/bin/ls --color -F'
+elif [[ "$OS" = "Darwin" || "$OS" = "FreeBSD" ]]; then
+    alias ls='/bin/ls -FG'
+else
+    alias ls='/bin/ls -F'
+fi
 
 # Lets me queue up a beep if I want, i.e. "make ; beep"
 alias beep='echo -ne "\a"'
