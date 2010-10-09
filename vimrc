@@ -18,6 +18,7 @@
 " ,H            create an html version of this file w/ syntax coloring
 " ,i            toggle viewing of invisible characters
 " ,n            toggle relative line numbering
+" ,P            create pastie.org paste (:w to send, leaves URL on clipboard)
 " ,rce          edit .vimrc ($MYVIMRC)
 " ,rcg          edit .gvimrc ($MYGVIMRC) if it exists
 " ,rcr          reload .vimrc and then (if it exists) .gvimrc.
@@ -107,19 +108,24 @@ nmap <leader>rce :e $MYVIMRC<CR>
 " Edit GUI vim config, if there is one
 nmap <leader>rcg :if filereadable($MYGVIMRC) <Bar>
     \   edit $MYGVIMRC <Bar>
-    \ endif<CR>
+    \endif<CR>
 
 " Reload .vimrc and (if it exists) .gvimrc.
-nmap <leader>rcr :so $MYVIMRC<CR>
-    \ :if filereadable($MYGVIMRC) <Bar>
+nmap <silent> <leader>rcr :so $MYVIMRC<CR>
+    \:if filereadable($MYGVIMRC) <Bar>
     \   so $MYGVIMRC <Bar>
-    \ endif<CR>
+    \endif<CR>
+    \:echo "Config reloaded."<CR>
 
 " Remap F1 to ESC, because they're right next to each other, and I know how
 " to type ":help" already, thank you very much.
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
+
+" Send the current selection (or the clipboard) to pastie.org
+nmap <leader>P :Pastie *<CR>
+vmap <leader>P :Pastie *<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -395,14 +401,14 @@ nnoremap <leader>ft Vatzf
 " Syntax-related mappings {{{
 
 " Toggle syntax highlighting. The .gvimrc is reloaded to fix syntax colors.
-nmap <leader>S <Silent> :if exists("g:syntax_on") <Bar>
+nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
     \   syntax off <Bar>
-    \ else <Bar>
+    \else <Bar>
     \   syntax enable<CR>
     \   if filereadable($MYGVIMRC) <Bar>
     \       so $MYGVIMRC <Bar>
-    \   endif<CR>
-    \ endif <CR>
+    \   endif <Bar>
+    \endif <CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 map <leader>H :TOhtml<CR>
@@ -522,6 +528,9 @@ set modelines=0
 " Are we using a fast terminal?
 set ttyfast
 
+" NERDTree should close when I choose a file to open
+let NERDTreeQuitOnOpen=1
+
 " }}}
 " --------------------------------------------------------------------
 " Auto-command triggers {{{
@@ -561,6 +570,10 @@ if has("autocmd")
 
     " Different tab settings for Ruby code
     autocmd FileType ruby set ai et ts=2 sts=2 sw=2 tw=0
+
+    " Rdist filenames
+    autocmd BufRead,BufNewFile distfile.common set filetype=rdist
+    autocmd BufRead,BufNewFile Distfile set filetype=rdist
 
     " Save all unclean buffers when focus is lost (ala TextMate).
     " Not sure whether I like this idea yet.
