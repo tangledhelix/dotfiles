@@ -18,6 +18,9 @@
 " ,H            create an html version of this file w/ syntax coloring
 " ,i            toggle viewing of invisible characters
 " ,n            toggle relative line numbering
+" ,rce          edit .vimrc ($MYVIMRC)
+" ,rcg          edit .gvimrc ($MYGVIMRC) if it exists
+" ,rcr          reload .vimrc and then (if it exists) .gvimrc.
 " ,sc           set syntax: C
 " ,spe          set syntax: perl
 " ,sph          set syntax: php
@@ -26,13 +29,10 @@
 " ,sr           set syntax: ruby
 " ,ss           set syntax: shell
 " ,sw           set syntax: wiki (mediawiki)
-" ,S            toggle syntax highlighting (buggy in MacVim)
+" ,S            toggle syntax highlighting
 " ,t            coding tab settings (soft tabs, 4, textwidth 0)
 " ,T            non-coding settings (regular tabs, 8, textwidth < 80)
 " ,v            reselect what was just pasted
-" ,VE           edit .vimrc ($MYVIMRC)
-" ,VG           edit .gvimrc ($MYGVIMRC)
-" ,VR           reload .vimrc (breaks the colorscheme in MacVim)
 " ,w            create new vertical window and switch to it
 " ,W            strip all trailing whitespace in this file
 " ,zd           gui only: return to default size (defined in .gvimrc)
@@ -101,12 +101,19 @@ nnoremap <leader>v V`]
 " Toggle the NERDTree browser.
 nmap <leader>/ :NERDTreeToggle<CR>
 
-" Edit vim configs.
-nmap <leader>VE :e $MYVIMRC<CR>
-nmap <leader>VG :e $MYGVIMRC<CR>
+" Edit vim config
+nmap <leader>rce :e $MYVIMRC<CR>
 
-" Reload vim config. This screws up MacVim's colors for some reason.
-nmap <leader>VR :so $MYVIMRC<CR>
+" Edit GUI vim config, if there is one
+nmap <leader>rcg :if filereadable($MYGVIMRC) <Bar>
+    \   edit $MYGVIMRC <Bar>
+    \ endif<CR>
+
+" Reload .vimrc and (if it exists) .gvimrc.
+nmap <leader>rcr :so $MYVIMRC<CR>
+    \ :if filereadable($MYGVIMRC) <Bar>
+    \   so $MYGVIMRC <Bar>
+    \ endif<CR>
 
 " Remap F1 to ESC, because they're right next to each other, and I know how
 " to type ":help" already, thank you very much.
@@ -387,12 +394,14 @@ nnoremap <leader>ft Vatzf
 " ----------------------------------------------------------------------
 " Syntax-related mappings {{{
 
-" Toggle syntax highlighting. Toggling off/on in MacVim will break colors
-" for some reason I haven't worked out yet.
-nmap <leader>S :if exists("g:syntax_on") <Bar>
+" Toggle syntax highlighting. The .gvimrc is reloaded to fix syntax colors.
+nmap <leader>S <Silent> :if exists("g:syntax_on") <Bar>
     \   syntax off <Bar>
     \ else <Bar>
-    \   syntax enable <Bar>
+    \   syntax enable<CR>
+    \   if filereadable($MYGVIMRC) <Bar>
+    \       so $MYGVIMRC <Bar>
+    \   endif<CR>
     \ endif <CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
