@@ -18,7 +18,7 @@ test -n "$INTERACTIVE" && {
         return 0
     }
 
-    complete -F _known_hosts \
+    complete -o default -F _known_hosts \
         ssh sftp scp sdist host dig nslookup ping telnet mtr traceroute \
         cons clogin load seed for sshx sperl
 
