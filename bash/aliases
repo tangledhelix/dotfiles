@@ -27,6 +27,7 @@ alias Grep="grep"
 alias dirf='find . -type d|sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"'
 
 alias fn="find . -name"
+alias ff="find . -type f -print"
 
 # Show me time in GMT / UTC
 alias utc="TZ=UTC date"
