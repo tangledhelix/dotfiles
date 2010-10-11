@@ -70,7 +70,7 @@ nmap <leader>rcg :if filereadable($MYGVIMRC) <Bar>
     \endif<CR>
 
 " Edit the leader-key map help file
-nmap <leader>rcm :e $HOME/.vim/bundle/leadermap/doc/leadermap.txt<CR>
+nmap <leader>rcm :e $HOME/.vim/bundle/myhelpfiles/doc/leadermap.txt<CR>
 
 " Reload .vimrc and (if it exists) .gvimrc.
 nmap <silent> <leader>rcr :so $MYVIMRC<CR>
