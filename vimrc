@@ -1,51 +1,6 @@
 " Vim configuration
 
 " ------------------------------------------------------------------------
-" <leader> key map {{{
-
-" ,,            toggle paste mode
-" ,<space>      hide current search highlight
-" ,/            toggle NERDTree browser
-" ,4            set tab stop to 4
-" ,8            set tab stop to 8
-" ,a            reserved for future use for Ack (grep replacement)
-" ,A            toggle autoclose mode
-" ,c            manage commenting (defined by plugin: nerd_commenter)
-"                   ,c<space> toggles comment for current line/selection
-" ,C            center current line or selection
-" ,ft           fold current tag in HTML (should also work in XML)
-" ,h            toggle search highlighting
-" ,H            create an html version of this file w/ syntax coloring
-" ,i            toggle viewing of invisible characters
-" ,n            toggle relative line numbering
-" ,P            create pastie.org paste (:w to send, leaves URL on clipboard)
-" ,rce          edit .vimrc ($MYVIMRC)
-" ,rcg          edit .gvimrc ($MYGVIMRC) if it exists
-" ,rcr          reload .vimrc and then (if it exists) .gvimrc.
-" ,R            Toggle rainbow parentheses
-" ,sc           set syntax: C
-" ,spe          set syntax: perl
-" ,sph          set syntax: php
-" ,sps          add a perl stub header
-" ,spy          set syntax: python
-" ,sr           set syntax: ruby
-" ,ss           set syntax: shell
-" ,sw           set syntax: wiki (mediawiki)
-" ,S            toggle syntax highlighting
-" ,t            coding tab settings (soft tabs, 4, textwidth 0)
-" ,T            non-coding settings (regular tabs, 8, textwidth < 80)
-" ,v            reselect what was just pasted
-" ,w            create new vertical window and switch to it
-" ,W            strip all trailing whitespace in this file
-" ,zd           gui only: return to default size (defined in .gvimrc)
-" ,zf           gui only: zoom to full screen (defined in .gvimrc)
-" ,zw           gui only: grow to max width (defined in .gvimrc)
-" ,zW           gui only: return to default width (defined in .gvimrc)
-" ,zz           gui only: grow to max height (defined in .gvimrc)
-" ,zZ           gui only: return to default height (defined in .gvimrc)
-
-" }}}
-" ------------------------------------------------------------------------
 " General config and plugin/library loading {{{
 
 " This needs to be first, because it changes Vim's behavior in many places.
@@ -102,6 +57,9 @@ nnoremap <leader>v V`]
 
 " Toggle the NERDTree browser.
 nmap <leader>/ :NERDTreeToggle<CR>
+" This variant is supposed to honor the current working directory, but that
+" does not work with :cd as I expected it would.
+"nmap <leader>/ :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " Edit vim config
 nmap <leader>rce :e $MYVIMRC<CR>
@@ -110,6 +68,9 @@ nmap <leader>rce :e $MYVIMRC<CR>
 nmap <leader>rcg :if filereadable($MYGVIMRC) <Bar>
     \   edit $MYGVIMRC <Bar>
     \endif<CR>
+
+" Edit the leader-key map help file
+nmap <leader>rcm :e $HOME/.vim/bundle/leadermap/doc/leadermap.txt<CR>
 
 " Reload .vimrc and (if it exists) .gvimrc.
 nmap <silent> <leader>rcr :so $MYVIMRC<CR>
@@ -144,16 +105,16 @@ set softtabstop=4
 set shiftwidth=4
 
 " coding tab settings (should match defaults)
-map <leader>t :set ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
+nmap <leader>t :set ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
 
 " non-code tab settings
-map <leader>T :set noai nosi noci noet sw=8 ts=8 sts=8 tw=75<CR>
+nmap <leader>T :set noai nosi noci noet sw=8 ts=8 sts=8 tw=75<CR>
 
-" Set tab width to 4 - does not touch shiftwidth...
-map <leader>4 :set ts=4 sts=4<CR>
+" Set tab width to 4 - does not touch shiftwidth or indent settings
+nmap <leader>4 :set ts=4 sts=4<CR>
 
-" Set tab width to 8 - does not touch shiftwidth...
-map <leader>8 :set ts=8 sts=8<CR>
+" Set tab width to 8 - does not touch shiftwidth or indent settings
+nmap <leader>8 :set ts=8 sts=8<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -241,7 +202,8 @@ set ignorecase
 set smartcase
 
 " Turn off vim's default regex and use normal regexes (behaves more
-" like Perl regex now...)
+" like Perl regex now...) - this is "very magic" mode. Only alphanumerics
+" and underscore are *not* quoted with backslash. See ":help magic".
 nnoremap / /\v
 vnoremap / /\v
 
@@ -342,7 +304,8 @@ vmap Q gq
 nmap Q gqip
 
 " Center current line or selection
-map <leader>C :center<CR>
+nmap <leader>C :center<CR>
+vmap <leader>C :center<CR>
 
 " Toggle autoclose mode
 nmap <leader>A <Plug>ToggleAutoCloseMappings
@@ -376,9 +339,12 @@ noremap ` '
 " When I have long lines and 'wrap' is true, I often use j,k to move up or
 " down, and it skips to the next real line, rather than the next line
 " on the display, and that's annoying. These remaps make j and k honor the
-" _displayed_ lines instead of the actual lines.
+" _displayed_ lines instead of the actual lines. 'v' maps make this work in
+" a wrapped-line selection as well.
 nnoremap j gj
 nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 
 " Go to matching brace / delimiter using <tab>. % still works.
 nnoremap <tab> %
@@ -411,35 +377,26 @@ nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
     \   endif <Bar>
     \endif <CR>
 
+" Re-indent entire file, returning to the cursor position you started from.
+nmap <leader>= migg=G'i:echo "Buffer re-indented."<CR>
+
 " Create an HTML version of our syntax highlighting for display or printing.
-map <leader>H :TOhtml<CR>
+nmap <leader>H :TOhtml<CR>
 
 " Toggle rainbow parentheses
 nmap <leader>R :RainbowParenthesesToggle<CR>
 
-" Perl
-map <leader>spe :set syntax=perl ai et ts=4 sts=4 sw=4 tw=0<CR>
+" Insert a Perl stub header
+nmap <leader>sps :set paste<CR>a#!/usr/local/bin/perl<CR><CR>use strict;<CR>use warnings;<CR><CR><ESC>:set nopaste<CR>a
 
-" a Perl stub header
-map <leader>sps :set paste<CR>a#!/usr/local/bin/perl<CR><CR>use strict;<CR>use warnings;<CR><CR><ESC>:set nopaste<CR>a
-
-" Python
-map <leader>spy :set syntax=python ai et ts=4 sts=4 sw=4 tw=0<CR>
-
-" PHP
-map <leader>sph :set syntax=php ai et ts=4 sts=4 sw=4 tw=0<CR>
-
-" C/C++
-map <leader>sc :set syntax=c ai et ts=4 sts=4 sw=4 tw=0<CR>
-
-" Shell
-map <leader>ss :set syntax=sh ai et ts=4 sts=4 sw=4 tw=0<CR>
-
-" Ruby
-map <leader>sr :set syntax=ruby ai et ts=2 sts=2 sw=2 tw=0<CR>
-
-" Mediawiki
-map <leader>sw :set syntax=mediawiki ai et ts=4 sts=4 sw=4 tw=78<CR>
+" Manually set the file type for various languages
+nmap <leader>spe :set filetype=perl<CR>
+nmap <leader>spy :set filetype=python<CR>
+nmap <leader>sph :set filetype=php<CR>
+nmap <leader>sc :set filetype=c<CR>
+nmap <leader>ss :set filetype=sh<CR>
+nmap <leader>sr :set filetype=ruby<CR>
+nmap <leader>sw :set filetype=mediawiki<CR>
 
 " }}}
 " ----------------------------------------------------------------------
