@@ -1,0 +1,218 @@
+*dmltips.txt*       Dan's personal Vim tips                 *mytips* *dmltips*
+
+==============================================================================
+Shortcuts (normal mode)
+
+------------------------------------------------------------------------------
+Search and replace
+
+    *       search for the word under the cursor
+    #       ... and in reverse
+
+    gd      go to declaration of variable under the cursor
+
+    f<c>    jump to next occurrence of char <c>
+    F<c>    ... and in reverse
+    t<c>    jump to position *left* of next occurrence of char <c>
+    T<c>    ... and in reverse
+
+    e       go to end of word (also works with v, c, d, etc.)
+    b       go to beginning of word
+
+    :%g/foo/m$      move all lines matching foo to end of file
+                        % = global search
+                        g = command
+                        /foo/ = regex
+                        m = move
+                        $ = to end
+                    you can do the same things with a NOT search
+                    (conVerse) using v instead of g.
+
+    :%g/foo/s/bar/zzz/g     for each line /foo/, replace bar with zzz.
+
+    :s/foo/bar/     search/replace this line
+    :%s/foo/bar/    search/replace entire file
+        add g (/g) to end for global (also see :help gdefault)
+
+------------------------------------------------------------------------------
+Navigating / jumping around
+
+    [{      jump back to opening brace of the current code block
+
+    H       high (top) line on this page
+    M       middle line on this page
+    L       low (bottom) line on this page
+    
+    zt      keep cursor in place, but move that line to top of view
+    zz      keep cursor in place, but move that line to middle of view
+    zb      keep cursor in place, but move that line to bottom of view
+
+    {, }    jump to start, end of current 'paragraph'
+
+------------------------------------------------------------------------------
+Copy and paste
+
+yyp     duplicate this line
+
+ddP     delete line, then paste *back into place* leaving copy on buffer
+        though that's the same as yy isn't it?
+
+------------------------------------------------------------------------------
+Indenting
+
+    =       syntax-aware reindent of selection
+    ==      syntax-aware reindent of line
+    gg=G    syntax reindent entire file
+
+------------------------------------------------------------------------------
+Folds
+
+    zo      open closed fold under cursor
+    zc      close current fold region
+    zR      open "(R)ip open?" all folds
+    zM      close "(M)inimize?" all folds
+
+------------------------------------------------------------------------------
+Selections and matching on things
+
+    B matches a block, so in a block you can say (a is 'around' or
+    'this block plus enclosing delimiters, if any')
+        >aB     ident the current block
+        <aB     outdent the current block
+        daB     delete current block
+        caB     change current block
+    
+    viw     select a word ('word' delimited not whitespace-delimited)
+    viW     select a word, whitespace delimited
+
+------------------------------------------------------------------------------
+Named registers
+
+    "c      refers to named register 'c', can tie to actions, e.g.
+                "add        del cur line, copy into register a
+                "byy        copy current line into register b
+                "cy/foo     copy up to regex foo into register c
+                "ap         paste from register a
+                "bP         paste from register b to previous line
+
+------------------------------------------------------------------------------
+External comands
+
+    :r!<cmd>        read in the result of a command
+
+    !cmd            pipe selection through command, replacing it with the result.
+
+
+------------------------------------------------------------------------------
+Undo
+
+:undolist       see your undo tree
+
+==============================================================================
+Shortcuts (insert mode)
+
+    ^N      try to do a completion on the current word
+    ^P      try to do completion, reverse direction
+
+==============================================================================
+Plugin: surround
+
+http://www.vim.org/scripts/script.php?script_id=1697
+
+    cs = "change surrounding"
+    ds = "delete surrounding"
+
+    # swap double quotes for single
+    cs"'   (c, s, doublequote, singlequote)
+
+    # swap single quotes for <q>..</q>
+    cs'<q>
+
+    # swap surrounding tag, whatever it is, with double quotes
+    cst"
+
+    # remove the delimiter doublequote
+    ds"
+
+==============================================================================
+Text object selections
+
+After a command like d (delete) or c (change) you can supply delimiters
+like brackets, braces.
+
+<img src="foo-bar-baz.jpg" alt="whatever" />
+
+    di>
+    # delete inner angle-bracket
+    # results in: <>
+
+    da>
+    # delete all-inclusive angle-bracket
+    # results in entire thing being removed.
+
+    ci>
+    # change inner angle-bracket
+    # wipes out contents, leaving you in insert mode inside to replace it.
+
+    ca>
+    # change all-inclusive angle-bracket
+    # wipes out the entire tag, leaving you in insert mode to replace it.
+
+    # you can use either delimiter in the pair, < or >, ( or ), { or },
+    # [ or ] ....
+
+    # w matches a puncuation-delimited word
+    # W matches a space-delimited word
+
+==============================================================================
+Plugin: arrow-key-remap
+
+These work in both normal and insert mode. Obviously arrow keys as navigation
+do not work with this plugin in place.
+
+    Up          delete blank line above cursor
+    Down        insert blank line above cursor
+
+    Ctl-Up      delete blank line below cursor
+    Ctl-Down    insert blank line below cursor
+
+The above four can be thought of as grabbing the current line and
+pulling on it to close or open a gap in the file. Use to create or
+trim whitespace, etc.
+
+    Left        de-dent current line
+    Right       indent current line
+
+==============================================================================
+
+nnoremap <leader>1 yypVr=
+
+replicates the current line, then replaces it with ='s
+(so this gives you an = signs underline the same length as
+the current line)
+
+==============================================================================
+From Steve Losh: Yankring
+
+Vim’s copying and pasting functionality (which uses registers) is very, very
+powerful, but it’s not exactly “user friendly”. The YankRing plugin adds a lot
+more power, but also adds a few features that make copying and pasting much
+more pleasant.
+
+For example, after you paste some text you can replace that paste with the
+previous item you copied with Ctrl-P. You can cycle back further by just
+hitting Ctrl-P over and over.
+
+YankRing also shares your yanked text between Vim windows, which makes things
+“just work” when you want to paste text from one window into another.
+
+You can also show a list of all your previously yanked text with :YRShow.
+Mapping that command to a key is quite helpful:
+
+    nnoremap <silent> <F3> :YRShow<cr>
+    inoremap <silent> <F3> <ESC>:YRShow<cr>
+
+YankRing offers a ton of other cool functionality but I haven’t had the time
+or motivation to really dig in and find out how to use it.
+
+==============================================================================
