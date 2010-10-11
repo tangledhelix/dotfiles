@@ -1,0 +1,50 @@
+*leadermap.txt*     Dan's leader-key map
+
+==============================================================================
+
+Current leader key map:                                            *leadermap*
+
+  ,,            toggle paste mode
+  ,/            toggle NERDTree browser
+  ,=            re-indent entire buffer, keeping cursor in current location
+  ,<space>      hide current search highlight
+  ,4            set tab stop to 4
+  ,8            set tab stop to 8
+  ,a            reserved for future use for Ack (grep replacement)
+  ,A            toggle autoclose mode
+  ,c            manage commenting (defined by plugin: nerd_commenter)
+                    ,c<space> toggles comment for current line/selection
+  ,C            center current line or selection
+  ,ft           fold current tag in HTML (should also work in XML)
+  ,h            toggle search highlighting
+  ,H            create an html version of this file w/ syntax coloring
+  ,i            toggle viewing of invisible characters
+  ,n            toggle relative line numbering
+  ,P            create pastie.org paste (:w to send, leaves URL on clipboard)
+  ,rce          edit .vimrc ($MYVIMRC)
+  ,rcg          edit .gvimrc ($MYGVIMRC) if it exists
+  ,rcm          edit leadermap.txt help file.
+  ,rcr          reload .vimrc and then (if it exists) .gvimrc.
+  ,R            Toggle rainbow parentheses
+  ,sc           set syntax: C
+  ,spe          set syntax: perl
+  ,sph          set syntax: php
+  ,sps          add a perl stub header
+  ,spy          set syntax: python
+  ,sr           set syntax: ruby
+  ,ss           set syntax: shell
+  ,sw           set syntax: wiki (mediawiki)
+  ,S            toggle syntax highlighting
+  ,t            coding tab settings (soft tabs, 4, textwidth 0)
+  ,T            non-coding settings (regular tabs, 8, textwidth < 80)
+  ,v            reselect what was just pasted
+  ,w            create new vertical window and switch to it
+  ,W            strip all trailing whitespace in this file
+  ,zd           gui only: return to default size (defined in .gvimrc)
+  ,zf           gui only: zoom to fullscreen (defined in .gvimrc)
+  ,zm           gui only: zoom to max height/width (defined in .gvimrc)
+  ,zw           gui only: grow to max width (defined in .gvimrc)
+  ,zW           gui only: return to default width (defined in .gvimrc)
+  ,zz           gui only: grow to max height (defined in .gvimrc)
+  ,zZ           gui only: return to default height (defined in .gvimrc)
+
