@@ -22,6 +22,7 @@
 " ,rce          edit .vimrc ($MYVIMRC)
 " ,rcg          edit .gvimrc ($MYGVIMRC) if it exists
 " ,rcr          reload .vimrc and then (if it exists) .gvimrc.
+" ,R            Toggle rainbow parentheses
 " ,sc           set syntax: C
 " ,spe          set syntax: perl
 " ,sph          set syntax: php
@@ -412,6 +413,9 @@ nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 map <leader>H :TOhtml<CR>
+
+" Toggle rainbow parentheses
+nmap <leader>R :RainbowParenthesesToggle<CR>
 
 " Perl
 map <leader>spe :set syntax=perl ai et ts=4 sts=4 sw=4 tw=0<CR>
