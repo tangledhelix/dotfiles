@@ -57,28 +57,6 @@ vmap <leader>P :Pastie *<CR>
 
 " }}}
 " --------------------------------------------------------------------
-" Manage Vim's configuration {{{
-
-" Edit vim config
-nmap <leader>rce :e $MYVIMRC<CR>
-
-" Edit GUI vim config, if there is one
-nmap <leader>rcg :if filereadable($MYGVIMRC) <Bar>
-    \   edit $MYGVIMRC <Bar>
-    \endif<CR>
-
-" Edit the leader-key map help file
-nmap <leader>rcm :e $HOME/.vim/bundle/myhelpfiles/doc/leadermap.txt<CR>
-
-" Reload .vimrc and (if it exists) .gvimrc.
-nmap <silent> <leader>rcr :so $MYVIMRC<CR>
-    \:if filereadable($MYGVIMRC) <Bar>
-    \   so $MYGVIMRC <Bar>
-    \endif<CR>
-    \:echo "Config reloaded."<CR>
-
-" }}}
-" --------------------------------------------------------------------
 " Tab settings {{{
 
 " Expand tabs to spaces (soft tabs). I HATE TABS.

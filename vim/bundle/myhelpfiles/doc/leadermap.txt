@@ -22,10 +22,6 @@ Current leader key map:                                            *leadermap*
   ,i            toggle viewing of invisible characters
   ,n            toggle relative line numbering
   ,P            create pastie.org paste (:w to send, leaves URL on clipboard)
-  ,rce          edit .vimrc ($MYVIMRC)
-  ,rcg          edit .gvimrc ($MYGVIMRC) if it exists
-  ,rcm          edit leadermap.txt help file.
-  ,rcr          reload .vimrc and then (if it exists) .gvimrc.
   ,R            Toggle rainbow parentheses
   ,sc           set filetype: C
   ,spe          set filetype: perl
