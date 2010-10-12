@@ -61,6 +61,9 @@ nmap <leader>/ :NERDTreeToggle<CR>
 " does not work with :cd as I expected it would.
 "nmap <leader>/ :execute 'NERDTreeToggle ' . getcwd()<CR>
 
+" Open FuzzyFinder in file mode. This *does* work properly with :cd.
+nmap <leader>* :FufFile<CR>
+
 " Edit vim config
 nmap <leader>rce :e $MYVIMRC<CR>
 

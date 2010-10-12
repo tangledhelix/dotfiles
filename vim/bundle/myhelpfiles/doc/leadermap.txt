@@ -6,6 +6,7 @@ Current leader key map:                                            *leadermap*
 
   ,,            toggle paste mode
   ,/            toggle NERDTree browser
+  ,*            load FuzzyFinder in file mode
   ,=            re-indent entire buffer, keeping cursor in current location
   ,<space>      hide current search highlight
   ,4            set tab stop to 4
