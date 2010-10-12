@@ -515,7 +515,7 @@ if has("autocmd")
     autocmd BufRead,BufNewFile .dotfiles/bash* set filetype=sh
 
     " Different tab settings for Ruby code
-    autocmd FileType ruby set ai et ts=2 sts=2 sw=2 tw=0
+    autocmd FileType ruby set ai si ci et ts=2 sts=2 sw=2 tw=0
 
     " Rdist filenames
     autocmd BufRead,BufNewFile distfile.common set filetype=rdist
