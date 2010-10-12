@@ -110,10 +110,16 @@ export EDITOR VISUAL
 
 test -n "$HAVE_VIM" && alias vi="vim"
 
+HAVE_VIMDIFF="$(command -v vimdiff 2>/dev/null)"
+test -n "$HAVE_VIMDIFF" && alias vdiff="$HAVE_VIMDIFF -O"
+
 test -n "$HAVE_MVIM" && {
     alias vi="mvim"
     alias vim="mvim"
+    alias vdiff="mvim -d"
 }
+
+alias vimdiff='vdiff'
 
 #######################################################################
 # Pagers

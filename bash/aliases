@@ -37,9 +37,6 @@ alias jst="TZ=Asia/Tokyo date"
 test -x /usr/bin/mailx && alias mail="/usr/bin/mailx"
 test -x /usr/ucb/Mail && alias Mail="/usr/ucb/Mail"
 
-HAVE_VIMDIFF="$(command -v vimdiff 2>/dev/null)"
-test -n "$HAVE_VIMDIFF" && alias vdiff="$HAVE_VIMDIFF -O"
-
 # Solaris diff sucks, use GNU diff instead.
 test -x /usr/local/pkg/diffutils/bin/diff &&
     alias diff="/usr/local/pkg/diffutils/bin/diff"
