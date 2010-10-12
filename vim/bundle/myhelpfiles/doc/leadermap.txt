@@ -41,6 +41,7 @@ Current leader key map:                                            *leadermap*
   ,v            reselect what was just pasted
   ,w            create new vertical window and switch to it
   ,W            strip all trailing whitespace in this file
+  ,x            yankring
   ,zd           gui only: return to default size           (defined in .gvimrc)
   ,zf           gui only: zoom to fullscreen               (defined in .gvimrc)
   ,zm           gui only: zoom to max height/width         (defined in .gvimrc)
