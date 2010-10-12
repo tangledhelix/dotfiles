@@ -1,7 +1,7 @@
 " Vim configuration
 
 " ------------------------------------------------------------------------
-" General config and plugin/library loading {{{
+" Initial config, load libraries and plugins {{{
 
 " This needs to be first, because it changes Vim's behavior in many places.
 " Turn off vi compatibility. If I wanted vi, I would use vi.
@@ -9,9 +9,6 @@ set nocompatible
 
 " Define my leader key (my personal namespace in the keymap).
 let mapleader=","
-
-" Key combo to toggle paste-mode
-set pastetoggle=,,
 
 " Load Pathogen (sanely manages/compartmentalizes bundles/plugins)
 filetype off
@@ -33,6 +30,12 @@ runtime macros/matchit.vim
 " way. ESC still works too.
 inoremap jj <ESC>
 
+" Remap F1 to ESC, because they're right next to each other, and I know how
+" to type ":help" already, thank you very much.
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
 " Swap ; in place of : for commands - no need to hit shift constantly.
 " Note: do not map : back to ; to try to reclaim the ';' functionality,
 " it'll break half the plugins.
@@ -48,21 +51,13 @@ imap <Esc>[3~ <C-H>
 imap        <C-H>
 cmap        <C-H>
 
-" Duplicate current selection (best used for lines, but can be used
-" with any selection). Pastes duplicate at end of select region.
-vmap D y'>p
+" Send the current selection (or the clipboard) to pastie.org
+nmap <leader>P :Pastie *<CR>
+vmap <leader>P :Pastie *<CR>
 
-" Reselect what was just pasted so I can so something with it.
-nnoremap <leader>v V`]
-
-" Toggle the NERDTree browser.
-nmap <leader>/ :NERDTreeToggle<CR>
-" This variant is supposed to honor the current working directory, but that
-" does not work with :cd as I expected it would.
-"nmap <leader>/ :execute 'NERDTreeToggle ' . getcwd()<CR>
-
-" Open FuzzyFinder in file mode. This *does* work properly with :cd.
-nmap <leader>* :FufFile<CR>
+" }}}
+" --------------------------------------------------------------------
+" Manage Vim's configuration {{{
 
 " Edit vim config
 nmap <leader>rce :e $MYVIMRC<CR>
@@ -81,16 +76,6 @@ nmap <silent> <leader>rcr :so $MYVIMRC<CR>
     \   so $MYGVIMRC <Bar>
     \endif<CR>
     \:echo "Config reloaded."<CR>
-
-" Remap F1 to ESC, because they're right next to each other, and I know how
-" to type ":help" already, thank you very much.
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
-" Send the current selection (or the clipboard) to pastie.org
-nmap <leader>P :Pastie *<CR>
-vmap <leader>P :Pastie *<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -463,6 +448,22 @@ set wildmode=list:longest
 
 " }}}
 " --------------------------------------------------------------------
+" Copy and paste {{{
+
+" Key combo to toggle paste-mode
+set pastetoggle=,,
+
+" Duplicate current selection (best used for lines, but can be used
+" with any selection). Pastes duplicate at end of select region.
+vmap D y'>p
+
+" Reselect what was just pasted so I can so something with it.
+nnoremap <leader>v V`]
+
+nnoremap <silent> <leader>x :YRShow<CR>
+
+" }}}
+" --------------------------------------------------------------------
 " History and undo {{{
 
 " What info to store from an editing session in the viminfo file;
@@ -479,6 +480,22 @@ set history=100
 
 " }}}
 " --------------------------------------------------------------------
+" Finding and opening files {{{
+
+" Toggle the NERDTree browser.
+nmap <leader>/ :NERDTreeToggle<CR>
+" This variant is supposed to honor the current working directory, but that
+" does not work with :cd as I expected it would.
+"nmap <leader>/ :execute 'NERDTreeToggle ' . getcwd()<CR>
+
+" NERDTree should close when I choose a file to open
+let NERDTreeQuitOnOpen=1
+
+" Open FuzzyFinder in file mode. This *does* work properly with :cd.
+nmap <leader>* :FufFile<CR>
+
+" }}}
+" --------------------------------------------------------------------
 " Misc. settings {{{
 
 " Allow "hidden" buffers. See :help hidden
@@ -492,9 +509,6 @@ set modelines=0
 " Are we using a fast terminal?
 set ttyfast
 
-" NERDTree should close when I choose a file to open
-let NERDTreeQuitOnOpen=1
-
 " }}}
 " --------------------------------------------------------------------
 " Auto-command triggers {{{
@@ -506,7 +520,7 @@ if has("autocmd")
     autocmd!
 
     " Set File type to 'text' for files ending in .txt
-    autocmd BufNewFile,BufRead *.txt setfiletype text
+    autocmd BufNewFile,BufRead *.txt set filetype=text
 
     " Makefiles NEED tabs. Spaces do NOT always work.
     autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
