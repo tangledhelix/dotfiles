@@ -11,8 +11,10 @@ Search and replace
 
     gd      go to declaration of variable under the cursor
 
+    " 'find'
     f<c>    jump to next occurrence of char <c>
     F<c>    ... and in reverse
+    " 'til' or 'until'
     t<c>    jump to position *left* of next occurrence of char <c>
     T<c>    ... and in reverse
 
@@ -34,8 +36,12 @@ Search and replace
     :%s/foo/bar/    search/replace entire file
         add g (/g) to end for global (also see :help gdefault)
 
+    &       repeat last :s command
+
 ------------------------------------------------------------------------------
 Navigating / jumping around
+
+    ^       beginning of line ignoring leading whitespace (vs. '0')
 
     [{      jump back to opening brace of the current code block
 
@@ -47,15 +53,28 @@ Navigating / jumping around
     zz      keep cursor in place, but move that line to middle of view
     zb      keep cursor in place, but move that line to bottom of view
 
+    (, )    jump to start, end of current 'sentence'
     {, }    jump to start, end of current 'paragraph'
 
 ------------------------------------------------------------------------------
 Copy and paste
 
-yyp     duplicate this line
+    yyp     duplicate this line
 
-ddP     delete line, then paste *back into place* leaving copy on buffer
-        though that's the same as yy isn't it?
+    ddP     delete line, then paste *back into place* leaving copy on buffer
+            though that's the same as yy isn't it?
+
+    y       yank
+    Y       yank line (isn't this the same as yy ?)
+
+------------------------------------------------------------------------------
+General editing
+
+    c<x>    change
+    ce      change to end of word
+    c$      change to end of line
+    C       change to end of line
+    c/foo   change until match 'foo'
 
 ------------------------------------------------------------------------------
 Indenting
@@ -106,13 +125,22 @@ External comands
 ------------------------------------------------------------------------------
 Undo
 
-:undolist       see your undo tree
+    u       undo
+    U       undo entire line
+
+    :undolist       see your undo tree
 
 ==============================================================================
 Shortcuts (insert mode)
 
     ^N      try to do a completion on the current word
     ^P      try to do completion, reverse direction
+
+==============================================================================
+Macros
+
+    q.      record macro
+    @.      play macro
 
 ==============================================================================
 Plugin: surround
