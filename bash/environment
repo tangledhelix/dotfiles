@@ -116,6 +116,7 @@ test -n "$HAVE_VIMDIFF" && alias vdiff="$HAVE_VIMDIFF -O"
 test -n "$HAVE_MVIM" && {
     alias vi="mvim"
     alias vim="mvim"
+    alias view="mvim -R"
     alias vdiff="mvim -d"
 }
 

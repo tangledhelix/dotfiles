@@ -21,7 +21,7 @@ test -n "$INTERACTIVE" && {
     #
     _shorthost="$(echo $HOST|perl -p -e 's/^([^.]+\.[^.]+).*$/$1/;s/\.local//;')"
 
-    # Prompt
+    # Prompt (colors defined in 'colordefs')
     #
     # \u    Username
     # \w    Current working directory

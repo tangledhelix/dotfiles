@@ -1,7 +1,7 @@
 " Vim configuration
 
 " ------------------------------------------------------------------------
-" Initial config, load libraries and plugins {{{
+" Initial config, library and plugin loading {{{
 
 " This needs to be first, because it changes Vim's behavior in many places.
 " Turn off vi compatibility. If I wanted vi, I would use vi.
@@ -10,7 +10,7 @@ set nocompatible
 " Define my leader key (my personal namespace in the keymap).
 let mapleader=","
 
-" Load Pathogen (sanely manages/compartmentalizes bundles/plugins)
+" Load Pathogen (sanely manages and compartmentalizes plugins, etc.)
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -21,39 +21,6 @@ filetype plugin indent on
 " Load matchit library. This lets % match if/elsif/else/end, open/close
 " XML tags, stuff like that, instead of just brackets and parens.
 runtime macros/matchit.vim
-
-" }}}
-" --------------------------------------------------------------------
-" Convenience / misc. mappings {{{
-
-" Use jj to get back to command mode instead of ESC, which is out of the
-" way. ESC still works too.
-inoremap jj <ESC>
-
-" Remap F1 to ESC, because they're right next to each other, and I know how
-" to type ":help" already, thank you very much.
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
-" Swap ; in place of : for commands - no need to hit shift constantly.
-" Note: do not map : back to ; to try to reclaim the ';' functionality,
-" it'll break half the plugins.
-nnoremap ; :
-
-" Define "del" char to be the same backspace (saves a LOT of trouble!)
-" As the angle notation cannot be use with the LeftHandSide
-" with mappings you must type this in *literally*!
-" map <C-V>127 <C-H>
-"cmap <C-V>127 <C-H>
-" the same for Linux Debian which uses
-imap <Esc>[3~ <C-H>
-imap        <C-H>
-cmap        <C-H>
-
-" Send the current selection (or the clipboard) to pastie.org
-nmap <leader>P :Pastie *<CR>
-vmap <leader>P :Pastie *<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -81,6 +48,10 @@ nmap <leader>4 :set ts=4 sts=4<CR>
 
 " Set tab width to 8 - does not touch shiftwidth or indent settings
 nmap <leader>8 :set ts=8 sts=8<CR>
+
+" Set tab width to 2 - does not touch shiftwidth or indent settings
+" This is here for the odd Ruby file, I don't use a width of 2 elsewhere.
+nmap <leader>2 :set ts=2 sts=2<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -119,18 +90,17 @@ set shiftround
 " --------------------------------------------------------------------
 " Wrapping {{{
 
-" I use Vim mostly to write code, but this doesn't auto-wrap lines, it
-" only does a visual wrap.
+" I use Vim mostly to write code. This doesn't auto-wrap lines, it only does
+" a soft wrap to the window width.
 set wrap
 
-" Where to wrap. See <leader>t <leader>T, and many of the ,s* mappings.
+" Where to wrap. See <leader>t and <leader>T mappings.
 " By default, do not wrap at all (aggravating while coding).
 set textwidth=0
 
-" Break lines at whitespace or special characters (when tw != 0).
-" Avoids lines where a word shows up on both the right and left edges
-" of the screen. Which makes copy/paste into other apps FUN.
-" Screws up coding.
+" Break lines at whitespace or special characters (when tw != 0). Avoids lines
+" where a word shows up on both the right and left edges of the screen. Which
+" makes copy/paste into other apps FUN. Screws up coding.
 set nolinebreak
 
 " Backspace over indentation, end-of-line, and start-of-line. See help.
@@ -148,10 +118,9 @@ set backspace=indent,eol,start
 " Search and replace {{{
 
 " Highlight search - show the current search pattern.
-" This is a nice feature, but it can get in the way visually.
 set hlsearch
 
-" Clear the highlighted words from an hlsearch.
+" Clear the highlighted words from an hlsearch. (Can be visual clutter)
 nnoremap <leader><space> :noh<cr>
 
 " Turn hlsearch on or off.
@@ -176,8 +145,7 @@ vnoremap / /\v
 " Use 'magic' patterns (extended regex) in search patterns. ("\s\+")
 set magic
 
-" Assume /g at the end of any substitution (:%s/../../).
-" This is nearly always what you want anyway.
+" Assume /g at the end of any :s command. I usually want that anyway.
 set gdefault
 
 " }}}
@@ -186,7 +154,7 @@ set gdefault
 
 set noerrorbells
 
-" Show a report when N lines were changed. report=0 means "show all changes"
+" Show a report when N lines were changed. report=0 means "show all changes".
 set report=0
 
 " Kind of messages to show. Abbreviate them all.
@@ -211,22 +179,6 @@ set laststatus=2
 " Status line format
 set statusline=%<%f\ %h%m%r%y\ %=%-14.(%l,%c%V%)\ %P
 
-" I don't want line numbers.
-set nonumber
-
-" Show line numbers as relative to current, not as absolute. This makes it
-" easy to use count-based commands, e.g. 5dd or 10j.
-if v:version >= 703
-    set relativenumber
-endif
-
-" Toggle number column. Very handy for terminal-based vim when I want to
-" copy something.
-nmap <leader>n :set relativenumber!<CR>
-
-" Show row/col of cursor position, and percentage into the file we are.
-set ruler
-
 " Show current uncompleted command.
 set showcmd
 
@@ -235,14 +187,6 @@ set showmatch
 
 " Show the current mode.
 set showmode
-
-" Show current cursor line position.
-" I don't know if I like this; in a terminal, it underlines the entire
-" line, which is a bit odd. It's great in MacVim (see .gvimrc).
-"set cursorline
-
-" Warn on long lines. Looks like crap in a terminal (see .gvimrc).
-"set colorcolumn=81
 
 " Don't show invisibles by default
 set nolist
@@ -253,20 +197,43 @@ nmap <leader>i :set list!<CR>
 
 " }}}
 " --------------------------------------------------------------------
+" Line numbering / position indicators {{{
+
+" I don't want absolute line numbers.
+set nonumber
+
+" Show line numbers as relative to current, not as absolute. This makes it
+" easy to use count-based commands, e.g. 5dd or 10j.
+if v:version >= 703
+    set relativenumber
+endif
+
+" Toggle relativenumber column. They get in the way of copying in a terminal.
+nmap <leader>n :set relativenumber!<CR>
+
+" Show row/col of cursor position, and percentage into the file we are.
+set ruler
+
+" Show current cursor line position. In terminals, this underlines the line,
+" which is ugly. It's fine in MacVim.
+"set cursorline
+
+" Warn on long lines. Looks like crap in a terminal (see .gvimrc).
+"set colorcolumn=81
+
+" }}}
+" --------------------------------------------------------------------
 " Formatting {{{
 
-" Text formatting options, used by 'gq' and elsewhere.
-" May consider 'o', which inserts the comment leader when creating a new
-" line with either 'o' or 'O' in insert mode.
+" Text formatting options, used by 'gq' and elsewhere
 set formatoptions=qrn1
 
 " Insert two spaces after a period with every joining of lines.
-" Bah! The 'two spaces' rule is archaic typewriter-era crap.
+" No! The 'two spaces' rule is archaic typewriter-era nonsense.
 set nojoinspaces
 
-" Reformat a selection
+" Reformat current selection or paragraph
 vmap Q gq
-" ... or the current paragraph
 nmap Q gqip
 
 " Center current line or selection
@@ -276,27 +243,22 @@ vmap <leader>C :center<CR>
 " Toggle autoclose mode
 nmap <leader>A <Plug>ToggleAutoCloseMappings
 
-" Strip trailing whitespace file-wide.
+" Strip trailing whitespace file-wide
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " }}}
 " --------------------------------------------------------------------
 " Navigation {{{
 
-" Disallow usage of cursor keys within insert mode. Currently the arrow keys
-" are being used by the arrow-key-remap plugin, which seems to override this
-" setting anyway.
+" Disallow usage of cursor keys within insert mode.
 set noesckeys
 
-" Do not jump to first character with page commands, i.e. keep the cursor in
-" the current column.
+" Do not jump to line start with page commands, i.e. keep the current column.
 set nostartofline
 
-" Start scrolling before I reach the bottom of the screen, to keep more
-" context around cursor. (top of screen too)
+" Keep a few lines above/below the cursor when I scroll to next screen.
 set scrolloff=3
 
-" Swap ` and '
 " By default, ' jumps to the line you marked, and ` jumps to line -and- col
 " that you marked. So ` is more useful. But harder to type. So swap them.
 noremap ' `
@@ -316,7 +278,7 @@ vnoremap k gk
 nnoremap <tab> %
 vnoremap <tab> %
 
-" Philosophy: Stay out of insert mode as much as humanly possible.
+" Stay out of insert mode as much as humanly possible.
 set noinsertmode
 
 " }}}
@@ -348,9 +310,6 @@ nmap <leader>= migg=G'i:echo "Buffer re-indented."<CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 nmap <leader>H :TOhtml<CR>
-
-" Toggle rainbow parentheses
-nmap <leader>R :RainbowParenthesesToggle<CR>
 
 " Insert a Perl stub header
 nmap <leader>sps :set paste<CR>a#!/usr/local/bin/perl<CR><CR>use strict;<CR>use warnings;<CR><CR><ESC>:set nopaste<CR>a
@@ -438,7 +397,8 @@ vmap D y'>p
 " Reselect what was just pasted so I can so something with it.
 nnoremap <leader>v V`]
 
-nnoremap <silent> <leader>x :YRShow<CR>
+" Toggle Yankring window
+nnoremap <silent> <leader>y :YRShow<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -462,6 +422,7 @@ set history=100
 
 " Toggle the NERDTree browser.
 nmap <leader>/ :NERDTreeToggle<CR>
+
 " This variant is supposed to honor the current working directory, but that
 " does not work with :cd as I expected it would.
 "nmap <leader>/ :execute 'NERDTreeToggle ' . getcwd()<CR>
@@ -486,6 +447,35 @@ set modelines=0
 
 " Are we using a fast terminal?
 set ttyfast
+
+" }}}
+" --------------------------------------------------------------------
+" Misc. mappings {{{
+
+" Use jj to get back to command mode instead of ESC, which is out of the
+" way. ESC still works too.
+inoremap jj <ESC>
+
+" Remap F1 to ESC, because they're right next to each other, and I know how
+" to type ":help" already, thank you very much.
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" Swap ; in place of : for commands - no need to hit shift constantly.
+" Note: do not map : back to ; to try to reclaim the ';' functionality,
+" it'll break half the plugins.
+nnoremap ; :
+
+" Define "del" char to be the same backspace (saves a LOT of trouble!)
+" As the angle notation cannot be use with the LeftHandSide
+" with mappings you must type this in *literally*!
+" map <C-V>127 <C-H>
+"cmap <C-V>127 <C-H>
+" the same for Linux Debian which uses
+imap <Esc>[3~ <C-H>
+imap        <C-H>
+cmap        <C-H>
 
 " }}}
 " --------------------------------------------------------------------
@@ -521,7 +511,6 @@ if has("autocmd")
     autocmd BufRead,BufNewFile *ISSwiki* set filetype=mediawiki
 
     " Bash config files
-    autocmd BufRead,BufNewFile .bash* set filetype=sh
     autocmd BufRead,BufNewFile .bash/* set filetype=sh
     autocmd BufRead,BufNewFile .dotfiles/bash* set filetype=sh
 

@@ -56,6 +56,9 @@ Navigating / jumping around
     (, )    jump to start, end of current 'sentence'
     {, }    jump to start, end of current 'paragraph'
 
+    `.      return to last line you edited
+    '.      return to last line you edited
+
 ------------------------------------------------------------------------------
 Copy and paste
 
@@ -67,6 +70,8 @@ Copy and paste
     y       yank
     Y       yank line (isn't this the same as yy ?)
 
+    cc      cut entire line and enter insert mode ("change line")
+
 ------------------------------------------------------------------------------
 General editing
 
@@ -75,6 +80,8 @@ General editing
     c$      change to end of line
     C       change to end of line
     c/foo   change until match 'foo'
+
+    K       go to man page for the word under the cursor
 
 ------------------------------------------------------------------------------
 Indenting
@@ -139,8 +146,11 @@ Shortcuts (insert mode)
 ==============================================================================
 Macros
 
-    q.      record macro
-    @.      play macro
+    q.      record macro into default register
+    q       stop recording
+    @.      play macro from default register
+
+    qa, @a  using register a
 
 ==============================================================================
 Plugin: surround
