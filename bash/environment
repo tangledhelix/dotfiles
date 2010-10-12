@@ -116,12 +116,16 @@ test -n "$HAVE_MVIM" && {
 }
 
 #######################################################################
-# Pager
+# Pagers
 
 if test -n "$(command -v less 2>/dev/null)" ; then
     PAGER="less -FirSwX"
     MANPAGER="less -FiRswX"
     alias more="less"
+    test -n "$(command -v ack 2>/dev/null)" && {
+        export ACK_PAGER="less -R"
+        export ACK_PAGER_COLOR="less -R"
+    }
 else
     PAGER=more
     MANPAGER="$PAGER"
