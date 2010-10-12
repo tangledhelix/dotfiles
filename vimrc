@@ -527,6 +527,7 @@ if has("autocmd")
 
     " Bash config files
     autocmd BufRead,BufNewFile .bash* set filetype=sh
+    autocmd BufRead,BufNewFile .bash/* set filetype=sh
     autocmd BufRead,BufNewFile .dotfiles/bash* set filetype=sh
 
     " Different tab settings for Ruby code
