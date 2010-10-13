@@ -42,9 +42,8 @@ nmap <leader>zZ :set lines=40<CR>
 nmap <leader>zw :set columns=999<CR>
 nmap <leader>zW :set columns=90<CR>
 
-" Zoom to max size or real fullscreen
-nmap <leader>zm :set lines=999 columns=999<CR>
-nmap <leader>zf :set fullscreen!<CR>
+" Zoom to max size. This isn't fullscreen; use cmd-shift-F for that.
+nmap <leader>zf :set lines=999 columns=999<CR>
 
 " Return to normal size
 nmap <leader>zd :set lines=40 columns=90<CR>

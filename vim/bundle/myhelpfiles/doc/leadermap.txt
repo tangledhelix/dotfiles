@@ -39,8 +39,7 @@ Current leader key map:                                            *leadermap*
   ,y            Toggle yankring window
   ,Y            Copy to OS X clipboard
   ,zd           GUI only: return to default size           (defined in .gvimrc)
-  ,zf           GUI only: zoom to fullscreen               (defined in .gvimrc)
-  ,zm           GUI only: zoom to max height/width         (defined in .gvimrc)
+  ,zf           GUI only: zoom to max height/width         (defined in .gvimrc)
   ,zw           GUI only: grow to max width                (defined in .gvimrc)
   ,zW           GUI only: return to default width          (defined in .gvimrc)
   ,zz           GUI only: grow to max height               (defined in .gvimrc)
