@@ -30,7 +30,7 @@ test -n "$INTERACTIVE" && {
     # \$    $ or # (depending on uid)
     # \j    Number of jobs currently managed by the shell
     #
-    export PS1="\n${BRIGHT_BLUE}[\j] ${BRIGHT_VIOLET}\w${BRIGHT_RED}\$(parse_git_branch)\n${BRIGHT_BLACK}\u@$_shorthost{\$?}\\$ ${RESET}"
+    export PS1="\n${BRIGHT_BLUE}[\j] ${BRIGHT_VIOLET}\w${BRIGHT_RED}\$(parse_git_branch)\n${BRIGHT_BLACK}\u@$(short_nodename){\$?}\\$ ${RESET}"
 
     # An approximate tcsh equivalent is:
     # set prompt = '%n@%M:%c{%?}%# '

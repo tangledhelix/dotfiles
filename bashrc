@@ -6,12 +6,12 @@ case "$-" in
 esac
 
 source ~/.bash/environment
+source ~/.bash/functions
 source ~/.bash/colordefs
 source ~/.bash/config
 source ~/.bash/aliases
-source ~/.bash/functions
 source ~/.bash/mac
-source ~/.bash/hostname-completion
+source ~/.bash/completion
 source ~/.bash/project-mgmt
 source ~/.bash/non-root
 

@@ -36,7 +36,7 @@ parse_git_branch() {
 }
 
 # Easy clone of a project that lives on Dreamhost
-dh_gitclone() {
+gitclone_dreamhost() {
     _user="scsiboy"
     _server="git.tangledhelix.com"
 
@@ -49,7 +49,7 @@ dh_gitclone() {
 }
 
 # NTT git environment is a little weird, streamline it.
-ntt_gitclone() {
+gitclone_ntt() {
     _path="/usr/local/bin/git-upload-pack"
     _user="dan"
     _server="admin1.mlpsca01.us.to.gin.ntt.net"
@@ -62,3 +62,15 @@ ntt_gitclone() {
     git clone -o ntt -u $_path ssh://$_user@$_server/~/git/$1 $2
 }
 
+# Give me a shortened version of the local hostname.
+# If it's 1-3 atoms, give me only the first.
+# If it's more than that, give me the first two.
+short_nodename() {
+    echo $HOST | perl -p -e '
+        if ( scalar( split( /\./ ) ) > 3 ) {
+            s/^([^.]+\.[^.]+).*$/$1/
+        } else {
+            s/^([^.]+).*$/$1/
+        }
+    '
+}
