@@ -400,6 +400,15 @@ nnoremap <leader>v V`]
 " Toggle Yankring window
 nnoremap <silent> <leader>y :YRShow<CR>
 
+" Can yankring share its data between instances of Vim?
+let g:yankring_share_between_instances = 1
+
+" Can yankring keep data in a persistent file?
+let g:yankring_persist = 1
+
+" Put yankring data somewhere other than $HOME
+let g:yankring_history_dir = "$HOME/.vim"
+
 " }}}
 " --------------------------------------------------------------------
 " History and undo {{{

@@ -4,3 +4,4 @@
 .netrwhist
 vim/bundle/*/doc/tags
 vim/bundle/*/doc/tags-*
+vim/yankring_history*.txt
