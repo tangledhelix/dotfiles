@@ -9,6 +9,7 @@ Current leader key map:                                            *leadermap*
   ,*            Load FuzzyFinder in file mode
   ,=            Re-indent entire buffer, keeping cursor in current location
   ,<space>      Hide current search highlight
+  ,<tab>        Toggle expandtab, then do a tab <-> spaces conversion
   ,4            Set tab stop to 4
   ,8            Set tab stop to 8
   ,a            Reserved for future use for Ack (grep replacement)

@@ -111,6 +111,8 @@ Selections and matching on things
     viw     select a word ('word' delimited not whitespace-delimited)
     viW     select a word, whitespace delimited
 
+    gv      reselect last selection
+
 ------------------------------------------------------------------------------
 Named registers
 

@@ -38,20 +38,25 @@ set softtabstop=4
 set shiftwidth=4
 
 " coding tab settings (should match defaults)
-nmap <leader>t :set ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
+nmap <leader>t :setlocal ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
 
 " non-code tab settings
-nmap <leader>T :set noai nosi noci noet sw=8 ts=8 sts=8 tw=75<CR>
+nmap <leader>T :setlocal noai nosi noci noet sw=8 ts=8 sts=8 tw=75<CR>
 
-" Set tab width to 4 - does not touch shiftwidth or indent settings
-nmap <leader>4 :set ts=4 sts=4<CR>
+" Set tab width to 2, 4, or 8
+nmap <leader>2 :setlocal ts=2 sts=2 sw=2<CR>
+nmap <leader>4 :setlocal ts=4 sts=4 sw=4<CR>
+nmap <leader>8 :setlocal ts=8 sts=8 sw=8<CR>
 
-" Set tab width to 8 - does not touch shiftwidth or indent settings
-nmap <leader>8 :set ts=8 sts=8<CR>
+" Re-tab the current file (changes tab->space or space->tab depending on the
+" current setting of expandtab).
 
-" Set tab width to 2 - does not touch shiftwidth or indent settings
-" This is here for the odd Ruby file, I don't use a width of 2 elsewhere.
-nmap <leader>2 :set ts=2 sts=2<CR>
+nmap <leader><tab> :if &expandtab <Bar>
+    \   set noet <Bar>
+    \else <Bar>
+    \   set et <Bar>
+    \endif<CR>
+    \:retab!<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -244,7 +249,7 @@ vmap <leader>C :center<CR>
 nmap <leader>A <Plug>ToggleAutoCloseMappings
 
 " Strip trailing whitespace file-wide
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <silent> <leader>W :call Preserve("%s/\\s\\+$//e")<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -306,7 +311,7 @@ nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
     \endif <CR>
 
 " Re-indent entire file, returning to the cursor position you started from.
-nmap <leader>= migg=G'i:echo "Buffer re-indented."<CR>
+nmap <leader>= :call Preserve("normal gg=G")<CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 nmap <leader>H :TOhtml<CR>
@@ -315,13 +320,13 @@ nmap <leader>H :TOhtml<CR>
 nmap <leader>sps :set paste<CR>a#!/usr/local/bin/perl<CR><CR>use strict;<CR>use warnings;<CR><CR><ESC>:set nopaste<CR>a
 
 " Manually set the file type for various languages
-nmap <leader>spe :set filetype=perl<CR>
-nmap <leader>spy :set filetype=python<CR>
-nmap <leader>sph :set filetype=php<CR>
-nmap <leader>sc :set filetype=c<CR>
-nmap <leader>ss :set filetype=sh<CR>
-nmap <leader>sr :set filetype=ruby<CR>
-nmap <leader>sw :set filetype=mediawiki<CR>
+nmap <leader>spe :setfiletype perl<CR>
+nmap <leader>spy :setfiletype python<CR>
+nmap <leader>sph :setfiletype php<CR>
+nmap <leader>sc :setfiletype c<CR>
+nmap <leader>ss :setfiletype sh<CR>
+nmap <leader>sr :setfiletype ruby<CR>
+nmap <leader>sw :setfiletype mediawiki<CR>
 
 " }}}
 " ----------------------------------------------------------------------
@@ -491,44 +496,23 @@ cmap        <C-H>
 " Auto-command triggers {{{
 
 if has("autocmd")
-
-    " Remove ALL auto-commands.  This avoids running the autocommands
-    " twice when .vimrc is sourced again.
     autocmd!
 
-    " Set File type to 'text' for files ending in .txt
-    autocmd BufNewFile,BufRead *.txt set filetype=text
+    autocmd BufNewFile,BufRead *.t setfiletype perl
+    autocmd BufNewFile,BufRead *.inc setfiletype php
+    autocmd BufNewFile,BufRead *.com setfiletype bindzone
+    autocmd BufNewFile,BufRead *.global setfiletype m4
+    autocmd BufNewFile,BufRead *.wiki,*ISSwiki* setfiletype mediawiki
+    autocmd BufNewFile,BufRead .bash/*,.dotfiles/bash* setfiletype sh
+    autocmd BufNewFile,BufRead distfile.common,Distfile setfiletype rdist
+    autocmd BufNewFile,BufRead ejabberd.cfg setfiletype erlang
 
-    " Makefiles NEED tabs. Spaces do NOT always work.
-    autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
-    autocmd FileType make set noet ts=8 sts=8 sw=8
+    autocmd FileType ruby setlocal ts=2 sts=2 sw=2 et
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 et
 
-    " .t is generally a perl test script
-    autocmd BufNewFile,BufRead *.t set filetype=perl
-
-    " .inc is generally PHP
-    autocmd BufNewFile,BufRead *.inc set filetype=php
-
-    " .com for me is probably a DNS zone file
-    autocmd BufNewFile,BufRead *.com set syntax=bindzone
-
-    " .global for me is probably M4
-    autocmd BufNewFile,BufRead *.global set filetype=m4
-
-    " Mediawiki (needs mediawiki bundle)
-    autocmd BufRead,BufNewFile *.wiki set filetype=mediawiki
-    autocmd BufRead,BufNewFile *ISSwiki* set filetype=mediawiki
-
-    " Bash config files
-    autocmd BufRead,BufNewFile .bash/* set filetype=sh
-    autocmd BufRead,BufNewFile .dotfiles/bash* set filetype=sh
-
-    " Different tab settings for Ruby code
-    autocmd FileType ruby set ai si ci et ts=2 sts=2 sw=2 tw=0
-
-    " Rdist filenames
-    autocmd BufRead,BufNewFile distfile.common set filetype=rdist
-    autocmd BufRead,BufNewFile Distfile set filetype=rdist
+    " Makefiles need real tabs.
+    autocmd BufNewFile,BufRead [Mm]akefile* setfiletype make
+    autocmd FileType make setlocal ts=8 sts=8 sw=8 noet
 
     " Save all unclean buffers when focus is lost (ala TextMate).
     " Not sure whether I like this idea yet.
@@ -558,6 +542,7 @@ syntax enable
 highlight Comment ctermfg=darkgrey
 highlight Statement ctermfg=blue cterm=bold
 highlight Identifier ctermfg=darkcyan cterm=bold
+highlight Search term=reverse ctermbg=11
 highlight ColorColumn ctermbg=lightgrey ctermfg=black
 " invisibles...
 highlight NonText ctermfg=grey
