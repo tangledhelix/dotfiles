@@ -13,15 +13,9 @@ test -n "$INTERACTIVE" && {
     # Append history to ~/.bash_history on shell exit
     shopt -s histappend >/dev/null 2>&1
 
-    # Get a version of the hostname stripped to first two atoms.
-    # If the hostname is a single atom then it's just left that way
-    # because the regex won't match anyway.
-    #
-    # Zsh was able to do this natively with %2m. Get with it, bash.
-    #
-    _shorthost="$(echo $HOST|perl -p -e 's/^([^.]+\.[^.]+).*$/$1/;s/\.local//;')"
-
-    # Prompt (colors defined in 'colordefs')
+    # Prompt
+    #   (colors defined in 'colordefs')
+    #   (function calls defined in 'functions')
     #
     # \u    Username
     # \w    Current working directory
