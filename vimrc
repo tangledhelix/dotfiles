@@ -40,8 +40,8 @@ set shiftwidth=4
 " coding tab settings (should match defaults)
 nmap <leader>t :setlocal ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
 
-" non-code tab settings
-nmap <leader>T :setlocal noai nosi noci noet sw=8 ts=8 sts=8 tw=75<CR>
+" non-code tab settings (prose, misc.)
+nmap <leader>T :setlocal noai nosi noci noet sw=8 ts=8 sts=8 tw=78<CR>
 
 " Set tab width to 2, 4, or 8
 nmap <leader>2 :setlocal ts=2 sts=2 sw=2<CR>
@@ -51,12 +51,15 @@ nmap <leader>8 :setlocal ts=8 sts=8 sw=8<CR>
 " Re-tab the current file (changes tab->space or space->tab depending on the
 " current setting of expandtab).
 
-nmap <leader><tab> :if &expandtab <Bar>
-    \   set noet <Bar>
+nmap <silent> <leader><tab> :if &expandtab <Bar>
+    \   set noet<CR>
+    \   retab!<CR>
+    \   echo "Converted spaces to tabs." <Bar>
     \else <Bar>
-    \   set et <Bar>
+    \   set et<CR>
+    \   retab!<CR>
+    \   echo "Converted tabs to spaces." <Bar>
     \endif<CR>
-    \:retab!<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -503,12 +506,15 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.com setfiletype bindzone
     autocmd BufNewFile,BufRead *.global setfiletype m4
     autocmd BufNewFile,BufRead *.wiki,*ISSwiki* setfiletype mediawiki
+    autocmd BufNewFile,BufRead *Safari*WordPress* setfiletype markdown
     autocmd BufNewFile,BufRead .bash/*,.dotfiles/bash* setfiletype sh
     autocmd BufNewFile,BufRead distfile.common,Distfile setfiletype rdist
     autocmd BufNewFile,BufRead ejabberd.cfg setfiletype erlang
 
-    autocmd FileType ruby setlocal ts=2 sts=2 sw=2 et
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 et
+    autocmd FileType ruby setlocal ts=2 sts=2 sw=2
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2
+    autocmd FileType mediawiki setlocal tw=75
+    autocmd FileType markdown setlocal tw=75
 
     " Makefiles need real tabs.
     autocmd BufNewFile,BufRead [Mm]akefile* setfiletype make
