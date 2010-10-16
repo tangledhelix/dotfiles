@@ -7,7 +7,7 @@ Current leader key map:                                            *leadermap*
   ,,            Toggle paste mode
   ,/            Toggle NERDTree browser
   ,*            Load FuzzyFinder in file mode
-  ,=            Re-indent entire buffer, keeping cursor in current location
+  ,=            Re-indent entire buffer
   ,<space>      Hide current search highlight
   ,<tab>        Toggle expandtab, then do a tab <-> spaces conversion
   ,4            Set tab stop to 4
@@ -22,15 +22,15 @@ Current leader key map:                                            *leadermap*
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
   ,n            Toggle relative line numbering
-  ,P            Paste from OS X clipboard
+  ,P            GUI only: paste from OS X clipboard        (defined in .gvimrc)
   ,sc           Set filetype: C
-  ,spe          Set filetype: perl
-  ,sph          Set filetype: php
+  ,spe          Set filetype: Perl
+  ,sph          Set filetype: PHP
   ,sps          Add a perl stub header
-  ,spy          Set filetype: python
-  ,sr           Set filetype: ruby
-  ,ss           Set filetype: shell
-  ,sw           Set filetype: wiki (mediawiki)
+  ,spy          Set filetype: Python
+  ,sr           Set filetype: Ruby
+  ,ss           Set filetype: Shell
+  ,sw           Set filetype: Wiki (mediawiki)
   ,S            Toggle syntax highlighting
   ,t            Coding tab settings (soft tabs, 4, autoindent, textwidth 0)
   ,T            Non-coding settings (regular tabs, 8, no indent, textwidth <80)
@@ -38,7 +38,7 @@ Current leader key map:                                            *leadermap*
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
   ,y            Toggle yankring window
-  ,Y            Copy to OS X clipboard
+  ,Y            GUI only: copy to OS X clipboard           (defined in .gvimrc)
   ,zd           GUI only: return to default size           (defined in .gvimrc)
   ,zf           GUI only: zoom to max height/width         (defined in .gvimrc)
   ,zw           GUI only: grow to max width                (defined in .gvimrc)
