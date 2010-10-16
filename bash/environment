@@ -57,7 +57,6 @@ for _this in \
     /usr/sfw/bin \
     /usr/local/teTeX/bin/i386-apple-darwin-current \
     /usr/X11R6/bin \
-    /usr/local/git/bin \
     /Developer/usr/bin \
     ~/Dropbox/bin \
     ~/tools
