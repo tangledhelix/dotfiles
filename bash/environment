@@ -54,10 +54,12 @@ for _this in \
     /usr/local/pkg/openldap/bin \
     /usr/local/pkg/openldap/sbin \
     /opt/openldap/bin \
+    /opt/openldap/sbin \
     /usr/sfw/bin \
     /usr/local/teTeX/bin/i386-apple-darwin-current \
     /usr/X11R6/bin \
     /Developer/usr/bin \
+    ~/.gem/ruby/1.8/bin \
     ~/Dropbox/bin \
     ~/tools
 do
