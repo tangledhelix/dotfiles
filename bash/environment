@@ -102,7 +102,7 @@ export MANPATH
 HAVE_VIM="$(command -v vim 2>/dev/null)"
 HAVE_MVIM="$(command -v mvim 2>/dev/null)"
 
-test -n "$HAVE_MVIM" && EDITOR="mvim" || {
+test -n "$HAVE_MVIM" && EDITOR="mvim -f" || {
     test -n "$HAVE_VIM" && EDITOR="vim" || EDITOR="vi"
 }
 
