@@ -30,18 +30,13 @@ runtime macros/matchit.vim
 set expandtab
 
 " My tab width is 4. Because 8 is too much, but 2 is visually too small
-" for code nesting IMO.
+" for code nesting IMO. Should match shiftwidth.
 set tabstop=4
 set softtabstop=4
 
-" Number of spaces to use for (auto)indent.
+" Number of spaces to use for (auto)indent. Generally this should be the
+" same as the tabstop and softtabstop.
 set shiftwidth=4
-
-" coding tab settings (should match defaults)
-nmap <leader>t :setlocal ai si ci et sw=4 ts=4 sts=4 tw=0<CR>
-
-" non-code tab settings (prose, misc.)
-nmap <leader>T :setlocal noai nosi noci noet sw=8 ts=8 sts=8 tw=78<CR>
 
 " Set tab width to 2, 4, or 8
 nmap <leader>2 :setlocal ts=2 sts=2 sw=2<CR>
@@ -50,7 +45,6 @@ nmap <leader>8 :setlocal ts=8 sts=8 sw=8<CR>
 
 " Re-tab the current file (changes tab->space or space->tab depending on the
 " current setting of expandtab).
-
 nmap <silent> <leader><tab> :if &expandtab <Bar>
     \   set noet<CR>
     \   retab!<CR>
@@ -102,24 +96,31 @@ set shiftround
 " a soft wrap to the window width.
 set wrap
 
-" Where to wrap. See <leader>t and <leader>T mappings.
-" By default, do not wrap at all (aggravating while coding).
+" No fixed width; 0 means to use the current window width.
 set textwidth=0
 
 " Break lines at whitespace or special characters (when tw != 0). Avoids lines
 " where a word shows up on both the right and left edges of the screen. Which
-" makes copy/paste into other apps FUN. Screws up coding.
+" makes copy/paste into other apps FUN. Screws up coding. Off normally.
 set nolinebreak
 
-" Backspace over indentation, end-of-line, and start-of-line. See help.
+" Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
 
-" Define wrapping behavior. See help.
+" Define wrapping behavior.
 "set whichwrap=<,>,h,l
 "set whichwrap=b,s,<,>
 
-" Wrap the line when we get this close to the right margin.
-"set wrapmargin=4
+" Set up soft-wrapping (not for coding, this will break lines based on words,
+" which screws up copy and paste for code). This would be useful for display
+" of English text, for instance. Note: You have to turn off list for linebreak
+" to work properly.
+command! -nargs=* Wrap setlocal wrap lbr nolist
+
+" Hard wrap, for writing prose, not code. Automatically reflows text to
+" be no greater than textwidth. Also turns off colorcolumn since it's of
+" no real use in this situation.
+command! -nargs=* Prose setlocal tw=75 fo+=at cc=''
 
 " }}}
 " --------------------------------------------------------------------
@@ -150,7 +151,9 @@ set smartcase
 nnoremap / /\v
 vnoremap / /\v
 
-" Use 'magic' patterns (extended regex) in search patterns. ("\s\+")
+" Use 'magic' patterns (extended regex) in search patterns. ("\s\+").
+" This isn't used by the / search due to the above remappings, but it
+" does give you better regex options for :s and :g and so forth.
 set magic
 
 " Assume /g at the end of any :s command. I usually want that anyway.
@@ -233,16 +236,17 @@ set ruler
 " --------------------------------------------------------------------
 " Formatting {{{
 
-" Text formatting options, used by 'gq' and elsewhere
+" Text formatting options, used by 'gq', 'gw' and elsewhere. :help fo-table
 set formatoptions=qrn1
 
-" Insert two spaces after a period with every joining of lines.
+" Insert two spaces after a period with every joining of lines?
 " No! The 'two spaces' rule is archaic typewriter-era nonsense.
 set nojoinspaces
 
-" Reformat current selection or paragraph
-vmap Q gq
-nmap Q gqip
+" Reformat current selection or paragraph.
+" gq reformats a paragraph/selection; gw does it without moving the cursor.
+vmap Q gw
+nmap Q gwip
 
 " Center current line or selection
 nmap <leader>C :center<CR>
@@ -276,7 +280,8 @@ noremap ` '
 " down, and it skips to the next real line, rather than the next line
 " on the display, and that's annoying. These remaps make j and k honor the
 " _displayed_ lines instead of the actual lines. 'v' maps make this work in
-" a wrapped-line selection as well.
+" a wrapped-line selection as well. You can use the 'g' prefix for 0 and $
+" also, but I don't want those mappings by default.
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -305,13 +310,15 @@ nnoremap <leader>ft Vatzf
 
 " Toggle syntax highlighting. The .gvimrc is reloaded to fix syntax colors.
 nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
-    \   syntax off <Bar>
+    \   syntax off<CR>
+    \   echo "Syntax off" <Bar>
     \else <Bar>
     \   syntax enable<CR>
     \   if filereadable($MYGVIMRC) <Bar>
     \       so $MYGVIMRC <Bar>
-    \   endif <Bar>
-    \endif <CR>
+    \   endif<CR>
+    \   echo "Syntax on" <Bar>
+    \endif<CR>
 
 " Re-indent entire file, returning to the cursor position you started from.
 nmap <leader>= :call Preserve("normal gg=G")<CR>
@@ -320,16 +327,20 @@ nmap <leader>= :call Preserve("normal gg=G")<CR>
 nmap <leader>H :TOhtml<CR>
 
 " Insert a Perl stub header
-nmap <leader>sps :set paste<CR>a#!/usr/local/bin/perl<CR><CR>use strict;<CR>use warnings;<CR><CR><ESC>:set nopaste<CR>a
+nmap <leader>sps :set paste<CR>
+    \a#!/usr/local/bin/perl<CR><CR>
+    \use strict;<CR>
+    \use warnings;<CR><CR><ESC>
+    \:set nopaste<CR>a
 
 " Manually set the file type for various languages
-nmap <leader>spe :setfiletype perl<CR>
-nmap <leader>spy :setfiletype python<CR>
-nmap <leader>sph :setfiletype php<CR>
-nmap <leader>sc :setfiletype c<CR>
-nmap <leader>ss :setfiletype sh<CR>
-nmap <leader>sr :setfiletype ruby<CR>
-nmap <leader>sw :setfiletype mediawiki<CR>
+nmap <leader>spe :set filetype=perl<CR>
+nmap <leader>spy :set filetype=python<CR>
+nmap <leader>sph :set filetype=php<CR>
+nmap <leader>sc :set filetype=c<CR>
+nmap <leader>ss :set filetype=sh<CR>
+nmap <leader>sr :set filetype=ruby<CR>
+nmap <leader>sw :set filetype=mediawiki<CR>
 
 " }}}
 " ----------------------------------------------------------------------
@@ -454,7 +465,7 @@ nmap <leader>* :FufFile<CR>
 " --------------------------------------------------------------------
 " Misc. settings {{{
 
-" Allow "hidden" buffers. See :help hidden
+" Allow "hidden" buffers. :help hidden
 set hidden
 
 " Modelines are kind of ugly, and I've read there are security problems
@@ -501,23 +512,26 @@ cmap        <C-H>
 if has("autocmd")
     autocmd!
 
-    autocmd BufNewFile,BufRead *.t setfiletype perl
-    autocmd BufNewFile,BufRead *.inc setfiletype php
-    autocmd BufNewFile,BufRead *.com setfiletype bindzone
-    autocmd BufNewFile,BufRead *.global setfiletype m4
-    autocmd BufNewFile,BufRead *.wiki,*ISSwiki* setfiletype mediawiki
-    autocmd BufNewFile,BufRead *Safari*WordPress* setfiletype markdown
-    autocmd BufNewFile,BufRead .bash/*,.dotfiles/bash* setfiletype sh
-    autocmd BufNewFile,BufRead distfile.common,Distfile setfiletype rdist
-    autocmd BufNewFile,BufRead ejabberd.cfg setfiletype erlang
+    autocmd BufNewFile,BufRead *.t set filetype=perl
+    autocmd BufNewFile,BufRead *.inc set filetype=php
+    autocmd BufNewFile,BufRead *.com set filetype=bindzone
+    autocmd BufNewFile,BufRead *.global set filetype=m4
+    autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
+    autocmd BufNewFile,BufRead *Safari*WordPress* set filetype=markdown
+    autocmd BufNewFile,BufRead .bash/*,.dotfiles/bash* set filetype=sh
+    autocmd BufNewFile,BufRead distfile.common,Distfile set filetype=rdist
+    autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
 
+    " Atypical tab widths
     autocmd FileType ruby setlocal ts=2 sts=2 sw=2
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2
-    autocmd FileType mediawiki setlocal tw=75
-    autocmd FileType markdown setlocal tw=75
+
+    " These are mostly prose, set up hard autowrap.
+    autocmd FileType mediawiki setlocal tw=75 fo+=at cc=""
+    autocmd FileType markdown setlocal tw=75 fo+=at cc=""
 
     " Makefiles need real tabs.
-    autocmd BufNewFile,BufRead [Mm]akefile* setfiletype make
+    autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
     autocmd FileType make setlocal ts=8 sts=8 sw=8 noet
 
     " Save all unclean buffers when focus is lost (ala TextMate).
@@ -530,7 +544,7 @@ endif
 " --------------------------------------------------------------------
 " Colors {{{
 
-" I thought this was outdated, but it still breaks the terminal (2010).
+" I thought this was outdated, but I still need it (Oct 2010).
 if !has("gui") && has("terminfo")
     set t_Co=16
     set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
