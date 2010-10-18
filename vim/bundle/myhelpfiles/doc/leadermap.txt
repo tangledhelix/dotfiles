@@ -10,6 +10,7 @@ Current leader key map:                                            *leadermap*
   ,=            Re-indent entire buffer
   ,<space>      Hide current search highlight
   ,<tab>        Toggle expandtab, then do a tab <-> spaces conversion
+  ,2            Set tab stop to 2
   ,4            Set tab stop to 4
   ,8            Set tab stop to 8
   ,a            Reserved for future use for Ack (grep replacement)
@@ -32,8 +33,6 @@ Current leader key map:                                            *leadermap*
   ,ss           Set filetype: Shell
   ,sw           Set filetype: Wiki (mediawiki)
   ,S            Toggle syntax highlighting
-  ,t            Coding tab settings (soft tabs, 4, autoindent, textwidth 0)
-  ,T            Non-coding settings (regular tabs, 8, no indent, textwidth <80)
   ,v            Reselect what was just pasted
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
