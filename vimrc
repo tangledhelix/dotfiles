@@ -120,7 +120,10 @@ command! -nargs=* Wrap setlocal wrap lbr nolist
 " Hard wrap, for writing prose, not code. Automatically reflows text to
 " be no greater than textwidth. Also turns off colorcolumn since it's of
 " no real use in this situation.
-command! -nargs=* Prose setlocal tw=75 fo+=at cc=''
+command! -nargs=* Prose setlocal tw=75 fo+=at cc=""
+
+" Undo the Prose settings if I do not actually want that right now.
+command! -nargs=* Noprose setlocal tw=0 fo-=at cc=81
 
 " }}}
 " --------------------------------------------------------------------
@@ -401,6 +404,10 @@ set wildmenu
 
 " Behave like a shell, show me completion only to point of ambiguity.
 set wildmode=list:longest
+
+" By default, sparkup hijacks ^E, remap it to ^T to avoid scrolling
+" attempts turning into HTML rewriting. Note: it also snags ^N.
+let g:sparkupExecuteMapping='<c-t>'
 
 " }}}
 " --------------------------------------------------------------------
