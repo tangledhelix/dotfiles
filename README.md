@@ -24,15 +24,8 @@ Vim-related files
 * gvimrc
 * vim/*
 
-The makelinks script
---------------------
+Installation
+------------
 
-I use the 'makelinks' script to symlink many of these files back into $HOME.
-It's a primitive script and perhaps destructive. It works for my purposes,
-but please know what you are doing before you attempt to use it. I will not
-take any responsibility for what happens if you run it without reading it
-first.
-
-I don't use the more commonly used 'rake install' becasue many systems I
-use routinely do not have Ruby installed. Yeah, yeah, I know.
+Use 'rake install' to install symlinks into $HOME.
 
