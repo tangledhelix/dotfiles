@@ -60,6 +60,7 @@ for _this in \
     /usr/X11R6/bin \
     /Developer/usr/bin \
     ~/.gem/ruby/1.8/bin \
+    ~/.gem/ruby/1.9.1/bin \
     ~/Dropbox/bin \
     ~/tools
 do
