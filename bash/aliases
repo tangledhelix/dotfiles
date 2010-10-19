@@ -25,6 +25,7 @@ alias dirf='find . -type d|sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"'
 
 alias fn="find . -name"
 alias ff="find . -type f -print"
+alias fd="find . -type d -print"
 
 # Show me time in GMT / UTC
 alias utc="TZ=UTC date"
@@ -50,7 +51,7 @@ alias sshnx="ssh -x"
 alias tailf="tail --follow=name"
 
 # Strip comment / blank lines from an output
-alias stripcomments="egrep -v '^(#|$)'"
+alias stripcomments="egrep -v '^([\ \t]*#|$)'"
 
 # Check for hosed SMF services
 alias xv="svcs -xv"
