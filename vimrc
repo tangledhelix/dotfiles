@@ -258,8 +258,15 @@ vmap <leader>C :center<CR>
 " Toggle autoclose mode
 nmap <leader>A <Plug>ToggleAutoCloseMappings
 
-" Strip trailing whitespace file-wide
+" Strip trailing whitespace file-wide, preserving cursor location
 nnoremap <silent> <leader>W :call Preserve("%s/\\s\\+$//e")<CR>
+
+" Swap ' for " (or vice versa) on strings, preserving cursor location
+nmap <leader>' :call Preserve("normal cs\"'")<CR>
+nmap <leader>" :call Preserve("normal cs'\"")<CR>
+
+" Insert a space (easier for code reformatting sometimes...)
+nnoremap <space> i<space><esc>
 
 " }}}
 " --------------------------------------------------------------------
@@ -323,7 +330,7 @@ nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
     \   echo "Syntax on" <Bar>
     \endif<CR>
 
-" Re-indent entire file, returning to the cursor position you started from.
+" Re-indent entire file, preserving cursor location
 nmap <leader>= :call Preserve("normal gg=G")<CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
@@ -405,9 +412,16 @@ set wildmenu
 " Behave like a shell, show me completion only to point of ambiguity.
 set wildmode=list:longest
 
-" By default, sparkup hijacks ^E, remap it to ^T to avoid scrolling
-" attempts turning into HTML rewriting. Note: it also snags ^N.
+" By default, sparkup hijacks ^E and ^N. Both can be problematic because
+" those bindings are in use for other purposes, and sparkup changes
+" their meaning in HTML contexts.
+"       ^E is used to scroll the view downward
+"       ^N is used for word completion
+" These aren't the best mappings, but until I determine good, non-
+" conflicting mappings for these, I'm just assigning them to some
+" random keys I don't really use.
 let g:sparkupExecuteMapping='<c-t>'
+let g:sparkupNextMapping='<c-x>'
 
 " }}}
 " --------------------------------------------------------------------
