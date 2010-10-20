@@ -354,7 +354,7 @@ nmap <leader>sw :set filetype=mediawiki<CR>
 
 " }}}
 " ----------------------------------------------------------------------
-" Vim pseudo-windows {{{
+" Vim pseudo-windows and tabpages {{{
 
 " Create new windows below current one, if no direction was specified.
 set splitbelow
@@ -370,6 +370,18 @@ map <C-l> :wincmd l<CR>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
+
+" Open a new tab in the current view
+nnoremap <leader>t :tabnew<CR>
+
+" Navigate left/right through tabs using left/right arrow keys.
+" These mappings override the ones found in the arrow-key-remap plugin.
+nmap <silent> <Left> :tabp<CR>
+nmap <silent> <Right> :tabn<CR>
+vmap <silent> <Left> :tabp<CR>
+vmap <silent> <Right> :tabn<CR>
+imap <silent> <Left> <Esc>:tabp<CR>
+imap <silent> <Right> <Esc>:tabn<CR>
 
 " }}}
 " --------------------------------------------------------------------
