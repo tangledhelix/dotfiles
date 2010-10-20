@@ -11,57 +11,62 @@ elif [[ "$OS" = "Darwin" || "$OS" = "FreeBSD" ]]; then
     export CLICOLOR="yes"
 fi
 
+alias ..='cd ..'
+
 # Lets me queue up a beep if I want, i.e. "make ; beep"
 alias beep='echo -ne "\a"'
 
 # Common typos
-alias whios="whois"
-alias mroe="more"
-alias More="more"
-alias Grep="grep"
+alias whios='whois'
+alias mroe='more'
+alias More='more'
+alias Grep='grep'
 
 # print the directory structure from the current directory in tree format
 alias dirf='find . -type d|sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"'
 
-alias fn="find . -name"
-alias ff="find . -type f -print"
-alias fd="find . -type d -print"
+alias fn='find . -name'
+alias ff='find . -type f -print'
+alias fd='find . -type d -print'
 
 # Show me time in GMT / UTC
-alias utc="TZ=UTC date"
-alias gmt="TZ=GMT date"
+alias utc='TZ=UTC date'
+alias gmt='TZ=GMT date'
 # Time in Tokyo
-alias jst="TZ=Asia/Tokyo date"
+alias jst='TZ=Asia/Tokyo date'
 
-test -x /usr/bin/mailx && alias mail="/usr/bin/mailx"
-test -x /usr/ucb/Mail && alias Mail="/usr/ucb/Mail"
+test -x /usr/bin/mailx && alias mail='/usr/bin/mailx'
+test -x /usr/ucb/Mail && alias Mail='/usr/ucb/Mail'
 
 # Solaris diff sucks, use GNU diff instead.
 test -x /usr/local/pkg/diffutils/bin/diff &&
-    alias diff="/usr/local/pkg/diffutils/bin/diff"
+    alias diff='/usr/local/pkg/diffutils/bin/diff'
 
 # Tell me what OS this is
-alias os="uname -srm"
+alias os='uname -srm'
 
 # Shortcut to ssh with X11 forwarding explicitly enabled and disabled
-alias sshx="ssh -X"
-alias sshnx="ssh -x"
+alias sshx='ssh -X'
+alias sshnx='ssh -x'
 
 # Tail a file even if it's rotated out (e.g. log files) - needs GNU tail
-alias tailf="tail --follow=name"
+alias tailf='tail --follow=name'
 
 # Strip comment / blank lines from an output
 alias stripcomments="egrep -v '^([\ \t]*#|$)'"
 
 # Check for hosed SMF services
-alias xv="svcs -xv"
+alias xv='svcs -xv'
 
 # Show my path
 alias path='echo $PATH'
 
+# I end up typing this a lot.
+alias gs='git status'
+
 # reload bash config
-alias reload=". ~/.bashrc"
+alias reload='. ~/.bashrc'
 
 # commands starting with % for pasting from web
-alias %=" "
+alias %=' '
 
