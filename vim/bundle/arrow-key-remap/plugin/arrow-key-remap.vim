@@ -41,26 +41,27 @@ function! AddEmptyLineBelow()
 endfunction
  
 " Arrow key remapping: Up/Dn = move line up/dn; Left/Right = indent/unindent
+" I've disabled left/right, those are in use in ~/.vimrc for tab navigation.
 function! SetArrowKeysAsTextShifters()
     " normal mode
-    nmap <silent> <Left> <<
-    nmap <silent> <Right> >>
+    "nmap <silent> <Left> <<
+    "nmap <silent> <Right> >>
     nnoremap <silent> <Up> <Esc>:call DelEmptyLineAbove()<CR>
     nnoremap <silent> <Down>  <Esc>:call AddEmptyLineAbove()<CR>
     nnoremap <silent> <C-Up> <Esc>:call DelEmptyLineBelow()<CR>
     nnoremap <silent> <C-Down> <Esc>:call AddEmptyLineBelow()<CR>
  
     " visual mode
-    vmap <silent> <Left> <
-    vmap <silent> <Right> >
+    "vmap <silent> <Left> <
+    "vmap <silent> <Right> >
     vnoremap <silent> <Up> <Esc>:call DelEmptyLineAbove()<CR>gv
     vnoremap <silent> <Down>  <Esc>:call AddEmptyLineAbove()<CR>gv
     vnoremap <silent> <C-Up> <Esc>:call DelEmptyLineBelow()<CR>gv
     vnoremap <silent> <C-Down> <Esc>:call AddEmptyLineBelow()<CR>gv
  
     " insert mode
-    imap <silent> <Left> <C-D>
-    imap <silent> <Right> <C-T>
+    "imap <silent> <Left> <C-D>
+    "imap <silent> <Right> <C-T>
     inoremap <silent> <Up> <Esc>:call DelEmptyLineAbove()<CR>a
     inoremap <silent> <Down> <Esc>:call AddEmptyLineAbove()<CR>a
     inoremap <silent> <C-Up> <Esc>:call DelEmptyLineBelow()<CR>a
