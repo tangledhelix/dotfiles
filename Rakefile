@@ -3,7 +3,6 @@ task :default do
   puts 'Usage: rake install'
 end
 
-
 task :install do
   ignore_files = %w( README.md Rakefile ssh )
   $replace_all = false
