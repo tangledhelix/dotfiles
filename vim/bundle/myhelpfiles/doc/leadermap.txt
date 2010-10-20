@@ -35,6 +35,7 @@ Current leader key map:                                            *leadermap*
   ,ss           Set filetype: Shell
   ,sw           Set filetype: Wiki (mediawiki)
   ,S            Toggle syntax highlighting
+  ,t            Open a new tab in current view
   ,v            Reselect what was just pasted
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
