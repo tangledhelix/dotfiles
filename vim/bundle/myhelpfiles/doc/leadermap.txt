@@ -8,6 +8,8 @@ Current leader key map:                                            *leadermap*
   ,/            Toggle NERDTree browser
   ,*            Load FuzzyFinder in file mode
   ,=            Re-indent entire buffer
+  ,'            Change surrounding " to '
+  ,"            Change surrounding ' to "
   ,<space>      Hide current search highlight
   ,<tab>        Toggle expandtab, then do a tab <-> spaces conversion
   ,2            Set tab stop to 2
