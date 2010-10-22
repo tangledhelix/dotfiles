@@ -68,8 +68,8 @@ set guifont=Menlo:h14
 set antialias
 
 highlight Comment guifg=#858585
-highlight Statement guifg=blue
-highlight Identifier guifg=darkcyan gui=bold
+highlight Statement gui=NONE guifg=blue
+highlight Identifier gui=NONE guifg=darkcyan
 " invisibles...
 highlight NonText guifg=#cdcdcd
 highlight SpecialKey guifg=#cdcdcd
