@@ -228,7 +228,7 @@ nmap <leader>n :set relativenumber!<CR>
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
 
-" Show current cursor line position.
+" Show current cursor line position
 set cursorline
 
 " Warn on long lines. Looks like crap in a terminal (see .gvimrc).
@@ -583,31 +583,25 @@ endif
 " --------------------------------------------------------------------
 " Colors {{{
 
-"if !has("gui") && has("terminfo")
-    "set t_Co=16
-    "set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-    "set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
-"else
-    "set t_Co=16
-    "set t_Sf=[3%dm
-    "set t_Sb=[4%dm
-"endif
-
-" 256-color support using TERM=xterm-256color.
-set t_Co=256
-"set t_AB=[48;5;%dm
-"set t_AF=[38;5;%dm
+if !has("gui") && has("terminfo")
+    set t_Co=16
+    set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+    set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+else
+    set t_Co=16
+    set t_Sf=[3%dm
+    set t_Sb=[4%dm
+endif
 
 " Activate syntax highlighting
 syntax enable
 
 " Custom colors (MacVim colors are in .gvimrc)
 highlight Comment ctermfg=darkgrey
-highlight Statement cterm=NONE ctermfg=21
-highlight Identifier cterm=NONE ctermfg=darkcyan
+highlight Statement cterm=bold ctermfg=blue
+highlight Identifier cterm=bold ctermfg=darkcyan
 highlight Search ctermbg=14
-highlight CursorLine cterm=NONE ctermbg=255
-highlight StatusLine cterm=NONE ctermfg=15 ctermbg=240
+highlight CursorLine cterm=NONE ctermbg=11
 " invisibles...
 highlight NonText ctermfg=grey
 highlight SpecialKey ctermfg=grey

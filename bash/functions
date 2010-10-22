@@ -83,15 +83,3 @@ function short_nodename() {
 
 }
 
-# Output an extended color (256-color support). If one color is provided,
-# set the fg. If two are provided, set {fg, bg}.
-function _xc() {
-    echo -ne "\[\033[38;5;$1m\]"
-    test -n "$2" && echo -ne "\[\033[48;5;$2m\]"
-}
-
-# Set back to normal colors.
-function _nc() {
-    echo -ne "\[\033[0m\]"
-}
-

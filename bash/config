@@ -14,8 +14,8 @@ test -n "$INTERACTIVE" && {
     shopt -s histappend >/dev/null 2>&1
 
     # Prompt
-    #   Uses 256-color support (TERM=xterm-256color).
-    #   See bash/functions for _xc(), _nc(), parse_git_branch().
+    #   Colors defined in bash/colordefs.
+    #   See bash/functions for parse_git_branch().
     #
     # \u    Username
     # \w    Current working directory
@@ -24,10 +24,10 @@ test -n "$INTERACTIVE" && {
     # \$    $ or # (depending on uid)
     # \j    Number of jobs currently managed by the shell
     #
-    export PS1="\n$(_xc 27)[\j] $(_xc 165)\w$(_xc 160)\$(parse_git_branch)\n$(_nc)\u@$(short_nodename){\$?}\\$ "
+    export PS1="\n${BRIGHT_BLUE}[\j] ${BRIGHT_VIOLET}\w${BRIGHT_RED}\$(parse_git_branch)\n${BRIGHT_BLACK}\u@$(short_nodename){\$?}\\$ ${NORMAL}"
 
-    # An approximate tcsh equivalent is:
-    # set prompt = '%n@%M:%c{%?}%# '
+    # A decent tcsh prompt:
+    #set prompt = '%n@%M:%c{%?}%# '
 
     stty erase '^?' -parenb -istrip echo echoe echoctl echoke tabs cs8
 
