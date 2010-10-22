@@ -554,7 +554,7 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.com set filetype=bindzone
     autocmd BufNewFile,BufRead *.global set filetype=m4
     autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
-    autocmd BufNewFile,BufRead *Safari*WordPress* set filetype=markdown
+    autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
     autocmd BufNewFile,BufRead .bash/*,.dotfiles/bash* set filetype=sh
     autocmd BufNewFile,BufRead distfile.common,Distfile set filetype=rdist
     autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
