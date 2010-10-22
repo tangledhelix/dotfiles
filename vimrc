@@ -595,8 +595,8 @@ endif
 
 " 256-color support using TERM=xterm-256color.
 set t_Co=256
-set t_AB=^[[48;5;%dm
-set t_AF=^[[38;5;%dm
+"set t_AB=^[[48;5;%dm
+"set t_AF=^[[38;5;%dm
 
 " Activate syntax highlighting
 syntax enable
