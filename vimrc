@@ -602,6 +602,7 @@ highlight Statement cterm=bold ctermfg=blue
 highlight Identifier cterm=bold ctermfg=darkcyan
 highlight Search ctermbg=14
 highlight CursorLine cterm=NONE ctermbg=11
+highlight StatusLine cterm=NONE ctermfg=white ctermbg=darkgrey
 " invisibles...
 highlight NonText ctermfg=grey
 highlight SpecialKey ctermfg=grey
