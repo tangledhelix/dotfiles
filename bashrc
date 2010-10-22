@@ -7,7 +7,6 @@ esac
 
 source ~/.bash/environment
 source ~/.bash/functions
-source ~/.bash/colordefs
 source ~/.bash/config
 source ~/.bash/aliases
 source ~/.bash/mac
