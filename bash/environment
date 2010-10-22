@@ -8,6 +8,8 @@
 
 export HOME LOGNAME UNAME INPUTRC
 
+test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
+
 # Collect some info about the local system
 export HOST="$(uname -n)"
 export OS="$(uname -s)"
