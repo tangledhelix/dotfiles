@@ -142,7 +142,7 @@ fi
 
 LESS="-Fiw"
 
-export PAGER MANPAGER
+export PAGER MANPAGER LESS
 
 #######################################################################
 # Oracle
