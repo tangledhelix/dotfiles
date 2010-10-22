@@ -228,9 +228,8 @@ nmap <leader>n :set relativenumber!<CR>
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
 
-" Show current cursor line position. In terminals, this underlines the line,
-" which is ugly. It's fine in MacVim.
-"set cursorline
+" Show current cursor line position.
+set cursorline
 
 " Warn on long lines. Looks like crap in a terminal (see .gvimrc).
 "set colorcolumn=81
@@ -266,7 +265,7 @@ nmap <leader>' :call Preserve("normal cs\"'")<CR>
 nmap <leader>" :call Preserve("normal cs'\"")<CR>
 
 " Insert a space (easier for code reformatting sometimes...)
-nnoremap <space> i<space><esc>
+nnoremap <space> i<space><esc>l
 
 " }}}
 " --------------------------------------------------------------------
@@ -526,7 +525,9 @@ vnoremap <F1> <ESC>
 " Swap ; in place of : for commands - no need to hit shift constantly.
 " Note: do not map : back to ; to try to reclaim the ';' functionality,
 " it'll break half the plugins.
-nnoremap ; :
+" Undoing this map. I think losing the ; function is not worth it just
+" to avoid hitting shift for commands.
+"nnoremap ; :
 
 " Define "del" char to be the same backspace (saves a LOT of trouble!)
 " As the angle notation cannot be use with the LeftHandSide
@@ -537,6 +538,9 @@ nnoremap ; :
 imap <Esc>[3~ <C-H>
 imap        <C-H>
 cmap        <C-H>
+
+" Unmap the K key, it usually doesn't do anything useful anyway.
+nmap K <NUL>
 
 " }}}
 " --------------------------------------------------------------------
@@ -560,8 +564,10 @@ if has("autocmd")
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2
 
     " These are mostly prose, set up hard autowrap.
-    autocmd FileType mediawiki setlocal tw=75 fo+=at cc=""
-    autocmd FileType markdown setlocal tw=75 fo+=at cc=""
+    " Disabling, this turns out to be really aggravating when working
+    " on code examples and technical documentation.
+    "autocmd FileType mediawiki setlocal tw=75 fo+=at cc=""
+    "autocmd FileType markdown setlocal tw=75 fo+=at cc=""
 
     " Makefiles need real tabs.
     autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
@@ -588,6 +594,12 @@ else
     set t_Sb=[4%dm
 endif
 
+" Settings for xterm-256color
+"set t_Co=256
+" may also need:
+"set t_AB=^[[48;5;%dm
+"set t_AF=^[[38;5;%dm
+
 " Activate syntax highlighting
 syntax enable
 
@@ -595,7 +607,8 @@ syntax enable
 highlight Comment ctermfg=darkgrey
 highlight Statement ctermfg=blue cterm=bold
 highlight Identifier ctermfg=darkcyan cterm=bold
-highlight Search term=reverse ctermbg=11
+highlight Search term=reverse ctermbg=14
+highlight CursorLine cterm=NONE ctermbg=11
 highlight ColorColumn ctermbg=lightgrey ctermfg=black
 " invisibles...
 highlight NonText ctermfg=grey
