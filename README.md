@@ -2,30 +2,21 @@
 About
 -----
 
-This repo contains my personal dotfiles, which I use on unix and unix-like
-systems of varying flavors. They are published here because occasionally
-I want to share some or all of them, or use them as an example, and this
-is an easy way to do so. Feel free to use anything you find here.
-
-The most important configs relate to Bash and Vim.
-
-Bash-related files
-------------------
-
-* bash_profile
-* bashrc
-* bash/*
-* inputrc (readline)
-
-Vim-related files
------------------
-
-* vimrc
-* gvimrc
-* vim/*
+This repository contains my personal dotfiles, which I use on unix systems of
+varying flavors. They are published here because I occasionally want to share
+them or use them as examples, and this is an easy way to do so. Feel free to
+use anything you find here.
 
 Installation
 ------------
 
 Use 'rake install' to install symlinks into $HOME.
+
+Compatibility
+-------------
+
+I am a bash user; much of the shell environment may well work in other advanced
+Bourne derivatives such as zsh, but some of it will break.
+
+I regularly use this setup with Mac OS X, Solaris, Linux and FreeBSD.
 
