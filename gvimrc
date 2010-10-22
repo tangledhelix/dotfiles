@@ -64,7 +64,7 @@ vnoremap <leader>P "*p
 " ------------------------------------------------------------------------
 " Fonts and colors {{{
 
-set guifont=Menlo:h12
+set guifont=Menlo:h14
 set antialias
 
 highlight Comment guifg=#858585
