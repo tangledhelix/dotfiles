@@ -3,9 +3,6 @@
 " ------------------------------------------------------------------------
 " General config {{{
 
-" Hilight current line so I can more easily tell where I am
-set cursorline
-
 " Disable the toolbar
 set guioptions=-t
 
