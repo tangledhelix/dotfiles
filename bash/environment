@@ -130,8 +130,8 @@ alias vimdiff='vdiff'
 # Pagers
 
 if test -n "$(command -v less 2>/dev/null)" ; then
-    PAGER="less -FirSwX"
-    MANPAGER="less -FiRswX"
+    PAGER="less -Firw"
+    MANPAGER="less -FiRsw"
     alias more="less"
     test -n "$(command -v ack 2>/dev/null)" && {
         export ACK_PAGER="less -R"
@@ -142,8 +142,7 @@ else
     MANPAGER="$PAGER"
 fi
 
-#LESS="-eIMq"
-#LESS="-IMq"
+LESS="-Fiw"
 
 export PAGER MANPAGER
 
