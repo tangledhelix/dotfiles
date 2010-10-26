@@ -17,6 +17,7 @@ Current leader key map:                                            *leadermap*
   ,8            Set tab stop to 8
   ,a            Reserved for future use for Ack (grep replacement)
   ,A            Toggle autoclose mode
+  ,B            Build Javascript bookmarklet from current buffer
   ,c            Manage commenting (defined by plugin: nerd_commenter)
                     ,c<space> toggles comment for current line/selection
   ,C            Center current line or selection
@@ -42,7 +43,8 @@ Current leader key map:                                            *leadermap*
   ,y            Toggle yankring window
   ,Y            GUI only: copy to OS X clipboard           (defined in .gvimrc)
   ,zd           GUI only: return to default size           (defined in .gvimrc)
-  ,zf           GUI only: zoom to max height/width         (defined in .gvimrc)
+  ,zf           GUI only: toggle fullscreen, bigger font   (defined in .gvimrc)
+  ,zm           GUI only: zoom to max height/width         (defined in .gvimrc)
   ,zw           GUI only: grow to max width                (defined in .gvimrc)
   ,zW           GUI only: return to default width          (defined in .gvimrc)
   ,zz           GUI only: grow to max height               (defined in .gvimrc)

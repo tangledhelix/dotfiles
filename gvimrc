@@ -39,11 +39,19 @@ nmap <leader>zZ :set lines=40<CR>
 nmap <leader>zw :set columns=999<CR>
 nmap <leader>zW :set columns=90<CR>
 
-" Zoom to max size. This isn't fullscreen; use cmd-shift-F for that.
-nmap <leader>zf :set lines=999 columns=999<CR>
+" Zoom to max size. This isn't fullscreen; use ,zf for that.
+nmap <leader>zm :set lines=999 columns=999<CR>
 
 " Return to normal size
 nmap <leader>zd :set lines=40 columns=90<CR>
+
+" Real fullscreen. Also kicks up the font size a bit.
+nmap <silent> <leader>zf :if &fullscreen <Bar>
+    \   set guifont=Menlo:h12 <Bar>
+    \else <Bar>
+    \   set guifont=Menlo:h16 <Bar>
+    \endif<CR>
+    \:set fullscreen!<CR>
 
 " }}}
 " ------------------------------------------------------------------------
