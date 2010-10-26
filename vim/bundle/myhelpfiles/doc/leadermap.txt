@@ -25,6 +25,9 @@ Current leader key map:                                            *leadermap*
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
+  ,ll           Underline previous line with hyphens
+  ,lL           Underline previous line with equal-signs
+  ,l*           Underline previous line with asterisks
   ,n            Toggle relative line numbering
   ,P            GUI only: paste from OS X clipboard        (defined in .gvimrc)
   ,sc           Set filetype: C

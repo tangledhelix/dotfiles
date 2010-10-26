@@ -351,6 +351,14 @@ nmap <leader>ss :set filetype=sh<CR>
 nmap <leader>sr :set filetype=ruby<CR>
 nmap <leader>sw :set filetype=mediawiki<CR>
 
+" A couple of conveniences for Markdown and others
+imap <leader>ll <ESC>kyypVr-o
+nmap <leader>ll kyypVr-o
+imap <leader>lL <ESC>kyypVr=o
+nmap <leader>lL kyypVr=o
+imap <leader>l* <ESC>kyypVr*o
+nmap <leader>l* kyypVr*o
+
 " }}}
 " ----------------------------------------------------------------------
 " Vim pseudo-windows and tabpages {{{
@@ -507,6 +515,15 @@ set modelines=0
 
 " Are we using a fast terminal?
 set ttyfast
+
+" }}}
+" --------------------------------------------------------------------
+" Custom command mappings {{{
+
+" Read current buffer, turn it into a bookmarklet, insert that bookmarklet
+" in a comment on line 1 (discarding previously inserted bookmarklet if it
+" exists), copy bookmarklet to the clipboard.
+nmap <silent> <leader>B :%!$HOME/.vim/bundle/misc/bin/bookmarklet_build.pl<CR>
 
 " }}}
 " --------------------------------------------------------------------
