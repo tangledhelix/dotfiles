@@ -462,7 +462,7 @@ set pastetoggle=,,
 vmap D y'>p
 
 " Reselect what was just pasted so I can so something with it.
-nnoremap <leader>v V`]
+nnoremap <leader>v `[v`]
 
 " Toggle Yankring window
 nnoremap <silent> <leader>y :YRShow<CR>
