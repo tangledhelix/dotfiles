@@ -31,13 +31,9 @@ set encoding=utf-8
 set lines=40
 set columns=90
 
-" Grow / shrink window height
+" Grow window height / width
 nmap <leader>zz :set lines=999<CR>
-nmap <leader>zZ :set lines=40<CR>
-
-" Grow / shrink window width
 nmap <leader>zw :set columns=999<CR>
-nmap <leader>zW :set columns=90<CR>
 
 " Zoom to max size. This isn't fullscreen; use ,zf for that.
 nmap <leader>zm :set lines=999 columns=999<CR>

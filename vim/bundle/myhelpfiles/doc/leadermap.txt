@@ -49,7 +49,5 @@ Current leader key map:                                            *leadermap*
   ,zf           GUI only: toggle fullscreen, bigger font   (defined in .gvimrc)
   ,zm           GUI only: zoom to max height/width         (defined in .gvimrc)
   ,zw           GUI only: grow to max width                (defined in .gvimrc)
-  ,zW           GUI only: return to default width          (defined in .gvimrc)
   ,zz           GUI only: grow to max height               (defined in .gvimrc)
-  ,zZ           GUI only: return to default height         (defined in .gvimrc)
 
