@@ -267,6 +267,14 @@ nmap <leader>" :call Preserve("normal cs'\"")<CR>
 " Insert a space (easier for code reformatting sometimes...)
 nnoremap <space> i<space><esc>l
 
+" Bubble single lines
+nmap <Up> [e
+nmap <Down> ]e
+
+" Bubble multiple lines
+vmap <Up> [egv
+vmap <Down> ]egv
+
 " }}}
 " --------------------------------------------------------------------
 " Navigation {{{
