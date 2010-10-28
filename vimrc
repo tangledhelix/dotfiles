@@ -602,6 +602,12 @@ if has("autocmd")
     " Not sure whether I like this idea yet.
     "au FocusLost * :wa
 
+    " Restore cursor position
+    autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+
 endif
 
 " }}}
