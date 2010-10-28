@@ -36,6 +36,9 @@ Search and replace
     :%s/foo/bar/    search/replace entire file
         add g (/g) to end for global (also see :help gdefault)
 
+    :s/\%V_/ /g     Add \%V to limit action to a *block* selection (by
+                    default entire lines are affected even in ^v mode).
+    
     &       repeat last :s command
 
 ------------------------------------------------------------------------------
