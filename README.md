@@ -10,7 +10,9 @@ use anything you find here.
 Installation
 ------------
 
-Use 'rake install' to install symlinks into $HOME.
+Use 'rake install' to install symlinks into $HOME, if you really want them
+all there. Rake will ask you about each file, so it shouldn't overwrite
+anything you already have in place.
 
 Compatibility
 -------------
