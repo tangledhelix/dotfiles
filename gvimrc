@@ -6,6 +6,9 @@
 " Disable the toolbar
 set guioptions=-t
 
+" Enable the right scrollbar
+set guioptions=+r
+
 " Put the file/buffer name in the title bar
 set title
 
@@ -75,8 +78,8 @@ highlight Comment guifg=#858585
 highlight Statement gui=bold guifg=blue
 highlight Identifier gui=bold guifg=darkcyan
 " invisibles...
-highlight NonText guifg=#cdcdcd
-highlight SpecialKey guifg=#cdcdcd
+highlight NonText guifg=#eeeeee
+highlight SpecialKey guifg=#eeeeee
 
 " }}}
 " ------------------------------------------------------------------------
