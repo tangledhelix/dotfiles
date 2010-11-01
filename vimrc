@@ -26,25 +26,33 @@ runtime macros/matchit.vim
 " --------------------------------------------------------------------
 " Tab settings {{{
 
-" Expand tabs to spaces (soft tabs). I HATE TABS.
-set expandtab
+" These settings work best when coding, indenting from the left column, but
+" not using <tab> to indent other than that - e.g. right-hand comments would
+" be indented using spaces, to avoid formatting breakage if later viewed in an
+" editor with a different tab stop. I tend to avoid right-hand comments anyway
+" precisely becuase of that format problem.
+
+" Do not expand tabs to spaces
+set noexpandtab
 
 " My tab width is 4. Because 8 is too much, but 2 is visually too small
-" for code nesting IMO. Should match shiftwidth.
+" for code nesting IMO. Should match shiftwidth. Sometimes I do use an
+" indent of 2, e.g. in Ruby and YAML files, due to convention.
 set tabstop=4
-set softtabstop=4
 
 " Number of spaces to use for (auto)indent. Generally this should be the
 " same as the tabstop and softtabstop.
 set shiftwidth=4
 
-" Set tab width to 2, 4, or 8
-nmap <leader>2 :setlocal ts=2 sts=2 sw=2<CR>
-nmap <leader>4 :setlocal ts=4 sts=4 sw=4<CR>
-nmap <leader>8 :setlocal ts=8 sts=8 sw=8<CR>
+" Set the indent width to 2, 4, or 8
+nmap <leader>2 :setlocal ts=2 sw=2<CR>
+nmap <leader>4 :setlocal ts=4 sw=4<CR>
+nmap <leader>8 :setlocal ts=8 sw=8<CR>
 
 " Re-tab the current file (changes tab->space or space->tab depending on the
-" current setting of expandtab).
+" current setting of expandtab). This can be dangerous, because on occasion
+" a raw tab will be embedded in a non-whitespace area like a string. One
+" hopes not, since we have things like \t, but you never know.
 nmap <silent> <leader><tab> :if &expandtab <Bar>
     \   set noet<CR>
     \   retab!<CR>
@@ -117,10 +125,8 @@ set backspace=indent,eol,start
 " to work properly.
 command! -nargs=* Wrap setlocal wrap lbr nolist
 
-" Hard wrap, for writing prose, not code. Automatically reflows text to
-" be no greater than textwidth. Also turns off colorcolumn since it's of
-" no real use in this situation.
-command! -nargs=* Prose setlocal tw=75 fo+=at cc=""
+" For writing prose, not code.
+command! -nargs=* Prose setlocal wrap lbr nolist cc=""
 
 " Undo the Prose settings if I do not actually want that right now.
 command! -nargs=* Noprose setlocal tw=0 fo-=at cc=81
@@ -266,6 +272,8 @@ nmap <leader>" :call Preserve("normal cs'\"")<CR>
 
 " Insert a space (easier for code reformatting sometimes...)
 nnoremap <space> i<space><esc>l
+" and have backspace become destructive...
+nnoremap <BS> X
 
 " Bubble single lines
 nmap <Up> [e
@@ -279,7 +287,9 @@ vmap <Down> ]egv
 " --------------------------------------------------------------------
 " Navigation {{{
 
-" Disallow usage of cursor keys within insert mode.
+" Disallow usage of cursor keys within insert mode. In my setup, they are used
+" for other purpose anyway. Up/Down moves a line or selection up or down, and
+" Left/Right switches tabs.
 set noesckeys
 
 " Do not jump to line start with page commands, i.e. keep the current column.
@@ -351,12 +361,13 @@ nmap <leader>sps :set paste<CR>
     \:set nopaste<CR>a
 
 " Manually set the file type for various languages
-nmap <leader>spe :set filetype=perl<CR>
-nmap <leader>spy :set filetype=python<CR>
-nmap <leader>sph :set filetype=php<CR>
 nmap <leader>sc :set filetype=c<CR>
-nmap <leader>ss :set filetype=sh<CR>
+nmap <leader>sd :set filetype=diff<CR>
+nmap <leader>spe :set filetype=perl<CR>
+nmap <leader>sph :set filetype=php<CR>
+nmap <leader>spy :set filetype=python<CR>
 nmap <leader>sr :set filetype=ruby<CR>
+nmap <leader>ss :set filetype=sh<CR>
 nmap <leader>sw :set filetype=mediawiki<CR>
 
 " A couple of conveniences for Markdown and others
@@ -462,6 +473,7 @@ set pastetoggle=,,
 vmap D y'>p
 
 " Reselect what was just pasted so I can so something with it.
+" (To reslect last selection even if it is not the last paste, use gv.)
 nnoremap <leader>v `[v`]
 
 " Toggle Yankring window
@@ -588,18 +600,12 @@ if has("autocmd")
     autocmd FileType ruby setlocal ts=2 sts=2 sw=2
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2
 
-    " These are mostly prose, set up hard autowrap.
-    " Disabling, this turns out to be really aggravating when working
-    " on code examples and technical documentation.
-    "autocmd FileType mediawiki setlocal tw=75 fo+=at cc=""
-    "autocmd FileType markdown setlocal tw=75 fo+=at cc=""
-
     " Makefiles need real tabs.
     autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
     autocmd FileType make setlocal ts=8 sts=8 sw=8 noet
 
     " Save all unclean buffers when focus is lost (ala TextMate).
-    " Not sure whether I like this idea yet.
+    " Not sure whether I like this idea.
     "au FocusLost * :wa
 
     " Restore cursor position
