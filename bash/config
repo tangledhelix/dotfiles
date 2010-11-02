@@ -3,42 +3,41 @@ umask 0022
 
 test -n "$INTERACTIVE" && {
 
-    # Suppress local mail notices
-    shopt -u mailwarn >/dev/null 2>&1
-    unset MAILCHECK
+	# Suppress local mail notices
+	shopt -u mailwarn >/dev/null 2>&1
+	unset MAILCHECK
 
-    # Do not try to complete when the command is empty/whitespace
-    shopt -s no_empty_cmd_completion >/dev/null 2>&1
+	# Do not try to complete when the command is empty/whitespace
+	shopt -s no_empty_cmd_completion >/dev/null 2>&1
 
-    # Append history to ~/.bash_history on shell exit
-    shopt -s histappend >/dev/null 2>&1
+	# Append history to ~/.bash_history on shell exit
+	shopt -s histappend >/dev/null 2>&1
 
-    # Prompt
-    #   Colors defined in bash/colordefs.
-    #   See bash/functions for parse_git_branch().
-    #
-    # \u    Username
-    # \w    Current working directory
-    # \W    Name of this directory (not full dir)
-    # \$?   Expands to $?, i.e. exit value of last command executed
-    # \$    $ or # (depending on uid)
-    # \j    Number of jobs currently managed by the shell
-    #
-    export PS1="\n${BRIGHT_BLUE}[\j] ${BRIGHT_VIOLET}\w${BRIGHT_RED}\$(parse_git_branch)\n${BRIGHT_BLACK}\u@$(short_nodename){\$?}\\$ ${NORMAL}"
+	# Prompt
+	#	See bash/functions for parse_git_branch() and other functions.
+	#
+	# \u	Username
+	# \w	Current working directory
+	# \W	Name of this directory (not full dir)
+	# \$?	Expands to $?, i.e. exit value of last command executed
+	# \$	$ or # (depending on uid)
+	# \j	Number of jobs currently managed by the shell
+	#
+	export PS1="$(_xc_reset)\n$(_xc_bold 214)[\j]$(_xc_reset) $(_xc 176)\w$(_xc_reset)$(_xc_bold 197)\$(_git_branch)$(_xc_reset)\n$(_xc 228)\u@$(_short_hname)$(_xc_reset){\$(_color_retval)}\\$ "
 
-    # A decent tcsh prompt:
-    #set prompt = '%n@%M:%c{%?}%# '
+	# A decent tcsh prompt:
+	#set prompt = '%n@%M:%c{%?}%# '
 
-    stty erase '^?' -parenb -istrip echo echoe echoctl echoke tabs cs8
+	stty erase '^?' -parenb -istrip echo echoe echoctl echoke tabs cs8
 
-    # Use emacs keybindings at the prompt
-    set -o emacs
+	# Use emacs keybindings at the prompt
+	set -o emacs
 
-    # notify of bg job completion immediately
-    set -o notify
+	# notify of bg job completion immediately
+	set -o notify
 
-    # set the titlebar
-    echo -ne "\x1b]2;$HOST\x07\x1b]1;$HOST\x07"
+	# set the titlebar
+	echo -ne "\x1b]2;$HOST\x07\x1b]1;$HOST\x07"
 
 }
 

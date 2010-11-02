@@ -30,7 +30,7 @@ function astr() {
 # Get the current git branch (for shell prompt).
 # _preserve passes through $? unmolested, both for displaying it in the prompt
 # and for using it generally.
-function parse_git_branch() {
+function _git_branch() {
     _preserve=$?
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
     return $_preserve
@@ -66,7 +66,7 @@ function gitclone_ntt() {
 # Give me a shortened version of the local hostname.
 # If it's 1-3 atoms, give me only the first.
 # If it's more than that, give me the first two.
-function short_nodename() {
+function _short_hname() {
 
     echo $HOST | perl -p -e '
         if ( scalar( split( /\./ ) ) > 3 ) {
@@ -81,5 +81,41 @@ function short_nodename() {
     # atom it doesn't return anything at all.
     #perl -le '$ENV{HOST}=~/^((?:[^.]+\.){2}[^.]+|[^.]+)\./;print$1'
 
+}
+
+# Output an extended color (256-color support). If one color is provided,
+# set the foreground. If two are provided, set {foreground, background}.
+function _xc() {
+	_preserve=$?
+	echo -ne "\[\033[38;05;$1m\]"
+	test -n "$2" && echo -ne "\[\033[48;05;$2m\]"
+	return $_preserve
+}
+
+# Make the color bold instead of normal.
+function _xc_bold() {
+	_preserve=$?
+	echo -ne "\[\033[01m\]"
+	_xcolor $@
+	return $_preserve
+}
+
+# Set back to normal colors.
+function _xc_reset() {
+	_preserve=$?
+	echo -ne "\[\033[0m\]"
+	return $_preserve
+}
+
+# Give me a retval that's colorized based on its value. For some reason I have
+# to embed the escape codes directly; I can't use the _xcolor function.
+function _color_retval() {
+	_retval=$?
+	if [[ $_retval == 0 ]]; then
+		echo -ne "\033[0m$_retval"
+	else
+		echo -ne "\033[1m\033[38;5;196m$_retval\033[0m"
+	fi
+	return $_retval
 }
 

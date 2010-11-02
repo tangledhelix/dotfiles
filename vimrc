@@ -37,7 +37,7 @@ set noexpandtab
 
 " My tab width is 4. Because 8 is too much, but 2 is visually too small
 " for code nesting IMO. Should match shiftwidth. Sometimes I do use an
-" indent of 2, e.g. in Ruby and YAML files, due to convention.
+" indent of 2, e.g. in YAML files, due to convention.
 set tabstop=4
 
 " Number of spaces to use for (auto)indent. Generally this should be the
@@ -597,7 +597,7 @@ if has("autocmd")
     autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
 
     " Atypical tab widths
-    autocmd FileType ruby setlocal ts=2 sts=2 sw=2
+    "autocmd FileType ruby setlocal ts=2 sts=2 sw=2
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2
 
     " Makefiles need real tabs.
@@ -620,29 +620,33 @@ endif
 " --------------------------------------------------------------------
 " Colors {{{
 
-if !has("gui") && has("terminfo")
-    set t_Co=16
-    set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-    set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
-else
-    set t_Co=16
-    set t_Sf=[3%dm
-    set t_Sb=[4%dm
-endif
+"if !has("gui") && has("terminfo")
+    "set t_Co=16
+    "set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+    "set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+"else
+    "set t_Co=16
+    "set t_Sf=[3%dm
+    "set t_Sb=[4%dm
+"endif
+
+set t_Co=256
 
 " Activate syntax highlighting
 syntax enable
 
 " Custom colors (MacVim colors are in .gvimrc)
-highlight Comment ctermfg=darkgrey
-highlight Statement cterm=bold ctermfg=blue
-highlight Identifier cterm=bold ctermfg=darkcyan
-highlight Search ctermbg=14
-highlight CursorLine cterm=NONE ctermbg=11
-highlight StatusLine cterm=NONE ctermfg=white ctermbg=darkgrey
+"highlight Comment ctermfg=darkgrey
+"highlight Statement cterm=bold ctermfg=blue
+"highlight Identifier cterm=bold ctermfg=darkcyan
+"highlight Search ctermbg=14
+"highlight CursorLine cterm=NONE ctermbg=11
+"highlight StatusLine cterm=NONE ctermfg=white ctermbg=darkgrey
 " invisibles...
-highlight NonText ctermfg=grey
-highlight SpecialKey ctermfg=grey
+"highlight NonText ctermfg=grey
+"highlight SpecialKey ctermfg=grey
+
+colorscheme zenburn
 
 " }}}
 " --------------------------------------------------------------------

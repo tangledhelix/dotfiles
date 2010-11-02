@@ -46,11 +46,11 @@ nmap <leader>zd :set lines=40 columns=90<CR>
 
 " Real fullscreen. Also kicks up the font size a bit.
 nmap <silent> <leader>zf :if &fullscreen <Bar>
-    \   set guifont=Menlo:h12 <Bar>
-    \else <Bar>
-    \   set guifont=Menlo:h16 <Bar>
-    \endif<CR>
-    \:set fullscreen!<CR>
+	\     set guifont=Menlo:h12 <Bar>
+	\ else <Bar>
+	\     set guifont=Menlo:h16 <Bar>
+	\ endif<CR>
+	\ :set fullscreen!<CR>
 
 " }}}
 " ------------------------------------------------------------------------
