@@ -4,22 +4,22 @@
 
 test -n "$INTERACTIVE" -a "$UID" != "0" && {
 
-    # I like to see load avg and uptime numbers
-    uptime
-    
-    # Show me the local architecture
-    echo ">> `uname -srm` (`uname -n`)"
-    
-    echo " "
-    
-    # Check for broken services, if this is a Sun SMF-capable system
-    test -x /bin/svcs && svcs -xv
-    
-    # Is X11 ready to go? If so let me know.
-    test -n "$DISPLAY" -a "$OS" != "Darwin" && {
-        echo " "
-        echo "DISPLAY is set: $DISPLAY"
-        echo " "
-    }
+	# I like to see load avg and uptime numbers
+	uptime
+
+	# Show me the local architecture
+	echo ">> `uname -srm` (`uname -n`)"
+
+	echo " "
+
+	# Check for broken services, if this is a Sun SMF-capable system
+	test -x /bin/svcs && svcs -xv
+
+	# Is X11 ready to go? If so let me know.
+	test -n "$DISPLAY" -a "$OS" != "Darwin" && {
+		echo " "
+		echo "DISPLAY is set: $DISPLAY"
+		echo " "
+	}
 
 }

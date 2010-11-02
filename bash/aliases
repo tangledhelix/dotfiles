@@ -40,7 +40,7 @@ test -x /usr/ucb/Mail && alias Mail='/usr/ucb/Mail'
 
 # Solaris diff sucks, use GNU diff instead.
 test -x /usr/local/pkg/diffutils/bin/diff &&
-    alias diff='/usr/local/pkg/diffutils/bin/diff'
+	alias diff='/usr/local/pkg/diffutils/bin/diff'
 
 # Tell me what OS this is
 alias os='uname -srm'

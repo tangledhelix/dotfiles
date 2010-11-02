@@ -3,64 +3,64 @@
 # "h <pattern>" shows you history entries matching the string
 # ht is the same thing, but runs it through tail -20.
 function h() {
-    test -n "$1" && history | grep -i "$1" || history
+	test -n "$1" && history | grep -i "$1" || history
 }
 
 # Look up error codes
 function errno() {
-    perl -e "\$! = $1; print \"\$! \\n\";"
+	perl -e "\$! = $1; print \"\$! \\n\";"
 }
 
 # machine type, on solaris
 function hw() {
-    [[ "$OS" != "SunOS" ]] && {
-        echo "'hw' is only available in SunOS."
-        return
-    }
-    prtdiag | head -1 | \
-        sed "s/^System Configuration: *Sun Microsystems *//" | \
-        sed "s/^`uname -m` *//"
+	[[ "$OS" != "SunOS" ]] && {
+		echo "'hw' is only available in SunOS."
+		return
+	}
+	prtdiag | head -1 | \
+		sed "s/^System Configuration: *Sun Microsystems *//" | \
+		sed "s/^`uname -m` *//"
 }
 
 # Translate AS numbers / RR communities
 function astr() {
-    echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
+	echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
 }
 
 # Get the current git branch (for shell prompt).
 # _preserve passes through $? unmolested, both for displaying it in the prompt
 # and for using it generally.
 function _git_branch() {
-    _preserve=$?
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-    return $_preserve
+	_preserve=$?
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+	return $_preserve
 }
 
 # Easy clone of a project that lives on Dreamhost
 function gitclone_dreamhost() {
-    _user="scsiboy"
-    _server="git.tangledhelix.com"
+	_user="scsiboy"
+	_server="git.tangledhelix.com"
 
-    test -n "$1" || {
-        echo "Missing argument (repo to clone)"
-        return
-    }
+	test -n "$1" || {
+		echo "Missing argument (repo to clone)"
+		return
+	}
 
-    git clone ssh://$_user@$_server/~/git/$1 $2
+	git clone ssh://$_user@$_server/~/git/$1 $2
 }
 
 # NTT git environment is a little weird, streamline it.
 function gitclone_ntt() {
-    _path="/usr/local/bin/git-upload-pack"
-    _user="dan"
-    _server="admin1.mlpsca01.us.to.gin.ntt.net"
+	_path="/usr/local/bin/git-upload-pack"
+	_user="dan"
+	_server="admin1.mlpsca01.us.to.gin.ntt.net"
 
-    test -n "$1" || {
-        echo "Missing argument (repo to clone)"
-        return
-    }
+	test -n "$1" || {
+		echo "Missing argument (repo to clone)"
+		return
+	}
 
-    git clone -o ntt -u $_path ssh://$_user@$_server/~/git/$1 $2
+	git clone -o ntt -u $_path ssh://$_user@$_server/~/git/$1 $2
 }
 
 # Give me a shortened version of the local hostname.
@@ -68,18 +68,18 @@ function gitclone_ntt() {
 # If it's more than that, give me the first two.
 function _short_hname() {
 
-    echo $HOST | perl -p -e '
-        if ( scalar( split( /\./ ) ) > 3 ) {
-            s/^([^.]+\.[^.]+).*$/$1/;
-        } else {
-            s/^([^.]+).*$/$1/;
-        }
-    '
+	echo $HOST | perl -p -e '
+		if ( scalar( split( /\./ ) ) > 3 ) {
+			s/^([^.]+\.[^.]+).*$/$1/;
+		} else {
+			s/^([^.]+).*$/$1/;
+		}
+	'
 
-    # Alternate version from Ravi. Much shorter, but it gives
-    # you three atoms on long names, not two, and on a single
-    # atom it doesn't return anything at all.
-    #perl -le '$ENV{HOST}=~/^((?:[^.]+\.){2}[^.]+|[^.]+)\./;print$1'
+	# Alternate version from Ravi. Much shorter, but it gives
+	# you three atoms on long names, not two, and on a single
+	# atom it doesn't return anything at all.
+	#perl -le '$ENV{HOST}=~/^((?:[^.]+\.){2}[^.]+|[^.]+)\./;print$1'
 
 }
 
@@ -96,7 +96,7 @@ function _xc() {
 function _xc_bold() {
 	_preserve=$?
 	echo -ne "\[\033[01m\]"
-	_xcolor $@
+	_xc $@
 	return $_preserve
 }
 
@@ -108,7 +108,7 @@ function _xc_reset() {
 }
 
 # Give me a retval that's colorized based on its value. For some reason I have
-# to embed the escape codes directly; I can't use the _xcolor function.
+# to embed the escape codes directly; I can't use the _xc function.
 function _color_retval() {
 	_retval=$?
 	if [[ $_retval == 0 ]]; then

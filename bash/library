@@ -30,7 +30,7 @@ yn() {
 		echo "ERROR: Invalid default for yn()"
 		exit
 	fi
-	
+
 	read _choice
 
 	test -z "$_choice" && _choice=$_default

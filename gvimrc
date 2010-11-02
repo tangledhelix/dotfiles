@@ -16,9 +16,6 @@ set title
 set list
 set listchars=tab:▸\ ,eol:¬
 
-" Warn on long lines
-set colorcolumn=81
-
 " Whatever we copy, send to the system clipboard too.
 " I don't like this, it can obliterate my Launchbar clipboard history quickly.
 " Replaced this with ,Y and ,P mappings to easily interact with the system
@@ -74,12 +71,17 @@ vnoremap <leader>P "*p
 set guifont=Menlo:h12
 set antialias
 
-highlight Comment guifg=#858585
-highlight Statement gui=bold guifg=blue
-highlight Identifier gui=bold guifg=darkcyan
-" invisibles...
-highlight NonText guifg=#eeeeee
-highlight SpecialKey guifg=#eeeeee
+" Switching these off, using zenburn now.
+"highlight Comment guifg=#858585
+"highlight Statement gui=bold guifg=blue
+"highlight Identifier gui=bold guifg=darkcyan
+"" invisibles...
+"highlight NonText guifg=#eeeeee
+"highlight SpecialKey guifg=#eeeeee
+
+" zenburn leaves this kinda highlighted, whereas I want it muted
+" because tabs are classified as SpecialKey. Copied value of NonText.
+highlight SpecialKey gui=bold guifg=#5b605e
 
 " }}}
 " ------------------------------------------------------------------------

@@ -54,14 +54,14 @@ nmap <leader>8 :setlocal ts=8 sw=8<CR>
 " a raw tab will be embedded in a non-whitespace area like a string. One
 " hopes not, since we have things like \t, but you never know.
 nmap <silent> <leader><tab> :if &expandtab <Bar>
-    \   set noet<CR>
-    \   retab!<CR>
-    \   echo "Converted spaces to tabs." <Bar>
-    \else <Bar>
-    \   set et<CR>
-    \   retab!<CR>
-    \   echo "Converted tabs to spaces." <Bar>
-    \endif<CR>
+	\     set noet<CR>
+	\     retab!<CR>
+	\     echo "Converted spaces to tabs." <Bar>
+	\ else <Bar>
+	\     set et<CR>
+	\     retab!<CR>
+	\     echo "Converted tabs to spaces." <Bar>
+	\ endif<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -225,7 +225,7 @@ set nonumber
 " Show line numbers as relative to current, not as absolute. This makes it
 " easy to use count-based commands, e.g. 5dd or 10j.
 if v:version >= 703
-    set relativenumber
+	set relativenumber
 endif
 
 " Toggle relativenumber column. They get in the way of copying in a terminal.
@@ -337,15 +337,15 @@ nnoremap <leader>ft Vatzf
 
 " Toggle syntax highlighting. The .gvimrc is reloaded to fix syntax colors.
 nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
-    \   syntax off<CR>
-    \   echo "Syntax off" <Bar>
-    \else <Bar>
-    \   syntax enable<CR>
-    \   if filereadable($MYGVIMRC) <Bar>
-    \       so $MYGVIMRC <Bar>
-    \   endif<CR>
-    \   echo "Syntax on" <Bar>
-    \endif<CR>
+	\     syntax off<CR>
+	\     echo "Syntax off" <Bar>
+	\ else <Bar>
+	\     syntax enable<CR>
+	\     if filereadable($MYGVIMRC) <Bar>
+	\         so $MYGVIMRC <Bar>
+	\     endif<CR>
+	\     echo "Syntax on" <Bar>
+	\ endif<CR>
 
 " Re-indent entire file, preserving cursor location
 nmap <leader>= :call Preserve("normal gg=G")<CR>
@@ -355,10 +355,10 @@ nmap <leader>H :TOhtml<CR>
 
 " Insert a Perl stub header
 nmap <leader>sps :set paste<CR>
-    \a#!/usr/local/bin/perl<CR><CR>
-    \use strict;<CR>
-    \use warnings;<CR><CR><ESC>
-    \:set nopaste<CR>a
+	\a#!/usr/local/bin/perl<CR><CR>
+	\use strict;<CR>
+	\use warnings;<CR><CR><ESC>
+	\:set nopaste<CR>a
 
 " Manually set the file type for various languages
 nmap <leader>sc :set filetype=c<CR>
@@ -453,8 +453,8 @@ set wildmode=list:longest
 " By default, sparkup hijacks ^E and ^N. Both can be problematic because
 " those bindings are in use for other purposes, and sparkup changes
 " their meaning in HTML contexts.
-"       ^E is used to scroll the view downward
-"       ^N is used for word completion
+"     ^E is used to scroll the view downward
+"     ^N is used for word completion
 " These aren't the best mappings, but until I determine good, non-
 " conflicting mappings for these, I'm just assigning them to some
 " random keys I don't really use.
@@ -573,8 +573,8 @@ vnoremap <F1> <ESC>
 "cmap <C-V>127 <C-H>
 " the same for Linux Debian which uses
 imap <Esc>[3~ <C-H>
-imap        <C-H>
-cmap        <C-H>
+imap  <C-H>
+cmap  <C-H>
 
 " Unmap the K key, it usually doesn't do anything useful anyway.
 nmap K <NUL>
@@ -584,35 +584,35 @@ nmap K <NUL>
 " Auto-command triggers {{{
 
 if has("autocmd")
-    autocmd!
+	autocmd!
 
-    autocmd BufNewFile,BufRead *.t set filetype=perl
-    autocmd BufNewFile,BufRead *.inc set filetype=php
-    autocmd BufNewFile,BufRead *.com set filetype=bindzone
-    autocmd BufNewFile,BufRead *.global set filetype=m4
-    autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
-    autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
-    autocmd BufNewFile,BufRead .bash/*,.dotfiles/bash* set filetype=sh
-    autocmd BufNewFile,BufRead distfile.common,Distfile set filetype=rdist
-    autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
+	autocmd BufNewFile,BufRead *.t set filetype=perl
+	autocmd BufNewFile,BufRead *.inc set filetype=php
+	autocmd BufNewFile,BufRead *.com set filetype=bindzone
+	autocmd BufNewFile,BufRead *.global set filetype=m4
+	autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
+	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
+	autocmd BufNewFile,BufRead .bash/*,.dotfiles/bash* set filetype=sh
+	autocmd BufNewFile,BufRead distfile.common,Distfile set filetype=rdist
+	autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
 
-    " Atypical tab widths
-    "autocmd FileType ruby setlocal ts=2 sts=2 sw=2
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2
+	" Atypical tab widths
+	"autocmd FileType ruby setlocal ts=2 sts=2 sw=2
+	autocmd FileType yaml setlocal ts=2 sts=2 sw=2
 
-    " Makefiles need real tabs.
-    autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
-    autocmd FileType make setlocal ts=8 sts=8 sw=8 noet
+	" Makefiles need real tabs.
+	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
+	autocmd FileType make setlocal ts=8 sts=8 sw=8 noet
 
-    " Save all unclean buffers when focus is lost (ala TextMate).
-    " Not sure whether I like this idea.
-    "au FocusLost * :wa
+	" Save all unclean buffers when focus is lost (ala TextMate).
+	" Not sure whether I like this idea.
+	"au FocusLost * :wa
 
-    " Restore cursor position
-    autocmd BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
+	" Restore cursor position
+	autocmd BufReadPost *
+		\ if line("'\"") > 1 && line("'\"") <= line("$") |
+		\     exe "normal! g`\"" |
+		\ endif
 
 endif
 
@@ -621,13 +621,13 @@ endif
 " Colors {{{
 
 "if !has("gui") && has("terminfo")
-    "set t_Co=16
-    "set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-    "set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+	"set t_Co=16
+	"set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+	"set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
 "else
-    "set t_Co=16
-    "set t_Sf=[3%dm
-    "set t_Sb=[4%dm
+	"set t_Co=16
+	"set t_Sf=[3%dm
+	"set t_Sb=[4%dm
 "endif
 
 set t_Co=256

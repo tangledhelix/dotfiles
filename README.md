@@ -22,8 +22,8 @@ Bourne derivatives such as zsh, but some of it will break.
 
 I regularly use this setup with Mac OS X, Solaris, Linux and FreeBSD.
 
-Some configs assume you have 256 color support in your terminal. If you are
-using Apple Terminal, you may not. Try iTerm instead.
+Some parts of the Bash and Vim configs assume you have 256 color support in
+your terminal. If you are using Apple Terminal, you may not. Try iTerm instead.
 
 <http://iterm.sourceforge.net/>
 

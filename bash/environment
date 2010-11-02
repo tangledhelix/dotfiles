@@ -36,42 +36,42 @@ test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
 unset PATH
 
 for _this in \
-    ~/local/bin \
-    ~/bin \
-    /admin/bin \
-    /usr/local/bin \
-    /bin \
-    /usr/bin \
-    /usr/ccs/bin \
-    /sbin \
-    /usr/sbin \
-    /usr/local/sbin \
-    /usr/proc/bin \
-    /usr/openwin/bin \
-    /usr/dt/bin \
-    /admin/tools/system \
-    /admin/tools/mail/bin \
-    /admin/tools/mail/sbin \
-    /usr/local/pkg/perl/bin \
-    /usr/local/pkg/mailman/bin \
-    /usr/local/pkg/mysql/bin \
-    /usr/local/pkg/pgsql/bin \
-    /usr/local/pkg/openldap/bin \
-    /usr/local/pkg/openldap/sbin \
-    /opt/openldap/bin \
-    /opt/openldap/sbin \
-    /usr/sfw/bin \
-    /usr/local/teTeX/bin/i386-apple-darwin-current \
-    /usr/X11R6/bin \
-    /Developer/usr/bin \
-    ~/.gem/ruby/1.8/bin \
-    ~/.gem/ruby/1.9.1/bin \
-    ~/Dropbox/bin \
-    ~/tools
+	~/local/bin \
+	~/bin \
+	/admin/bin \
+	/usr/local/bin \
+	/bin \
+	/usr/bin \
+	/usr/ccs/bin \
+	/sbin \
+	/usr/sbin \
+	/usr/local/sbin \
+	/usr/proc/bin \
+	/usr/openwin/bin \
+	/usr/dt/bin \
+	/admin/tools/system \
+	/admin/tools/mail/bin \
+	/admin/tools/mail/sbin \
+	/usr/local/pkg/perl/bin \
+	/usr/local/pkg/mailman/bin \
+	/usr/local/pkg/mysql/bin \
+	/usr/local/pkg/pgsql/bin \
+	/usr/local/pkg/openldap/bin \
+	/usr/local/pkg/openldap/sbin \
+	/opt/openldap/bin \
+	/opt/openldap/sbin \
+	/usr/sfw/bin \
+	/usr/local/teTeX/bin/i386-apple-darwin-current \
+	/usr/X11R6/bin \
+	/Developer/usr/bin \
+	~/.gem/ruby/1.8/bin \
+	~/.gem/ruby/1.9.1/bin \
+	~/Dropbox/bin \
+	~/tools
 do
-    test -d $_this && {
-        test -n "$PATH" && PATH="$PATH:$_this" || PATH="$_this"
-    }
+	test -d $_this && {
+		test -n "$PATH" && PATH="$PATH:$_this" || PATH="$_this"
+	}
 done
 
 export PATH
@@ -82,22 +82,22 @@ export PATH
 unset MANPATH
 
 for _this in \
-    /usr/man \
-    /usr/share/man \
-    /usr/local/man \
-    /usr/local/share/man \
-    /usr/local/pkg/perl/man \
-    /usr/dt/man \
-    /usr/openwin/man \
-    /usr/sfw/man \
-    /usr/local/git/share/man \
-    ~/local/man \
-    ~/local/share/man \
-    ~/Dropbox/man
+	/usr/man \
+	/usr/share/man \
+	/usr/local/man \
+	/usr/local/share/man \
+	/usr/local/pkg/perl/man \
+	/usr/dt/man \
+	/usr/openwin/man \
+	/usr/sfw/man \
+	/usr/local/git/share/man \
+	~/local/man \
+	~/local/share/man \
+	~/Dropbox/man
 do
-    test -d $_this && {
-        test -n "$MANPATH" && MANPATH="$MANPATH:$_this" || MANPATH="$_this"
-    }
+	test -d $_this && {
+		test -n "$MANPATH" && MANPATH="$MANPATH:$_this" || MANPATH="$_this"
+	}
 done
 
 export MANPATH
@@ -111,7 +111,7 @@ HAVE_MVIM="$(command -v mvim 2>/dev/null)"
 test -n "$TERMINFO" && VIM_256="-T xterm-256color"
 
 test -n "$HAVE_MVIM" && EDITOR="mvim -f" || {
-    test -n "$HAVE_VIM" && EDITOR="vim $VIM_256" || EDITOR="vi"
+	test -n "$HAVE_VIM" && EDITOR="vim $VIM_256" || EDITOR="vi"
 }
 
 VISUAL="$EDITOR"
@@ -123,10 +123,10 @@ HAVE_VIMDIFF="$(command -v vimdiff 2>/dev/null)"
 test -n "$HAVE_VIMDIFF" && alias vdiff="$HAVE_VIMDIFF $VIM_256 -O"
 
 test -n "$HAVE_MVIM" && {
-    alias vi="mvim"
-    alias vim="mvim"
-    alias view="mvim -R"
-    alias vdiff="mvim -d"
+	alias vi="mvim"
+	alias vim="mvim"
+	alias view="mvim -R"
+	alias vdiff="mvim -d"
 }
 
 alias vimdiff="vdiff $VIM_256"
@@ -135,16 +135,16 @@ alias vimdiff="vdiff $VIM_256"
 # Pagers
 
 if test -n "$(command -v less 2>/dev/null)" ; then
-    PAGER="less -Firw"
-    MANPAGER="less -FiRsw"
-    alias more="less"
-    test -n "$(command -v ack 2>/dev/null)" && {
-        export ACK_PAGER="less -R"
-        export ACK_PAGER_COLOR="less -R"
-    }
+	PAGER="less -Firw"
+	MANPAGER="less -FiRsw"
+	alias more="less"
+	test -n "$(command -v ack 2>/dev/null)" && {
+		export ACK_PAGER="less -R"
+		export ACK_PAGER_COLOR="less -R"
+	}
 else
-    PAGER=more
-    MANPAGER="$PAGER"
+	PAGER=more
+	MANPAGER="$PAGER"
 fi
 
 LESS="-Fiw"
@@ -155,10 +155,10 @@ export PAGER MANPAGER LESS
 # Oracle
 
 test -d /apps/oracle/product/9.2.0 &&
-    export ORACLE_HOME="/apps/oracle/product/9.2.0"
+	export ORACLE_HOME="/apps/oracle/product/9.2.0"
 
 test -d /apps/oracle/product/10.2.0 &&
-    export ORACLE_HOME="/apps/oracle/product/10.2.0"
+	export ORACLE_HOME="/apps/oracle/product/10.2.0"
 
 #######################################################################
 
