@@ -67,6 +67,7 @@ function gitclone_ntt() {
 # If it's 1-3 atoms, give me only the first.
 # If it's more than that, give me the first two.
 function _short_hname() {
+	_preserve=$?
 
 	echo $HOST | perl -p -e '
 		if ( scalar( split( /\./ ) ) > 3 ) {
@@ -81,6 +82,7 @@ function _short_hname() {
 	# atom it doesn't return anything at all.
 	#perl -le '$ENV{HOST}=~/^((?:[^.]+\.){2}[^.]+|[^.]+)\./;print$1'
 
+	return $_preserve
 }
 
 # Output an extended color (256-color support). If one color is provided,
@@ -92,7 +94,7 @@ function _xc() {
 	return $_preserve
 }
 
-# Make the color bold instead of normal.
+# Make the foreground color bold instead of normal.
 function _xc_bold() {
 	_preserve=$?
 	echo -ne "\[\033[01m\]"
@@ -108,7 +110,7 @@ function _xc_reset() {
 }
 
 # Give me a retval that's colorized based on its value. For some reason I have
-# to embed the escape codes directly; I can't use the _xc function.
+# to embed the escape codes directly; I can't use the _xc* functions.
 function _color_retval() {
 	_retval=$?
 	if [[ $_retval == 0 ]]; then
