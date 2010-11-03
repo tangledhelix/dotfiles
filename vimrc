@@ -620,6 +620,20 @@ endif
 " --------------------------------------------------------------------
 " Colors {{{
 
+" How many colors my terminal is capable of displaying. This assumes
+" that terminfo for xterm-256color is present.
+set t_Co=256
+
+" Activate syntax highlighting
+syntax enable
+
+" http://www.vim.org/scripts/script.php?script_id=415
+colorscheme zenburn
+
+" Mute tabs, control characters, other invisibles in zenburn.
+highlight SpecialKey ctermfg=240
+
+" Terminal setup prior to switch to xterm-256color
 "if !has("gui") && has("terminfo")
 	"set t_Co=16
 	"set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
@@ -630,14 +644,7 @@ endif
 	"set t_Sb=[4%dm
 "endif
 
-set t_Co=256
-
-" Activate syntax highlighting
-syntax enable
-
-colorscheme zenburn
-
-" Custom colors (MacVim colors are in .gvimrc)
+" Custom colors (pre-zenburn switch)
 "highlight Comment ctermfg=darkgrey
 "highlight Statement cterm=bold ctermfg=blue
 "highlight Identifier cterm=bold ctermfg=darkcyan
@@ -647,9 +654,6 @@ colorscheme zenburn
 " invisibles...
 "highlight NonText ctermfg=grey
 "highlight SpecialKey ctermfg=grey
-
-" Make SpecialKey match NonText (for invisibles)
-highlight SpecialKey ctermfg=240
 
 " }}}
 " --------------------------------------------------------------------
