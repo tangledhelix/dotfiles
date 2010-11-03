@@ -543,7 +543,7 @@ set ttyfast
 " Read current buffer, turn it into a bookmarklet, insert that bookmarklet
 " in a comment on line 1 (discarding previously inserted bookmarklet if it
 " exists), copy bookmarklet to the clipboard.
-nmap <silent> <leader>B :%!$HOME/.vim/bundle/misc/bin/bookmarklet_build.pl<CR>
+nmap <silent> <leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
 
 " }}}
 " --------------------------------------------------------------------
