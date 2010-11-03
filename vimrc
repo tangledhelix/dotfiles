@@ -54,14 +54,14 @@ nmap <leader>8 :setlocal ts=8 sw=8<CR>
 " a raw tab will be embedded in a non-whitespace area like a string. One
 " hopes not, since we have things like \t, but you never know.
 nmap <silent> <leader><tab> :if &expandtab <Bar>
-	\     set noet<CR>
-	\     retab!<CR>
-	\     echo "Converted spaces to tabs." <Bar>
-	\ else <Bar>
-	\     set et<CR>
-	\     retab!<CR>
-	\     echo "Converted tabs to spaces." <Bar>
-	\ endif<CR>
+	\    set noet<CR>
+	\    retab!<CR>
+	\    echo "Converted spaces to tabs." <Bar>
+	\else <Bar>
+	\    set et<CR>
+	\    retab!<CR>
+	\    echo "Converted tabs to spaces." <Bar>
+	\endif<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -216,13 +216,13 @@ set showmatch
 " Show the current mode.
 set showmode
 
-" Show invisibles by default in GUI sessions. In terminals, set the
-" listchars, but leave invisibles off until I ask for them.
+" Show invisibles by default (toggle with ,i)
+set list
+
+" Use unicode invisibles on GUI, ASCII in terminals
 if has("gui_running")
-	set list
 	set listchars=tab:▸\ ,eol:¬
 else
-	set nolist
 	set listchars=tab:>-,eol:$
 endif
 
@@ -351,13 +351,11 @@ nnoremap <leader>ft Vatzf
 
 " Toggle syntax highlighting.
 nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
-	\     syntax off<CR>
-	\     echo "Syntax off" <Bar>
-	\ else <Bar>
-	\     syntax enable<CR>
-	\     source $MYVIMRC<CR>
-	\     echo "Syntax on" <Bar>
-	\ endif<CR>
+	\    syntax off<Bar>
+	\else <Bar>
+	\    syntax enable<CR>
+	\    source $MYVIMRC<Bar>
+	\endif<CR>
 
 " Re-indent entire file, preserving cursor location
 nmap <leader>= :call Preserve("normal gg=G")<CR>
@@ -636,12 +634,13 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead *.t set filetype=perl
 	autocmd BufNewFile,BufRead *.inc set filetype=php
 	autocmd BufNewFile,BufRead *.com set filetype=bindzone
-	autocmd BufNewFile,BufRead *.global set filetype=m4
 	autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
 	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
 	autocmd BufNewFile,BufRead .bash/*,.dotfiles/bash* set filetype=sh
 	autocmd BufNewFile,BufRead distfile.common,Distfile set filetype=rdist
 	autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
+	autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
+	autocmd BufNewFile,BufRead *.global set filetype=m4
 
 	" Atypical tab widths
 	"autocmd FileType ruby setlocal ts=2 sts=2 sw=2
@@ -733,11 +732,11 @@ if has("gui_running")
 
 	" Real fullscreen. Also kicks up the font size a bit.
 	nmap <silent> <leader>zf :if &fullscreen <Bar>
-		\     set guifont=Menlo:h12 <Bar>
-		\ else <Bar>
-		\     set guifont=Menlo:h16 <Bar>
-		\ endif<CR>
-		\ :set fullscreen!<CR>
+		\    set guifont=Menlo:h14 <Bar>
+		\else <Bar>
+		\    set guifont=Menlo:h16 <Bar>
+		\endif<CR>
+		\:set fullscreen!<CR>
 
 endif
 
