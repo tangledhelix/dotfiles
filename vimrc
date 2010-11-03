@@ -628,6 +628,7 @@ set t_Co=256
 syntax enable
 
 " http://www.vim.org/scripts/script.php?script_id=415
+" http://slinky.imukuppi.org/zenburnpage/
 colorscheme zenburn
 
 " Mute tabs, control characters, other invisibles in zenburn.
