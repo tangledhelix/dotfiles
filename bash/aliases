@@ -3,6 +3,8 @@ alias ls='/bin/ls -F'
 
 alias ..='cd ..'
 
+alias c='clear'
+
 # Lets me queue up a beep if I want, i.e. "make ; beep"
 alias beep='echo -ne "\a"'
 
