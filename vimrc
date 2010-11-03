@@ -640,15 +640,12 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead distfile.common,Distfile set filetype=rdist
 	autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
 	autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
+	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
 	autocmd BufNewFile,BufRead *.global set filetype=m4
 
 	" Atypical tab widths
 	"autocmd FileType ruby setlocal ts=2 sts=2 sw=2
 	autocmd FileType yaml setlocal ts=2 sts=2 sw=2
-
-	" Makefiles need real tabs.
-	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
-	autocmd FileType make setlocal ts=8 sts=8 sw=8 noet
 
 	" Save all unclean buffers when focus is lost (ala TextMate).
 	" Not sure whether I like this idea.
