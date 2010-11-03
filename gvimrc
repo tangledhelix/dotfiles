@@ -14,7 +14,7 @@ set title
 
 " Show invisibles by default (toggle: <leader>i)
 set list
-"set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬
 
 " Whatever we copy, send to the system clipboard too.
 " I don't like this, it can obliterate my Launchbar clipboard history quickly.
