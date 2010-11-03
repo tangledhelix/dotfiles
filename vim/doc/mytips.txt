@@ -140,8 +140,9 @@ External comands
 
     :r!<cmd>        read in the result of a command
 
-    !cmd            pipe selection through command, replacing it with the result.
+    !cmd            pipe selection through command, replace with result
 
+    :echo glob($VIMRUNTIME . '/syntax/*.vim')      Show all known syntaxes
 
 ------------------------------------------------------------------------------
 Undo
@@ -217,7 +218,7 @@ like brackets, braces.
     # W matches a space-delimited word
 
 ==============================================================================
-Plugin: arrow-key-remap
+Plugin: arrow-key-remap (removed this plugin to add text bubbling)
 
 These work in both normal and insert mode. Obviously arrow keys as navigation
 do not work with this plugin in place.
@@ -242,6 +243,8 @@ nnoremap <leader>1 yypVr=
 replicates the current line, then replaces it with ='s
 (so this gives you an = signs underline the same length as
 the current line)
+
+See mappings: ,ll ,lL ,l*
 
 ==============================================================================
 From Steve Losh: Yankring
