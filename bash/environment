@@ -134,6 +134,14 @@ alias vimdiff="vdiff $VIM_256"
 #######################################################################
 # Pagers
 
+# Options for less:
+#     -F  Exit automatically if entire file fits on one screen
+#     -i  Ignore case in searches (capitals are honored)
+#     -r  Show raw control characters, instead of e.g. ^X
+#     -R  Let ANSI color codes come through raw, others use ^X
+#     -s  Squeeze consecutive blank lines into one line
+#     -w  Hilight first new line on a new screenful
+
 if test -n "$(command -v less 2>/dev/null)" ; then
 	PAGER="less -Firw"
 	MANPAGER="less -FiRsw"
