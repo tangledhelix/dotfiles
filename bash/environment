@@ -143,8 +143,8 @@ alias vimdiff="vdiff $VIM_256"
 #     -w  Hilight first new line on a new screenful
 
 if test -n "$(command -v less 2>/dev/null)" ; then
-	PAGER="less -Firw"
-	MANPAGER="less -FiRsw"
+	PAGER="less -irw"
+	MANPAGER="less -iRsw"
 	alias more="less"
 	test -n "$(command -v ack 2>/dev/null)" && {
 		export ACK_PAGER="less -R"
@@ -155,7 +155,7 @@ else
 	MANPAGER="$PAGER"
 fi
 
-LESS="-Fiw"
+LESS="-iw"
 
 export PAGER MANPAGER LESS
 
