@@ -71,17 +71,16 @@ vnoremap <leader>P "*p
 set guifont=Menlo:h14
 set antialias
 
-" Switching these off, using zenburn now.
+" Mute tabs, control characters and other invisibles in zenburn.
+highlight SpecialKey gui=bold guifg=#5b605e
+
+" Custom colors from before the switch to zenburn
 "highlight Comment guifg=#858585
 "highlight Statement gui=bold guifg=blue
 "highlight Identifier gui=bold guifg=darkcyan
-"" invisibles...
+" invisibles...
 "highlight NonText guifg=#eeeeee
 "highlight SpecialKey guifg=#eeeeee
-
-" zenburn leaves this kinda highlighted, whereas I want it muted
-" because tabs are classified as SpecialKey. Copied value of NonText.
-highlight SpecialKey gui=bold guifg=#5b605e
 
 " }}}
 " ------------------------------------------------------------------------
