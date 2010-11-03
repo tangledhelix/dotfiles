@@ -25,9 +25,7 @@ export HISTCONTROL="erasedups"
 # Increase history size
 export HISTSIZE="10000"
 
-#######################################################################
-# Terminfo
-
+# Need local terminfo files for xterm-256color on some platforms
 test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
 
 #######################################################################
@@ -108,6 +106,7 @@ export MANPATH
 HAVE_VIM="$(command -v vim 2>/dev/null)"
 HAVE_MVIM="$(command -v mvim 2>/dev/null)"
 
+VIM_256=""
 test -n "$TERMINFO" && VIM_256="-T xterm-256color"
 
 test -n "$HAVE_MVIM" && EDITOR="mvim -f" || {
@@ -141,6 +140,8 @@ alias vimdiff="vdiff $VIM_256"
 #     -R  Let ANSI color codes come through raw, others use ^X
 #     -s  Squeeze consecutive blank lines into one line
 #     -w  Hilight first new line on a new screenful
+#
+# NOTE: -F seems to break things on some systems I use; avoiding it.
 
 if test -n "$(command -v less 2>/dev/null)" ; then
 	PAGER="less -irw"
