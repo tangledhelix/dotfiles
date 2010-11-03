@@ -210,7 +210,7 @@ set showmode
 
 " Don't show invisibles by default
 set nolist
-set listchars=tab:>.,eol:$
+set listchars=tab:>-,eol:$
 
 " Turn invisibles on/off.
 nmap <leader>i :set list!<CR>
