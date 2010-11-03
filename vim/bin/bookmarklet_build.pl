@@ -28,6 +28,8 @@ $bookmarklet = 'javascript:' .
 
 print "// $bookmarklet\n" . $src;
 
-# Put bookmarklet on clipboard:
-`/bin/echo -n '$bookmarklet' | /usr/bin/pbcopy`;
+# Put bookmarklet on clipboard if we're running on OS X.
+if ( -x '/usr/bin/pbcopy' ) {
+	`/bin/echo -n '$bookmarklet' | /usr/bin/pbcopy`;
+}
 
