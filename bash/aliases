@@ -1,16 +1,6 @@
 
 alias ls='/bin/ls -F'
 
-# Set up 'ls' for color output if it's available.
-#if [[ -x /usr/local/pkg/gnu-coreutils/bin/ls ]]; then
-	## GNU Coreutils as installed on ISS systems.
-	#alias ls='/usr/local/bin/ls --color -F'
-#elif [[ "$OS" = "Linux" ]]; then
-	#alias ls='/bin/ls --color -F'
-#elif [[ "$OS" = "Darwin" || "$OS" = "FreeBSD" ]]; then
-	#export CLICOLOR="yes"
-#fi
-
 alias ..='cd ..'
 
 # Lets me queue up a beep if I want, i.e. "make ; beep"
