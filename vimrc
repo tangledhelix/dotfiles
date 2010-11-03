@@ -183,15 +183,23 @@ set shortmess=atI
 " Flash the screen instead of making a beep.
 set visualbell
 
-" Terminal's visual bell - turned off to make Vim quiet.
-set t_vb=
+if !has("gui_running")
+
+	" Terminal's visual bell - turned off to make Vim quiet.
+	set t_vb=
+
+endif
 
 " }}}
 " --------------------------------------------------------------------
 " Status indicators {{{
 
-" Do not put the current file / buffer name in the title bar.
-set notitle
+" Set the title bar if running as GUI, never in terminals.
+if has("gui_running")
+	set title
+else
+	set notitle
+endif
 
 " Show the status line
 set laststatus=2
@@ -208,9 +216,15 @@ set showmatch
 " Show the current mode.
 set showmode
 
-" Don't show invisibles by default
-set nolist
-set listchars=tab:>-,eol:$
+" Show invisibles by default in GUI sessions. In terminals, set the
+" listchars, but leave invisibles off until I ask for them.
+if has("gui_running")
+	set list
+	set listchars=tab:▸\ ,eol:¬
+else
+	set nolist
+	set listchars=tab:>-,eol:$
+endif
 
 " Turn invisibles on/off.
 nmap <leader>i :set list!<CR>
@@ -237,7 +251,7 @@ set ruler
 " Show current cursor line position
 set cursorline
 
-" Warn on long lines. Looks like crap in a terminal (see .gvimrc).
+" Warn on long lines. Looks like crap in terminals, and in zenburn.
 "set colorcolumn=81
 
 " }}}
@@ -335,15 +349,13 @@ nnoremap <leader>ft Vatzf
 " ----------------------------------------------------------------------
 " Syntax-related mappings {{{
 
-" Toggle syntax highlighting. The .gvimrc is reloaded to fix syntax colors.
+" Toggle syntax highlighting.
 nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
 	\     syntax off<CR>
 	\     echo "Syntax off" <Bar>
 	\ else <Bar>
 	\     syntax enable<CR>
-	\     if filereadable($MYGVIMRC) <Bar>
-	\         so $MYGVIMRC <Bar>
-	\     endif<CR>
+	\     source $MYVIMRC<CR>
 	\     echo "Syntax on" <Bar>
 	\ endif<CR>
 
@@ -455,7 +467,7 @@ set wildmode=list:longest
 " their meaning in HTML contexts.
 "     ^E is used to scroll the view downward
 "     ^N is used for word completion
-" These aren't the best mappings, but until I determine good, non-
+" TODO: These aren't the best mappings, but until I determine good, non-
 " conflicting mappings for these, I'm just assigning them to some
 " random keys I don't really use.
 let g:sparkupExecuteMapping='<c-t>'
@@ -487,6 +499,27 @@ let g:yankring_persist = 1
 
 " Put yankring data somewhere other than $HOME
 let g:yankring_history_dir = "$HOME/.vim"
+
+if has("gui_running")
+
+	" Copy current line or selection to OS X clipboard
+	nnoremap <leader>Y "*yy
+	vnoremap <leader>Y "*y
+
+	" Paste from OS X clipboard explicitly. If something was copied to the
+	" OS X clipboard after the last time something was copied to MacVim's
+	" clipboard, then 'p' will behave the same way, but these will always
+	" go directly to the OS X clipboard, bypassing anything in MacVim's.
+	nnoremap <leader>P "*p
+	vnoremap <leader>P "*p
+
+	" Whatever we copy, send to the system clipboard too.
+	" I don't like this, it can obliterate my Launchbar clipboard history quickly.
+	" Replaced this with ,Y and ,P mappings to easily interact with the system
+	" pasteboard in a more explicit way.
+	"set clipboard+=unnamed
+
+endif
 
 " }}}
 " --------------------------------------------------------------------
@@ -533,8 +566,22 @@ set hidden
 set nomodeline
 set modelines=0
 
-" Are we using a fast terminal?
-set ttyfast
+if has("gui_running")
+
+	" Disable the toolbar
+	set guioptions=-t
+
+	" Enable the right scrollbar
+	set guioptions=+r
+
+	set encoding=utf-8
+
+else
+
+	" Are we using a fast terminal?
+	set ttyfast
+
+endif
 
 " }}}
 " --------------------------------------------------------------------
@@ -608,7 +655,7 @@ if has("autocmd")
 	" Not sure whether I like this idea.
 	"au FocusLost * :wa
 
-	" Restore cursor position
+	" Restore cursor position from our last session, if known.
 	autocmd BufReadPost *
 		\ if line("'\"") > 1 && line("'\"") <= line("$") |
 		\     exe "normal! g`\"" |
@@ -618,11 +665,18 @@ endif
 
 " }}}
 " --------------------------------------------------------------------
-" Colors {{{
+" Fonts and colors {{{
 
 " How many colors my terminal is capable of displaying. This assumes
 " that terminfo for xterm-256color is present.
-set t_Co=256
+if !has("gui") && has("terminfo")
+	set t_Co=256
+endif
+
+if has("gui_running")
+	set guifont=Menlo:h14
+	set antialias
+endif
 
 " Activate syntax highlighting
 syntax enable
@@ -632,9 +686,9 @@ syntax enable
 colorscheme zenburn
 
 " Mute tabs, control characters, other invisibles in zenburn.
-highlight SpecialKey ctermfg=240
+highlight SpecialKey ctermfg=240 gui=bold guifg=#5b605e
 
-" Terminal setup prior to switch to xterm-256color
+" Terminal setup before xterm-256color {{{
 "if !has("gui") && has("terminfo")
 	"set t_Co=16
 	"set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
@@ -644,17 +698,48 @@ highlight SpecialKey ctermfg=240
 	"set t_Sf=[3%dm
 	"set t_Sb=[4%dm
 "endif
+" }}}
 
-" Custom colors (pre-zenburn switch)
-"highlight Comment ctermfg=darkgrey
-"highlight Statement cterm=bold ctermfg=blue
-"highlight Identifier cterm=bold ctermfg=darkcyan
+" Custom colors (pre-zenburn) {{{
+"highlight Comment ctermfg=darkgrey guifg=#858585
+"highlight Statement cterm=bold ctermfg=blue gui=bold guifg=blue
+"highlight Identifier cterm=bold ctermfg=darkcyan gui=bold guifg=darkcyan
 "highlight Search ctermbg=14
 "highlight CursorLine cterm=NONE ctermbg=11
 "highlight StatusLine cterm=NONE ctermfg=white ctermbg=darkgrey
 " invisibles...
-"highlight NonText ctermfg=grey
-"highlight SpecialKey ctermfg=grey
+"highlight NonText ctermfg=grey guifg=#eeeeee
+"highlight SpecialKey ctermfg=grey guifg=#eeeeee
+" }}}
+
+" }}}
+" --------------------------------------------------------------------
+" Window size (GUI) {{{
+
+if has("gui_running")
+
+	set lines=40
+	set columns=90
+
+	" Grow window height / width
+	nmap <leader>zz :set lines=999<CR>
+	nmap <leader>zw :set columns=999<CR>
+
+	" Zoom to max size. This isn't fullscreen; use ,zf for that.
+	nmap <leader>zm :set lines=999 columns=999<CR>
+
+	" Return to normal size
+	nmap <leader>zd :set lines=40 columns=90<CR>
+
+	" Real fullscreen. Also kicks up the font size a bit.
+	nmap <silent> <leader>zf :if &fullscreen <Bar>
+		\     set guifont=Menlo:h12 <Bar>
+		\ else <Bar>
+		\     set guifont=Menlo:h16 <Bar>
+		\ endif<CR>
+		\ :set fullscreen!<CR>
+
+endif
 
 " }}}
 " --------------------------------------------------------------------
