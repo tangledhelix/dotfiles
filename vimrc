@@ -635,6 +635,8 @@ set t_Co=256
 " Activate syntax highlighting
 syntax enable
 
+colorscheme zenburn
+
 " Custom colors (MacVim colors are in .gvimrc)
 "highlight Comment ctermfg=darkgrey
 "highlight Statement cterm=bold ctermfg=blue
@@ -646,7 +648,8 @@ syntax enable
 "highlight NonText ctermfg=grey
 "highlight SpecialKey ctermfg=grey
 
-colorscheme zenburn
+" Make SpecialKey match NonText (for invisibles)
+highlight SpecialKey ctermfg=240
 
 " }}}
 " --------------------------------------------------------------------
