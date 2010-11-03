@@ -110,16 +110,23 @@ VIM_256=""
 test -n "$TERMINFO" && VIM_256="-T xterm-256color"
 
 test -n "$HAVE_MVIM" && EDITOR="mvim -f" || {
-	test -n "$HAVE_VIM" && EDITOR="vim $VIM_256" || EDITOR="vi"
+	test -n "$HAVE_VIM" && EDITOR="$HAVE_VIM $VIM_256" || EDITOR="vi"
 }
 
 VISUAL="$EDITOR"
 export EDITOR VISUAL
 
-test -n "$HAVE_VIM" && alias vi="vim $VIM_256"
+test -n "$HAVE_VIM" &&  {
+	alias vi="$HAVE_VIM $VIM_256"
+	alias vim="$HAVE_VIM $VIM_256"
+	alias view="$HAVE_VIM $VIM_256 -R"
+}
 
 HAVE_VIMDIFF="$(command -v vimdiff 2>/dev/null)"
-test -n "$HAVE_VIMDIFF" && alias vdiff="$HAVE_VIMDIFF $VIM_256 -O"
+test -n "$HAVE_VIMDIFF" && {
+	alias vimdiff="$HAVE_VIMDIFF $VIM_256 -O"
+	alias vdiff="$HAVE_VIMDIFF $VIM_256 -O"
+}
 
 test -n "$HAVE_MVIM" && {
 	alias vi="mvim"
@@ -128,7 +135,6 @@ test -n "$HAVE_MVIM" && {
 	alias vdiff="mvim -d"
 }
 
-alias vimdiff="vdiff $VIM_256"
 
 #######################################################################
 # Pagers
