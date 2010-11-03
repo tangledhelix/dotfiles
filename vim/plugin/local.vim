@@ -11,7 +11,7 @@ function! Stab()
 	endif
 	call SummarizeTabs()
 endfunction
- 
+
 " Just show the current state without setting anything.
 function! SummarizeTabs()
 	try

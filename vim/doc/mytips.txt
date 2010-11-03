@@ -38,7 +38,7 @@ Search and replace
 
     :s/\%V_/ /g     Add \%V to limit action to a *block* selection (by
                     default entire lines are affected even in ^v mode).
-    
+
     &       repeat last :s command
 
 ------------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Navigating / jumping around
     H       high (top) line on this page
     M       middle line on this page
     L       low (bottom) line on this page
-    
+
     zt      keep cursor in place, but move that line to top of view
     zz      keep cursor in place, but move that line to middle of view
     zb      keep cursor in place, but move that line to bottom of view
@@ -116,7 +116,7 @@ Selections and matching on things
         <aB     outdent the current block
         daB     delete current block
         caB     change current block
-    
+
     viw     select a word ('word' delimited not whitespace-delimited)
     viW     select a word, whitespace delimited
 
