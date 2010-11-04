@@ -47,12 +47,32 @@ endfunction
 " ---------------------------------------------------------------------------
 " Show syntax highlighting groups for word under cursor
 
-"nmap <leader>x :call <SID>SynStack()<CR>
-function! <SID>SynStack()
+function! SynStack()
 	if !exists("*synstack")
 		return
 	endif
 	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+" Example mapping:
+"nmap <leader>x :call SynStack()<CR>
+
+" ---------------------------------------------------------------------------
+" Toggles between uppercase, lowercase, titlecase. Bind to a mapping, then
+" select something and keep hitting the map until you get what you want.
+
+function! TwiddleCase(str)
+	if a:str ==# toupper(a:str)
+		let result = tolower(a:str)
+	elseif a:str ==# tolower(a:str)
+		let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+	else
+		let result = toupper(a:str)
+	endif
+	return result
+endfunction
+
+" Example mapping
+"vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 
 " ---------------------------------------------------------------------------
