@@ -4,12 +4,13 @@
 
 Current leader key map:                                            *leadermap*
 
+  ,"            Change surrounding ' to "
+  ,'            Change surrounding " to '
+  ,*            Load FuzzyFinder in file mode
   ,,            Toggle paste mode
   ,/            Toggle NERDTree browser
-  ,*            Load FuzzyFinder in file mode
   ,=            Re-indent entire buffer
-  ,'            Change surrounding " to '
-  ,"            Change surrounding ' to "
+  ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight
   ,<tab>        Toggle expandtab, then do a tab <-> spaces conversion
   ,2            Set tab stop to 2
