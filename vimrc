@@ -297,6 +297,10 @@ nmap <Down> ]e
 vmap <Up> [egv
 vmap <Down> ]egv
 
+" Remap ~ to use a function if invoked in visual mode. Cycles through
+" uppercase, lowercase, title-case.
+vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
+
 " }}}
 " --------------------------------------------------------------------
 " Navigation {{{
@@ -387,6 +391,9 @@ imap <leader>lL <ESC>kyypVr=o
 nmap <leader>lL kyypVr=o
 imap <leader>l* <ESC>kyypVr*o
 nmap <leader>l* kyypVr*o
+
+" Ask Vim for the syntax type at cursor location
+nmap <leader>? :call SynStack()<CR>
 
 " }}}
 " ----------------------------------------------------------------------
@@ -623,6 +630,10 @@ cmap  <C-H>
 
 " Unmap the K key, it usually doesn't do anything useful anyway.
 nmap K <NUL>
+
+" Example of changing the contents of a tag to TitleCase.
+" e.g.: <foo>BAR BAZ</foo> becomes <foo>Bar Baz</foo>
+"nmap <leader>x vit:s/\%V\<\(\w\)\(\w*\)\>/\u\1\L\2/<CR>
 
 " }}}
 " --------------------------------------------------------------------
