@@ -168,6 +168,9 @@ set magic
 " Assume /g at the end of any :s command. I usually want that anyway.
 set gdefault
 
+" Open fuzzyfinder in line mode (search current buffer)
+nmap <leader>f :FufLine<CR>
+
 " }}}
 " --------------------------------------------------------------------
 " Sounds and alerts {{{
@@ -347,7 +350,7 @@ set noinsertmode
 set foldmethod=marker
 
 " Fold current HTML tag.
-nnoremap <leader>ft Vatzf
+nnoremap <leader>Ft Vatzf
 
 " }}}
 " ----------------------------------------------------------------------
@@ -385,12 +388,10 @@ nmap <leader>ss :set filetype=sh<CR>
 nmap <leader>sw :set filetype=mediawiki<CR>
 
 " A couple of conveniences for Markdown and others
-imap <leader>ll <ESC>kyypVr-o
-nmap <leader>ll kyypVr-o
-imap <leader>lL <ESC>kyypVr=o
-nmap <leader>lL kyypVr=o
-imap <leader>l* <ESC>kyypVr*o
-nmap <leader>l* kyypVr*o
+imap <leader>uu <ESC>kyypVr-o
+nmap <leader>uu kyypVr-o
+imap <leader>u= <ESC>kyypVr=o
+nmap <leader>u= kyypVr=o
 
 " Ask Vim for the syntax type at cursor location
 nmap <leader>? :call SynStack()<CR>
@@ -559,6 +560,15 @@ let NERDTreeQuitOnOpen=1
 " Open FuzzyFinder in file mode. This *does* work properly with :cd.
 nmap <leader>* :FufFile<CR>
 
+" Preload the :edit command with the directory where the file in
+" the current buffer is located.
+map <leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
+
+" Variants that open in split, vsplit or a tab
+"map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+"map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+"map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
 " }}}
 " --------------------------------------------------------------------
 " Misc. settings {{{
@@ -571,13 +581,16 @@ set hidden
 set nomodeline
 set modelines=0
 
+" Spellcheck language
+set spelllang=en_us
+
 if has("gui_running")
 
 	" Disable the toolbar
 	set guioptions=-t
 
 	" Enable the right scrollbar
-	set guioptions=+r
+	"set guioptions=+r
 
 	set encoding=utf-8
 
@@ -661,6 +674,9 @@ if has("autocmd")
 	" Save all unclean buffers when focus is lost (ala TextMate).
 	" Not sure whether I like this idea.
 	"au FocusLost * :wa
+	
+	" Automatically apply changes to .vimrc if it changes.
+	autocmd BufWritePost .vimrc source $MYVIMRC
 
 	" Restore cursor position from our last session, if known.
 	autocmd BufReadPost *
