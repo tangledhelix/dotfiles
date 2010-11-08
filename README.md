@@ -11,8 +11,7 @@ Installation
 ------------
 
 Use 'rake install' to install symlinks into $HOME, if you really want them
-all there. Rake will ask you about each file, so it shouldn't overwrite
-anything you already have in place.
+all there. Rake will ask you before overwriting any files that already exist.
 
 Compatibility
 -------------
@@ -20,7 +19,7 @@ Compatibility
 I am a bash user; much of the shell environment may well work in other advanced
 Bourne derivatives such as zsh, but some of it will break.
 
-I regularly use this setup with Mac OS X, Solaris, Linux and FreeBSD.
+I regularly use this setup with Mac OS X, Solaris, Linux and FreeBSD systems.
 
 Some parts of the Bash and Vim configs assume you have 256 color support in
 your terminal. If you are using Apple Terminal, you may not. Try iTerm instead.
