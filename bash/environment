@@ -101,26 +101,23 @@ export MANPATH
 HAVE_VIM="$(command -v vim 2>/dev/null)"
 HAVE_MVIM="$(command -v mvim 2>/dev/null)"
 
-VIM_256=""
-test -n "$TERMINFO" && VIM_256="-T xterm-256color"
-
 test -n "$HAVE_MVIM" && EDITOR="mvim -f" || {
-	test -n "$HAVE_VIM" && EDITOR="$HAVE_VIM $VIM_256" || EDITOR="vi"
+	test -n "$HAVE_VIM" && EDITOR="$HAVE_VIM" || EDITOR="vi"
 }
 
 VISUAL="$EDITOR"
 export EDITOR VISUAL
 
 test -n "$HAVE_VIM" &&  {
-	alias vi="$HAVE_VIM $VIM_256"
-	alias vim="$HAVE_VIM $VIM_256"
-	alias view="$HAVE_VIM $VIM_256 -R"
+	alias vi="$HAVE_VIM"
+	alias vim="$HAVE_VIM"
+	alias view="$HAVE_VIM -R"
 }
 
 HAVE_VIMDIFF="$(command -v vimdiff 2>/dev/null)"
 test -n "$HAVE_VIMDIFF" && {
-	alias vimdiff="$HAVE_VIMDIFF $VIM_256 -O"
-	alias vdiff="$HAVE_VIMDIFF $VIM_256 -O"
+	alias vimdiff="$HAVE_VIMDIFF -O"
+	alias vdiff="$HAVE_VIMDIFF -O"
 }
 
 test -n "$HAVE_MVIM" && {
