@@ -22,13 +22,12 @@ Current leader key map:                                            *leadermap*
   ,c            Manage commenting (defined by plugin: nerd_commenter)
                     ,c<space> toggles comment for current line/selection
   ,C            Center current line or selection
-  ,ft           Fold current tag in HTML (should also work in XML)
+  ,e            Open :edit command preloaded with cwd of current file
+  ,f            Search current buffer (by line) with FuzzyFinder
+  ,Ft           Fold current tag in HTML (should also work in XML)
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
-  ,ll           Underline previous line with hyphens
-  ,lL           Underline previous line with equal-signs
-  ,l*           Underline previous line with asterisks
   ,n            Toggle relative line numbering
   ,P            GUI only: paste from OS X clipboard
   ,sc           Set filetype: C
@@ -42,6 +41,8 @@ Current leader key map:                                            *leadermap*
   ,sw           Set filetype: Wiki (mediawiki)
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
+  ,uu           Underline previous line with hyphens
+  ,u=           Underline previous line with equal-signs
   ,v            Reselect what was just pasted
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
