@@ -92,6 +92,9 @@ General editing
 
     K       go to man page for the word under the cursor
 
+    s       delete this char, then enter insert mode (xi)
+    S       erase entire line, sub with new (0C or 0Da)
+
 ------------------------------------------------------------------------------
 Indenting
 
