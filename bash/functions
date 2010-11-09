@@ -119,3 +119,27 @@ function _retval_color() {
 	return $_retval
 }
 
+# Used by ff(), fd()... execute a find command, possible filtering results
+function _finder() {
+	_type="$1"
+	_pattern="$2"
+
+	test -n "$_type" || return
+
+	if [[ -n "$_pattern" ]]; then
+		find . -type $_type -print | grep -i "$_pattern"
+	else
+		find . -type $_type -print
+	fi
+}
+
+# Show file tree, optionally filtering results
+function ff() {
+	_finder f $1
+}
+
+# Show directory tree, optionally filtering results
+function fd() {
+	_finder d $1
+}
+
