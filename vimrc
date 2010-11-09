@@ -219,15 +219,15 @@ set showmatch
 " Show the current mode.
 set showmode
 
-" Show invisibles by default (toggle with ,i)
-set list
+" Don't show invisibles by default (toggle with ,i)
+set nolist
 
-" Use unicode invisibles on GUI, ASCII in terminals
-if has("gui_running")
-	set listchars=tab:▸\ ,eol:¬
-else
-	set listchars=tab:>-,eol:$
-endif
+" How to display tabs and EOL.
+set listchars=tab:>-,eol:$
+
+" Unicode version. This works in the GUI, but I think it's better to have
+" things look the same everywhere. Sticking with ASCII version.
+"set listchars=tab:▸\ ,eol:¬
 
 " Turn invisibles on/off.
 nmap <leader>i :set list!<CR>
@@ -288,9 +288,9 @@ nmap <leader>' :call Preserve("normal cs\"'")<CR>
 nmap <leader>" :call Preserve("normal cs'\"")<CR>
 
 " Insert a space (easier for code reformatting sometimes...)
-nnoremap <space> i<space><esc>l
+"nnoremap <space> i<space><esc>l
 " and have backspace become destructive...
-nnoremap <BS> X
+"nnoremap <BS> X
 
 " Bubble single lines
 nmap <Up> [e
