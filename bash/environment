@@ -45,6 +45,7 @@ for _this in \
 	/admin/tools/system \
 	/admin/tools/mail/bin \
 	/admin/tools/mail/sbin \
+	/admin/config/auth/bin \
 	/usr/local/pkg/perl/bin \
 	/usr/local/pkg/mailman/bin \
 	/usr/local/pkg/mysql/bin \
@@ -54,7 +55,6 @@ for _this in \
 	/opt/openldap/bin \
 	/opt/openldap/sbin \
 	/usr/sfw/bin \
-	/usr/local/teTeX/bin/i386-apple-darwin-current \
 	/usr/X11R6/bin \
 	/Developer/usr/bin \
 	~/.gem/ruby/1.8/bin \
