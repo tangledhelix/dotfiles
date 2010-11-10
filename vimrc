@@ -169,7 +169,7 @@ set magic
 set gdefault
 
 " Open fuzzyfinder in line mode (search current buffer)
-nmap <leader>f :FufLine<CR>
+nmap <leader>/ :FufLine<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -304,6 +304,11 @@ vmap <Down> ]egv
 " uppercase, lowercase, title-case.
 vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 
+" In a visual block selection, space will insert a space, then return to
+" the selection. This is intended to push a block over to the right,
+" e.g. a fixed-width area in a mediawiki document.
+vnoremap <space> I<space><ESC>gv
+
 " }}}
 " --------------------------------------------------------------------
 " Navigation {{{
@@ -364,28 +369,14 @@ nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
 	\    source $MYVIMRC<Bar>
 	\endif<CR>
 
+" Quickly set filetype
+nmap <leader>s :set filetype=
+
 " Re-indent entire file, preserving cursor location
 nmap <leader>= :call Preserve("normal gg=G")<CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 nmap <leader>H :TOhtml<CR>
-
-" Insert a Perl stub header
-nmap <leader>sps :set paste<CR>
-	\a#!/usr/local/bin/perl<CR><CR>
-	\use strict;<CR>
-	\use warnings;<CR><CR><ESC>
-	\:set nopaste<CR>a
-
-" Manually set the file type for various languages
-nmap <leader>sc :set filetype=c<CR>
-nmap <leader>sd :set filetype=diff<CR>
-nmap <leader>spe :set filetype=perl<CR>
-nmap <leader>sph :set filetype=php<CR>
-nmap <leader>spy :set filetype=python<CR>
-nmap <leader>sr :set filetype=ruby<CR>
-nmap <leader>ss :set filetype=sh<CR>
-nmap <leader>sw :set filetype=mediawiki<CR>
 
 " A couple of conveniences for Markdown and others
 imap <leader>uu <ESC>kyypVr-o
@@ -548,11 +539,11 @@ set history=100
 " Finding and opening files {{{
 
 " Toggle the NERDTree browser.
-nmap <leader>/ :NERDTreeToggle<CR>
+nmap <leader>f :NERDTreeToggle<CR>
 
 " This variant is supposed to honor the current working directory, but that
 " does not work with :cd as I expected it would.
-"nmap <leader>/ :execute 'NERDTreeToggle ' . getcwd()<CR>
+"nmap <leader>f :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " NERDTree should close when I choose a file to open
 let NERDTreeQuitOnOpen=1
