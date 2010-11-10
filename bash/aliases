@@ -2,6 +2,7 @@
 alias ls='/bin/ls -F'
 
 alias ..='cd ..'
+alias dot='cd ~/.dotfiles'
 
 alias c='clear'
 
