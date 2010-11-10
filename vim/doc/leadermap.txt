@@ -8,7 +8,7 @@ Current leader key map:                                            *leadermap*
   ,'            Change surrounding " to '
   ,*            Load FuzzyFinder in file mode
   ,,            Toggle paste mode
-  ,/            Toggle NERDTree browser
+  ,/            Search current buffer (by line) with FuzzyFinder
   ,=            Re-indent entire buffer
   ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight
@@ -23,22 +23,14 @@ Current leader key map:                                            *leadermap*
                     ,c<space> toggles comment for current line/selection
   ,C            Center current line or selection
   ,e            Open :edit command preloaded with cwd of current file
-  ,f            Search current buffer (by line) with FuzzyFinder
+  ,f            Toggle NERDTree browser
   ,Ft           Fold current tag in HTML (should also work in XML)
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
   ,n            Toggle relative line numbering
   ,P            GUI only: paste from OS X clipboard
-  ,sc           Set filetype: C
-  ,sd           Set filetype: Diff
-  ,spe          Set filetype: Perl
-  ,sph          Set filetype: PHP
-  ,sps          Add a perl stub header
-  ,spy          Set filetype: Python
-  ,sr           Set filetype: Ruby
-  ,ss           Set filetype: Shell
-  ,sw           Set filetype: Wiki (mediawiki)
+  ,s            Set filetype
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
   ,uu           Underline previous line with hyphens
