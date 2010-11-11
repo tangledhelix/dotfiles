@@ -36,10 +36,6 @@ test -n "$INTERACTIVE" && {
 		HAVE_GAWK=$(command -v gawk)
 		test -n "$HAVE_GAWK" && _awk="$HAVE_GAWK --posix" || _awk="awk"
 
-		# need to use a specific path to ls because the color ls
-		# aliases break the awk parsing
-		_ls="/bin/ls"
-
 		if [[ "$1" = "-h" ]]; then
 			echo "Usage: proj <pattern>"
 			return
@@ -49,13 +45,13 @@ test -n "$INTERACTIVE" && {
 
 		# if no pattern is given, go to the newest project (by mtime).
 		test -z "$1" && {
-			_newest=`$_ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|tail -1`
+			_newest=`ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|tail -1`
 			test -d $_newest && cd $_newest || echo "No match."
 			return
 		}
 
 		# Get a count of projects (by pattern match).
-		_projcount="`$_ls -ltr|$_awk '/^d/ {if (\$9~/^[0-9]{8}-/) {print \$9}}'|grep -ci \"$1\"`"
+		_projcount="`ls -ltr|$_awk '/^d/ {if (\$9~/^[0-9]{8}-/) {print \$9}}'|grep -ci \"$1\"`"
 
 		# Case 1: there aren't any.
 		if [[ $_projcount -eq 0 ]]; then
@@ -64,7 +60,7 @@ test -n "$INTERACTIVE" && {
 
 		# Case 2: there's only one. Go there automatically.
 		elif [[ $_projcount -eq 1 ]]; then
-			_dir=`$_ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`
+			_dir=`ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`
 			test -d $_dir && cd $_dir || echo "Error: not a directory."
 
 		# Case 3: it's not 0 or 1. Go over them and let me pick from a menu.
@@ -72,7 +68,7 @@ test -n "$INTERACTIVE" && {
 
 			# Build an array of found projects in _projlist. Starts at 1, not 0.
 			_counter=1
-			for _this in `$_ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`; do
+			for _this in `ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`; do
 				_projlist[$_counter]="$_this"
 				_counter=$((_counter + 1))
 			done
