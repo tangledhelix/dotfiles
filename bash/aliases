@@ -2,7 +2,8 @@
 alias ls='/bin/ls -F'
 
 alias ..='cd ..'
-alias dot='cd ~/.dotfiles'
+
+test -d ~/.dotfiles && alias dot='cd ~/.dotfiles'
 
 alias c='clear'
 
@@ -19,10 +20,6 @@ alias Grep='grep'
 alias dirf='find . -type d|sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"'
 
 alias fn='find . -name'
-
-# Moved to functions
-#alias ff='find . -type f -print'
-#alias fd='find . -type d -print'
 
 # Show me time in GMT / UTC
 alias utc='TZ=UTC date'
@@ -51,7 +48,10 @@ alias tailf='tail --follow=name'
 alias stripcomments="egrep -v '^([\ \t]*#|$)'"
 
 # Check for hosed SMF services
-alias xv='svcs -xv'
+test -x /bin/svcs && alias xv='svcs -xv'
+
+# Show me an SMF service with its processes
+test -x /bin/svcs && alias sp='svcs -p'
 
 # Show my path
 alias path='echo $PATH'
