@@ -45,20 +45,20 @@ set tabstop=4
 set shiftwidth=4
 
 " Set the indent width to 2, 4, or 8
-nmap <leader>2 :setlocal ts=2 sw=2<CR>
-nmap <leader>4 :setlocal ts=4 sw=4<CR>
-nmap <leader>8 :setlocal ts=8 sw=8<CR>
+nmap <leader>2 :setlocal tabstop=2 shiftwidth=2<CR>
+nmap <leader>4 :setlocal tabstop=4 shiftwidth=4<CR>
+nmap <leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 
 " Re-tab the current file (changes tab->space or space->tab depending on the
 " current setting of expandtab). This can be dangerous, because on occasion
 " a raw tab will be embedded in a non-whitespace area like a string. One
 " hopes not, since we have things like \t, but you never know.
 nmap <silent> <leader><tab> :if &expandtab <Bar>
-	\    set noet<CR>
+	\    set noexpandtab<CR>
 	\    retab!<CR>
 	\    echo "Converted spaces to tabs." <Bar>
 	\else <Bar>
-	\    set et<CR>
+	\    set expandtab<CR>
 	\    retab!<CR>
 	\    echo "Converted tabs to spaces." <Bar>
 	\endif<CR>
@@ -123,13 +123,13 @@ set backspace=indent,eol,start
 " which screws up copy and paste for code). This would be useful for display
 " of English text, for instance. Note: You have to turn off list for linebreak
 " to work properly.
-command! -nargs=* Wrap setlocal wrap lbr nolist
+command! -nargs=* Wrap setlocal wrap linebreak nolist
 
 " For writing prose, not code.
-command! -nargs=* Prose setlocal wrap lbr nolist cc=""
+command! -nargs=* Prose setlocal wrap linebreak nolist colorcolumn=""
 
 " Undo the Prose settings if I do not actually want that right now.
-command! -nargs=* Noprose setlocal tw=0 fo-=at cc=81
+command! -nargs=* Noprose setlocal textwidth=0 formatoptions-=at colorcolumn=81
 
 " }}}
 " --------------------------------------------------------------------
@@ -139,7 +139,7 @@ command! -nargs=* Noprose setlocal tw=0 fo-=at cc=81
 set hlsearch
 
 " Clear the highlighted words from an hlsearch. (Can be visual clutter)
-nnoremap <leader><space> :noh<cr>
+nnoremap <leader><space> :nohlsearch<CR>
 
 " Turn hlsearch on or off.
 nmap <leader>h :set hlsearch!<CR>
@@ -341,8 +341,10 @@ vnoremap j gj
 vnoremap k gk
 
 " Go to matching brace / delimiter using <tab>. % still works.
-nnoremap <tab> %
-vnoremap <tab> %
+" Turning this off - since <tab> == ^I, this breaks the ^O / ^I
+" jumping-around model.
+"nnoremap <tab> %
+"vnoremap <tab> %
 
 " Stay out of insert mode as much as humanly possible.
 set noinsertmode
@@ -379,10 +381,10 @@ nmap <leader>= :call Preserve("normal gg=G")<CR>
 nmap <leader>H :TOhtml<CR>
 
 " A couple of conveniences for Markdown and others
-imap <leader>uu <ESC>kyypVr-o
-nmap <leader>uu kyypVr-o
-imap <leader>u= <ESC>kyypVr=o
-nmap <leader>u= kyypVr=o
+inoremap <leader>uu <ESC>kyypVr-o
+inoremap <leader>uU <ESC>kyypVr=o
+nnoremap <leader>uu ddkYpVr-$
+nnoremap <leader>uU ddkYpVr=$
 
 " Ask Vim for the syntax type at cursor location
 nmap <leader>? :call SynStack()<CR>
@@ -411,12 +413,12 @@ nnoremap <leader>t :tabnew<CR>
 
 " Navigate left/right through tabs using left/right arrow keys.
 " These mappings override the ones found in the arrow-key-remap plugin.
-nmap <silent> <Left> :tabp<CR>
-nmap <silent> <Right> :tabn<CR>
-vmap <silent> <Left> :tabp<CR>
-vmap <silent> <Right> :tabn<CR>
-imap <silent> <Left> <Esc>:tabp<CR>
-imap <silent> <Right> <Esc>:tabn<CR>
+nmap <silent> <Left> :tabprevious<CR>
+nmap <silent> <Right> :tabnext<CR>
+vmap <silent> <Left> :tabprevious<CR>
+vmap <silent> <Right> :tabnext<CR>
+imap <silent> <Left> <Esc>:tabprevious<CR>
+imap <silent> <Right> <Esc>:tabnext<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -660,7 +662,7 @@ if has("autocmd")
 
 	" Atypical tab widths
 	"autocmd FileType ruby setlocal ts=2 sts=2 sw=2
-	autocmd FileType yaml setlocal ts=2 sts=2 sw=2
+	autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 	" Save all unclean buffers when focus is lost (ala TextMate).
 	" Not sure whether I like this idea.
