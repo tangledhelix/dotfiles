@@ -30,12 +30,11 @@ test -n "$INTERACTIVE" && {
 	# Find a project. If only one project matches, just go there.
 	# If multiple do, print a list for me to select from. Hit enter to
 	# choose the last option automatically.
-	#
-	# If this doesn't work, SUNWxcu4 probably needs to be installed.
 
 	proj() {
 
-		test -x /usr/xpg4/bin/awk && _awk="/usr/xpg4/bin/awk" || _awk="awk"
+		HAVE_GAWK=$(command -v gawk)
+		test -n "$HAVE_GAWK" && _awk="$HAVE_GAWK --posix" || _awk="awk"
 
 		# need to use a specific path to ls because the color ls
 		# aliases break the awk parsing
