@@ -5,7 +5,7 @@ test -n "$INTERACTIVE" && {
 
 	shopt -s progcomp
 
-	_compile_hosts() {
+	function _compile_hosts() {
 		local _cur
 		local _ssh
 		local _hfile
