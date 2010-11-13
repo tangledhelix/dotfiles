@@ -51,7 +51,25 @@ test -n "$INTERACTIVE" && {
 	# _retval_color (escaped to eval on each prompt)
 	#     Returns a highlighted color if $? is non-zero.
 
-	export PS1="\[$(_xc_reset)\]\n\[$(_xc_bold 214)\][\j]\[$(_xc_reset)\] \[$(_xc 176)\]\w\[$(_xc_reset)$(_xc_bold 114)\]\$(_git_branch)\[$(_xc_reset)\]\n\[$(_xc 228)\]\u@$(_short_hname)\[$(_xc_reset)\]{\[\$(_retval_color)\]\$?\[$(_xc_reset)\]}\\$ "
+	# Reset to default colors, then start a new line
+	PS1="\[$(_xc_reset)\]\n"
+
+	# Show the current number of jobs in bold orange
+	PS1="$PS1\[$(_xc_bold 214)\][\j]\[$(_xc_reset)\]"
+
+	# Show current directory in violet
+	PS1="$PS1 \[$(_xc 176)\]\w\[$(_xc_reset)\]"
+
+	# Show current git branch (if in a repo) in bold green, start new line
+	PS1="$PS1\[$(_xc_bold 114)\]\$(_git_branch)\[$(_xc_reset)\]\n"
+
+	# Show {user}@{host} in yellow
+	PS1="$PS1\[$(_xc 228)\]\u@$(_short_hname)\[$(_xc_reset)\]"
+
+	# Show the value of $? (bold red if it's non-zero), then either $ or #
+	PS1="$PS1{\[\$(_retval_color)\]\$?\[$(_xc_reset)\]}\\$ "
+
+	export PS1
 
 	# A decent tcsh prompt:
 	#set prompt = '%n@%M:%c{%?}%# '
