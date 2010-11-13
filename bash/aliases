@@ -1,4 +1,8 @@
 
+# I intentionally do not use color support for ls because it looks awful
+# in my iTerm color scheme, which is based on vim zenburn. I still want
+# the trailing file-type indicators (-F).
+
 if [[ "$OS" = "Linux" ]]; then
 	# Silly Linux makes up its own timestamp formatting.
 	# That breaks project-mgmt. Bad Linux!
@@ -9,7 +13,7 @@ fi
 
 alias ..='cd ..'
 
-test -d ~/.dotfiles && alias dot='cd ~/.dotfiles'
+test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status'
 
 alias c='clear'
 
