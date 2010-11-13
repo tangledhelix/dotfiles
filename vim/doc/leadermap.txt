@@ -29,7 +29,6 @@ Current leader key map:                                            *leadermap*
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
   ,n            Toggle relative line numbering
-  ,P            GUI only: paste from OS X clipboard
   ,s            Set filetype
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
@@ -39,7 +38,6 @@ Current leader key map:                                            *leadermap*
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
   ,y            Toggle yankring window
-  ,Y            GUI only: copy to OS X clipboard
   ,zd           GUI only: return to default window size
   ,zf           GUI only: toggle fullscreen and larger font
   ,zm           GUI only: zoom to max window height/width

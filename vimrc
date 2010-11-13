@@ -125,6 +125,9 @@ set backspace=indent,eol,start
 " to work properly.
 command! -nargs=* Wrap setlocal wrap linebreak nolist
 
+" Turn the wrapping off (back to defaults...)
+command! -nargs=* Nowrap setlocal nolinebreak
+
 " For writing prose, not code.
 command! -nargs=* Prose setlocal wrap linebreak nolist colorcolumn=""
 
@@ -501,21 +504,25 @@ let g:yankring_history_dir = "$HOME/.vim"
 
 if has("gui_running")
 
+	" Disabling ,Y and ,P mappings - no point when cmd-C, cmd-V are
+	" already available, and I just end up using these in terminal
+	" sessions where they don't work. cmd-C and cmd-V work either way.
+
 	" Copy current line or selection to OS X clipboard
-	nnoremap <leader>Y "*yy
-	vnoremap <leader>Y "*y
+	"nnoremap <leader>Y "*yy
+	"vnoremap <leader>Y "*y
 
 	" Paste from OS X clipboard explicitly. If something was copied to the
 	" OS X clipboard after the last time something was copied to MacVim's
 	" clipboard, then 'p' will behave the same way, but these will always
 	" go directly to the OS X clipboard, bypassing anything in MacVim's.
-	nnoremap <leader>P "*p
-	vnoremap <leader>P "*p
+    "nnoremap <leader>P "*p
+	"vnoremap <leader>P "*p
 
 	" Whatever we copy, send to the system clipboard too.
-	" I don't like this, it can obliterate my Launchbar clipboard history quickly.
-	" Replaced this with ,Y and ,P mappings to easily interact with the system
-	" pasteboard in a more explicit way.
+	" I don't like this, it can obliterate my Launchbar clipboard history
+	" quickly. Replaced this with ,Y and ,P mappings to easily interact with
+	" the system pasteboard in a more explicit way.
 	"set clipboard+=unnamed
 
 endif
