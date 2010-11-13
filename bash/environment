@@ -20,7 +20,8 @@ export HISTCONTROL="erasedups"
 # Increase history size
 export HISTSIZE="10000"
 
-# Need local terminfo files for xterm-256color on some platforms
+# Need local terminfo files for xterm-256color on some platforms.
+# Yeah, I'm looking at you, Solaris.
 test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
 
 #######################################################################
