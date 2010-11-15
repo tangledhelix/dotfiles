@@ -1,0 +1,7 @@
+block	mytips.txt	/*block*
+dmltips	mytips.txt	/*dmltips*
+dmltips.txt	mytips.txt	/*dmltips.txt*
+leadermap	leadermap.txt	/*leadermap*
+leadermap.txt	leadermap.txt	/*leadermap.txt*
+left	mytips.txt	/*left*
+mytips	mytips.txt	/*mytips*
