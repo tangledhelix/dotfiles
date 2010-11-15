@@ -16,7 +16,7 @@ Current leader key map:                                            *leadermap*
   ,2            Set tab stop to 2
   ,4            Set tab stop to 4
   ,8            Set tab stop to 8
-  ,a            Reserved for future use for Ack (grep replacement)
+  ,a            Invoke Ack in smart-case mode
   ,A            Toggle autoclose mode
   ,B            Build Javascript bookmarklet from current buffer
   ,c{x}         Manage commenting (defined by plugin: nerd_commenter)

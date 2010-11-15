@@ -174,6 +174,9 @@ set gdefault
 " Open fuzzyfinder in line mode (search current buffer)
 nmap <leader>/ :FufLine<CR>
 
+" Use ack. Grep, refined. (Trailing space on this map is intentional.)
+nmap <leader>a :Ack --smart-case 
+
 " }}}
 " --------------------------------------------------------------------
 " Sounds and alerts {{{
