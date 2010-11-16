@@ -4,6 +4,16 @@
 Shortcuts (normal mode)
 
 ------------------------------------------------------------------------------
+Spell check
+
+    :set spell!     Toggle spell check mode (also bound to ,s)
+    ]s              Next error
+    [s              Previous error
+    z=              List of suggestions
+    zg              Add to my dictionary (zug to undo)
+    zw              Remove from my dictionary (zuw to undo)
+
+------------------------------------------------------------------------------
 Search and replace
 
     *       search for the word under the cursor
@@ -247,7 +257,7 @@ replicates the current line, then replaces it with ='s
 (so this gives you an = signs underline the same length as
 the current line)
 
-See mappings: ,ll ,lL ,l*
+See mappings: ,uu ,uU
 
 ==============================================================================
 From Steve Losh: Yankring
