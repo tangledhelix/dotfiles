@@ -103,9 +103,9 @@ function _xc_bold() {
 	return $_retval
 }
 
-# Set back to normal colors.
+# Set back to normal colors (reset).
 # Preserve the value of $? by returning it as we received it.
-function _xc_reset() {
+function _xc_rst() {
 	_retval=$?
 	echo -ne "\033[0m"
 	return $_retval
@@ -115,7 +115,15 @@ function _xc_reset() {
 # Preserve the original value of $? by returning it as we received it.
 function _retval_color() {
 	_retval=$?
-	[[ $_retval != 0 ]] && echo -ne "\033[1m\033[38;5;196m"
+	[[ $_retval != 0 ]] && echo -ne "\033[0m\033[38;5;196m"
+	return $_retval
+}
+
+# Show the root prompt character (e.g. #) in an attention-grabbing color.
+# Preserve the original value of $? by returning it as we received it.
+function _rootprompt_color() {
+	_retval=$?
+	[[ $EUID = 0 ]] && echo -ne "\033[0m\033[38;5;166m"
 	return $_retval
 }
 
