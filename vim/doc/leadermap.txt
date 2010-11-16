@@ -4,11 +4,11 @@
 
 Current leader key map:                                            *leadermap*
 
-  ,"            Change surrounding ' to "
-  ,'            Change surrounding " to '
-  ,*            Load FuzzyFinder in file mode
+  ,"            Change surrounding ' to " (plugin: |surround|)
+  ,'            Change surrounding " to ' (plugin: |surround|)
+  ,*            Fuzzy search for files (plugin: |fuzzyfinder|)
   ,,            Toggle paste mode
-  ,/            Search current buffer (by line) with FuzzyFinder
+  ,/            Search current buffer (by line) (plugin: |fuzzyfinder|)
   ,=            Re-indent entire buffer
   ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight
@@ -16,10 +16,10 @@ Current leader key map:                                            *leadermap*
   ,2            Set tab stop to 2
   ,4            Set tab stop to 4
   ,8            Set tab stop to 8
-  ,a            Invoke Ack in smart-case mode
-  ,A            Toggle autoclose mode
+  ,a            Invoke Ack in smart-case mode (plugin: |ack|)
+  ,A            Toggle autoclose mode (plugin: autoclose)
   ,B            Build Javascript bookmarklet from current buffer
-  ,c{x}         Manage commenting (defined by plugin: nerd_commenter)
+  ,c{x}         Manage commenting (plugin: |NERDCommenter|)
         ,cc         Comment current line or selection
         ,cu         Uncomment current line or selection
         ,c<space>   Toggle commenting, based on first line's current state
@@ -28,13 +28,13 @@ Current leader key map:                                            *leadermap*
         ,cy         Yank line or selection, then comment it
   ,C            Center current line or selection
   ,e            Open :edit command preloaded with cwd of current file
-  ,f            Toggle NERDTree browser
+  ,f            Toggle NERDTree browser (plugin: |NERDTree|)
   ,Ft           Fold current tag in HTML (should also work in XML)
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
   ,n            Toggle relative line numbering
-  ,s            Set filetype
+  ,s            Toggle spell-check mode
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
   ,uu           Underline previous line with hyphens
@@ -42,7 +42,7 @@ Current leader key map:                                            *leadermap*
   ,v            Reselect what was just pasted
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
-  ,y            Toggle yankring window
+  ,y            Toggle yankring window (plugin: |yankring|)
   ,zd           GUI only: return to default window size
   ,zf           GUI only: toggle fullscreen and larger font
   ,zm           GUI only: zoom to max window height/width
