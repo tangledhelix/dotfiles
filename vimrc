@@ -377,8 +377,8 @@ nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
 	\    source $MYVIMRC<Bar>
 	\endif<CR>
 
-" Quickly set filetype
-nmap <leader>s :set filetype=
+" Toggle spellcheck mode
+nmap <leader>s :set spell!<CR>
 
 " Re-indent entire file, preserving cursor location
 nmap <leader>= :call Preserve("normal gg=G")<CR>
