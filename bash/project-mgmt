@@ -68,15 +68,21 @@ test -n "$INTERACTIVE" && {
 
 			# Build an array of found projects in _projlist. Starts at 1, not 0.
 			_counter=1
+			_matchcount=0
 			for _this in `ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`; do
 				_projlist[$_counter]="$_this"
 				_counter=$((_counter + 1))
+				_matchcount=$((_matchcount + 1))
 			done
 
 			# Print out a menu of choices
 			_counter=1
 			for _this in ${_projlist[@]}; do
-				echo "[$_counter] $_this"
+				if [[ $_counter = $_matchcount ]]; then
+					echo "* [$_counter] $_this"
+				else
+					echo "  [$_counter] $_this"
+				fi
 				_counter=$((_counter + 1))
 			done
 
