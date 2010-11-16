@@ -54,11 +54,8 @@ test -n "$INTERACTIVE" && {
 	# Reset to default colors, then start a new line
 	PS1="\[$(_xc_rst)\]\n"
 
-	# Show the current number of jobs in orange
-	PS1="$PS1\[$(_xc 214)\][\j]\[$(_xc_rst)\]"
-
 	# Show current directory in violet
-	PS1="$PS1 \[$(_xc 176)\]\w\[$(_xc_rst)\]"
+	PS1="$PS1\[$(_xc 176)\]\w\[$(_xc_rst)\]"
 
 	# Show current git branch (if in a repo) in green, start new line
 	PS1="$PS1\[$(_xc 114)\]\$(_git_branch)\[$(_xc_rst)\]\n"
@@ -69,8 +66,8 @@ test -n "$INTERACTIVE" && {
 	# Show the value of $? in dark grey (bold red if it's non-zero)
 	PS1="$PS1 \[$(_xc 241)\]{\[\$(_retval_color)\]\$?\[$(_xc 241)\]}\[$(_xc_rst)\]"
 
-	# Show $ or # depending whether I am root. Use orange.
-	PS1="$PS1 \[$(_xc 214)\]\\$\[$(_xc_rst)\] "
+	# Show the current number of jobs in orange, a then $ or # prompt.
+	PS1="$PS1 \[$(_xc 214)\][\j]\\$\[$(_xc_rst)\] "
 
 	export PS1
 
