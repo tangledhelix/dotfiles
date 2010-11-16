@@ -119,14 +119,6 @@ function _retval_color() {
 	return $_retval
 }
 
-# Show the root prompt character (e.g. #) in an attention-grabbing color.
-# Preserve the original value of $? by returning it as we received it.
-function _rootprompt_color() {
-	_retval=$?
-	[[ $EUID = 0 ]] && echo -ne "\033[0m\033[38;5;214m"
-	return $_retval
-}
-
 # Used by ff(), fd()... execute a find command, possible filtering results
 function _finder() {
 	_type="$1"
