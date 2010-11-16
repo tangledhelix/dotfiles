@@ -50,10 +50,6 @@ test -n "$INTERACTIVE" && {
 	#
 	# _retval_color (escaped to eval on each prompt)
 	#     Returns a highlighted color if $? is non-zero.
-	#
-	# _rootprompt_color (escaped to eval on each prompt)
-	#     Returns a highlighted color if $EUID is 0 (root).
-	#     Designed to draw attention to elevated privileges.
 
 	# Reset to default colors, then start a new line
 	PS1="\[$(_xc_rst)\]\n"
@@ -73,8 +69,8 @@ test -n "$INTERACTIVE" && {
 	# Show the value of $? in dark grey (bold red if it's non-zero)
 	PS1="$PS1 \[$(_xc 241)\]{\[\$(_retval_color)\]\$?\[$(_xc 241)\]}\[$(_xc_rst)\]"
 
-	# Show $ or # depending whether I am root - if root, use a bright color.
-	PS1="$PS1 \[\$(_rootprompt_color)\]\\$\[$(_xc_rst)\] "
+	# Show $ or # depending whether I am root. Use orange.
+	PS1="$PS1 \[$(_xc 214)\]\\$\[$(_xc_rst)\] "
 
 	export PS1
 
