@@ -28,6 +28,7 @@ Current leader key map:                                            *leadermap*
         ,cy         Yank line or selection, then comment it
   ,C            Center current line or selection
   ,e            Open :edit command preloaded with cwd of current file
+  ,E            Toggle completion from system dictionary
   ,f            Toggle NERDTree browser (plugin: |NERDTree|)
   ,Ft           Fold current tag in HTML (should also work in XML)
   ,h            Toggle search highlighting
