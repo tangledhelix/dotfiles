@@ -6,7 +6,7 @@ test -n "$INTERACTIVE" && {
 
 	# Color definitions
 	if [[ "$_use_projcolor" = "yes" ]]; then
-		_projcolor="\033[0m\033[38;5;220m"
+		_projcolor="\033[38;5;220m"
 		_projcolor_clear="\033[m"
 	else
 		_projcolor=""

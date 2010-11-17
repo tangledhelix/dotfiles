@@ -115,7 +115,7 @@ function _xc_rst() {
 # Preserve the original value of $? by returning it as we received it.
 function _retval_color() {
 	_retval=$?
-	[[ $_retval != 0 ]] && echo -ne "\033[0m\033[38;5;196m"
+	[[ $_retval != 0 ]] && echo -ne "\033[38;5;196m"
 	return $_retval
 }
 
@@ -124,7 +124,7 @@ function _retval_color() {
 function _jobs_color() {
 	_retval=$?
 	_jobcount=`jobs|wc -l`
-	[[ $_jobcount -gt 0 ]] && echo -ne "\033[0m\033[38;5;214m"
+	[[ $_jobcount -gt 0 ]] && echo -ne "\033[38;5;214m"
 	return $_retval
 }
 
