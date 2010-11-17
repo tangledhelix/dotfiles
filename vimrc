@@ -75,7 +75,7 @@ set autoindent
 " a space-indented line just below a tab-indented line.
 set copyindent
 
-" An indent is automatically inserted: 
+" An indent is automatically inserted:
 " - After a line ending in '{'.
 " - After a line starting with a keyword from 'cinwords'.
 " - Before a line starting with '}' (only with the "O" command).
@@ -236,7 +236,7 @@ set listchars=tab:>-,eol:$
 "set listchars=tab:▸\ ,eol:¬
 
 " Turn invisibles on/off.
-nmap <leader>i :set list!<CR>
+nmap <silent> <leader>i :set list!<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -252,7 +252,7 @@ if v:version >= 703
 endif
 
 " Toggle relativenumber column. They get in the way of copying in a terminal.
-nmap <leader>n :set relativenumber!<CR>
+nmap <silent> <leader>n :set relativenumber!<CR>
 
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
@@ -280,18 +280,18 @@ vmap Q gw
 nmap Q gwip
 
 " Center current line or selection
-nmap <leader>C :center<CR>
-vmap <leader>C :center<CR>
+nmap <silent> <leader>C :center<CR>
+vmap <silent> <leader>C :center<CR>
 
 " Toggle autoclose mode
 nmap <leader>A <Plug>ToggleAutoCloseMappings
 
 " Strip trailing whitespace file-wide, preserving cursor location
-nnoremap <silent> <leader>W :call Preserve("%s/\\s\\+$//e")<CR>
+nnoremap <leader>W :call Preserve("%s/\\s\\+$//e")<CR>
 
 " Swap ' for " (or vice versa) on strings, preserving cursor location
-nmap <leader>' :call Preserve("normal cs\"'")<CR>
-nmap <leader>" :call Preserve("normal cs'\"")<CR>
+nmap <silent> <leader>' :call Preserve("normal cs\"'")<CR>
+nmap <silent> <leader>" :call Preserve("normal cs'\"")<CR>
 
 " Insert a space (easier for code reformatting sometimes...)
 "nnoremap <space> i<space><esc>l
@@ -371,10 +371,10 @@ nnoremap <leader>Ft Vatzf
 
 " Toggle syntax highlighting.
 nmap <silent> <leader>S :if exists("g:syntax_on") <Bar>
-	\    syntax off<Bar>
+	\    syntax off <Bar>
 	\else <Bar>
 	\    syntax enable<CR>
-	\    source $MYVIMRC<Bar>
+	\    source $MYVIMRC <Bar>
 	\endif<CR>
 
 " Toggle spellcheck mode
@@ -403,19 +403,19 @@ nmap <leader>? :call SynStack()<CR>
 set splitbelow
 
 " Create a new vertical window to the right, and switch to it.
-nnoremap <leader>w :wincmd v<CR>:wincmd l<CR>
+nnoremap <silent> <leader>w :wincmd v<CR>:wincmd l<CR>
 
 " Easier navigation keys (ctrl + normal movement keys h,j,k,l)
-map <C-h> :wincmd h<CR>
-map <C-j> :wincmd j<CR>
-map <C-k> :wincmd k<CR>
-map <C-l> :wincmd l<CR>
+map <silent> <C-h> :wincmd h<CR>
+map <silent> <C-j> :wincmd j<CR>
+map <silent> <C-k> :wincmd k<CR>
+map <silent> <C-l> :wincmd l<CR>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
 
 " Open a new tab in the current view
-nnoremap <leader>t :tabnew<CR>
+nnoremap <silent> <leader>t :tabnew<CR>
 
 " Navigate left/right through tabs using left/right arrow keys.
 " These mappings override the ones found in the arrow-key-remap plugin.
@@ -448,11 +448,11 @@ set nobackup
 set nowritebackup
 
 " Shell to use. Stick with the old standard.
-let &shell="/bin/sh"
+set shell="/bin/sh"
 
 " }}}
 " --------------------------------------------------------------------
-" Expansion {{{
+" Expansion / completion {{{
 
 " Add the dash ('-'), the dot ('.'), and the '@' as "letters" to "words".
 " This makes it possible to expand email addresses, e.g. guckes-www@vim.org
@@ -477,6 +477,10 @@ set wildmode=list:longest
 " random keys I don't really use.
 let g:sparkupExecuteMapping='<c-t>'
 let g:sparkupNextMapping='<c-x>'
+
+" Turn English-word completion from system dictionary on or off. (^N, ^P)
+set dictionary=/usr/share/dict/words
+nmap <silent> <leader>E :call ToggleFlag('complete', 'k', 'English completion')<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -675,7 +679,7 @@ if has("autocmd")
 	" Save all unclean buffers when focus is lost (ala TextMate).
 	" Not sure whether I like this idea.
 	"autocmd FocusLost * :wa
-	
+
 	" Automatically apply changes to .vimrc if it changes.
 	autocmd BufWritePost .vimrc source $MYVIMRC
 
