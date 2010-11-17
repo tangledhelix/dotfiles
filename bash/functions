@@ -89,8 +89,8 @@ function _short_hname() {
 # Preserve the value of $? by returning it as we received it.
 function _xc() {
 	_retval=$?
-	echo -ne "\033[38;05;$1m"
-	test -n "$2" && echo -ne "\033[48;05;$2m"
+	echo -ne "\033[38;5;$1m"
+	test -n "$2" && echo -ne "\033[48;5;$2m"
 	return $_retval
 }
 
@@ -98,7 +98,7 @@ function _xc() {
 # Preserve the value of $? by returning it as we received it.
 function _xc_bold() {
 	_retval=$?
-	echo -ne "\033[01m"
+	echo -ne "\033[1m"
 	_xc $@
 	return $_retval
 }
@@ -107,7 +107,7 @@ function _xc_bold() {
 # Preserve the value of $? by returning it as we received it.
 function _xc_rst() {
 	_retval=$?
-	echo -ne "\033[0m"
+	echo -ne "\033[m"
 	return $_retval
 }
 
