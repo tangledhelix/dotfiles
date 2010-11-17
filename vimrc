@@ -670,13 +670,11 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
 	autocmd BufNewFile,BufRead *.global set filetype=m4
 
-	" Atypical tab widths
-	"autocmd FileType ruby setlocal ts=2 sts=2 sw=2
-	autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+	autocmd FileType yaml setlocal expandtab
 
 	" Save all unclean buffers when focus is lost (ala TextMate).
 	" Not sure whether I like this idea.
-	"au FocusLost * :wa
+	"autocmd FocusLost * :wa
 	
 	" Automatically apply changes to .vimrc if it changes.
 	autocmd BufWritePost .vimrc source $MYVIMRC
@@ -684,7 +682,7 @@ if has("autocmd")
 	" Restore cursor position from our last session, if known.
 	autocmd BufReadPost *
 		\ if line("'\"") > 1 && line("'\"") <= line("$") |
-		\     exe "normal! g`\"" |
+		\     execute "normal! g`\"" |
 		\ endif
 
 endif
