@@ -119,6 +119,15 @@ function _retval_color() {
 	return $_retval
 }
 
+# Get job count, return an attention grabbing color if there are > 0.
+# Preserve the original value of $? by returning it as we received it.
+function _jobs_color() {
+	_retval=$?
+	_jobcount=`jobs|wc -l`
+	[[ $_jobcount -gt 0 ]] && echo -ne "\033[0m\033[38;5;214m"
+	return $_retval
+}
+
 # Used by ff(), fd()... execute a find command, possible filtering results
 function _finder() {
 	_type="$1"

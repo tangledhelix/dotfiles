@@ -50,6 +50,9 @@ test -n "$INTERACTIVE" && {
 	#
 	# _retval_color (escaped to eval on each prompt)
 	#     Returns a highlighted color if $? is non-zero.
+	#
+	# _jobs_color (escaped to eval on each prompt)
+	#     Returns a highlighted color if `jobs` lists 1 or more jobs.
 
 	# Reset to default colors, then start a new line
 	PS1="\[$(_xc_rst)\]\n"
@@ -64,10 +67,13 @@ test -n "$INTERACTIVE" && {
 	PS1="$PS1\[$(_xc 228)\]\u@$(_short_hname)\[$(_xc_rst)\]"
 
 	# Show the value of $? in dark grey (bold red if it's non-zero)
-	PS1="$PS1 \[$(_xc 241)\]{\[\$(_retval_color)\]\$?\[$(_xc 241)\]}\[$(_xc_rst)\]"
+	PS1="$PS1\[$(_xc 241)\]{\[\$(_retval_color)\]\$?\[$(_xc 241)\]}\[$(_xc_rst)\]"
 
-	# Show the current number of jobs in orange, a then $ or # prompt.
-	PS1="$PS1 \[$(_xc 214)\][\j]\\$\[$(_xc_rst)\] "
+	# Show the current number of jobs (in orange if > 0)
+	PS1="$PS1\[$(_xc 241)\][\[\$(_jobs_color)\]\j\[$(_xc 241)\]]"
+
+	# Show either a '$' or a '#' prompt, always in orange.
+	PS1="$PS1\[$(_xc 214)\]\\$\[$(_xc_rst)\] "
 
 	export PS1
 
