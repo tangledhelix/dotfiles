@@ -1,6 +1,18 @@
 
 test -n "$INTERACTIVE" && {
 
+	# Use color? Set to 'no' or 'yes'.
+	_use_projcolor="yes"
+
+	# Color definitions
+	if [[ "$_use_projcolor" = "yes" ]]; then
+		_projcolor="\033[0m\033[38;5;220m"
+		_projcolor_clear="\033[m"
+	else
+		_projcolor=""
+		_projcolor_clear=""
+	fi  
+
 	# This will create a project directory with the current date and a label,
 	# e.g. 20100904-openssh-upgrade. Optionally supply a ticket number to be
 	# inserted after the date, e.g. 20100904-29714-openssh-upgrade.
@@ -79,7 +91,7 @@ test -n "$INTERACTIVE" && {
 			_counter=1
 			for _this in ${_projlist[@]}; do
 				if [[ $_counter = $_matchcount ]]; then
-					echo "* [$_counter] $_this"
+					echo -e "$_projcolor* [$_counter] $_this$_projcolor_clear"
 				else
 					echo "  [$_counter] $_this"
 				fi
