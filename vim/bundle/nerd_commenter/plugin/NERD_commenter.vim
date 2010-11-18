@@ -547,6 +547,8 @@ function s:SetUpForNewFiletype(filetype, forceReset)
         call s:MapDelimiters('#', '')
     elseif a:filetype ==? "rc"
         call s:MapDelimitersWithAlternative('//','', '/*','*/')
+    elseif a:filetype ==? "rdist"
+    	call s:MapDelimiters('#', '')
     elseif a:filetype ==? "rebol"
         call s:MapDelimiters(';', '')
     elseif a:filetype ==? "registry"
