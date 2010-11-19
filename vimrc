@@ -448,7 +448,7 @@ set nobackup
 set nowritebackup
 
 " Shell to use. Stick with the old standard.
-set shell="/bin/sh"
+let &shell="/bin/sh"
 
 " }}}
 " --------------------------------------------------------------------
