@@ -1,8 +1,8 @@
 
-# "h" shows entire history
-# "h <pattern>" shows you history entries matching the string
+# "h" shows a tailed history
+# "h <pattern>" shows all history entries matching the string
 function h() {
-	test -n "$1" && history | grep -i "$1" || history
+	test -n "$1" && history | grep -i "$1" || history | tail -15
 }
 
 # Look up error codes
