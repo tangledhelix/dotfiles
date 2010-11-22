@@ -25,3 +25,6 @@
 [submodule "vim/bundle/nerd_tree"]
 	path = vim/bundle/nerd_tree
 	url = https://github.com/scrooloose/nerdtree.git
+[submodule "vim/bundle/rdist"]
+	path = vim/bundle/rdist
+	url = ssh://scsiboy@tangledhelix.com/~/git/vim-rdist
