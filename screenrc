@@ -1,1 +1,10 @@
+# I can't stand the default trigger of ^A
 escape ^Tt
+
+# Tell screen how to set colors. AB = background, AF = foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo xterm-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+# Erase background with current background color
+defbce "on"
+
