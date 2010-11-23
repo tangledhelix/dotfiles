@@ -225,13 +225,13 @@ set showmatch
 " Show the current mode.
 set showmode
 
-" Don't show invisibles by default (toggle with ,i)
-set nolist
-
-" How to display tabs and EOL
+" Whether and how to display tabs and EOL
 if has("multi_byte")
+	set encoding=utf-8
+	set list
 	set listchars=tab:▸\ ,eol:¬
 else
+	set nolist
 	set listchars=tab:>-,eol:$
 endif
 
@@ -598,8 +598,6 @@ if has("gui_running")
 
 	" Enable the right scrollbar
 	"set guioptions=+r
-
-	set encoding=utf-8
 
 else
 
