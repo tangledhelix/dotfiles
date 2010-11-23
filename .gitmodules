@@ -27,7 +27,7 @@
 	url = https://github.com/scrooloose/nerdtree.git
 [submodule "vim/bundle/rdist"]
 	path = vim/bundle/rdist
-	url = ssh://scsiboy@git.tangledhelix.com/~/git/vim-rdist
+	url = https://github.com/tangledhelix/vim-rdist.git
 [submodule "vim/bundle/repeat"]
 	path = vim/bundle/repeat
 	url = https://github.com/tpope/vim-repeat.git
