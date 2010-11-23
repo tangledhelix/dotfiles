@@ -24,7 +24,7 @@ Installation
 ------------
 
 	git clone https://github.com/tangledhelix/dotfiles ~/.dotfiles
-	cd .dotfiles
+	cd ~/.dotfiles
 	git submodule init
 	git submodule update
 	rake install
