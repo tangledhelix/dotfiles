@@ -7,12 +7,6 @@ varying flavors. They are published here because I occasionally want to share
 them or use them as examples, and this is an easy way to do so. Feel free to
 use anything you find here.
 
-Installation
-------------
-
-Use 'rake install' to install symlinks into $HOME, if you really want them
-all there. Rake will ask you before overwriting any files that already exist.
-
 Compatibility
 -------------
 
@@ -25,4 +19,15 @@ Some parts of the Bash and Vim configs assume you have 256 color support in
 your terminal. If you are using Apple Terminal, you may not. Try iTerm instead.
 
 <http://iterm.sourceforge.net/>
+
+Installation
+------------
+
+	git clone https://github.com/tangledhelix/dotfiles ~/.dotfiles
+	cd .dotfiles
+	git submodule init
+	git submodule update
+	rake install
+
+Rake will ask you before overwriting any files that already exist.
 
