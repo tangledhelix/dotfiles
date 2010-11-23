@@ -228,12 +228,12 @@ set showmode
 " Don't show invisibles by default (toggle with ,i)
 set nolist
 
-" How to display tabs and EOL.
-set listchars=tab:>-,eol:$
-
-" Unicode version. This works in the GUI, but I think it's better to have
-" things look the same everywhere. Sticking with ASCII version.
-"set listchars=tab:▸\ ,eol:¬
+" How to display tabs and EOL
+if has("multi_byte")
+	set listchars=tab:▸\ ,eol:¬
+else
+	set listchars=tab:>-,eol:$
+endif
 
 " Turn invisibles on/off.
 nmap <silent> <leader>i :set list!<CR>
@@ -616,6 +616,9 @@ endif
 " in a comment on line 1 (discarding previously inserted bookmarklet if it
 " exists), copy bookmarklet to the clipboard.
 nmap <silent> <leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
+
+" Preview a markdown file in the default browser
+nmap <leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/%.html<CR><CR>
 
 " }}}
 " --------------------------------------------------------------------
