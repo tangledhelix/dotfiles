@@ -34,6 +34,7 @@ Current leader key map:                                            *leadermap*
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
+  ,M            Preview markdown file in default browser
   ,n            Toggle relative line numbering
   ,s            Toggle spell-check mode
   ,S            Toggle syntax highlighting
