@@ -36,10 +36,10 @@ test -n "$INTERACTIVE" && {
 	# _xc <fg_color> [<bg_color>]
 	#     Sets a foreground color, and optionally a background color.
 	#
-	# _xc_bold <fg_color> [<bg_color>]
+	# _xcb <fg_color> [<bg_color>]
 	#     Same as _xc(), but uses bold variant.
 	#
-	# _xc_rst
+	# _xcr
 	#     Resets to default colors.
 	#
 	# _short_hname
@@ -48,32 +48,32 @@ test -n "$INTERACTIVE" && {
 	# _git_branch (escaped to eval on each prompt)
 	#     Returns name of current branch, if inside a git repository.
 	#
-	# _retval_color (escaped to eval on each prompt)
+	# _xc_retval (escaped to eval on each prompt)
 	#     Returns a highlighted color if $? is non-zero.
 	#
-	# _jobs_color (escaped to eval on each prompt)
+	# _xc_jobs (escaped to eval on each prompt)
 	#     Returns a highlighted color if `jobs` lists 1 or more jobs.
 
 	# Reset to default colors, then start a new line
-	PS1="\[$(_xc_rst)\]\n"
+	PS1="\[$(_xcr)\]\n"
 
 	# Show current directory in violet
-	PS1="$PS1\[$(_xc 176)\]\w\[$(_xc_rst)\]"
+	PS1="$PS1\[$(_xcb 176)\]\w\[$(_xcr)\]"
 
 	# Show current git branch (if in a repo) in green, start new line
-	PS1="$PS1\[$(_xc 114)\]\$(_git_branch)\[$(_xc_rst)\]\n"
+	PS1="$PS1\[$(_xcb 114)\]\$(_git_branch)\[$(_xcr)\]\n"
 
 	# Show {user}@{host} in yellow
-	PS1="$PS1\[$(_xc 228)\]\u@$(_short_hname)\[$(_xc_rst)\]"
+	PS1="$PS1\[$(_xcb 228)\]\u@$(_short_hname)\[$(_xcr)\]"
 
 	# Show the value of $? in dark grey (bold red if it's non-zero)
-	PS1="$PS1\[$(_xc 241)\]{\[\$(_retval_color)\]\$?\[$(_xc 241)\]}\[$(_xc_rst)\]"
+	PS1="$PS1\[$(_xcb 241)\]{\[\$(_xc_retval)\]\$?\[$(_xcb 241)\]}\[$(_xcr)\]"
 
 	# Show the current number of jobs (in orange if > 0)
-	PS1="$PS1\[$(_xc 241)\][\[\$(_jobs_color)\]\j\[$(_xc 241)\]]"
+	PS1="$PS1\[$(_xcb 241)\][\[\$(_xc_jobs)\]\j\[$(_xcb 241)\]]"
 
 	# Show either a '$' or a '#' prompt, always in orange.
-	PS1="$PS1\[$(_xc 214)\]\\$\[$(_xc_rst)\] "
+	PS1="$PS1\[$(_xcb 214)\]\\$\[$(_xcr)\] "
 
 	export PS1
 
