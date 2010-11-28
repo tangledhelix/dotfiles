@@ -13,7 +13,8 @@ fi
 
 alias ..='cd ..'
 
-test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status'
+test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status --ignore-submodule'
+alias gs='git status --ignore-submodule'
 
 alias c='clear'
 
@@ -73,9 +74,6 @@ test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
 
 # Show my path
 alias path='echo $PATH'
-
-# I end up typing this a lot.
-alias gs='git status'
 
 # reload bash config
 alias reload='. ~/.bashrc'
