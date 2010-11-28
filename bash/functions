@@ -96,7 +96,7 @@ function _xc() {
 
 # Make the foreground color bold instead of normal.
 # Preserve the value of $? by returning it as we received it.
-function _xc_bold() {
+function _xcb() {
 	_retval=$?
 	echo -ne "\033[1m"
 	_xc $@
@@ -105,7 +105,7 @@ function _xc_bold() {
 
 # Set back to normal colors (reset).
 # Preserve the value of $? by returning it as we received it.
-function _xc_rst() {
+function _xcr() {
 	_retval=$?
 	echo -ne "\033[m"
 	return $_retval
@@ -113,18 +113,18 @@ function _xc_rst() {
 
 # Evaluate $? and return an attention-grabbing color if non-zero.
 # Preserve the original value of $? by returning it as we received it.
-function _retval_color() {
+function _xc_retval() {
 	_retval=$?
-	[[ $_retval != 0 ]] && echo -ne "\033[38;5;196m"
+	[[ $_retval != 0 ]] && echo -ne "\033[1m\033[38;5;196m"
 	return $_retval
 }
 
 # Get job count, return an attention grabbing color if there are > 0.
 # Preserve the original value of $? by returning it as we received it.
-function _jobs_color() {
+function _xc_jobs() {
 	_retval=$?
 	_jobcount=`jobs|wc -l`
-	[[ $_jobcount -gt 0 ]] && echo -ne "\033[38;5;214m"
+	[[ $_jobcount -gt 0 ]] && echo -ne "\033[1m\033[38;5;214m"
 	return $_retval
 }
 
