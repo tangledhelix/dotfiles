@@ -1,14 +1,5 @@
-######################################################################
-# General options
 
 StrictHostKeyChecking no
-
-######################################################################
-# Specific NTT systems
-
-# Routers & switches
-Host o0?.*.us.to*
-	ForwardAgent no
 
 Host o0?.*.us.to*
 	ForwardAgent no
@@ -20,22 +11,17 @@ Host r??.*.us.to*
 Host s??.*.us.to*
 	ForwardAgent no
 
-# Sun service processors
 Host sp?.*
 	ForwardAgent no
 
-# Legacy IPE hosts
-Host eng*.verio.net
-	User dlowe
-
-# phone system
 Host sip-server*
 	User dlowe
+	IdentityFile ~/.ssh/voip
 
 Host voip*
 	User dlowe
+	IdentityFile ~/.ssh/voip
 
-# Netapps
 Host scd-nfs*
 	User root
 	ForwardAgent no
@@ -44,34 +30,33 @@ Host rlm0.scd-nfs*
 	User naroot
 	ForwardAgent no
 
-######################################################################
-# Specific Non-NTT systems
-
 Host *tangledhelix.com
 	User scsiboy
+	IdentityFile ~/.ssh/dreamhost
 
 Host *mig.sourceforge.net
 	User tangledhelix
+	IdentityFile ~/.ssh/sourceforge
 
 Host *mig.sf.net
 	User tangledhelix
-
-Host *crazyhorse.com
-	User danlowe
-
-Host gafc.dreamhost.com
-	User danlowe
+	IdentityFile ~/.ssh/sourceforge
 
 Host github.com
-	IdentityFile ~/.ssh/github
 	User git
+	IdentityFile ~/.ssh/github
 
-######################################################################
-# Defaults
+Host *.verio.net
+	IdentityFile ~/.ssh/ntt
+
+Host *.ntt.net
+	IdentityFile ~/.ssh/ntt
+
+Host *.to
+	IdentityFile ~/.ssh/ntt
 
 Host *
 	ForwardAgent yes
 	Protocol 2
-	User dan
 	IdentityFile ~/.ssh/id_rsa
 
