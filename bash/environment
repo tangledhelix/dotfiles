@@ -84,7 +84,6 @@ for _this in \
 	/usr/dt/man \
 	/usr/openwin/man \
 	/usr/sfw/man \
-	/usr/local/git/share/man \
 	~/local/man \
 	~/local/share/man \
 	~/Dropbox/man
