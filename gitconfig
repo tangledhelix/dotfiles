@@ -2,7 +2,5 @@
 	name = Dan Lowe
 	email = dan@tangledhelix.com
 
-[remote "ntt"]
-	receivepack = /usr/local/bin/git-receive-pack
-	uploadpack = /usr/local/bin/git-upload-pack
-
+[core]
+	quotepath = false
