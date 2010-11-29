@@ -467,16 +467,11 @@ set wildmenu
 " Behave like a shell, show me completion only to point of ambiguity.
 set wildmode=list:longest
 
-" By default, sparkup hijacks ^E and ^N. Both can be problematic because
-" those bindings are in use for other purposes, and sparkup changes
-" their meaning in HTML contexts.
-"     ^E is used to scroll the view downward
-"     ^N is used for word completion
-" TODO: These aren't the best mappings, but until I determine good, non-
-" conflicting mappings for these, I'm just assigning them to some
-" random keys I don't really use.
-let g:sparkupExecuteMapping='<c-t>'
-let g:sparkupNextMapping='<c-x>'
+" Trigger a sparkup expansion (default ^E)
+let g:sparkupExecuteMapping='<C-T>'
+
+" Hop to next input point, inside a sparkup expansion (default ^N)
+let g:sparkupNextMapping='<C-X>'
 
 " Turn English-word completion from system dictionary on or off. (^N, ^P)
 set dictionary=/usr/share/dict/words
