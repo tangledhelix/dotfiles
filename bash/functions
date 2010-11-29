@@ -34,19 +34,6 @@ function _git_branch() {
 	return $_retval
 }
 
-# Easy clone of a project that lives on Dreamhost
-function gitclone_dreamhost() {
-	_user="scsiboy"
-	_server="git.tangledhelix.com"
-
-	test -n "$1" || {
-		echo "Missing argument (repo to clone)"
-		return
-	}
-
-	git clone ssh://$_user@$_server/~/git/$1 $2
-}
-
 # NTT git environment is a little weird, streamline it.
 function gitclone_ntt() {
 	_path="/usr/local/bin/git-upload-pack"
