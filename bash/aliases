@@ -13,8 +13,8 @@ fi
 
 alias ..='cd ..'
 
-test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status --ignore-submodule'
-alias gs='git status --ignore-submodule'
+test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status'
+alias gs='git status'
 
 alias c='clear'
 
