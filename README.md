@@ -25,9 +25,14 @@ Installation
 
 	git clone https://github.com/tangledhelix/dotfiles ~/.dotfiles
 	cd ~/.dotfiles
-	rake install
 	git submodule init
 	git submodule update
+
+To install my dotfiles as *your* dotfiles, you can create symlinks with `rake`.
+If you do *not* run the rake command, everything will be isolated inside of
+the `.dotfiles` directory and will not interfere with your existing environment.
+
+	rake install
 
 Rake will ask you before overwriting any files that already exist.
 
