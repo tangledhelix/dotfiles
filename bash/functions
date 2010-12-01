@@ -34,6 +34,12 @@ function _git_branch() {
 	return $_retval
 }
 
+# Create a new git repo in cwd
+function gitinit() {
+	git init
+	printf ".DS_Store\n.*.swp\n*~\n" > .gitignore
+}
+
 # NTT git environment is a little weird, streamline it.
 function gitclone_ntt() {
 	_path="/usr/local/bin/git-upload-pack"
@@ -46,6 +52,17 @@ function gitclone_ntt() {
 	}
 
 	git clone -o ntt -u $_path ssh://$_user@$_server/~/git/$1 $2
+}
+
+function gitpush_ntt() {
+	_gituser="dan@admin1.mlpsca01.us.to.gin.ntt.net"
+	test -n "$1" || {
+		echo "Missing argument (remote repo name)"
+		return
+	}
+	git remote add ntt ssh://$_gituser/~/git/$1
+	git push ntt master
+	git branch --set-upstream master ntt/master
 }
 
 # Give me a shortened version of the local hostname.
