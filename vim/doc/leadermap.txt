@@ -36,6 +36,9 @@ Current leader key map:                                            *leadermap*
   ,i            Toggle viewing of invisible characters
   ,M            Preview markdown file in default browser
   ,n            Toggle relative line numbering
+  ,of           Open filename under cursor, displacing this buffer
+  ,ot           Open filename under cursor in a new tab
+  ,ow           Open filename under cursor in a new window
   ,s            Toggle spell-check mode
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
