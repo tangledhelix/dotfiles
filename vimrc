@@ -564,12 +564,20 @@ nmap <leader>* :FufFile<CR>
 
 " Preload the :edit command with the directory where the file in
 " the current buffer is located.
-map <leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
+nmap <leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
 
 " Variants that open in split, vsplit or a tab
-"map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-"map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-"map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+"nmap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+"nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+"nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Open filename under cursor (optionally in new tab or window)
+nmap <leader>of gf
+vmap <leader>of gf
+nmap <leader>ow <C-W>f
+vmap <leader>ow <C-W>f
+nmap <leader>ot <C-W>gf
+vmap <leader>ot <C-W>gf
 
 " }}}
 " --------------------------------------------------------------------
