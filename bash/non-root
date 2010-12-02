@@ -23,7 +23,7 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
 	}
 
 	# Is screen running?
-	HAVE_SCREEN=$(command -v screen)
+	HAVE_SCREEN=$(command -v screen 2>/dev/null)
 	test -n "$HAVE_SCREEN" && $HAVE_SCREEN -list | grep -v '^No Sockets'
 
 }

@@ -45,7 +45,7 @@ test -n "$INTERACTIVE" && {
 
 	proj() {
 
-		HAVE_GAWK=$(command -v gawk)
+		HAVE_GAWK=$(command -v gawk 2>/dev/null)
 		test -n "$HAVE_GAWK" && _awk="$HAVE_GAWK --posix" || _awk="awk"
 
 		if [[ "$1" = "-h" ]]; then

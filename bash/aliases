@@ -69,7 +69,7 @@ test -x /bin/svcs && alias xv='svcs -xv'
 test -x /bin/svcs && alias sp='svcs -p'
 
 # I like to use smart-case with Ack.
-HAVE_ACK=$(command -v ack)
+HAVE_ACK=$(command -v ack 2>/dev/null)
 test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
 
 # Show my path
