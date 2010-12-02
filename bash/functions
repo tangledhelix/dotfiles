@@ -93,7 +93,7 @@ function _short_hname() {
 # Preserve the value of $? by returning it as we received it.
 function _xc() {
 	_retval=$?
-	echo -ne "\033[38;5;$1m"
+	echo -ne "\033[m\033[38;5;$1m"
 	test -n "$2" && echo -ne "\033[48;5;$2m"
 	return $_retval
 }
