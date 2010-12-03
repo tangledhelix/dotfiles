@@ -5,6 +5,16 @@ function h() {
 	test -n "$1" && history | grep -i "$1" || history | tail -15
 }
 
+# "path" shows current path, one element per line.
+# If an argument is supplied, grep for it.
+function path() {
+	test -n "$1" && {
+		echo $PATH | perl -p -e 's/:/\n/g;' | grep -i "$1"
+	} || {
+		echo $PATH | perl -p -e 's/:/\n/g;'
+	}
+}
+
 # Look up error codes
 function errno() {
 	perl -e "\$! = $1; print \"\$! \\n\";"
