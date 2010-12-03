@@ -72,8 +72,8 @@ test -x /bin/svcs && alias sp='svcs -p'
 HAVE_ACK=$(command -v ack 2>/dev/null)
 test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
 
-# Show my path
-alias path='echo $PATH'
+# show path, one element per line
+alias path="echo \$PATH | perl -p -e 's/:/\n/g;'"
 
 # reload bash config
 alias reload='. ~/.bashrc'
