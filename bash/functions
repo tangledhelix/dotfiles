@@ -5,6 +5,12 @@ function h() {
 	test -n "$1" && history | grep -i "$1" || history | tail -15
 }
 
+# Make a directory, then go there
+function d() {
+	test -n "$1" || return
+	mkdir "$1" && cd "$1"
+}
+
 # "path" shows current path, one element per line.
 # If an argument is supplied, grep for it.
 function path() {
@@ -36,11 +42,21 @@ function astr() {
 	echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
 }
 
-# Get the current git branch (for shell prompt).
+# Look for code repositories. If git, show me the branch name. If CVS or
+# Subversion, just show me the repo type (they don't have good branch info).
 # Preserve the value of $? by returning it as we received it.
-function _git_branch() {
+function _scm_info() {
 	_retval=$?
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+
+	if [[ -f ./CVS/Root ]]; then
+		echo -n ' (CVS)'
+	elif [[ -d ./.svn ]]; then
+		echo -n ' (Subversion)'
+	else
+		_gb=`git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+		test -n "$_gb" && echo -n " ($_gb)"
+	fi
+
 	return $_retval
 }
 

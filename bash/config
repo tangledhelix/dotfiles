@@ -45,8 +45,9 @@ test -n "$INTERACTIVE" && {
 	# _short_hname
 	#     Returns a shortened version of local system name.
 	#
-	# _git_branch (escaped to eval on each prompt)
-	#     Returns name of current branch, if inside a git repository.
+	# _scm_info (escaped to eval on each prompt)
+	#     Looks for code repositories. If git is found, branch name is shown.
+	#     For CVS or Subversion directories, the repository type is shown.
 	#
 	# _xc_retval (escaped to eval on each prompt)
 	#     Returns a highlighted color if $? is non-zero.
@@ -60,8 +61,8 @@ test -n "$INTERACTIVE" && {
 	# Show current directory in violet
 	PS1="$PS1\[$(_xc 176)\]\w\[$(_xcr)\]"
 
-	# Show current git branch (if in a repo) in green, start new line
-	PS1="$PS1\[$(_xc 114)\]\$(_git_branch)\[$(_xcr)\]\n"
+	# Show code repo info in green (if present), then start new line
+	PS1="$PS1\[$(_xc 114)\]\$(_scm_info)\[$(_xcr)\]\n"
 
 	# Show {user}@{host} in yellow
 	PS1="$PS1\[$(_xc 228)\]\u@$(_short_hname)\[$(_xcr)\]"
