@@ -59,8 +59,10 @@ files, you may end up seeing stuff like this, which gets annoying:
 	#
 	no changes added to commit (use "git add" and/or "git commit -a")
 
-I have an alias that knows how to ignore submodules. This will not work in older
-versions of git. It works with the version I use (1.7.3.1).
+My `~/.gitconfig` file sets up `~/.gitignore` for global ignoring of certain
+files. `~/.gitignore` contains `doc/tags` and `doc/tags-ja` to prevent this
+output from happening due to vim's tag files.
 
-	alias gs='git status --ignore-submodule'
+With recent versions of git, you can also use the `--ignore-submodule` flag
+on `git` commands such as `status`.
 
