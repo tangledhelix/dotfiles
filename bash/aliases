@@ -16,6 +16,10 @@ alias ..='cd ..'
 test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status'
 alias gs='git status'
 
+# CVS at work uses an unexpected path. This is aliased because it breaks other
+# repositories, e.g. sourceforge.
+alias ncvs='CVS_SERVER=/usr/local/bin/cvs cvs'
+
 alias c='clear'
 
 # Lets me queue up a beep if I want, i.e. "make ; beep"
