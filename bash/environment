@@ -10,10 +10,6 @@ test -n "$UNAME" || export UNAME="$(uname)"
 # Tunnel CVS via SSH
 export CVS_RSH="ssh"
 
-# Tell CVS where it lives remotely. This will be fine for ISS hosts,
-# but could break something else?
-export CVS_SERVER="/usr/local/bin/cvs"
-
 # Erase duplicate entries from history
 export HISTCONTROL="erasedups"
 
