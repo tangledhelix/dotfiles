@@ -104,7 +104,7 @@ set shiftround
 " a soft wrap to the window width.
 set wrap
 
-" No fixed width; 0 means to use the current window width.
+" No fixed width; 0 means to use the current window width, max out at 79.
 set textwidth=0
 
 " Break lines at whitespace or special characters (when tw != 0). Avoids lines
