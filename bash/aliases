@@ -30,6 +30,7 @@ alias whios='whois'
 alias mroe='more'
 alias More='more'
 alias Grep='grep'
+alias vm='rm'
 
 # Just in case I'm somewhere that all this fancy color stuff doesn't
 # work right, or I'm running screen, I can use this.
