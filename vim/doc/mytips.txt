@@ -4,6 +4,18 @@
 Shortcuts (normal mode)
 
 ------------------------------------------------------------------------------
+Case coercion (cr) - Abolish plugin
+
+    type   convert to
+
+    crc    camelCase
+    crm    MixedCase
+    cr_    snake_case
+    crs    snake_case
+    cru    SNAKE_UPPERCASE
+    cr-    dash-case (irreversible)
+
+------------------------------------------------------------------------------
 Spell check
 
     :set spell!     Toggle spell check mode (also bound to ,s)
@@ -50,6 +62,29 @@ Search and replace
                     default entire lines are affected even in ^v mode).
 
     &       repeat last :s command
+
+    Abolish plugin provides 'Subvert' aka 'S' command:
+
+        :S/box{,es}/bag{,s}/g
+
+        Changes:
+            box -> bag
+            Box -> Bag
+            BOX -> BAG
+            boxes -> bags
+            Boxes -> Bags
+            BOXES -> BAGS
+
+        :%S/facilit{y,ies}/building{,s}/g
+
+        Changes:
+            facility -> building
+            FACILITIES -> BUILDINGS
+            ... and so on
+
+        Can be repeated with &
+        Honors % for global application
+        Honors ending flags such as 'g'
 
 ------------------------------------------------------------------------------
 Navigating / jumping around
