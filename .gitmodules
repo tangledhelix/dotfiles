@@ -46,3 +46,6 @@
 [submodule "vim/bundle/yankring"]
 	path = vim/bundle/yankring
 	url = https://github.com/chrismetcalf/vim-yankring.git
+[submodule "vim/bundle/abolish"]
+	path = vim/bundle/abolish
+	url = https://github.com/tpope/vim-abolish.git
