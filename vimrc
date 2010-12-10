@@ -594,6 +594,9 @@ set modelines=0
 " Spellcheck language
 set spelllang=en_us
 
+" Turn off " pairing in vim files (plugin: autoclose [my fork])
+let g:autoclose_vim_commentmode = 1
+
 if has("gui_running")
 
 	" Disable the toolbar
@@ -683,9 +686,6 @@ if has("autocmd")
 	" Save all unclean buffers when focus is lost (ala TextMate).
 	" Not sure whether I like this idea.
 	"autocmd FocusLost * :wa
-
-	" Turn off " pairing in vim files (plugin: autoclose)
-	autocmd FileType vim let g:autoclose_vimfilemode = 1
 
 	" Automatically apply changes to .vimrc if it changes.
 	autocmd BufWritePost .vimrc source $MYVIMRC
