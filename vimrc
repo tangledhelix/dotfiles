@@ -684,6 +684,9 @@ if has("autocmd")
 	" Not sure whether I like this idea.
 	"autocmd FocusLost * :wa
 
+	" Turn off " pairing in vim files (plugin: autoclose)
+	autocmd FileType vim let g:autoclose_vimfilemode = 1
+
 	" Automatically apply changes to .vimrc if it changes.
 	autocmd BufWritePost .vimrc source $MYVIMRC
 
