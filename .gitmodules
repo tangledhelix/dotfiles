@@ -9,7 +9,7 @@
 	url = https://github.com/mileszs/ack.vim.git
 [submodule "vim/bundle/endwise"]
 	path = vim/bundle/endwise
-	url = https://github.com/tpope/vim-endwise.git
+	url = https://github.com/tangledhelix/vim-endwise.git
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
