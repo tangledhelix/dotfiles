@@ -1,11 +1,22 @@
 
 task :default do
-	puts 'Usage: rake install'
+	puts 'Usage: rake [ install | force ]'
+	puts '    install : ask first before overwriting'
+	puts '    force   : just do it, no questions'
 end
 
 task :install do
-	ignore_files = %w( README.md Rakefile ssh )
 	$replace_all = false
+	installer
+end
+
+task :force do
+	$replace_all = true
+	installer
+end
+
+def installer
+	ignore_files = %w( README.md Rakefile ssh )
 	Dir[ '*' ].each do |file|
 		next if ignore_files.include? file or file =~ /.*~$/
 		determine_action( file )
@@ -28,7 +39,7 @@ def determine_action( file )
 			when 'q'
 				exit
 			else
-				puts "=> Skipping ~/.#{file}"
+				puts "    skipping ~/.#{file}"
 			end
 		end
 	else
@@ -37,12 +48,12 @@ def determine_action( file )
 end
 
 def link_file( file )
-	puts "=> Linking ~/.#{ file }..."
+	puts "    linking ~/.#{ file }..."
 	system `ln -s "$PWD/#{ file }" "$HOME/.#{ file }"`
 end
 
 def replace_file( file )
-	puts "=> Removing old ~/.#{ file }..."
+	puts "    removing old ~/.#{ file }..."
 	system `rm -f "$HOME/.#{ file }"`
 	link_file( file )
 end
