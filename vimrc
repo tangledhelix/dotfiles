@@ -683,8 +683,19 @@ if has("autocmd")
 
 	autocmd FileType yaml setlocal expandtab
 
+	" Italic, bold surrounds for Mediawiki (plugin 'surround')
+	autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
+	autocmd FileType mediawiki let g:surround_{char2nr('b')} = "'''\r'''"
+	" Header levels 2, 3, 4
+	autocmd FileType mediawiki let g:surround_{char2nr('2')} = "==\r=="
+	autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
+	autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
+
+	" Bold for Markdown (plugin 'surround')
+	autocmd FileType markdown let g:surround_{char2nr('b')} = "**\r**"
+
 	" Save all unclean buffers when focus is lost (ala TextMate).
-	" Not sure whether I like this idea.
+	" Not sure whether I like this idea. This is GUI only.
 	"autocmd FocusLost * :wa
 
 	" Automatically apply changes to .vimrc if it changes.
