@@ -4,6 +4,15 @@
 Shortcuts (normal mode)
 
 ------------------------------------------------------------------------------
+History views
+
+    q/     search history
+    q:     command history
+
+    type ':' then up/down arrow to see command history
+    type '/' then up/down arrow to see search history
+
+------------------------------------------------------------------------------
 Case coercion (cr) - Abolish plugin
 
     type   convert to
@@ -139,6 +148,9 @@ General editing
 
     s       delete this char, then enter insert mode (xi)
     S       erase entire line, sub with new (0C or 0Da)
+
+    ctrl-a  increment number under cursor
+    ctrl-x  decrement number under cursor
 
 ------------------------------------------------------------------------------
 Indenting
