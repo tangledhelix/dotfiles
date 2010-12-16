@@ -715,9 +715,10 @@ endif
 
 " How many colors my terminal is capable of displaying. This assumes
 " that terminfo for xterm-256color is present.
-if !has("gui") && has("terminfo")
-	set t_Co=256
-endif
+" According to deryni on #vim this is autodetected. Apparently so.
+"if !has("gui") && has("terminfo")
+	"set t_Co=256
+"endif
 
 if has("gui_running")
 	set guifont=Menlo:h14
