@@ -192,3 +192,10 @@ function fd() {
 	#echo -ne "\033]1;Title Goes Here\a"
 #}
 
+# Tell me the installed version of a Perl module.
+function perlmodver() {
+	MODULE="$1"
+	test -n "$MODULE" || { echo "missing argument"; return; }
+	perl -M$MODULE -e "print \$$MODULE::VERSION,\"\\n\";"
+}
+
