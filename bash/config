@@ -84,7 +84,10 @@ test -n "$INTERACTIVE" && {
 	stty erase '^?' -parenb -istrip echo echoe echoctl echoke tabs cs8
 
 	# Use emacs keybindings at the prompt
-	set -o emacs
+	#set -o emacs
+
+	# Experiment: use vi keybindings instead. I hope I don't loathe this.
+	set -o vi
 
 	# notify of bg job completion immediately
 	set -o notify
