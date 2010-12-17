@@ -12,6 +12,8 @@ History views
     type ':' then up/down arrow to see command history
     type '/' then up/down arrow to see search history
 
+    ^F     switch from command line to command history window
+
 ------------------------------------------------------------------------------
 Case coercion (cr) - Abolish plugin
 
