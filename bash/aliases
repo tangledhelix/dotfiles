@@ -15,6 +15,8 @@ alias ..='cd ..'
 
 test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status'
 alias gs='git status'
+# color is turned off here because it looks terrible on my terminal bgcolor
+alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit --color=never'
 
 # CVS at work uses an unexpected path. This is aliased because it breaks other
 # repositories, e.g. sourceforge.
@@ -39,7 +41,12 @@ alias simpleprompt='export PS1="\u@$(_short_hname):\w{\$?}[\j]\\$ "'
 # print the directory structure from the current directory in tree format
 alias dirf='find . -type d|sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"'
 
+# find name...
 alias fn='find . -name'
+
+# file list without trailing type characters or anything.
+alias fl='/bin/ls | cat'
+alias fla='/bin/ls -a | cat'
 
 # Show me time in GMT / UTC
 alias utc='TZ=UTC date'
