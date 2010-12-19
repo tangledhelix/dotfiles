@@ -630,7 +630,8 @@ nmap <leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/
 
 " Use jj to get back to command mode instead of ESC, which is out of the
 " way. ESC still works too.
-inoremap jj <ESC>
+" Turning this off, probably easier to map this only one way (in my head).
+"inoremap jj <ESC>
 
 " Remap F1 to ESC, because they're right next to each other, and I know how
 " to type ":help" already, thank you very much.
