@@ -23,7 +23,10 @@ alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit --colo
 # repositories, e.g. sourceforge.
 alias ncvs='CVS_SERVER=/usr/local/bin/cvs cvs'
 
+# convenience aliases
 alias c='clear'
+alias p='proj'
+alias mp='mkproj'
 
 # Lets me queue up a beep if I want, i.e. "make ; beep"
 alias beep='echo -ne "\a"'
