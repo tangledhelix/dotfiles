@@ -1,24 +1,68 @@
 
 test -n "$INTERACTIVE" && {
 
-	# Use color? Set to 'no' or 'yes'.
-	_use_projcolor="yes"
+	# Use color? Set to 'no' or 'yes'. If active, the default choice in a
+	# multi-item match will be highlighted with terminal colors. If no,
+	# colors are omitted. The default choice will still be highlighted
+	# by having a "*" printed next to it.
+	#
+	USE_PROJCOLOR="yes"
 
 	# Color definitions
-	if [[ "$_use_projcolor" = "yes" ]]; then
+	if [[ "$USE_PROJCOLOR" = "yes" ]]; then
 		_projcolor="\033[38;5;220m"
 		_projcolor_clear="\033[m"
 	else
 		_projcolor=""
 		_projcolor_clear=""
-	fi  
+	fi
+
+	# Get a list of valid projects. An optional pattern can be supplied.
+	_get_projects() {
+		local _pattern="$1"
+		local _line
+
+		/bin/ls -l | while read -r _line; do
+			set -- $_line
+			test -d "$9" && {
+				[[ "$9" =~ ^[0-9]{8}-$_pattern ]] && echo "$9"
+			}
+		done
+	}
+
+	# Get a count of projects that match a pattern.
+	_get_project_count() {
+		local _pattern="$1"
+		local _count=0
+		local _project
+
+		for _project in `_get_projects "$_pattern"`; do
+			[[ "$_project" =~ ^[0-9]{8}-.*$_pattern ]] && _count=$((_count + 1))
+		done
+
+		echo $_count
+	}
+
+	# Get the newest project.
+	_get_current_project() {
+		local _project
+		local _current
+
+		for _project in `_get_projects`; do
+			_current="$_project"
+		done
+
+		echo "$_current"
+	}
 
 	# This will create a project directory with the current date and a label,
 	# e.g. 20100904-openssh-upgrade. Optionally supply a ticket number to be
 	# inserted after the date, e.g. 20100904-29714-openssh-upgrade.
 
 	mkproj() {
-		_usage="Usage: mkproj <description> [<ticket>]"
+		local _usage="Usage: mkproj <description> [<ticket>]"
+		local _date
+		local _projdir
 
 		if [[ "$1" = "-h" ]]; then
 			echo $_usage
@@ -44,44 +88,46 @@ test -n "$INTERACTIVE" && {
 	# choose the last option automatically.
 
 	proj() {
+		local _pattern="$1"
+		local _choice
+		local _count
+		local _counter
+		local _matchcount
+		local _projlist
+		local _this
 
-		HAVE_GAWK=$(command -v gawk 2>/dev/null)
-		test -n "$HAVE_GAWK" && _awk="$HAVE_GAWK --posix" || _awk="awk"
-
-		if [[ "$1" = "-h" ]]; then
-			echo "Usage: proj <pattern>"
-			return
-		fi
+		[[ "$_pattern" = "-h" ]] && { echo "Usage: proj <pattern>"; return; }
 
 		cd ~
 
 		# if no pattern is given, go to the newest project (by mtime).
-		test -z "$1" && {
-			_newest=`ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|tail -1`
-			test -d $_newest && cd $_newest || echo "No match."
+		test -z "$_pattern" && {
+			_project=`_get_current_project`
+			test -n $_project && cd $_project || echo "No match."
 			return
 		}
 
 		# Get a count of projects (by pattern match).
-		_projcount="`ls -ltr|$_awk '/^d/ {if (\$9~/^[0-9]{8}-/) {print \$9}}'|grep -ci \"$1\"`"
+		_count=`_get_project_count "$1"`
 
 		# Case 1: there aren't any.
-		if [[ $_projcount -eq 0 ]]; then
+		if [[ $_count -eq 0 ]]; then
 			echo "No match."
 			return
 
 		# Case 2: there's only one. Go there automatically.
-		elif [[ $_projcount -eq 1 ]]; then
-			_dir=`ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`
-			test -d $_dir && cd $_dir || echo "Error: not a directory."
+		elif [[ $_count -eq 1 ]]; then
+			_project=`_get_projects "$1"`
+			test -d $_project && cd $_project || echo "Error: not a directory."
 
 		# Case 3: it's not 0 or 1. Go over them and let me pick from a menu.
 		else
 
+			# TODO: still the rest of this to refactor
 			# Build an array of found projects in _projlist. Starts at 1, not 0.
 			_counter=1
 			_matchcount=0
-			for _this in `ls -ltr|$_awk '/^d/ {if ($9~/^[0-9]{8}-/) {print $9}}'|grep -i "$1"`; do
+			for _this in `_getprojdirs | grep -i "$1"`; do
 				_projlist[$_counter]="$_this"
 				_counter=$((_counter + 1))
 				_matchcount=$((_matchcount + 1))
@@ -114,8 +160,8 @@ test -n "$INTERACTIVE" && {
 				return
 			fi
 
-			_dir=${_projlist[$_choice]}
-			test -d $_dir && cd $_dir || echo "Error: not a directory."
+			_project=${_projlist[$_choice]}
+			test -d $_project && cd $_project || echo "Error: not a directory."
 		fi
 	}
 }
