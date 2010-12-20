@@ -11,9 +11,10 @@
 # yn y "Do you want to continue?" || exit
 # yn n "Remove $FILE?" && rm -f $FILE
 
-yn() {
-	_default="$1"
-	_question="$2"
+function yn() {
+	local _default="$1"
+	local _question="$2"
+	local _choice
 
 	test -z "$_question" && {
 		echo "ERROR: yn() is missing an argument"

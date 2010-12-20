@@ -46,7 +46,8 @@ function astr() {
 # Subversion, just show me the repo type (they don't have good branch info).
 # Preserve the value of $? by returning it as we received it.
 function _scm_info() {
-	_retval=$?
+	local _retval=$?
+	local _gb
 
 	if [[ -f ./CVS/Root ]]; then
 		echo -n ' (CVS)'
@@ -68,9 +69,9 @@ function gitinit() {
 
 # NTT git environment is a little weird, streamline it.
 function gitclone_ntt() {
-	_path="/usr/local/bin/git-upload-pack"
-	_user="dan"
-	_server="admin1.mlpsca01.us.to.gin.ntt.net"
+	local _path="/usr/local/bin/git-upload-pack"
+	local _user="dan"
+	local _server="admin1.mlpsca01.us.to.gin.ntt.net"
 
 	test -n "$1" || {
 		echo "Missing argument (repo to clone)"
@@ -81,11 +82,13 @@ function gitclone_ntt() {
 }
 
 function gitpush_ntt() {
-	_gituser="dan@admin1.mlpsca01.us.to.gin.ntt.net"
+	local _gituser="dan@admin1.mlpsca01.us.to.gin.ntt.net"
+
 	test -n "$1" || {
 		echo "Missing argument (remote repo name)"
 		return
 	}
+
 	git remote add ntt ssh://$_gituser/~/git/$1
 	git push ntt master
 	git branch --set-upstream master ntt/master
@@ -96,7 +99,7 @@ function gitpush_ntt() {
 # If it's more than that, give me the first two.
 # Preserve the value of $? by returning it as we received it.
 function _short_hname() {
-	_retval=$?
+	local _retval=$?
 
 	echo $HOST | perl -p -e '
 		if ( scalar( split( /\./ ) ) > 3 ) {
@@ -118,50 +121,60 @@ function _short_hname() {
 # set the foreground. If two are provided, set {foreground, background}.
 # Preserve the value of $? by returning it as we received it.
 function _xc() {
-	_retval=$?
+	local _retval=$?
+
 	echo -ne "\033[m\033[38;5;$1m"
 	test -n "$2" && echo -ne "\033[48;5;$2m"
+
 	return $_retval
 }
 
 # Make the foreground color bold instead of normal.
 # Preserve the value of $? by returning it as we received it.
 function _xcb() {
-	_retval=$?
+	local _retval=$?
+
 	echo -ne "\033[1m"
 	_xc $@
+
 	return $_retval
 }
 
 # Set back to normal colors (reset).
 # Preserve the value of $? by returning it as we received it.
 function _xcr() {
-	_retval=$?
+	local _retval=$?
+
 	echo -ne "\033[m"
+
 	return $_retval
 }
 
 # Evaluate $? and return an attention-grabbing color if non-zero.
 # Preserve the original value of $? by returning it as we received it.
 function _xc_retval() {
-	_retval=$?
+	local _retval=$?
+
 	[[ $_retval != 0 ]] && echo -ne "\033[1m\033[38;5;196m"
+
 	return $_retval
 }
 
 # Get job count, return an attention grabbing color if there are > 0.
 # Preserve the original value of $? by returning it as we received it.
 function _xc_jobs() {
-	_retval=$?
-	_jobcount=`jobs|wc -l`
+	local _retval=$?
+
+	local _jobcount=`jobs|wc -l`
 	[[ $_jobcount -gt 0 ]] && echo -ne "\033[1m\033[38;5;214m"
+
 	return $_retval
 }
 
 # Used by ff(), fd()... execute a find command, possible filtering results
 function _finder() {
-	_type="$1"
-	_pattern="$2"
+	local _type="$1"
+	local _pattern="$2"
 
 	test -n "$_type" || return
 
@@ -194,8 +207,9 @@ function fd() {
 
 # Tell me the installed version of a Perl module.
 function perlmodver() {
-	MODULE="$1"
-	test -n "$MODULE" || { echo "missing argument"; return; }
-	perl -M$MODULE -e "print \$$MODULE::VERSION,\"\\n\";"
+	local _module="$1"
+
+	test -n "$_module" || { echo "missing argument"; return; }
+	perl -M$_module -e "print \$$_module::VERSION,\"\\n\";"
 }
 
