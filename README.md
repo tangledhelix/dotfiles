@@ -20,6 +20,13 @@ your terminal. If you are using Apple Terminal, you may not. Try iTerm2 instead.
 
 <http://sites.google.com/site/iterm2home/>
 
+I have written two blog posts on the subject of iTerm and iTerm2. Give them a
+read; color support is only one of several good reasons to switch.
+
+<http://tangledhelix.com/archive/iterm-terminal>
+
+<http://tangledhelix.com/archive/iterm2-iterm>
+
 Installation
 ------------
 
