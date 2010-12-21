@@ -174,12 +174,15 @@ _xc_jobs() {
 # Used by ff(), fd()... execute a find command, possible filtering results
 _finder() {
 	local _type="$1"
-	local _pattern="$2"
+	local _include="$2"
+	local _exclude="$3"
 
 	test -n "$_type" || return
 
-	if [[ -n "$_pattern" ]]; then
-		find . -type $_type -print | grep -i "$_pattern"
+	if [[ -n "$_exclude" ]]; then
+		find . -type $_type -print | grep -i "$_include" | grep -vi "$_exclude"
+	elif [[ -n "$_include" ]]; then
+		find . -type $_type -print | grep -i "$_include"
 	else
 		find . -type $_type -print
 	fi
@@ -187,12 +190,22 @@ _finder() {
 
 # Show file tree, optionally filtering results
 ff() {
-	_finder f $1
+	if [[ "$1" =~ ^\(-h\|--help\) ]]; then
+		echo "Usage: ff [<include-pattern>] [<exclude-pattern>]"
+		return
+	fi
+
+	_finder f "$1" "$2"
 }
 
 # Show directory tree, optionally filtering results
 fd() {
-	_finder d $1
+	if [[ "$1" =~ ^\(-h\|--help\) ]]; then
+		echo "Usage: fd [<include-pattern>] [<exclude-pattern>]"
+		return
+	fi
+
+	_finder d "$1" "$2"
 }
 
 # Example function: how to set a window title
