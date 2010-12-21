@@ -67,6 +67,16 @@ done
 export PATH
 
 #######################################################################
+# Now that PATH is set, detect the presence of various tools
+
+HAVE_ACK=$(command -v ack 2>/dev/null)
+HAVE_LESS=$(command -v less 2>/dev/null)
+HAVE_MVIM=$(command -v mvim 2>/dev/null)
+HAVE_SCREEN=$(command -v screen 2>/dev/null)
+HAVE_VIM=$(command -v vim 2>/dev/null)
+HAVE_VIMDIFF=$(command -v vimdiff 2>/dev/null)
+
+#######################################################################
 # Man page search path
 
 unset MANPATH
@@ -94,9 +104,6 @@ export MANPATH
 #######################################################################
 # Editor
 
-HAVE_VIM="$(command -v vim 2>/dev/null)"
-HAVE_MVIM="$(command -v mvim 2>/dev/null)"
-
 test -n "$HAVE_MVIM" && EDITOR="mvim -f" || {
 	test -n "$HAVE_VIM" && EDITOR="$HAVE_VIM" || EDITOR="vi"
 }
@@ -110,7 +117,6 @@ test -n "$HAVE_VIM" &&  {
 	alias view="$HAVE_VIM -R"
 }
 
-HAVE_VIMDIFF="$(command -v vimdiff 2>/dev/null)"
 test -n "$HAVE_VIMDIFF" && {
 	alias vimdiff="$HAVE_VIMDIFF -O"
 	alias vdiff="$HAVE_VIMDIFF -O"
@@ -137,11 +143,11 @@ test -n "$HAVE_MVIM" && {
 #
 # NOTE: -F seems to break things on some systems I use; avoiding it.
 
-if test -n "$(command -v less 2>/dev/null)" ; then
+if test -n "$HAVE_LESS" ; then
 	PAGER="less -irw"
 	MANPAGER="less -iRsw"
 	alias more="less"
-	test -n "$(command -v ack 2>/dev/null)" && {
+	test -n "$HAVE_ACK" && {
 		export ACK_PAGER="less -R"
 		export ACK_PAGER_COLOR="less -R"
 	}
