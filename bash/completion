@@ -5,7 +5,7 @@ test -n "$INTERACTIVE" && {
 
 	shopt -s progcomp
 
-	function _compile_hosts() {
+	_compile_hosts() {
 		local _cur
 		local _ssh
 		local _hfile
@@ -18,7 +18,7 @@ test -n "$INTERACTIVE" && {
 		# If there is an ISS-style .hostlist file handy, read that too
 		test -f $HOME/.hostlist && _hfile="$HOME/.hostlist"
 		test -f /admin/config/.hostlist && _hfile="/admin/config/.hostlist"
-		_hosts=""
+		unset _hosts
 		test -n "$_hfile" && _hosts="`cat $_hfile`"
 
 		COMPREPLY=()

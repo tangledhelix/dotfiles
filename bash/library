@@ -11,7 +11,7 @@
 # yn y "Do you want to continue?" || exit
 # yn n "Remove $FILE?" && rm -f $FILE
 
-function yn() {
+yn() {
 	local _default="$1"
 	local _question="$2"
 	local _choice
@@ -34,7 +34,7 @@ function yn() {
 
 	read _choice
 
-	test -z "$_choice" && _choice=$_default
+	test -z "$_choice" && _choice="$_default"
 
 	if [[ "$_choice" = "y" || "$_choice" = "Y" ]]; then
 		return 0
