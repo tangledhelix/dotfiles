@@ -279,10 +279,6 @@ set nojoinspaces
 vmap Q gw
 nmap Q gwip
 
-" Center current line or selection
-nmap <silent> <leader>C :center<CR>
-vmap <silent> <leader>C :center<CR>
-
 " Toggle autoclose mode
 nmap <leader>A <Plug>ToggleAutoCloseMappings
 
@@ -355,6 +351,13 @@ vnoremap k gk
 " Stay out of insert mode as much as humanly possible.
 set noinsertmode
 
+" Open quickfix window
+nmap <leader>C :cwindow<CR>
+
+" Go to next/previous quickfix entry
+nmap <S-Down> :cnext<CR>
+nmap <S-Up> :cprevious<CR>
+
 " }}}
 " ----------------------------------------------------------------------
 " Folding {{{
@@ -406,10 +409,10 @@ set splitbelow
 nnoremap <silent> <leader>w :wincmd v<CR>:wincmd l<CR>
 
 " Easier navigation keys (ctrl + normal movement keys h,j,k,l)
-map <silent> <C-h> :wincmd h<CR>
-map <silent> <C-j> :wincmd j<CR>
-map <silent> <C-k> :wincmd k<CR>
-map <silent> <C-l> :wincmd l<CR>
+nnoremap <silent> <C-h> :wincmd h<CR>
+nnoremap <silent> <C-j> :wincmd j<CR>
+nnoremap <silent> <C-k> :wincmd k<CR>
+nnoremap <silent> <C-l> :wincmd l<CR>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0

@@ -26,7 +26,7 @@ Current leader key map:                                            *leadermap*
         ,c$         Comment from cursor to end-of-line
         ,ci         Invert each line's current state
         ,cy         Yank line or selection, then comment it
-  ,C            Center current line or selection
+  ,C            Open quickfix window
   ,e            Open :edit command preloaded with cwd of current file
   ,E            Toggle completion from system dictionary
   ,f            Toggle NERDTree browser (plugin: |NERDTree|)
