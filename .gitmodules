@@ -49,3 +49,6 @@
 [submodule "vim/bundle/autoclose"]
 	path = vim/bundle/autoclose
 	url = https://github.com/tangledhelix/vim-autoclose.git
+[submodule "vim/bundle/smart-tabs"]
+	path = vim/bundle/smart-tabs
+	url = https://github.com/vim-scripts/Smart-Tabs.git
