@@ -67,13 +67,24 @@ nmap <silent> <leader><tab> :if &expandtab <Bar>
 " --------------------------------------------------------------------
 " Indenting {{{
 
+" autoindent, copyindent, smartindent turned off in favor of
+" 'filetype indent on' (see above).
+"
+" So sayeth vimgor on #vim:
+"     Don't you mean stupidindent? In all seriousness, 'smartindent' is an
+" obsolete option for C-like syntax. It has been replaced with 'cindent', and
+" setting 'cindent' also overrides 'smartindent'. Vim has indentation support
+" for many languages out-of-the-box, and setting 'smartindent' (or 'cindent',
+" for that matter) in your .vimrc might interfere with this. Use 'filetype
+" indent on' and be happy.
+
 "  Good for coding. Handles indenting of blocks automatically.
-set autoindent
+"set autoindent
 
 " Copies the indentation characters of the previous line. This will
 " help avoid situations where I edit a file and my expandtab makes
 " a space-indented line just below a tab-indented line.
-set copyindent
+"set copyindent
 
 " An indent is automatically inserted:
 " - After a line ending in '{'.
@@ -87,7 +98,7 @@ set copyindent
 " mapping: ":inoremap # X^H#", where ^H is entered with CTRL-V CTRL-H.
 " When using the ">>" command, lines starting with '#' are not shifted
 " right.
-set smartindent
+"set smartindent
 
 " This prevents smartindent from pushing # to the start of a line, I want
 " it at the same indent I'm currently at, usually.
