@@ -26,7 +26,7 @@ errno() {
 	perl -e "\$! = $1; print \"\$! \\n\";"
 }
 
-# machine type, on solaris
+# Machine type, on Solaris systems
 hw() {
 	[[ "$OS" != "SunOS" ]] && {
 		echo "'hw' is only available in SunOS."
@@ -65,33 +65,6 @@ _scm_info() {
 gitinit() {
 	git init
 	printf ".DS_Store\n.*.swp\n*~\n" > .gitignore
-}
-
-# NTT git environment is a little weird, streamline it.
-gitclone_ntt() {
-	local _path="/usr/local/bin/git-upload-pack"
-	local _user="dan"
-	local _server="admin1.mlpsca01.us.to.gin.ntt.net"
-
-	test -n "$1" || {
-		echo "Missing argument (repo to clone)"
-		return
-	}
-
-	git clone -o ntt -u $_path ssh://$_user@$_server/~/git/$1 $2
-}
-
-gitpush_ntt() {
-	local _gituser="dan@admin1.mlpsca01.us.to.gin.ntt.net"
-
-	test -n "$1" || {
-		echo "Missing argument (remote repo name)"
-		return
-	}
-
-	git remote add ntt ssh://$_gituser/~/git/$1
-	git push ntt master
-	git branch --set-upstream master ntt/master
 }
 
 # Give me a shortened version of the local hostname.
