@@ -26,7 +26,6 @@ Current leader key map:                                            *leadermap*
         ,c$         Comment from cursor to end-of-line
         ,ci         Invert each line's current state
         ,cy         Yank line or selection, then comment it
-  ,C            Open quickfix window
   ,e            Open :edit command preloaded with cwd of current file
   ,E            Toggle completion from system dictionary
   ,f            Toggle NERDTree browser (plugin: |NERDTree|)
@@ -39,6 +38,7 @@ Current leader key map:                                            *leadermap*
   ,of           Open filename under cursor, displacing this buffer
   ,ot           Open filename under cursor in a new tab
   ,ow           Open filename under cursor in a new window
+  ,q            Open quickfix window
   ,s            Toggle spell-check mode
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view

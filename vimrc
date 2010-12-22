@@ -352,7 +352,7 @@ vnoremap k gk
 set noinsertmode
 
 " Open quickfix window
-nmap <leader>C :cwindow<CR>
+nmap <leader>q :cwindow<CR>
 
 " Go to next/previous quickfix entry
 nmap <S-Down> :cnext<CR>
