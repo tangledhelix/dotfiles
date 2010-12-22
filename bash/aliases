@@ -21,7 +21,7 @@ alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit --colo
 
 # CVS at work uses an unexpected path. This is aliased because it breaks other
 # repositories, e.g. sourceforge.
-alias ncvs='CVS_SERVER=/usr/local/bin/cvs cvs'
+alias wcvs='CVS_SERVER=/usr/local/bin/cvs cvs'
 
 # convenience aliases
 alias c='clear'
@@ -31,14 +31,14 @@ alias mp='mkproj'
 # Lets me queue up a beep if I want, i.e. "make ; beep"
 alias beep='echo -ne "\a"'
 
-# Common typos
+# Common typos. Don't judge.
 alias whios='whois'
 alias mroe='more'
 alias More='more'
 alias Grep='grep'
 alias vm='rm'
 
-# Just in case I'm somewhere that all this fancy color stuff doesn't
+# Just in case I'm somewhere that all the fancy color stuff doesn't
 # work right, or I'm running screen, I can use this.
 alias simpleprompt='export PS1="\u@$(_short_hname):\w{\$?}[\j]\\$ "'
 
@@ -58,10 +58,11 @@ alias gmt='TZ=GMT date'
 # Time in Tokyo
 alias jst='TZ=Asia/Tokyo date'
 
+# Solaris paths
 test -x /usr/bin/mailx && alias mail='/usr/bin/mailx'
 test -x /usr/ucb/Mail && alias Mail='/usr/ucb/Mail'
 
-# Solaris diff sucks, use GNU diff instead.
+# Solaris diff sucks, use my GNU diff instead.
 test -x /usr/local/pkg/diffutils/bin/diff &&
 	alias diff='/usr/local/pkg/diffutils/bin/diff'
 
@@ -78,10 +79,10 @@ alias tailf='tail --follow=name'
 # Strip comment / blank lines from an output
 alias stripcomments="egrep -v '^([\ \t]*#|$)'"
 
-# Check for hosed SMF services
+# Check for hosed SMF services on (Solaris >= 10)
 test -x /bin/svcs && alias xv='svcs -xv'
 
-# Show me an SMF service with its processes
+# Show me an SMF service with its processes (Solaris >= 10)
 test -x /bin/svcs && alias sp='svcs -p'
 
 # I like to use smart-case with Ack.
