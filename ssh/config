@@ -16,11 +16,9 @@ Host sp?.*
 
 Host sip-server*
 	User dlowe
-	IdentityFile ~/.ssh/voip
 
 Host voip*
 	User dlowe
-	IdentityFile ~/.ssh/voip
 
 Host scd-nfs*
 	User root
@@ -32,28 +30,15 @@ Host rlm0.scd-nfs*
 
 Host *tangledhelix.com
 	User scsiboy
-	IdentityFile ~/.ssh/dreamhost
 
 Host *mig.sourceforge.net
 	User tangledhelix
-	IdentityFile ~/.ssh/sourceforge
 
 Host *mig.sf.net
 	User tangledhelix
-	IdentityFile ~/.ssh/sourceforge
 
 Host github.com
 	User git
-	IdentityFile ~/.ssh/github
-
-Host *.verio.net
-	IdentityFile ~/.ssh/ntt
-
-Host *.ntt.net
-	IdentityFile ~/.ssh/ntt
-
-Host *.to
-	IdentityFile ~/.ssh/ntt
 
 Host *
 	ForwardAgent yes
