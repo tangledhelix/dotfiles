@@ -27,7 +27,7 @@ runtime macros/matchit.vim
 " Tab settings {{{
 
 " These settings work best when coding, indenting from the left column, but
-" not using <tab> to indent other than that - e.g. right-hand comments would
+" not using <Tab> to indent other than that - e.g. right-hand comments would
 " be indented using spaces, to avoid formatting breakage if later viewed in an
 " editor with a different tab stop. I tend to avoid right-hand comments anyway
 " precisely becuase of that format problem.
@@ -53,7 +53,7 @@ nmap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 " current setting of expandtab). This can be dangerous, because on occasion
 " a raw tab will be embedded in a non-whitespace area like a string. One
 " hopes not, since we have things like \t, but you never know.
-nmap <Silent> <Leader>T :if &expandtab <Bar>
+nmap <silent> <Leader>T :if &expandtab <Bar>
 	\    set noexpandtab<CR>
 	\    retab!<CR>
 	\    echo "Converted spaces to tabs." <Bar>
@@ -70,7 +70,7 @@ nmap <Silent> <Leader>T :if &expandtab <Bar>
 " poorly with other plugins, particularly snipmate.
 "
 " This is slightly hacky, but it's easy and it works. Tab uses normal
-" tab behavior. Shift-tab will always insert space-expanded tabs, but
+" tab behavior. Leader-Tab will always insert space-expanded tabs, but
 " honors the current tab stop.
 inoremap <Leader><Tab> <Esc>:set expandtab<CR>a<Tab><Esc>:set noexpandtab<CR>a
 
@@ -194,7 +194,7 @@ set magic
 set gdefault
 
 " Open fuzzyfinder in line mode (search current buffer)
-nmap <Silent> <Leader>/ :FufLine<CR>
+nmap <silent> <Leader>/ :FufLine<CR>
 
 " Use ack. Grep, refined. (Trailing space on this map is intentional.)
 nmap <Leader>a :Ack --smart-case 
@@ -258,7 +258,7 @@ else
 endif
 
 " Turn invisibles on/off.
-nmap <Silent> <Leader>i :set list!<CR>
+nmap <silent> <Leader>i :set list!<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -274,7 +274,7 @@ if v:version >= 703
 endif
 
 " Toggle relativenumber column. They get in the way of copying in a terminal.
-nmap <Silent> <Leader>n :set relativenumber!<CR>
+nmap <silent> <Leader>n :set relativenumber!<CR>
 
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
@@ -308,8 +308,8 @@ nmap <Leader>A <Plug>ToggleAutoCloseMappings
 nnoremap <Leader>W :call Preserve("%s/\\s\\+$//e")<CR>
 
 " Swap ' for " (or vice versa) on strings, preserving cursor location
-nmap <Silent> <Leader>' :call Preserve("normal cs\"'")<CR>
-nmap <Silent> <Leader>" :call Preserve("normal cs'\"")<CR>
+nmap <silent> <Leader>' :call Preserve("normal cs\"'")<CR>
+nmap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
 
 " Insert a space (easier for code reformatting sometimes...)
 "nnoremap <space> i<space><esc>l
@@ -364,8 +364,8 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" Go to matching brace / delimiter using <tab>. % still works.
-" Turning this off - since <tab> == ^I, this breaks the ^O / ^I
+" Go to matching brace / delimiter using <Tab>. % still works.
+" Turning this off - since <Tab> == ^I, this breaks the ^O / ^I
 " jumping-around model.
 "nnoremap <tab> %
 "vnoremap <tab> %
@@ -395,7 +395,7 @@ nnoremap <Leader>Ft Vatzf
 " Syntax-related mappings {{{
 
 " Toggle syntax highlighting.
-nmap <Silent> <Leader>S :if exists("g:syntax_on") <Bar>
+nmap <silent> <Leader>S :if exists("g:syntax_on") <Bar>
 	\    syntax off <Bar>
 	\else <Bar>
 	\    syntax enable<CR>
@@ -428,28 +428,28 @@ nmap <Leader>? :call SynStack()<CR>
 set splitbelow
 
 " Create a new vertical window to the right, and switch to it.
-nnoremap <Silent> <Leader>w :wincmd v<CR>:wincmd l<CR>
+nnoremap <silent> <Leader>w :wincmd v<CR>:wincmd l<CR>
 
 " Easier navigation keys (ctrl + normal movement keys h,j,k,l)
-nnoremap <Silent> <C-H> :wincmd h<CR>
-nnoremap <Silent> <C-J> :wincmd j<CR>
-nnoremap <Silent> <C-K> :wincmd k<CR>
-nnoremap <Silent> <C-L> :wincmd l<CR>
+nnoremap <silent> <C-H> :wincmd h<CR>
+nnoremap <silent> <C-J> :wincmd j<CR>
+nnoremap <silent> <C-K> :wincmd k<CR>
+nnoremap <silent> <C-L> :wincmd l<CR>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
 
 " Open a new tab in the current view
-nnoremap <Silent> <Leader>t :tabnew<CR>
+nnoremap <silent> <Leader>t :tabnew<CR>
 
 " Navigate left/right through tabs using left/right arrow keys.
 " These mappings override the ones found in the arrow-key-remap plugin.
-nmap <Silent> <Left> :tabprevious<CR>
-nmap <Silent> <Right> :tabnext<CR>
-"vmap <Silent> <Left> :tabprevious<CR>
-"vmap <Silent> <Right> :tabnext<CR>
-"imap <Silent> <Left> <Esc>:tabprevious<CR>
-"imap <Silent> <Right> <Esc>:tabnext<CR>
+nmap <silent> <Left> :tabprevious<CR>
+nmap <silent> <Right> :tabnext<CR>
+"vmap <silent> <Left> :tabprevious<CR>
+"vmap <silent> <Right> :tabnext<CR>
+"imap <silent> <Left> <Esc>:tabprevious<CR>
+"imap <silent> <Right> <Esc>:tabnext<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -500,7 +500,7 @@ let g:sparkupNextMapping='<C-X>'
 
 " Turn English-word completion from system dictionary on or off. (^N, ^P)
 set dictionary=/usr/share/dict/words
-nmap <Silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completion')<CR>
+nmap <silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completion')<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -518,7 +518,7 @@ vmap D y'>p
 nnoremap <Leader>v `[v`]
 
 " Toggle Yankring window
-nnoremap <Silent> <Leader>y :YRShow<CR>
+nnoremap <silent> <Leader>y :YRShow<CR>
 
 " Can yankring share its data between instances of Vim?
 let g:yankring_share_between_instances = 1
@@ -644,7 +644,7 @@ endif
 " Read current buffer, turn it into a bookmarklet, insert that bookmarklet
 " in a comment on line 1 (discarding previously inserted bookmarklet if it
 " exists), copy bookmarklet to the clipboard.
-nmap <Silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
+nmap <silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
 
 " Preview a markdown file in the default browser
 nmap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/%.html<CR><CR>
@@ -653,13 +653,13 @@ nmap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/
 " --------------------------------------------------------------------
 " Misc. mappings {{{
 
-" Use jj to get back to command mode instead of ESC, which is out of the
-" way. ESC still works too.
+" Use jj to get back to command mode instead of Esc, which is out of the
+" way. Esc still works too.
 " Turning this off, probably easier to map this only one way (in my head).
 "inoremap jj <Esc>
 
-" Remap F1 to ESC, because they're right next to each other, and I know how
-" to type ":help" already, thank you very much.
+" Remap F1 to Esc, because they're right next to each other, and I know how
+" to type ":h" already, thank you very much.
 inoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 vnoremap <F1> <Esc>
@@ -682,7 +682,7 @@ imap  <C-H>
 cmap  <C-H>
 
 " Unmap the K key, it usually doesn't do anything useful anyway.
-nmap K <NUL>
+nmap K <Nul>
 
 " Example of changing the contents of a tag to TitleCase.
 " e.g.: <foo>BAR BAZ</foo> becomes <foo>Bar Baz</foo>
@@ -808,7 +808,7 @@ if has("gui_running")
 	nmap <Leader>zd :set lines=40 columns=90<CR>
 
 	" Real fullscreen. Also kicks up the font size a bit.
-	nmap <Silent> <Leader>zf :if &fullscreen <Bar>
+	nmap <silent> <Leader>zf :if &fullscreen <Bar>
 		\    set guifont=Menlo:h14 <Bar>
 		\else <Bar>
 		\    set guifont=Menlo:h16 <Bar>
