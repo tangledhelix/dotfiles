@@ -543,7 +543,7 @@ if has("gui_running")
 	" OS X clipboard after the last time something was copied to MacVim's
 	" clipboard, then 'p' will behave the same way, but these will always
 	" go directly to the OS X clipboard, bypassing anything in MacVim's.
-    "nnoremap <Leader>P "*p
+	"nnoremap <Leader>P "*p
 	"vnoremap <Leader>P "*p
 
 	" Whatever we copy, send to the system clipboard too.
