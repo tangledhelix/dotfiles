@@ -11,8 +11,6 @@ else
 	alias ls='/bin/ls -F'
 fi
 
-alias ..='cd ..'
-
 test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status'
 alias gs='git status'
 alias gd='git diff'

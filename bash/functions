@@ -199,3 +199,18 @@ perlmodver() {
 	perl -M$_module -e "print \$$_module::VERSION,\"\\n\";"
 }
 
+# Move backward through the directory tree easily. When called without
+# an argument, goes back one level ('cd ..'). When called with a numeric
+# argument, goes back that many levels.
+#       '.. 2' = 'cd ../..'
+#       '.. 3' = 'cd ../../..'
+#       '.. 4' = 'cd ../../../..'
+..() {
+	local _count
+	test -n "$1" && _count="$1" || _count="1"
+	while [[ "$_count" > 0 ]]; do
+		cd ..
+		_count=$((_count - 1))
+	done
+}
+
