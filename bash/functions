@@ -8,7 +8,7 @@ h() {
 # Make a directory, then go there
 d() {
 	test -n "$1" || return
-	mkdir "$1" && cd "$1"
+	mkdir -p "$1" && cd "$1"
 }
 
 # "path" shows current path, one element per line.
