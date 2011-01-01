@@ -223,5 +223,6 @@ update_dotfile_submodules() {
 		cd ~/.dotfiles/$_module
 		git pull origin HEAD
 	done
+	cd ~
 }
 
