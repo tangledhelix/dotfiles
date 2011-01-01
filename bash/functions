@@ -214,3 +214,14 @@ perlmodver() {
 	done
 }
 
+# Pull changes for all the dotfiles submodules
+update_dotfile_submodules() {
+	local _module
+	cd ~/.dotfiles
+	for _module in `git submodule | awk '{print $2}'`; do
+		echo "[[ $_module ]]"
+		cd ~/.dotfiles/$_module
+		git pull origin HEAD
+	done
+}
+
