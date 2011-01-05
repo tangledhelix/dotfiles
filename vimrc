@@ -792,29 +792,11 @@ highlight CursorLine guibg=#565656
 " --------------------------------------------------------------------
 " Window size (GUI) {{{
 
-if has("gui_running")
-
+" Only set the window size if it was not set already.
+if has("gui_running") && !exists('g:dmlSetWindowSize')
 	set lines=40
 	set columns=90
-
-	" Grow window height / width
-	nmap <Leader>zz :set lines=999<CR>
-	nmap <Leader>zw :set columns=999<CR>
-
-	" Zoom to max size. This isn't fullscreen; use ,zf for that.
-	nmap <Leader>zm :set lines=999 columns=999<CR>
-
-	" Return to normal size
-	nmap <Leader>zd :set lines=40 columns=90<CR>
-
-	" Real fullscreen. Also kicks up the font size a bit.
-	nmap <silent> <Leader>zf :if &fullscreen <Bar>
-		\    set guifont=Menlo:h14 <Bar>
-		\else <Bar>
-		\    set guifont=Menlo:h16 <Bar>
-		\endif<CR>
-		\:set fullscreen!<CR>
-
+	let g:dmlSetWindowSize=1
 endif
 
 " }}}
