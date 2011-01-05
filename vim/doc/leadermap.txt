@@ -49,9 +49,4 @@ Current leader key map:                                            *leadermap*
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
   ,y            Toggle yankring window (plugin: |yankring|)
-  ,zd           GUI only: return to default window size
-  ,zf           GUI only: toggle fullscreen and larger font
-  ,zm           GUI only: zoom to max window height/width
-  ,zw           GUI only: grow to max window width
-  ,zz           GUI only: grow to max window height
 
