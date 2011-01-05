@@ -104,31 +104,36 @@ export MANPATH
 #######################################################################
 # Editor
 
-test -n "$HAVE_MVIM" && EDITOR="mvim -f" || {
+# Use this path to run Vim 7.3 in a terminal. Stock OS X Vim is 7.2.
+MVIM_TTY_PATH="/Applications/MacVim.app/Contents/MacOS/Vim"
+
+test -n "$HAVE_MVIM" && EDITOR="$MVIM_TTY_PATH" || {
 	test -n "$HAVE_VIM" && EDITOR="$HAVE_VIM" || EDITOR="vi"
 }
 
 VISUAL="$EDITOR"
 export EDITOR VISUAL
 
+# Set vim paths
 test -n "$HAVE_VIM" &&  {
 	alias vi="$HAVE_VIM"
 	alias vim="$HAVE_VIM"
 	alias view="$HAVE_VIM -R"
 }
 
+# Set vim paths for diff mode
 test -n "$HAVE_VIMDIFF" && {
 	alias vimdiff="$HAVE_VIMDIFF -O"
 	alias vdiff="$HAVE_VIMDIFF -O"
 }
 
+# If MacVim is installed, override previous paths with these
 test -n "$HAVE_MVIM" && {
-	alias vi="mvim"
-	alias vim="mvim"
-	alias view="mvim -R"
-	alias vdiff="mvim -d"
+	alias vi="$MVIM_TTY_PATH"
+	alias vim="$MVIM_TTY_PATH"
+	alias view="$MVIM_TTY_PATH -R"
+	alias vdiff="$MVIM_TTY_PATH -d"
 }
-
 
 #######################################################################
 # Pagers
