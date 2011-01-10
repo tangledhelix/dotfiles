@@ -332,6 +332,8 @@ vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 " the selection. This is intended to push a block over to the right,
 " e.g. a fixed-width area in a mediawiki document.
 vnoremap <Space> I<Space><Esc>gv
+" Same thing but using a tab
+vnoremap <Tab> I<Tab><Esc>gv
 
 " }}}
 " --------------------------------------------------------------------
