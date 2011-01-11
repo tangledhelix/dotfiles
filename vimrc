@@ -348,7 +348,7 @@ set noesckeys
 set nostartofline
 
 " Keep a few lines above/below the cursor when I scroll to next screen.
-set scrolloff=3
+"set scrolloff=3
 
 " By default, ' jumps to the line you marked, and ` jumps to line -and- col
 " that you marked. So ` is more useful. But harder to type. So swap them.
