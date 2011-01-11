@@ -217,12 +217,26 @@ perlmodver() {
 # Pull changes for all the dotfiles submodules
 update_dotfile_submodules() {
 	local _module
-	cd ~/.dotfiles
+	local _base="$HOME/.dotfiles"
+	local _modlist
+
+	# Run through the modules and pull any changes from HEAD
+	cd $_base
 	for _module in `git submodule | awk '{print $2}'`; do
+		# Build a list of modules for the commit later
+		_modlist="$_modlist $_module"
 		echo "[[ $_module ]]"
-		cd ~/.dotfiles/$_module
+		cd $_base/$_module
 		git pull origin HEAD
 	done
-	cd ~
+
+	# Commit module changes if there were any. If there were not,
+	# git should just whine and do nothing.
+	cd $_base
+	git commit -m 'submodule updates' $_modlist
+
+	# End up showing us the overall repo status.
+	cd $_base
+	git status
 }
 
