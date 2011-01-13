@@ -90,6 +90,24 @@ _short_hname() {
 	return $_retval
 }
 
+# Check to see if I have local mail on this system. If mail is waiting,
+# output a few chars that are supposed to resemble an envelope.
+_check_for_mail() {
+	local _retval=$?
+	local _mail_cmd
+
+	_mail_cmd=$(command -v mail >/dev/null 2>&1)
+
+	test -n "$_mail_cmd" && {
+		$_mail_cmd -e >/dev/null 2>&1
+		if [[ $? -eq 0 ]]; then
+			echo -n "|><| "
+		fi
+	}
+
+	return $_retval
+}
+
 # Output an extended color (256-color support). If one color is provided,
 # set the foreground. If two are provided, set {foreground, background}.
 # Preserve the value of $? by returning it as we received it.

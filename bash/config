@@ -58,6 +58,9 @@ test -n "$INTERACTIVE" && {
 	# Reset to default colors, then start a new line
 	PS1="\[$(_xcr)\]\n"
 
+	# Check for new mail
+	PS1="$PS1\[$(_xc 160)\]\$(_check_for_mail)\[$(_xcr)\]"
+
 	# Show current directory in violet
 	PS1="$PS1\[$(_xc 176)\]\w\[$(_xcr)\]"
 
