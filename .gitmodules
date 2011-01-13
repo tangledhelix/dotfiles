@@ -55,3 +55,6 @@
 [submodule "vim/bundle/textobj-rubyblock"]
 	path = vim/bundle/textobj-rubyblock
 	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
+[submodule "vim/bundle/gist"]
+	path = vim/bundle/gist
+	url = https://github.com/mattn/gist-vim.git
