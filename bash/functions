@@ -96,7 +96,7 @@ _check_for_mail() {
 	local _retval=$?
 	local _mail_cmd
 
-	_mail_cmd=$(command -v mail >/dev/null 2>&1)
+	_mail_cmd=$(command -v mail 2>/dev/null)
 
 	test -n "$_mail_cmd" && {
 		$_mail_cmd -e >/dev/null 2>&1

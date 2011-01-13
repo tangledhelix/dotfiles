@@ -57,8 +57,8 @@ alias gmt='TZ=GMT date'
 alias jst='TZ=Asia/Tokyo date'
 
 # Solaris paths
-test -x /usr/bin/mailx && alias mail='/usr/bin/mailx'
-test -x /usr/ucb/Mail && alias Mail='/usr/ucb/Mail'
+#test -x /usr/bin/mailx && alias mail='/usr/bin/mailx'
+#test -x /usr/ucb/Mail && alias Mail='/usr/ucb/Mail'
 
 # Solaris diff sucks, use my GNU diff instead.
 test -x /usr/local/pkg/diffutils/bin/diff &&
