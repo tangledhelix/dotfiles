@@ -4,6 +4,14 @@
 Shortcuts (normal mode)
 
 ------------------------------------------------------------------------------
+Window resizing
+
+    :res          resize to maximum available
+    :res -N       downsize by count N
+    :res +N       upsize by count N
+    :winc =       make all windows as equal as possible
+
+------------------------------------------------------------------------------
 History views
 
     q/     search history
