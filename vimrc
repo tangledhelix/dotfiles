@@ -383,8 +383,9 @@ nmap <S-Down> :cnext<CR>
 nmap <S-Up> :cprevious<CR>
 
 " Make Vim act like a pager, kinda.
-nnoremap <Space> <PageDown>
-nnoremap <Backspace> <PageUp>
+" This sounds great in theory, but is very annoying in practice.
+"nnoremap <Space> <PageDown>
+"nnoremap <Backspace> <PageUp>
 
 " }}}
 " ----------------------------------------------------------------------
