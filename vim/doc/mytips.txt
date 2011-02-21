@@ -22,6 +22,8 @@ History views
 
     ^F     switch from command line to command history window
 
+    :args   Shows command line you used to start vim
+
 ------------------------------------------------------------------------------
 Case coercion (cr) - Abolish plugin
 
@@ -154,13 +156,15 @@ General editing
     C       change to end of line
     c/foo   change until match 'foo'
 
-    K       go to man page for the word under the cursor
+    K       go to man page for the word under the cursor (disabled)
 
     s       delete this char, then enter insert mode (xi)
     S       erase entire line, sub with new (0C or 0Da)
 
     ctrl-a  increment number under cursor
     ctrl-x  decrement number under cursor
+
+    ga      show char under cursor as dec, hex, oct ASCII.
 
 ------------------------------------------------------------------------------
 Indenting

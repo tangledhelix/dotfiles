@@ -45,7 +45,7 @@ Current leader key map:                                            *leadermap*
   ,T            Toggle expandtab, then do a tab <-> spaces conversion
   ,uu           Underline previous line with hyphens
   ,uU           Underline previous line with equal-signs
-  ,v            Reselect what was just pasted
+  ,v            Reselect what was just pasted (use gv for last selection)
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
   ,y            Toggle yankring window (plugin: |yankring|)
