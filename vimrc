@@ -317,12 +317,12 @@ nmap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
 "nnoremap <BS> X
 
 " Bubble single lines
-nmap <Up> [e
-nmap <Down> ]e
+nmap <S-Up> [e
+nmap <S-Down> ]e
 
 " Bubble multiple lines
-vmap <Up> [egv
-vmap <Down> ]egv
+vmap <S-Up> [egv
+vmap <S-Down> ]egv
 
 " Remap ~ to use a function if invoked in visual mode. Cycles through
 " uppercase, lowercase, title-case.
@@ -338,11 +338,6 @@ vnoremap <Tab> I<Tab><Esc>gv
 " }}}
 " --------------------------------------------------------------------
 " Navigation {{{
-
-" Disallow usage of cursor keys within insert mode. In my setup, they are used
-" for other purpose anyway. Up/Down moves a line or selection up or down, and
-" Left/Right switches tabs.
-set noesckeys
 
 " Do not jump to line start with page commands, i.e. keep the current column.
 set nostartofline
@@ -378,9 +373,9 @@ set noinsertmode
 " Open quickfix window
 nmap <Leader>q :cwindow<CR>
 
-" Go to next/previous quickfix entry
-nmap <S-Down> :cnext<CR>
-nmap <S-Up> :cprevious<CR>
+" Go to next/previous quickfix entry (C-arrow doesn't work)
+"nmap <C-Down> :cnext<CR>
+"nmap <C-Up> :cprevious<CR>
 
 " Make Vim act like a pager, kinda.
 " This sounds great in theory, but is very annoying in practice.
@@ -449,14 +444,13 @@ set helpheight=0
 " Open a new tab in the current view
 nnoremap <silent> <Leader>t :tabnew<CR>
 
-" Navigate left/right through tabs using left/right arrow keys.
-" These mappings override the ones found in the arrow-key-remap plugin.
-nmap <silent> <Left> :tabprevious<CR>
-nmap <silent> <Right> :tabnext<CR>
-"vmap <silent> <Left> :tabprevious<CR>
-"vmap <silent> <Right> :tabnext<CR>
-"imap <silent> <Left> <Esc>:tabprevious<CR>
-"imap <silent> <Right> <Esc>:tabnext<CR>
+" Navigate left/right through tabs using shift + left/right arrow keys.
+nmap <silent> <S-Left> :tabprevious<CR>
+nmap <silent> <S-Right> :tabnext<CR>
+"vmap <silent> <S-Left> :tabprevious<CR>
+"vmap <silent> <S-Right> :tabnext<CR>
+"imap <silent> <S-Left> <Esc>:tabprevious<CR>
+"imap <silent> <S-Right> <Esc>:tabnext<CR>
 
 " }}}
 " --------------------------------------------------------------------
