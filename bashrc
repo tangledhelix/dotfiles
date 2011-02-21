@@ -13,6 +13,7 @@ source ~/.bash/mac
 source ~/.bash/completion
 source ~/.bash/project-mgmt
 source ~/.bash/non-root
+source ~/.bash/bashmarks
 
 test -f ~/.bashrc.local && source ~/.bashrc.local
 
