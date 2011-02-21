@@ -6,7 +6,7 @@ h() {
 }
 
 # Make a directory, then go there
-d() {
+md() {
 	test -n "$1" || return
 	mkdir -p "$1" && cd "$1"
 }
