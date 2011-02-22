@@ -522,13 +522,10 @@ nnoremap <Leader>v `[v`]
 nnoremap <silent> <Leader>y :YRShow<CR>
 
 " Can yankring share its data between instances of Vim?
-let g:yankring_share_between_instances = 1
+let g:yankring_share_between_instances = 0
 
 " Can yankring keep data in a persistent file?
-let g:yankring_persist = 1
-
-" Put yankring data somewhere other than $HOME
-let g:yankring_history_dir = "$HOME/.vim"
+let g:yankring_persist = 0
 
 if has("gui_running")
 
