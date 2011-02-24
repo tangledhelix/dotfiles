@@ -21,6 +21,17 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
 		echo
 	}
 
+	# Check that Vim's yankring history is writable (i.e. not owned by root)
+	if [[ -f "$HOME/.vim/yankring_history_v2.txt" ]]; then
+		if [[ ! -O "$HOME/.vim/yankring_history_v2.txt" ]]; then
+			echo
+			echo "    *** ----------------------------------------------- ***"
+			echo "    *** WARNING: yankring history file is not writeable ***"
+			echo "    *** ----------------------------------------------- ***"
+			echo
+		fi
+	fi
+
 	# Is screen running?
 	test -n "$HAVE_SCREEN" && $HAVE_SCREEN -list | grep -v '^No Sockets'
 
