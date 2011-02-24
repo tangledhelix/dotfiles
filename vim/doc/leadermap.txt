@@ -38,6 +38,7 @@ Current leader key map:                                            *leadermap*
   ,of           Open filename under cursor, displacing this buffer
   ,ot           Open filename under cursor in a new tab
   ,ow           Open filename under cursor in a new window
+  ,P            Toggle line numbers and invisibles (for copy/paste)
   ,q            Open quickfix window
   ,s            Toggle spell-check mode
   ,S            Toggle syntax highlighting
