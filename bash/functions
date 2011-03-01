@@ -248,3 +248,15 @@ update_dotfile_submodules() {
 	git status
 }
 
+# Test for a perl module and print its version if any.
+pmver() {
+	local _module="$1"
+
+	if [[ -z "$_module" ]]; then
+		echo "Missing argument (module name)"
+		return
+	fi
+
+	perl -M$_module -e "print \"\$${_module}::VERSION\n\";"
+}
+
