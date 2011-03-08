@@ -706,6 +706,11 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
 	autocmd BufNewFile,BufRead *.global set filetype=m4
 
+	" Mark trailing whitespace with a red background to make it stand out
+	" (the highlight bit comes later after syntax is turned on)
+	autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+	autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+
 	autocmd FileType yaml setlocal expandtab
 
 	" Italic, bold surrounds for Mediawiki (plugin 'surround')
@@ -760,6 +765,9 @@ colorscheme zenburn
 " Mute tabs, control characters, other invisibles in zenburn.
 highlight SpecialKey ctermfg=240 gui=bold guifg=#5b605e
 "highlight NonText ctermfg=240 gui=bold guifg=#5b605e
+
+" Make trailing whitespace stand out in red
+highlight EOLWS ctermbg=red guibg=red
 
 " Make cursorline stand out a little more.
 highlight CursorLine guibg=#565656
