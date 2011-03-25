@@ -118,6 +118,10 @@ inoremap # X#
 " When changing indent with < and >, use a multiple of shiftwidth.
 set shiftround
 
+" Keep selection when indent/dedenting in select mode
+vmap > >gv
+vmap < <gv
+
 " }}}
 " --------------------------------------------------------------------
 " Wrapping {{{
