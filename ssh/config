@@ -2,49 +2,49 @@
 StrictHostKeyChecking no
 
 Host o0?.*.us.to*
-	ForwardAgent no
-	Protocol 1
+    ForwardAgent no
+    Protocol 1
 
 Host o01.dlls*.bb*
-	Protocol 1
+    Protocol 1
 
 Host r??.*.us.to*
-	ForwardAgent no
+    ForwardAgent no
 
 Host s??.*.us.to*
-	ForwardAgent no
+    ForwardAgent no
 
 Host sp?.*
-	ForwardAgent no
+    ForwardAgent no
 
 Host sip-server*
-	User dlowe
+    User dlowe
 
 Host voip*
-	User dlowe
+    User dlowe
 
 Host scd-nfs*
-	User root
-	ForwardAgent no
+    User root
+    ForwardAgent no
 
 Host rlm0.scd-nfs*
-	User naroot
-	ForwardAgent no
+    User naroot
+    ForwardAgent no
 
 Host *tangledhelix.com
-	User scsiboy
+    User scsiboy
 
 Host *mig.sourceforge.net
-	User tangledhelix
+    User tangledhelix
 
 Host *mig.sf.net
-	User tangledhelix
+    User tangledhelix
 
 Host github.com
-	User git
+    User git
 
 Host *
-	ForwardAgent yes
-	Protocol 2
-	IdentityFile ~/.ssh/id_rsa
+    ForwardAgent yes
+    Protocol 2
+    IdentityFile ~/.ssh/id_rsa
 
