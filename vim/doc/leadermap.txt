@@ -12,7 +12,6 @@ Current leader key map:                                            *leadermap*
   ,=            Re-indent entire buffer
   ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight
-  ,<tab>        Insert a space-expanded tab (honors tabstop setting)
   ,2            Set tab stop to 2
   ,4            Set tab stop to 4
   ,8            Set tab stop to 8
@@ -43,7 +42,6 @@ Current leader key map:                                            *leadermap*
   ,s            Toggle spell-check mode
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
-  ,T            Toggle expandtab, then do a tab <-> spaces conversion
   ,uu           Underline previous line with hyphens
   ,uU           Underline previous line with equal-signs
   ,v            Reselect what was just pasted (use gv for last selection)
