@@ -32,8 +32,8 @@ runtime macros/matchit.vim
 " editor with a different tab stop. I tend to avoid right-hand comments anyway
 " precisely becuase of that format problem.
 
-" Do not expand tabs to spaces
-set noexpandtab
+" Always expand tabs to spaces
+set expandtab
 
 " My tab width is 4. Because 8 is too much, but 2 is visually too small
 " for code nesting IMO. Should match shiftwidth. Sometimes I do use an
@@ -53,15 +53,15 @@ nmap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 " current setting of expandtab). This can be dangerous, because on occasion
 " a raw tab will be embedded in a non-whitespace area like a string. One
 " hopes not, since we have things like \t, but you never know.
-nmap <silent> <Leader>T :if &expandtab <Bar>
-	\    set noexpandtab<CR>
-	\    retab!<CR>
-	\    echo "Converted spaces to tabs." <Bar>
-	\else <Bar>
-	\    set expandtab<CR>
-	\    retab!<CR>
-	\    echo "Converted tabs to spaces." <Bar>
-	\endif<CR>
+"nmap <silent> <Leader>T :if &expandtab <Bar>
+    "\    set noexpandtab<CR>
+    "\    retab!<CR>
+    "\    echo "Converted spaces to tabs." <Bar>
+    "\else <Bar>
+    "\    set expandtab<CR>
+    "\    retab!<CR>
+    "\    echo "Converted tabs to spaces." <Bar>
+    "\endif<CR>
 
 " I tried the Smart Tab plugin, which purports to use Tab on the left
 " edge (where there is only whitespace between col 0 and the cursor),
@@ -72,7 +72,7 @@ nmap <silent> <Leader>T :if &expandtab <Bar>
 " This is slightly hacky, but it's easy and it works. Tab uses normal
 " tab behavior. Leader-Tab will always insert space-expanded tabs, but
 " honors the current tab stop.
-inoremap <Leader><Tab> <Esc>:set expandtab<CR>a<Tab><Esc>:set noexpandtab<CR>a
+"inoremap <Leader><Tab> <Esc>:set expandtab<CR>a<Tab><Esc>:set noexpandtab<CR>a
 
 " }}}
 " --------------------------------------------------------------------
@@ -220,8 +220,8 @@ set visualbell
 
 if !has("gui_running")
 
-	" Terminal's visual bell - turned off to make Vim quiet.
-	set t_vb=
+    " Terminal's visual bell - turned off to make Vim quiet.
+    set t_vb=
 
 endif
 
@@ -231,9 +231,9 @@ endif
 
 " Set the title bar if running as GUI, never in terminals.
 if has("gui_running")
-	set title
+    set title
 else
-	set notitle
+    set notitle
 endif
 
 " Show the status line
@@ -253,12 +253,12 @@ set showmode
 
 " Whether and how to display tabs and EOL
 if has("multi_byte")
-	set encoding=utf-8
-	set list
-	set listchars=tab:▸\ ,eol:¬
+    set encoding=utf-8
+    set list
+    set listchars=tab:▸\ ,eol:¬
 else
-	set nolist
-	set listchars=tab:>-,eol:$
+    set nolist
+    set listchars=tab:>-,eol:$
 endif
 
 " Turn invisibles on/off.
@@ -274,7 +274,7 @@ set nonumber
 " Show line numbers as relative to current, not as absolute. This makes it
 " easy to use count-based commands, e.g. 5dd or 10j.
 if v:version >= 703
-	set relativenumber
+    set relativenumber
 endif
 
 " Toggle relativenumber column. They get in the way of copying in a terminal.
@@ -337,7 +337,7 @@ vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 " e.g. a fixed-width area in a mediawiki document.
 vnoremap <Space> I<Space><Esc>gv
 " Same thing but using a tab
-vnoremap <Tab> I<Tab><Esc>gv
+"vnoremap <Tab> I<Tab><Esc>gv
 
 " }}}
 " --------------------------------------------------------------------
@@ -402,11 +402,11 @@ nnoremap <Leader>Ft Vatzf
 
 " Toggle syntax highlighting.
 nmap <silent> <Leader>S :if exists("g:syntax_on") <Bar>
-	\    syntax off <Bar>
-	\else <Bar>
-	\    syntax enable<CR>
-	\    source $MYVIMRC <Bar>
-	\endif<CR>
+    \    syntax off <Bar>
+    \else <Bar>
+    \    syntax enable<CR>
+    \    source $MYVIMRC <Bar>
+    \endif<CR>
 
 " Toggle spellcheck mode
 nmap <Leader>s :set spell!<CR>
@@ -534,26 +534,26 @@ let g:yankring_history_dir = '$HOME/.vim'
 
 if has("gui_running")
 
-	" Disabling ,Y and ,P mappings - no point when cmd-C, cmd-V are
-	" already available, and I just end up using these in terminal
-	" sessions where they don't work. cmd-C and cmd-V work either way.
+    " Disabling ,Y and ,P mappings - no point when cmd-C, cmd-V are
+    " already available, and I just end up using these in terminal
+    " sessions where they don't work. cmd-C and cmd-V work either way.
 
-	" Copy current line or selection to OS X clipboard
-	"nnoremap <Leader>Y "*yy
-	"vnoremap <Leader>Y "*y
+    " Copy current line or selection to OS X clipboard
+    "nnoremap <Leader>Y "*yy
+    "vnoremap <Leader>Y "*y
 
-	" Paste from OS X clipboard explicitly. If something was copied to the
-	" OS X clipboard after the last time something was copied to MacVim's
-	" clipboard, then 'p' will behave the same way, but these will always
-	" go directly to the OS X clipboard, bypassing anything in MacVim's.
-	"nnoremap <Leader>P "*p
-	"vnoremap <Leader>P "*p
+    " Paste from OS X clipboard explicitly. If something was copied to the
+    " OS X clipboard after the last time something was copied to MacVim's
+    " clipboard, then 'p' will behave the same way, but these will always
+    " go directly to the OS X clipboard, bypassing anything in MacVim's.
+    "nnoremap <Leader>P "*p
+    "vnoremap <Leader>P "*p
 
-	" Whatever we copy, send to the system clipboard too.
-	" I don't like this, it can obliterate my Launchbar clipboard history
-	" quickly. Replaced this with ,Y and ,P mappings to easily interact with
-	" the system pasteboard in a more explicit way.
-	"set clipboard+=unnamed
+    " Whatever we copy, send to the system clipboard too.
+    " I don't like this, it can obliterate my Launchbar clipboard history
+    " quickly. Replaced this with ,Y and ,P mappings to easily interact with
+    " the system pasteboard in a more explicit way.
+    "set clipboard+=unnamed
 
 endif
 
@@ -627,16 +627,16 @@ let g:autoclose_vim_commentmode = 1
 
 if has("gui_running")
 
-	" Disable the toolbar
-	set guioptions=-t
+    " Disable the toolbar
+    set guioptions=-t
 
-	" Enable the right scrollbar
-	"set guioptions=+r
+    " Enable the right scrollbar
+    "set guioptions=+r
 
 else
 
-	" Are we using a fast terminal?
-	set ttyfast
+    " Are we using a fast terminal?
+    set ttyfast
 
 endif
 
@@ -696,50 +696,52 @@ nmap K <Nul>
 " Auto-command triggers {{{
 
 if has("autocmd")
-	autocmd!
+    autocmd!
 
-	autocmd BufNewFile,BufRead *.t set filetype=perl
-	autocmd BufNewFile,BufRead *.inc set filetype=php
-	autocmd BufNewFile,BufRead *.com set filetype=bindzone
-	autocmd BufNewFile,BufRead *.wiki,*ISSwiki*,*TangledWiki* set filetype=mediawiki
-	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
-	autocmd BufNewFile,BufRead .bash/*,bash/*,.dotfiles/bash* set filetype=sh
-	autocmd BufNewFile,BufRead distfile.common set filetype=rdist
-	autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
-	autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
-	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
-	autocmd BufNewFile,BufRead *.global set filetype=m4
+    autocmd BufNewFile,BufRead *.t set filetype=perl
+    autocmd BufNewFile,BufRead *.inc set filetype=php
+    autocmd BufNewFile,BufRead *.com set filetype=bindzone
+    autocmd BufNewFile,BufRead *.wiki,*ISSwiki*,*TangledWiki* set filetype=mediawiki
+    autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
+    autocmd BufNewFile,BufRead .bash/*,bash/*,.dotfiles/bash* set filetype=sh
+    autocmd BufNewFile,BufRead distfile.common set filetype=rdist
+    autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
+    autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
+    autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
+    autocmd BufNewFile,BufRead *.global set filetype=m4
 
-	" Mark trailing whitespace with a red background to make it stand out
-	" (the highlight bit comes later after syntax is turned on)
-	autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
-	autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+    au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
 
-	autocmd FileType yaml setlocal expandtab
+    " Mark trailing whitespace with a red background to make it stand out
+    " (the highlight bit comes later after syntax is turned on)
+    autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+    autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 
-	" Italic, bold surrounds for Mediawiki (plugin 'surround')
-	autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
-	autocmd FileType mediawiki let g:surround_{char2nr('b')} = "'''\r'''"
-	" Header levels 2, 3, 4
-	autocmd FileType mediawiki let g:surround_{char2nr('2')} = "==\r=="
-	autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
-	autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
+    autocmd FileType yaml setlocal expandtab
 
-	" Bold for Markdown (plugin 'surround')
-	autocmd FileType markdown let g:surround_{char2nr('b')} = "**\r**"
+    " Italic, bold surrounds for Mediawiki (plugin 'surround')
+    autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
+    autocmd FileType mediawiki let g:surround_{char2nr('b')} = "'''\r'''"
+    " Header levels 2, 3, 4
+    autocmd FileType mediawiki let g:surround_{char2nr('2')} = "==\r=="
+    autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
+    autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
 
-	" Save all unclean buffers when focus is lost (ala TextMate).
-	" Not sure whether I like this idea. This is GUI only.
-	"autocmd FocusLost * :wa
+    " Bold for Markdown (plugin 'surround')
+    autocmd FileType markdown let g:surround_{char2nr('b')} = "**\r**"
 
-	" Automatically apply changes to .vimrc if it changes.
-	autocmd BufWritePost .vimrc source $MYVIMRC
+    " Save all unclean buffers when focus is lost (ala TextMate).
+    " Not sure whether I like this idea. This is GUI only.
+    "autocmd FocusLost * :wa
 
-	" Restore cursor position from our last session, if known.
-	autocmd BufReadPost *
-		\ if line("'\"") > 1 && line("'\"") <= line("$") |
-		\     execute "normal! g`\"" |
-		\ endif
+    " Automatically apply changes to .vimrc if it changes.
+    autocmd BufWritePost .vimrc source $MYVIMRC
+
+    " Restore cursor position from our last session, if known.
+    autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \     execute "normal! g`\"" |
+        \ endif
 
 endif
 
@@ -751,12 +753,12 @@ endif
 " that terminfo for xterm-256color is present.
 " According to deryni on #vim this is autodetected. Apparently so.
 "if !has("gui") && has("terminfo")
-	"set t_Co=256
+    "set t_Co=256
 "endif
 
 if has("gui_running")
-	set guifont=Menlo:h14
-	set antialias
+    set guifont=Menlo:h14
+    set antialias
 endif
 
 " Activate syntax highlighting
@@ -778,13 +780,13 @@ highlight CursorLine guibg=#565656
 
 " Terminal setup before xterm-256color {{{
 "if !has("gui") && has("terminfo")
-	"set t_Co=16
-	"set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-	"set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+    "set t_Co=16
+    "set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+    "set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
 "else
-	"set t_Co=16
-	"set t_Sf=[3%dm
-	"set t_Sb=[4%dm
+    "set t_Co=16
+    "set t_Sf=[3%dm
+    "set t_Sb=[4%dm
 "endif
 " }}}
 
@@ -806,9 +808,9 @@ highlight CursorLine guibg=#565656
 
 " Only set the window size if it was not set already.
 if has("gui_running") && !exists('g:dmlSetWindowSize')
-	set lines=40
-	set columns=90
-	let g:dmlSetWindowSize=1
+    set lines=40
+    set columns=90
+    let g:dmlSetWindowSize=1
 endif
 
 " }}}
