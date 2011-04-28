@@ -1,8 +1,8 @@
 
 # detect interactive shells
 case "$-" in
-	*i*) INTERACTIVE=yes ;;
-	*) unset INTERACTIVE ;;
+    *i*) INTERACTIVE=yes ;;
+    *) unset INTERACTIVE ;;
 esac
 
 source ~/.bash/environment
