@@ -26,43 +26,43 @@ test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
 unset PATH
 
 for _this in \
-	~/local/bin \
-	~/bin \
-	/admin/bin \
-	/usr/local/bin \
-	/bin \
-	/usr/bin \
-	/usr/ccs/bin \
-	/sbin \
-	/usr/sbin \
-	/usr/local/sbin \
-	/usr/proc/bin \
-	/usr/openwin/bin \
-	/usr/dt/bin \
-	/admin/tools/system \
-	/admin/tools/mail/bin \
-	/admin/tools/mail/sbin \
-	/admin/config/auth/bin \
-	/usr/local/pkg/perl/bin \
-	/usr/local/pkg/mailman/bin \
-	/usr/local/pkg/mysql/bin \
-	/usr/local/pkg/pgsql/bin \
-	/usr/local/pkg/openldap/bin \
-	/usr/local/pkg/openldap/sbin \
-	/opt/openldap/bin \
-	/opt/openldap/sbin \
-	/usr/sfw/bin \
-	/usr/X11R6/bin \
-	/Developer/usr/bin \
-	~/.gem/ruby/1.8/bin \
-	~/.gem/ruby/1.9.1/bin \
-	~/Dropbox/bin \
-	/usr/local/Cellar/python/2.7/bin \
-	~/tools
+    ~/local/bin \
+    ~/bin \
+    /admin/bin \
+    /usr/local/bin \
+    /bin \
+    /usr/bin \
+    /usr/ccs/bin \
+    /sbin \
+    /usr/sbin \
+    /usr/local/sbin \
+    /usr/proc/bin \
+    /usr/openwin/bin \
+    /usr/dt/bin \
+    /admin/tools/system \
+    /admin/tools/mail/bin \
+    /admin/tools/mail/sbin \
+    /admin/config/auth/bin \
+    /usr/local/pkg/perl/bin \
+    /usr/local/pkg/mailman/bin \
+    /usr/local/pkg/mysql/bin \
+    /usr/local/pkg/pgsql/bin \
+    /usr/local/pkg/openldap/bin \
+    /usr/local/pkg/openldap/sbin \
+    /opt/openldap/bin \
+    /opt/openldap/sbin \
+    /usr/sfw/bin \
+    /usr/X11R6/bin \
+    /Developer/usr/bin \
+    ~/.gem/ruby/1.8/bin \
+    ~/.gem/ruby/1.9.1/bin \
+    ~/Dropbox/bin \
+    /usr/local/Cellar/python/2.7/bin \
+    ~/tools
 do
-	test -d $_this && {
-		test -n "$PATH" && PATH="$PATH:$_this" || PATH="$_this"
-	}
+    test -d $_this && {
+        test -n "$PATH" && PATH="$PATH:$_this" || PATH="$_this"
+    }
 done
 
 export PATH
@@ -83,21 +83,21 @@ HAVE_VIMDIFF=$(command -v vimdiff 2>/dev/null)
 unset MANPATH
 
 for _this in \
-	/usr/man \
-	/usr/share/man \
-	/usr/local/man \
-	/usr/local/share/man \
-	/usr/local/pkg/perl/man \
-	/usr/dt/man \
-	/usr/openwin/man \
-	/usr/sfw/man \
-	~/local/man \
-	~/local/share/man \
-	~/Dropbox/man
+    /usr/man \
+    /usr/share/man \
+    /usr/local/man \
+    /usr/local/share/man \
+    /usr/local/pkg/perl/man \
+    /usr/dt/man \
+    /usr/openwin/man \
+    /usr/sfw/man \
+    ~/local/man \
+    ~/local/share/man \
+    ~/Dropbox/man
 do
-	test -d $_this && {
-		test -n "$MANPATH" && MANPATH="$MANPATH:$_this" || MANPATH="$_this"
-	}
+    test -d $_this && {
+        test -n "$MANPATH" && MANPATH="$MANPATH:$_this" || MANPATH="$_this"
+    }
 done
 
 export MANPATH
@@ -109,7 +109,7 @@ export MANPATH
 MVIM_TTY_PATH="/Applications/MacVim.app/Contents/MacOS/Vim"
 
 test -n "$HAVE_MVIM" && EDITOR="$MVIM_TTY_PATH" || {
-	test -n "$HAVE_VIM" && EDITOR="$HAVE_VIM" || EDITOR="vi"
+    test -n "$HAVE_VIM" && EDITOR="$HAVE_VIM" || EDITOR="vi"
 }
 
 VISUAL="$EDITOR"
@@ -117,23 +117,23 @@ export EDITOR VISUAL
 
 # Set vim paths
 test -n "$HAVE_VIM" &&  {
-	alias vi="$HAVE_VIM"
-	alias vim="$HAVE_VIM"
-	alias view="$HAVE_VIM -R"
+    alias vi="$HAVE_VIM"
+    alias vim="$HAVE_VIM"
+    alias view="$HAVE_VIM -R"
 }
 
 # Set vim paths for diff mode
 test -n "$HAVE_VIMDIFF" && {
-	alias vimdiff="$HAVE_VIMDIFF -O"
-	alias vdiff="$HAVE_VIMDIFF -O"
+    alias vimdiff="$HAVE_VIMDIFF -O"
+    alias vdiff="$HAVE_VIMDIFF -O"
 }
 
 # If MacVim is installed, override previous paths with these
 test -n "$HAVE_MVIM" && {
-	alias vi="$MVIM_TTY_PATH"
-	alias vim="$MVIM_TTY_PATH"
-	alias view="$MVIM_TTY_PATH -R"
-	alias vdiff="$MVIM_TTY_PATH -d"
+    alias vi="$MVIM_TTY_PATH"
+    alias vim="$MVIM_TTY_PATH"
+    alias view="$MVIM_TTY_PATH -R"
+    alias vdiff="$MVIM_TTY_PATH -d"
 }
 
 #######################################################################
@@ -150,16 +150,16 @@ test -n "$HAVE_MVIM" && {
 # NOTE: -F seems to break things on some systems I use; avoiding it.
 
 if test -n "$HAVE_LESS" ; then
-	PAGER="less -irw"
-	MANPAGER="less -iRsw"
-	alias more="less"
-	test -n "$HAVE_ACK" && {
-		export ACK_PAGER="less -R"
-		export ACK_PAGER_COLOR="less -R"
-	}
+    PAGER="less -irw"
+    MANPAGER="less -iRsw"
+    alias more="less"
+    test -n "$HAVE_ACK" && {
+        export ACK_PAGER="less -R"
+        export ACK_PAGER_COLOR="less -R"
+    }
 else
-	PAGER=more
-	MANPAGER="$PAGER"
+    PAGER=more
+    MANPAGER="$PAGER"
 fi
 
 LESS="-iw"
@@ -170,10 +170,10 @@ export PAGER MANPAGER LESS
 # Oracle
 
 test -d /apps/oracle/product/9.2.0 &&
-	export ORACLE_HOME="/apps/oracle/product/9.2.0"
+    export ORACLE_HOME="/apps/oracle/product/9.2.0"
 
 test -d /apps/oracle/product/10.2.0 &&
-	export ORACLE_HOME="/apps/oracle/product/10.2.0"
+    export ORACLE_HOME="/apps/oracle/product/10.2.0"
 
 #######################################################################
 

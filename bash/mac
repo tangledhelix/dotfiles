@@ -1,7 +1,7 @@
 
 [[ "$OS" = "Darwin" ]] && {
-	alias ldd='otool -L'
-	alias telnet='/usr/bin/telnet -K'
-	alias edit='open -a MacVim'
+    alias ldd='otool -L'
+    alias telnet='/usr/bin/telnet -K'
+    alias edit='open -a MacVim'
 }
 
