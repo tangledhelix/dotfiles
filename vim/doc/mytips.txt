@@ -111,6 +111,7 @@ Search and replace
 Navigating / jumping around
 
     ^       beginning of line ignoring leading whitespace (vs. '0')
+    g_      end of line ignoring trailing whitespace (vs '$')
 
     [{      jump back to opening brace of the current code block
 
