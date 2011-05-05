@@ -17,12 +17,6 @@ Host s??.*.us.to*
 Host sp?.*
     ForwardAgent no
 
-Host sip-server*
-    User dlowe
-
-Host voip*
-    User dlowe
-
 Host scd-nfs*
     User root
     ForwardAgent no
