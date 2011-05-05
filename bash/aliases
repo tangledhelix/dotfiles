@@ -92,3 +92,6 @@ alias reload='source ~/.bashrc'
 # commands starting with % for pasting from web
 alias %=' '
 
+# shortcut for ssh to an EC2 instance
+alias ssha='ssh -i ~/.ssh/amazon-ec2.pem -l ec2-user'
+
