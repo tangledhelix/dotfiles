@@ -37,6 +37,10 @@ Host *mig.sf.net
 Host github.com
     User git
 
+Host *.amazonaws.com
+    User ec2-user
+    IdentityFile ~/.ssh/amazon-ec2.pem
+
 Host *
     ForwardAgent yes
     Protocol 2
