@@ -29,6 +29,9 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
             echo "    *** WARNING: yankring history file is not writeable ***"
             echo "    *** ----------------------------------------------- ***"
             echo
+        else
+            # Make sure permissions are good
+            chmod 0600 $HOME/.vim/yankring_history_v2.txt
         fi
     fi
 
