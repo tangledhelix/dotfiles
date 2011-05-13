@@ -260,3 +260,9 @@ pmver() {
     perl -M$_module -e "print \"\$${_module}::VERSION\n\";"
 }
 
+# This is only useful on OS X as-is. Modify as needed for other OS's.
+# Formats a man page as PDF, then supplies to Preview.app on stdin.
+pman() {
+    man -t "$@" | open -f -a Preview
+}
+
