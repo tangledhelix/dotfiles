@@ -39,7 +39,7 @@ Host github.com
 
 Host *.amazonaws.com
     User ec2-user
-    IdentityFile ~/.ssh/amazon-ec2.pem
+    IdentityFile ~/.ssh/aws.pem
     # Don't bother checking the IP here, they get shuffled too much.
     # I don't want to have to strip these things out of known_hosts
     # on a daily basis.
