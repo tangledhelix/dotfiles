@@ -1,0 +1,25 @@
+[user]
+	name = Dan Lowe
+	email = dan@tangledhelix.com
+
+[alias]
+	co = checkout
+	ci = commit
+
+[remote "ntt"]
+	receivepack = /usr/local/bin/git-receive-pack
+	uploadpack = /usr/local/bin/git-upload-pack
+
+[core]
+	quotepath = false
+	excludesfile = ~/.gitignore
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+
+[github]
+	user = tangledhelix
+	token = <%= $github_api_token %>
+
