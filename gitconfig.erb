@@ -1,6 +1,6 @@
 [user]
-	name = Dan Lowe
-	email = dan@tangledhelix.com
+	name = <%= $git_name %>
+	email = <%= $git_email %>
 
 [alias]
 	co = checkout
@@ -20,6 +20,6 @@
 	branch = auto
 
 [github]
-	user = tangledhelix
+	user = <%= $github_username %>
 	token = <%= $github_api_token %>
 

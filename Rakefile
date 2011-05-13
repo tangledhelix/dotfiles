@@ -16,10 +16,6 @@ task :force do
     installer
 end
 
-task :gitconfig do
-    gitconfig_installer
-end
-
 def installer
     ignore_files = %w(README.md Rakefile ssh gitconfig.erb)
     Dir['*'].each do |file|
@@ -27,6 +23,7 @@ def installer
         determine_action(file)
     end
     determine_action('ssh/config')
+    gitconfig_installer
 end
 
 def determine_action(file)
@@ -63,16 +60,45 @@ def replace_file(file)
     link_file(file)
 end
 
+# The ~/.gitconfig file is generated dynamically so that I can have my
+# GitHub API token configured in it without putting my token into my GitHub
+# dotfiles repo, which is publicly visible.
+
 def gitconfig_installer
     template_file = 'gitconfig.erb'
     output_file = ENV['HOME'] + '/.gitconfig'
 
-    print "Enter GitHub API Token: "
+    # If we find an older install with the symlink in place,
+    # clean that up first
+    if File.symlink?(output_file)
+        File.unlink(output_file)
+        puts "    deleted symlink #{output_file}..."
+    end
+
+    puts ''
+    puts "=== Creating #{output_file} ==="
+    puts ''
+
+    print '    Name: '
+    $git_name = STDIN.gets.chomp
+
+    print '    Email address: '
+    $git_email = STDIN.gets.chomp
+
+    print '    GitHub username: '
+    $github_username = STDIN.gets.chomp
+
+    print '    GitHub API token: '
     $github_api_token = STDIN.gets.chomp
 
     template = ERB.new(File.read(template_file))
     File.open(output_file, 'w') do |f|
         f.write(template.result())
+    end
+
+    ret = File.chmod(0600, output_file)
+    if ret != 1
+        puts "WARN: chmod of #{output_file} failed!"
     end
 
 end
