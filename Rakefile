@@ -75,31 +75,34 @@ def gitconfig_installer
         puts "    deleted symlink #{output_file}..."
     end
 
-    puts ''
-    puts "=== Creating #{output_file} ==="
-    puts ''
+    unless File.exists?(output_file)
 
-    print '    Name: '
-    $git_name = STDIN.gets.chomp
+        puts ''
+        puts "=== Creating #{output_file} ==="
+        puts ''
 
-    print '    Email address: '
-    $git_email = STDIN.gets.chomp
+        print '    Name: '
+        $git_name = STDIN.gets.chomp
 
-    print '    GitHub username: '
-    $github_username = STDIN.gets.chomp
+        print '    Email address: '
+        $git_email = STDIN.gets.chomp
 
-    print '    GitHub API token: '
-    $github_api_token = STDIN.gets.chomp
+        print '    GitHub username: '
+        $github_username = STDIN.gets.chomp
 
-    template = ERB.new(File.read(template_file))
-    File.open(output_file, 'w') do |f|
-        f.write(template.result())
+        print '    GitHub API token: '
+        $github_api_token = STDIN.gets.chomp
+
+        template = ERB.new(File.read(template_file))
+        File.open(output_file, 'w') do |f|
+            f.write(template.result())
+        end
+
+        ret = File.chmod(0600, output_file)
+        if ret != 1
+            puts "WARN: chmod of #{output_file} failed!"
+        end
+
     end
-
-    ret = File.chmod(0600, output_file)
-    if ret != 1
-        puts "WARN: chmod of #{output_file} failed!"
-    end
-
 end
 
