@@ -3,7 +3,6 @@ load tc
 
 set clock_24hour off
 set continued_line             
-set help_path /home/dan/local/share/irc/help
 set indent on
 set input_prompt $T> 
 set show_away_once on
@@ -13,7 +12,7 @@ bind ^b backward_character
 bind ^f forward_character
 bind ^n forward_history
 bind ^p backward_history
-bind ^w next_window
+bind ^w swap_next_window
 
 alias j join
 alias m msg
@@ -21,12 +20,12 @@ alias n notice
 alias q query
 alias wb window balance
 alias wg window grow
+alias wh window hide
 alias wi whois
 alias wk window kill
 alias wl window list
 alias wn window new
 alias ws window shrink
-alias ww whowas
 
 on ^public * echo $Z <$0> $2-
 on ^send_public * echo $Z <$N> $1-
