@@ -17,12 +17,11 @@ task :force do
 end
 
 def installer
-    ignore_files = %w(README.md Rakefile ssh gitconfig.erb)
+    ignore_files = %w(README.md Rakefile gitconfig.erb)
     Dir['*'].each do |file|
         next if ignore_files.include?(file) or file =~ /.*~$/
         determine_action(file)
     end
-    determine_action('ssh/config')
     gitconfig_installer
 end
 
