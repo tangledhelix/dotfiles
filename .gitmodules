@@ -55,3 +55,6 @@
 [submodule "vim/bundle/endwise"]
 	path = vim/bundle/endwise
 	url = https://github.com/tpope/vim-endwise.git
+[submodule "vim/bundle/quickrun"]
+	path = vim/bundle/quickrun
+	url = https://github.com/thinca/vim-quickrun.git
