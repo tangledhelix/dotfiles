@@ -652,6 +652,9 @@ nmap <silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
 " Preview a markdown file in the default browser
 nmap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/%.html<CR><CR>
 
+" QuickRun the current buffer, autodetecting syntax
+nmap <Leader>r :QuickRun<CR>
+
 " }}}
 " --------------------------------------------------------------------
 " Misc. mappings {{{
