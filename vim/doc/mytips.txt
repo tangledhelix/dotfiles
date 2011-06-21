@@ -148,6 +148,9 @@ Copy and paste
 
     cc      cut entire line and enter insert mode ("change line")
 
+    :registers   Show what is in the current registers
+    "2p          Paste contents of current register
+
 ------------------------------------------------------------------------------
 General editing
 
