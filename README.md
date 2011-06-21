@@ -30,6 +30,7 @@ read; color support is only one of several good reasons to switch.
 Installation
 ------------
 
+    umask 0022
     git clone https://github.com/tangledhelix/dotfiles.git ~/.dotfiles
     cd ~/.dotfiles
     git submodule init
