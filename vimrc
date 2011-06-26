@@ -767,6 +767,17 @@ endif
 " Activate syntax highlighting
 syntax enable
 
+" I usually use a dark-background terminal
+set background=dark
+
+" Colorscheme: Zenburn {{{
+
+" High contrast mode for rooms with more light
+let g:zenburn_high_Contrast = 1
+
+" More contrast in a visual selection
+let g:zenburn_alternate_Visual = 1
+
 " http://www.vim.org/scripts/script.php?script_id=415
 " http://slinky.imukuppi.org/zenburnpage/
 colorscheme zenburn
@@ -775,11 +786,13 @@ colorscheme zenburn
 highlight SpecialKey ctermfg=240 gui=bold guifg=#5b605e
 "highlight NonText ctermfg=240 gui=bold guifg=#5b605e
 
-" Make trailing whitespace stand out in red
-highlight EOLWS ctermbg=red guibg=red
-
 " Make cursorline stand out a little more.
 highlight CursorLine guibg=#565656
+
+" }}}
+
+" Make trailing whitespace stand out in red
+highlight EOLWS ctermbg=red guibg=red
 
 " Terminal setup before xterm-256color {{{
 "if !has("gui") && has("terminfo")
