@@ -787,7 +787,7 @@ highlight SpecialKey ctermfg=240 gui=bold guifg=#5b605e
 "highlight NonText ctermfg=240 gui=bold guifg=#5b605e
 
 " Make cursorline stand out a little more.
-highlight CursorLine guibg=#565656
+"highlight CursorLine guibg=#565656
 
 " }}}
 
