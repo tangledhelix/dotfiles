@@ -477,6 +477,12 @@ set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.tgz,.sit,.dmg,.hqx
 set nobackup
 set nowritebackup
 
+" Where to store swap files. Putting them in . is good, because then you
+" can't edit the same file twice. However, when using a remote volume,
+" like one mounted over ssh via Transmit, it's very, very slow. So
+" going to use ~/.tmp-vim first if it exists. Usually it won't.
+"set directory=~/.tmp-vim//,.,/var/tmp,/tmp
+
 " Shell to use. Stick with the old standard.
 let &shell="/bin/sh"
 
