@@ -26,9 +26,6 @@ alias c='clear'
 #alias p='proj'
 #alias mp='mkproj'
 
-# Lets me queue up a beep if I want, i.e. "make ; beep"
-alias beep='echo -ne "\a"'
-
 # Common typos. Don't judge.
 alias whios='whois'
 alias mroe='more'

@@ -260,3 +260,10 @@ pmver() {
     perl -M$_module -e "print \"\$${_module}::VERSION\n\";"
 }
 
+# Beep the terminal. If a time is specified, wait that number
+# of seconds, then beep.
+function beep {
+    test -n "$1" && sleep $1
+    echo -ne "\a"
+}
+
