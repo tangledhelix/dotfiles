@@ -44,6 +44,10 @@ the `.dotfiles` directory and will not interfere with your existing environment.
 
 Rake will ask you before overwriting any files that already exist.
 
+Occasionally I run into a system where rake isn't installed and I can't
+easily install it. For those cases, I have `install.sh`, which does the
+job, but isn't as graceful.
+
 Submodules
 ----------
 
