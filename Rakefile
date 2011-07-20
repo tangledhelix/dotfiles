@@ -17,7 +17,7 @@ task :force do
 end
 
 def installer
-    ignore_files = %w(README.md Rakefile gitconfig.erb)
+    ignore_files = %w(README.md Rakefile gitconfig.erb install.sh)
     Dir['*'].each do |file|
         next if ignore_files.include?(file) or file =~ /.*~$/
         determine_action(file)
