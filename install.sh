@@ -20,5 +20,6 @@ else
     echo "*** NOTE: set up $HOME/.gitconfig"
     echo
     cp $HOME/.dotfiles/gitconfig.erb $HOME/.gitconfig
+    chmod 0600 $HOME/.gitconfig
 fi
 
