@@ -740,10 +740,15 @@ if has("autocmd")
     autocmd FileType markdown let g:surround_{char2nr('b')} = "**\r**"
 
     " Save all unclean buffers when focus is lost (ala TextMate).
-    " Not sure whether I like this idea. This is GUI only.
+    " Not sure whether I like this idea. This is GUI only, terminal
+    " vim has no concept of focus (or does it know it was backgrounded?)
     "autocmd FocusLost * :wa
 
-    " Automatically apply changes to .vimrc if it changes.
+    " cd to the directory of the current file. Makes it easier to :e
+    " files in the same directory.
+    autocmd BufEnter * cd %:p:h
+
+    " Automatically reload .vimrc if we edited it.
     autocmd BufWritePost .vimrc source $MYVIMRC
 
     " Restore cursor position from our last session, if known.
