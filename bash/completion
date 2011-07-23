@@ -18,8 +18,8 @@ test -n "$INTERACTIVE" && {
         #    _ssh="`cat ~/.ssh/known_hosts|cut -f 1 -d ' '|sed -e 's/,.*//g'|uniq|grep -v "\["`"
 
         # If there is a work-style .hostlist file handy, read that too
+        test -f /admin/.hostlist && _hfile="/admin/.hostlist"
         test -f $HOME/.hostlist && _hfile="$HOME/.hostlist"
-        test -f /admin/config/.hostlist && _hfile="/admin/config/.hostlist"
         unset _hosts
         test -n "$_hfile" && _hosts="`cat $_hfile`"
 
