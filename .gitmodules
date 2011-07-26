@@ -58,3 +58,6 @@
 [submodule "vim/bundle/quickrun"]
 	path = vim/bundle/quickrun
 	url = https://github.com/thinca/vim-quickrun.git
+[submodule "vim/bundle/solarized"]
+	path = vim/bundle/solarized
+	url = https://github.com/altercation/vim-colors-solarized
