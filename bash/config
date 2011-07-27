@@ -73,7 +73,7 @@ test -n "$INTERACTIVE" && {
     # Show the value of $? (in color if it's non-zero)
     PS1="$PS1{\[\$(_xc_retval)\]\$?\[$(_xcr)\]}"
 
-    # Show the current number of jobs (in color if > 0), then prompt
+    # Show the current number of jobs (in color if > 0), then a prompt
     PS1="$PS1[\[\$(_xc_jobs)\]\j\[$(_xcr)\]]\\$ "
 
     export PS1
@@ -84,6 +84,7 @@ test -n "$INTERACTIVE" && {
     stty erase '^?' -parenb -istrip echo echoe echoctl echoke tabs cs8
 
     # Keybindings for commandline edits (emacs or vi)
+    # I want to love the vi keybindings. But I can't.
     set -o emacs
 
     # notify of bg job completion immediately

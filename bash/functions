@@ -75,7 +75,7 @@ _short_hname() {
     local _retval=$?
 
     echo $HOST | perl -p -e '
-        if ( scalar( split( /\./ ) ) > 3 ) {
+        if (scalar(split(/\./)) > 3) {
             s/^([^.]+\.[^.]+).*$/$1/;
         } else {
             s/^([^.]+).*$/$1/;

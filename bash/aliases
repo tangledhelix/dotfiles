@@ -1,7 +1,6 @@
 
-# I intentionally do not use color support for ls because it looks awful
-# in my iTerm color scheme, which is based on vim zenburn. I still want
-# the trailing file-type indicators (-F).
+# I intentionally do not use color support for ls because it looks awful.
+# I still want the trailing file-type indicators (-F).
 
 if [[ "$OS" = "Linux" ]]; then
     # Silly Linux makes up its own timestamp formatting.
@@ -13,9 +12,7 @@ fi
 
 test -d ~/.dotfiles && alias dot='cd ~/.dotfiles; git status'
 alias gs='git status'
-alias gd='git diff'
-# color is turned off here because it looks terrible on my terminal bgcolor
-alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit --color=never'
+alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit'
 
 # CVS at work uses an unexpected path. This is aliased because it breaks other
 # repositories, e.g. sourceforge.
@@ -75,6 +72,7 @@ alias tailf='tail --follow=name'
 alias stripcomments="egrep -v '^([\ \t]*#|$)'"
 
 # Check for hosed SMF services on (Solaris >= 10)
+# No, I no longer need the xv image viewer in 2011.
 test -x /bin/svcs && alias xv='svcs -xv'
 
 # Show me an SMF service with its processes (Solaris >= 10)

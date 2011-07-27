@@ -30,7 +30,7 @@ test -n "$INTERACTIVE" && {
 
         COMPREPLY=()
         _cur=${COMP_WORDS[COMP_CWORD]}
-        COMPREPLY=($(compgen -W '$( echo $_ssh; echo $_hosts $_lochosts )' -- $_cur))
+        COMPREPLY=($(compgen -W '$( echo $_ssh $_hosts $_lochosts )' -- $_cur))
         return 0
     }
 

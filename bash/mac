@@ -3,7 +3,6 @@
 
     alias ldd='otool -L'
     alias telnet='/usr/bin/telnet -K'
-    alias edit='open -a MacVim'
 
     # Formats a man page as PDF, then supplies to Preview.app on stdin.
     pman() {
