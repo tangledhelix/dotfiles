@@ -27,6 +27,15 @@ read; color support is only one of several good reasons to switch.
 
 <http://tangledhelix.com/archive/iterm2-iterm>
 
+Shell colors in bash
+--------------------
+
+The colors in the prompt ($PS1) are currently set up assuming the terminal
+is using [Solarized][] as a color scheme. They may not look very good in
+other terminal setups.
+
+[solarized]: http://ethanschoonover.com/solarized
+
 Installation
 ------------
 
