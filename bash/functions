@@ -108,26 +108,19 @@ _check_for_mail() {
     return $_retval
 }
 
-# Output an extended color (256-color support). If one color is provided,
-# set the foreground. If two are provided, set {foreground, background}.
+# Output a color.
 # Preserve the value of $? by returning it as we received it.
 _xc() {
     local _retval=$?
-
-    echo -ne "\033[m\033[38;5;$1m"
-    test -n "$2" && echo -ne "\033[48;5;$2m"
-
+    echo -ne "\033[$1m"
     return $_retval
 }
 
-# Make the foreground color bold instead of normal.
+# Make the foreground color bold (bright) instead of normal.
 # Preserve the value of $? by returning it as we received it.
 _xcb() {
     local _retval=$?
-
-    echo -ne "\033[1m"
-    _xc $@
-
+    echo -ne "\033[1;$1m"
     return $_retval
 }
 
@@ -135,9 +128,7 @@ _xcb() {
 # Preserve the value of $? by returning it as we received it.
 _xcr() {
     local _retval=$?
-
-    echo -ne "\033[m"
-
+    echo -ne "\033[0m"
     return $_retval
 }
 
@@ -145,9 +136,7 @@ _xcr() {
 # Preserve the original value of $? by returning it as we received it.
 _xc_retval() {
     local _retval=$?
-
-    [[ $_retval != 0 ]] && echo -ne "\033[1m\033[38;5;196m"
-
+    [[ $_retval != 0 ]] && echo -ne "\033[31m"
     return $_retval
 }
 
@@ -155,10 +144,8 @@ _xc_retval() {
 # Preserve the original value of $? by returning it as we received it.
 _xc_jobs() {
     local _retval=$?
-
     local _jobcount=`jobs|wc -l`
-    [[ $_jobcount -gt 0 ]] && echo -ne "\033[1m\033[38;5;214m"
-
+    [[ $_jobcount -gt 0 ]] && echo -ne "\033[33m"
     return $_retval
 }
 
