@@ -56,8 +56,9 @@ for _this in \
     /usr/sfw/bin \
     /usr/X11R6/bin \
     /Developer/usr/bin \
-    ~/.gem/ruby/1.8/bin \
+    /usr/local/Cellar/ruby/1.9.2-p290/bin \
     ~/.gem/ruby/1.9.1/bin \
+    ~/.gem/ruby/1.8/bin \
     ~/Dropbox/bin \
     /usr/local/Cellar/python/2.7/bin \
     ~/tools
