@@ -264,6 +264,12 @@ endif
 " Turn invisibles on/off.
 nmap <silent> <Leader>i :set list!<CR>
 
+" This only works in iTerm2. Change cursor to a bar in insert mode,
+" a block in other modes.
+" http://code.google.com/p/iterm2/wiki/ProprietaryEscapeCodes
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
 " }}}
 " --------------------------------------------------------------------
 " Line numbering / position indicators {{{
