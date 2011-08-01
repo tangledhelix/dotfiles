@@ -186,15 +186,21 @@ fd() {
     _finder d "$1" "$2"
 }
 
-# Example function: how to set a window title
-#function settitle() {
-    #echo -ne "\033]2;Title Goes Here\a"
-#}
+# Set a window title
+function set_window_title() {
+    echo -ne "\033]2;$1\a"
+}
 
-# Example function: how to set an iTerm *tab* title independent of window title
-#function settabtitle() {
-    #echo -ne "\033]1;Title Goes Here\a"
-#}
+# Set an iTerm2 *tab* title independent of window title
+function set_tab_title() {
+    echo -ne "\033]1;$1\a"
+}
+
+# Set both window and tab titles
+function set_titles() {
+    set_window_title "$1"
+    set_tab_title "$1"
+}
 
 # Tell me the installed version of a Perl module.
 perlmodver() {

@@ -90,8 +90,7 @@ test -n "$INTERACTIVE" && {
     # notify of bg job completion immediately
     set -o notify
 
-    # set the titlebar
-    echo -ne "\x1b]2;$HOST\x07\x1b]1;$HOST\x07"
+    set_tab_title $HOST
 
 }
 
