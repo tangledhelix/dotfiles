@@ -26,7 +26,7 @@ test -n "$INTERACTIVE" && {
         # Also look for a local instance
         test -f $HOME/.hostlist.local && _hlocfile="$HOME/.hostlist.local"
         unset _lochosts
-        test -n "$_hlocfile" && _lochosts="`cat $_hlocfile`"
+        test -n "$_hlocfile" && _lochosts="`grep -v '^#' $_hlocfile`"
 
         COMPREPLY=()
         _cur=${COMP_WORDS[COMP_CWORD]}
