@@ -254,7 +254,7 @@ set showmode
 " Whether and how to display tabs and EOL
 if has("multi_byte")
     set encoding=utf-8
-    set list
+    set nolist
     set listchars=tab:▸\ ,eol:¬
 else
     set nolist
@@ -525,10 +525,6 @@ nmap <silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completion')<
 
 " Key combo to toggle paste-mode
 set pastetoggle=,,
-
-" Handy map to toggle invisibles and line numbers on/off. That way
-" they aren't snapped up during a copy/paste in a terminal.
-nnoremap <silent> <Leader>P :set relativenumber!<CR>:set list!<CR>
 
 " Duplicate current selection (best used for lines, but can be used
 " with any selection). Pastes duplicate at end of select region.
