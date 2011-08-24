@@ -22,19 +22,24 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
         echo
     }
 
-    # Check that Vim's yankring history is writable (i.e. not owned by root)
-    if [[ -f "$HOME/.vim/yankring_history_v2.txt" ]]; then
-        if [[ ! -O "$HOME/.vim/yankring_history_v2.txt" ]]; then
+    # Check yankring permissions
+    _yankring="$HOME/.vim/yankring_history_v2.txt"
+    if [[ -f $_yankring ]]; then
+        if [[ ! -O $_yankring ]]; then
             echo
             echo "    *** ----------------------------------------------- ***"
             echo "    *** WARNING: yankring history file is not writeable ***"
             echo "    *** ----------------------------------------------- ***"
-            ls -l $HOME/.vim/yankring_history_v2.txt
+            ls -l $_yankring
             echo
         else
-            # Make sure permissions are good
-            chmod 0600 $HOME/.vim/yankring_history_v2.txt
+            # It's present and I own it. Make sure permissions are good.
+            chmod 0600 $_yankring
         fi
+    else
+        # It's not present. Proactively create and chown it.
+        touch $_yankring
+        chmod 0600 $_yankring
     fi
 
     # Is screen running?
