@@ -170,12 +170,23 @@ General editing
 
     ga      show char under cursor as dec, hex, oct ASCII.
 
+    ^Y      yank character directly above you to current line (duplicate)
+
+    (custom mappings)
+    ^K      trigger sparkup expansion (changed from ^E)
+    ^W      hop to next jump point in a sparkup expansion (changed from ^N)
+
 ------------------------------------------------------------------------------
 Indenting
 
     =       syntax-aware reindent of selection
     ==      syntax-aware reindent of line
     gg=G    syntax reindent entire file
+
+    In insert mode:
+
+    ^T      indent line one shiftwidth
+    ^D      de-dent line one shiftwidth
 
 ------------------------------------------------------------------------------
 Folds

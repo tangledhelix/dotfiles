@@ -510,10 +510,10 @@ set wildmenu
 set wildmode=list:longest
 
 " Trigger a sparkup expansion (default ^E)
-"let g:sparkupExecuteMapping='<C-E>'
+let g:sparkupExecuteMapping='<C-K>'
 
 " Hop to next input point, inside a sparkup expansion (default ^N)
-"let g:sparkupNextMapping='<C-N>'
+let g:sparkupNextMapping='<C-W>'
 
 " Turn English-word completion from system dictionary on or off. (^N, ^P)
 set dictionary=/usr/share/dict/words
