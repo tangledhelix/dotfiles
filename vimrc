@@ -510,10 +510,10 @@ set wildmenu
 set wildmode=list:longest
 
 " Trigger a sparkup expansion (default ^E)
-let g:sparkupExecuteMapping='<C-T>'
+"let g:sparkupExecuteMapping='<C-E>'
 
 " Hop to next input point, inside a sparkup expansion (default ^N)
-let g:sparkupNextMapping='<C-X>'
+"let g:sparkupNextMapping='<C-N>'
 
 " Turn English-word completion from system dictionary on or off. (^N, ^P)
 set dictionary=/usr/share/dict/words
@@ -720,6 +720,7 @@ if has("autocmd")
     autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
     autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
     autocmd BufNewFile,BufRead *.global set filetype=m4
+    autocmd BufNewFile,BufRead exim.cf* set filetype=exim
 
     au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
 
