@@ -29,6 +29,7 @@ alias mroe='more'
 alias More='more'
 alias Grep='grep'
 alias vm='rm'
+alias chkcofnig='chkconfig'
 
 # Just in case I'm somewhere that all the fancy color stuff doesn't
 # work right, or I'm running screen, I can use this.
