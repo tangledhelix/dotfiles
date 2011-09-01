@@ -781,8 +781,13 @@ endif
 " Activate syntax highlighting
 syntax enable
 
-" I usually use a dark-background terminal
-set background=dark
+if has("gui_running")
+    " Use light scheme in GUI to differentiate it from terminal
+    set background=light
+else
+    " I usually use a dark-background terminal
+    set background=dark
+endif
 
 " Colorscheme: Zenburn {{{
 
