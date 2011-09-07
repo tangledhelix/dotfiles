@@ -42,6 +42,14 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
         chmod 0600 $_yankring
     fi
 
+    # Check the vim version. Pre-7.3 a few things I really like don't work.
+    # Like relativenumber. *sniff*
+    _desired_vim="7.3"
+    _actual_vim="`vim --version | head -1 | awk '{print $5}'`"
+    if [[ $_actual_vim < $_desired_vim ]]; then
+        echo "(Gross, vim is only $_actual_vim)"
+    fi
+
     # Is screen running?
     test -n "$HAVE_SCREEN" && $HAVE_SCREEN -list | grep -v '^No Sockets'
 
