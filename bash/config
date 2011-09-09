@@ -82,19 +82,19 @@ test -n "$INTERACTIVE" && {
     # Check for new mail (red envelope icon)
     PS1="$PS1\[$(_xc 31)\]\$(_check_for_mail)\[$(_xcr)\]"
 
-    # Show current directory (bright magenta = violet)
+    # Show current directory (violet)
     PS1="$PS1\[$(_xcb 35)\]\w\[$(_xcr)\]"
 
     # Show code repo (if present) in cyan, then start new line
     PS1="$PS1\[$(_xc 36)\]\$(_scm_info)\[$(_xcr)\]\n"
 
-    # Show {user}@{host}, bright white inverse
-    PS1="$PS1\[$(_xcb 37)$(_xc 7)\]\u@$(_short_hname)\[$(_xcr)\]"
+    # Show {user}@{host}, magenta
+    PS1="$PS1\[$(_xc 35)\]\u@$(_short_hname)\[$(_xcr)\]"
 
-    # Show the value of $? (in red if it's non-zero)
+    # Show the value of $? (in inverse red if it's non-zero)
     PS1="$PS1{\[\$(_xc_retval)\]\$?\[$(_xcr)\]}"
 
-    # Show the current number of jobs (in orange if > 0), then a prompt
+    # Show the current number of jobs (in red if > 0), then a prompt
     PS1="$PS1[\[\$(_xc_jobs)\]\j\[$(_xcr)\]]\\$ "
 
     export PS1

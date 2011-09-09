@@ -134,18 +134,21 @@ _xcr() {
 
 # Evaluate $? and return an attention-grabbing color if non-zero.
 # Preserve the original value of $? by returning it as we received it.
+# 31 = red
+# 7 = reverse
 _xc_retval() {
     local _retval=$?
-    [[ $_retval != 0 ]] && echo -ne "\033[31m"
+    [[ $_retval != 0 ]] && echo -ne "\033[31;7m"
     return $_retval
 }
 
 # Get job count, return an attention grabbing color if there are > 0.
 # Preserve the original value of $? by returning it as we received it.
+# 31 = red
 _xc_jobs() {
     local _retval=$?
     local _jobcount=`jobs|wc -l`
-    [[ $_jobcount -gt 0 ]] && echo -ne "\033[33m"
+    [[ $_jobcount -gt 0 ]] && echo -ne "\033[31m"
     return $_retval
 }
 
