@@ -32,8 +32,8 @@ runtime macros/matchit.vim
 " editor with a different tab stop. I tend to avoid right-hand comments anyway
 " precisely becuase of that format problem.
 
-" Always expand tabs to spaces
-set expandtab
+" Never expand tabs to spaces
+set noexpandtab
 
 " My tab width is 4. Because 8 is too much, but 2 is visually too small
 " for code nesting IMO. Should match shiftwidth. Sometimes I do use an
@@ -274,17 +274,21 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " --------------------------------------------------------------------
 " Line numbering / position indicators {{{
 
-" I don't want absolute line numbers.
-set nonumber
-
 " Show line numbers as relative to current, not as absolute. This makes it
-" easy to use count-based commands, e.g. 5dd or 10j.
+" easy to use count-based commands, e.g. 5dd or 10j. Fall back to regular
+" numbering if we're on an old vim.
 if v:version >= 703
     set relativenumber
+else
+    set number
 endif
 
-" Toggle relativenumber column. They get in the way of copying in a terminal.
-nmap <silent> <Leader>n :set relativenumber!<CR>
+" Toggle number column. They get in the way of copying in a terminal.
+if v:version >= 703
+    nmap <silent> <Leader>n :set relativenumber!<CR>
+else
+    nmap <silent> <Leader>n :set number!<CR>
+endif
 
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
@@ -292,7 +296,7 @@ set ruler
 " Show current cursor line position
 set cursorline
 
-" Warn on long lines. Looks like crap in terminals, and in zenburn.
+" Warn on long lines. Looks like crap.
 "set colorcolumn=81
 
 " }}}
@@ -509,12 +513,6 @@ set wildmenu
 " Behave like a shell, show me completion only to point of ambiguity.
 set wildmode=list:longest
 
-" Trigger a sparkup expansion (default ^E)
-let g:sparkupExecuteMapping='<C-K>'
-
-" Hop to next input point, inside a sparkup expansion (default ^N)
-let g:sparkupNextMapping='<C-W>'
-
 " Turn English-word completion from system dictionary on or off. (^N, ^P)
 set dictionary=/usr/share/dict/words
 nmap <silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completion')<CR>
@@ -624,6 +622,8 @@ set hidden
 
 " Modelines are kind of ugly, and I've read there are security problems
 " with them. Disabling.
+" Hah, this is funny, I was just trying to convince my team to start using
+" modelines, and here I have them disabled, claiming security problems.
 set nomodeline
 set modelines=0
 
@@ -712,7 +712,7 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.t set filetype=perl
     autocmd BufNewFile,BufRead *.inc set filetype=php
     autocmd BufNewFile,BufRead *.com set filetype=bindzone
-    autocmd BufNewFile,BufRead *.wiki,*ISSwiki*,*TangledWiki* set filetype=mediawiki
+    autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
     autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
     autocmd BufNewFile,BufRead .bash/*,bash/*,.dotfiles/bash* set filetype=sh
     autocmd BufNewFile,BufRead distfile.common set filetype=rdist
@@ -728,8 +728,6 @@ if has("autocmd")
     " (the highlight bit comes later after syntax is turned on)
     autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-
-    autocmd FileType yaml setlocal expandtab
 
     " Italic, bold surrounds for Mediawiki (plugin 'surround')
     autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
@@ -781,13 +779,15 @@ endif
 " Activate syntax highlighting
 syntax enable
 
-if has("gui_running")
-    " Use light scheme in GUI to differentiate it from terminal
-    set background=light
-else
-    " I usually use a dark-background terminal
-    set background=dark
-endif
+"if has("gui_running")
+    "" Use light scheme in GUI to differentiate it from terminal
+    "set background=light
+"else
+    "" I usually use a dark-background terminal
+    "set background=dark
+"endif
+
+set background=light
 
 " Colorscheme: Zenburn {{{
 
