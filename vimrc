@@ -32,16 +32,17 @@ runtime macros/matchit.vim
 " editor with a different tab stop. I tend to avoid right-hand comments anyway
 " precisely becuase of that format problem.
 
-" Never expand tabs to spaces
+" Use tabs, not spaces
 set noexpandtab
 
 " My tab width is 4. Because 8 is too much, but 2 is visually too small
 " for code nesting IMO. Should match shiftwidth. Sometimes I do use an
 " indent of 2, e.g. in YAML files, due to convention.
 set tabstop=4
+set softtabstop=0
 
 " Number of spaces to use for (auto)indent. Generally this should be the
-" same as the tabstop and softtabstop.
+" same as the tabstop.
 set shiftwidth=4
 
 " Set the indent width to 2, 4, or 8
@@ -67,7 +68,8 @@ nmap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 " edge (where there is only whitespace between col 0 and the cursor),
 " and use spaces after the first non-whitespace on a line. But it doesn't
 " work. In fact it has all sorts of odd behavior. I believe it interacts
-" poorly with other plugins, particularly snipmate.
+" poorly with other plugins, particularly snipmate. Maybe snipmate can be
+" told to expand with another trigger, like ^E?
 "
 " This is slightly hacky, but it's easy and it works. Tab uses normal
 " tab behavior. Leader-Tab will always insert space-expanded tabs, but
@@ -78,7 +80,7 @@ nmap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 " --------------------------------------------------------------------
 " Indenting {{{
 
-" autoindent, copyindent, smartindent turned off in favor of
+" autoindent, smartindent turned off in favor of
 " 'filetype indent on' (see above).
 "
 " So sayeth vimgor on #vim:
@@ -95,7 +97,10 @@ nmap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 " Copies the indentation characters of the previous line. This will
 " help avoid situations where I edit a file and my expandtab makes
 " a space-indented line just below a tab-indented line.
-"set copyindent
+set copyindent
+
+" Preserve the existing indent as much as possible, when shifting indentation
+set preserveindent
 
 " An indent is automatically inserted:
 " - After a line ending in '{'.
