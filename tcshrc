@@ -11,9 +11,9 @@ set autolist
 set _ssh_knownhosts = `sed -e 's/^ *//' -e '/^#/d' -e 's/[, ].*//' -e '/\[/d' ~/.ssh/known_hosts | sort -u`
 
 foreach command (ssh sftp scp sdist host dig nslookup ping telnet \
-    mtr traceroute cons clogin load seed for sshx sperl ping6 \
-    traceroute6)
-        complete $command 'p/1/$_ssh_knownhosts/' 'p/2/c'
+	mtr traceroute cons clogin load seed for sshx sperl ping6 \
+	traceroute6)
+		complete $command 'p/1/$_ssh_knownhosts/' 'p/2/c'
 end
 
 ######################################################################
