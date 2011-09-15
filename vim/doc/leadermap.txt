@@ -33,7 +33,7 @@ Current leader key map:                                            *leadermap*
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
   ,M            Preview markdown file in default browser
-  ,n            Toggle relative line numbering
+  ,n            Toggle line numbering
   ,of           Open filename under cursor, displacing this buffer
   ,ot           Open filename under cursor in a new tab
   ,ow           Open filename under cursor in a new window
