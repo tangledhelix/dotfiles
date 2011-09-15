@@ -82,6 +82,12 @@ test -x /bin/svcs && alias sp='svcs -p'
 # I like to use smart-case with Ack.
 test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
 
+# Give me a list of the RPM package groups
+test -n $(command -v rpm 2>/dev/null) && {
+	_rpm_version=`rpm --version | awk '{print $3}'`
+	alias rpmgroups="cat /usr/share/doc/rpm-$_rpm_version/GROUPS"
+}
+
 # reload bash config
 alias reload='source ~/.bashrc'
 
