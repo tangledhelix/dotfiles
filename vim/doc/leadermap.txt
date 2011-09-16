@@ -12,6 +12,7 @@ Current leader key map:                                            *leadermap*
   ,=            Re-indent entire buffer
   ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight
+  ,1            Convert file or selection to one string per line
   ,2            Set tab stop to 2
   ,4            Set tab stop to 4
   ,8            Set tab stop to 8
@@ -25,7 +26,6 @@ Current leader key map:                                            *leadermap*
         ,c$         Comment from cursor to end-of-line
         ,ci         Invert each line's current state
         ,cy         Yank line or selection, then comment it
-  ,e            Open :edit command preloaded with cwd of current file
   ,E            Toggle completion from system dictionary
   ,f            Toggle NERDTree browser (plugin: |NERDTree|)
   ,Ft           Fold current tag in HTML (should also work in XML)

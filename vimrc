@@ -603,7 +603,9 @@ nmap <Leader>* :FufFile<CR>
 
 " Preload the :edit command with the directory where the file in
 " the current buffer is located.
-nmap <Leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
+" This is no longer useful, there's now an autocmd that cd's to the current
+" directory whenever you load a file.
+"nmap <Leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
 
 " Variants that open in split, vsplit or a tab
 "nmap <Leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
@@ -667,6 +669,11 @@ nmap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/
 
 " QuickRun the current buffer, autodetecting syntax
 nmap <Leader>r :QuickRun<CR>
+
+" Convert file, or selection, so each contiguous non-whitespace blob is
+" on its own line. Strip all other whitespace.
+nnoremap <Leader>1 :%!$HOME/bin/convert-to-one-string-per-line.rb<CR>
+vnoremap <Leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<CR>
 
 " }}}
 " --------------------------------------------------------------------
