@@ -67,6 +67,3 @@
 [submodule "vim/bundle/kickstart"]
 	path = vim/bundle/kickstart
 	url = https://github.com/tangledhelix/vim-kickstart.git
-[submodule "vim-smart-tabs"]
-	path = vim-smart-tabs
-	url = https://github.com/vim-scripts/Smart-Tabs.git
