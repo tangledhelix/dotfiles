@@ -83,7 +83,7 @@ test -x /bin/svcs && alias sp='svcs -p'
 test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
 
 # Give me a list of the RPM package groups
-alias rpmgroups="cat /usr/share/doc/rpm-`rpm --version | awk '{print $3}'`/GROUPS"
+alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
 
 # reload bash config
 alias reload='source ~/.bashrc'
