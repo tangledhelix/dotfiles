@@ -97,7 +97,7 @@ inoremap <Leader><Tab> <Esc>:set expandtab<CR>a<Tab><Esc>:set noexpandtab<CR>a
 " Copies the indentation characters of the previous line. This will
 " help avoid situations where I edit a file and my expandtab makes
 " a space-indented line just below a tab-indented line.
-set copyindent
+"set copyindent
 
 " Preserve the existing indent as much as possible, when shifting indentation
 "set preserveindent
@@ -736,11 +736,6 @@ if has("autocmd")
 
 	au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
 
-	" Mark trailing whitespace with a red background to make it stand out
-	" (the highlight bit comes later after syntax is turned on)
-	autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
-	autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-
 	" Italic, bold surrounds for Mediawiki (plugin 'surround')
 	autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
 	autocmd FileType mediawiki let g:surround_{char2nr('b')} = "'''\r'''"
@@ -828,7 +823,9 @@ colorscheme solarized
 
 " }}}
 
-" Make trailing whitespace stand out in red
+" Mark trailing whitespace with a red background to make it stand out
+autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
 
 " Terminal setup before xterm-256color {{{
