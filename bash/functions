@@ -270,6 +270,13 @@ function beep {
 
 # Make a new puppet module
 function mkpuppetmodule {
+	if [ -d $1 ]; then
+		echo "directory '$1' already exists"
+		return
+	fi
+
 	mkdir -p $1/{files,templates,manifests}
+	cd $1
+	ls -l
 }
 
