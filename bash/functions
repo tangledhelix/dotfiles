@@ -268,3 +268,8 @@ function beep {
 	echo -ne "\a"
 }
 
+# Make a new puppet module
+function mkpuppetmodule {
+	mkdir -p $1/{files,templates,manifests}
+}
+
