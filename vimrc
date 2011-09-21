@@ -714,6 +714,13 @@ nmap K <Nul>
 " e.g.: <foo>BAR BAZ</foo> becomes <foo>Bar Baz</foo>
 "nmap <Leader>x vit:s/\%V\<\(\w\)\(\w*\)\>/\u\1\L\2/<CR>
 
+" Hit ^L in insert mode to skip the rest of this line and go to the next
+" line. This is handy when I've gotten to the end of the line, but autoclose
+" has added a bunch of closing punctuation to the right. I can skip to the
+" next line without having to get into normal mode and start a new line, or
+" typing out the closing marks to skip them.
+inoremap <C-l> <Esc>A<CR>
+
 " }}}
 " --------------------------------------------------------------------
 " Auto-command triggers {{{
