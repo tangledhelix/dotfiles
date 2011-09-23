@@ -139,7 +139,7 @@ test -n "$HAVE_VIMDIFF" && {
 # NOTE: -F seems to break things on some systems I use; avoiding it.
 
 if test -n "$HAVE_LESS" ; then
-	PAGER="less -irw"
+	PAGER="less -iRw"
 	MANPAGER="less -iRsw"
 	alias more="less"
 	test -n "$HAVE_ACK" && {
@@ -151,7 +151,7 @@ else
 	MANPAGER="$PAGER"
 fi
 
-LESS="-iw"
+LESS="-iRw"
 
 export PAGER MANPAGER LESS
 
