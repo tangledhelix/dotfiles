@@ -10,8 +10,8 @@ test -n "$INTERACTIVE" && {
 
 	# Color definitions
 	if [[ "$USE_PROJCOLOR" = "yes" ]]; then
-		_projcolor="\033[38;5;220m"
-		_projcolor_clear="\033[m"
+		_projcolor="\033[0;31;47m"
+		_projcolor_clear="\033[0m"
 	fi
 
 	# Get a list of projects. An optional pattern can be supplied.
