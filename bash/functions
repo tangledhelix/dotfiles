@@ -1,19 +1,19 @@
 
 # "h" shows a tailed history
 # "h <pattern>" shows all history entries matching the string
-h() {
-	test -n "$1" && history | grep -i "$1" || history | tail -15
+function h {
+	test -n "$1" && { history | grep -i "$1"; } || { history | tail -15; }
 }
 
 # Make a directory, then go there
-md() {
+function md {
 	test -n "$1" || return
 	mkdir -p "$1" && cd "$1"
 }
 
 # "path" shows current path, one element per line.
 # If an argument is supplied, grep for it.
-path() {
+function path {
 	test -n "$1" && {
 		echo $PATH | perl -p -e 's/:/\n/g;' | grep -i "$1"
 	} || {
@@ -22,12 +22,12 @@ path() {
 }
 
 # Look up error codes
-errno() {
+function errno {
 	perl -e "\$! = $1; print \"\$! \\n\";"
 }
 
 # Machine type, on Solaris systems
-hw() {
+function hw {
 	[[ "$OS" != "SunOS" ]] && {
 		echo "'hw' is only available in SunOS."
 		return
@@ -38,31 +38,99 @@ hw() {
 }
 
 # Translate AS numbers / RR communities
-astr() {
+function astr {
 	echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
+}
+
+# Check if we're in a CVS repository
+function is_cvs_repository {
+	test -f ./CVS/Root > /dev/null 2>&1
+}
+
+# Check if we're in a Subversion repository
+function is_svn_repository {
+	test -d ./.svn > /dev/null 2>&1
+}
+
+# Check if we're in a git repository
+function is_git_repository {
+	git branch > /dev/null 2>&1
+}
+
+# Figure out our SCM coloring.
+function _scm_color {
+	local _retval=$?
+	local _git_status
+	
+	# First check for CVS, then Subversion
+	is_cvs_repository && { _xc 36; return $_retval; }
+	is_svn_repository && { _xc 36; return $_retval; }
+	
+	# If we got here and it's not a Git repo either, just bail
+	is_git_repository || return $_retval
+	
+	# If we're still here, figure out the color we want to use
+	_git_status="$(git status 2>/dev/null)"
+	
+	if [[ $_git_status =~ "working directory clean" ]]; then
+		_xc 36
+	elif [[ $_git_status =~ "Changes to be committed" ]]; then
+		_xc 33
+	else
+		# something weird? go with red
+		_xc 31
+	fi
+	
+	return $_retval
 }
 
 # Look for code repositories. If git, show me the branch name. If CVS or
 # Subversion, just show me the repo type (they don't have good branch info).
 # Preserve the value of $? by returning it as we received it.
-_scm_info() {
+function _scm_info {
 	local _retval=$?
-	local _gb
+	local _branch
+	local _git_status
+	local _pattern
+	local _remote
+	
+	# First check for CVS, then Subversion
+	is_cvs_repository && { echo -n " (CVS)";        return $_retval; }
+	is_svn_repository && { echo -n " (Subversion)"; return $_retval; }
+	
+	# If we're still here, see if it's Git; if not, just bail
+	is_git_repository || return $_retval
+	
+	_git_status="$(git status 2>/dev/null)"
 
-	if [[ -f ./CVS/Root ]]; then
-		echo -n ' (CVS)'
-	elif [[ -d ./.svn ]]; then
-		echo -n ' (Subversion)'
-	else
-		_gb=`git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-		test -n "$_gb" && echo -n " ($_gb)"
+	# Set arrow icon based on status against remote.
+	_pattern="# Your branch is (.*) of"
+	if [[ $_git_status =~ $_pattern ]]; then
+		if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+			_remote="↑"
+		else
+			_remote="↓"
+		fi
 	fi
+	_pattern="# Your branch and (.*) have diverged"
+	if [[ $_git_status =~ $_pattern ]]; then
+		remote="↕"
+	fi
+	
+	# Get the name of the branch.
+	_pattern="^# On branch ([^${IFS}]*)"
+	if [[ $_git_status =~ $_pattern ]]; then
+		_branch=${BASH_REMATCH[1]}
+	fi
+	
+	# Output the prompt.
+	echo -ne " ($_branch)${_remote}"
 
 	return $_retval
 }
 
 # Create a new git repo in cwd
-gitinit() {
+function gitinit {
 	git init
 	printf ".DS_Store\n.*.swp\n*~\n" > .gitignore
 }
@@ -71,7 +139,7 @@ gitinit() {
 # If it's 1-3 atoms, give me only the first.
 # If it's more than that, give me the first two.
 # Preserve the value of $? by returning it as we received it.
-_short_hname() {
+function _short_hname {
 	local _retval=$?
 
 	echo $HOST | perl -p -e '
@@ -92,7 +160,7 @@ _short_hname() {
 
 # Check to see if I have local mail on this system. If mail is waiting,
 # output a few chars that are supposed to resemble an envelope.
-_check_for_mail() {
+function _check_for_mail {
 	local _retval=$?
 	local _mail_cmd
 
@@ -100,9 +168,7 @@ _check_for_mail() {
 
 	test -n "$_mail_cmd" && {
 		$_mail_cmd -e >/dev/null 2>&1
-		if [[ $? -eq 0 ]]; then
-			echo -n "|><| "
-		fi
+		[[ $? -eq 0 ]] && echo -n "|><| "
 	}
 
 	return $_retval
@@ -110,7 +176,7 @@ _check_for_mail() {
 
 # Output a color.
 # Preserve the value of $? by returning it as we received it.
-_xc() {
+function _xc {
 	local _retval=$?
 	echo -ne "\033[$1m"
 	return $_retval
@@ -118,7 +184,7 @@ _xc() {
 
 # Make the foreground color bold (bright) instead of normal.
 # Preserve the value of $? by returning it as we received it.
-_xcb() {
+function _xcb {
 	local _retval=$?
 	echo -ne "\033[1;$1m"
 	return $_retval
@@ -126,7 +192,7 @@ _xcb() {
 
 # Set back to normal colors (reset).
 # Preserve the value of $? by returning it as we received it.
-_xcr() {
+function _xcr {
 	local _retval=$?
 	echo -ne "\033[0m"
 	return $_retval
@@ -136,7 +202,7 @@ _xcr() {
 # Preserve the original value of $? by returning it as we received it.
 # 31 = red
 # 7 = reverse
-_xc_retval() {
+function _xc_retval {
 	local _retval=$?
 	[[ $_retval != 0 ]] && echo -ne "\033[31;7m"
 	return $_retval
@@ -145,15 +211,15 @@ _xc_retval() {
 # Get job count, return an attention grabbing color if there are > 0.
 # Preserve the original value of $? by returning it as we received it.
 # 31 = red
-_xc_jobs() {
+function _xc_jobs {
 	local _retval=$?
-	local _jobcount=`jobs|wc -l`
-	[[ $_jobcount -gt 0 ]] && echo -ne "\033[31m"
+	local _jobcount=`jobs | wc -l`
+	[[ $_jobcount -gt 0 ]] && _xc 31
 	return $_retval
 }
 
 # Used by ff(), fd()... execute a find command, possible filtering results
-_finder() {
+function _finder {
 	local _type="$1"
 	local _include="$2"
 	local _exclude="$3"
@@ -170,7 +236,7 @@ _finder() {
 }
 
 # Show file tree, optionally filtering results
-ff() {
+function ff {
 	if [[ "$1" =~ ^\(-h\|--help\) ]]; then
 		echo "Usage: ff [<include-pattern>] [<exclude-pattern>]"
 		return
@@ -180,7 +246,7 @@ ff() {
 }
 
 # Show directory tree, optionally filtering results
-fd() {
+function fd {
 	if [[ "$1" =~ ^\(-h\|--help\) ]]; then
 		echo "Usage: fd [<include-pattern>] [<exclude-pattern>]"
 		return
@@ -190,28 +256,28 @@ fd() {
 }
 
 # Set a window title
-function set_window_title() {
+function set_window_title {
 	echo -ne "\033]2;$1\a"
 }
 
 # Set an iTerm2 *tab* title independent of window title
-function set_tab_title() {
+function set_tab_title {
 	echo -ne "\033]1;$1\a"
 }
 
 # Set both window and tab titles
-function set_titles() {
+function set_titles {
 	set_window_title "$1"
 	set_tab_title "$1"
 }
 
 # Steal focus
-function steal_focus() {
+function steal_focus {
 	echo -ne "\033]50;StealFocus\a"
 }
 
 # Tell me the installed version of a Perl module.
-perlmodver() {
+function perlmodver {
 	local _module="$1"
 
 	test -n "$_module" || { echo "missing argument"; return; }
@@ -224,7 +290,7 @@ perlmodver() {
 #       '.. 2' = 'cd ../..'
 #       '.. 3' = 'cd ../../..'
 #       '.. 4' = 'cd ../../../..'
-..() {
+function .. {
 	local _count
 	test -n "$1" && _count="$1" || _count="1"
 	while [[ "$_count" > 0 ]]; do
@@ -234,7 +300,7 @@ perlmodver() {
 }
 
 # Pull changes for all the dotfiles submodules
-update_dotfile_submodules() {
+function update_dotfile_submodules {
 	local _module
 	local _base="$HOME/.dotfiles"
 
@@ -250,7 +316,7 @@ update_dotfile_submodules() {
 }
 
 # Test for a perl module and print its version if any.
-pmver() {
+function pmver {
 	local _module="$1"
 
 	if [[ -z "$_module" ]]; then
@@ -270,11 +336,7 @@ function beep {
 
 # Make a new puppet module
 function mkpuppetmodule {
-	if [ -d $1 ]; then
-		echo "directory '$1' already exists"
-		return
-	fi
-
+	[[ -d $1 ]] && { echo "directory '$1' already exists"; return; }
 	mkdir -p $1/{files,templates,manifests}
 	cd $1
 	ls -l
