@@ -831,10 +831,9 @@ colorscheme solarized
 " }}}
 
 " Mark trailing whitespace with a red background to make it stand out
-" This sounds like a great idea, but it gets annoying quickly.
-"autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
-"autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-"highlight EOLWS ctermbg=red guibg=red
+autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+highlight EOLWS ctermbg=red guibg=red
 
 " Terminal setup before xterm-256color {{{
 "if !has("gui") && has("terminfo")
