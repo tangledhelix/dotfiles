@@ -9,7 +9,7 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
 
 	# Show me the local architecture
 	echo
-	echo ">> `uname -srm`"
+	echo -e ">> $(_xcu 36)$(uname -srm)"
 	echo
 
 	# Check for broken services, if this is a Sun SMF-capable system

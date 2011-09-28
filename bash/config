@@ -63,7 +63,7 @@ test -n "$INTERACTIVE" && {
 	# 0 Reset all attrs         5 Blink
 	# 1 Bright                  7 Reverse
 	# 2 Dim                     8 Hidden
-	# 4 Underscore  
+	# 4 Underscore
 	#
 	# Color         Fg  Bg
 	# -----         --  --
@@ -89,7 +89,7 @@ test -n "$INTERACTIVE" && {
 	PS1="$PS1\[\$(_scm_color)\]\$(_scm_info)\[$(_xcr)\]\n"
 
 	# Show {user}@{host}, magenta
-	PS1="$PS1\[$(_xc 35)\]\u@$(_short_hname)\[$(_xcr)\]"
+	PS1="$PS1\[$(_xcu 35)\]\u@$(_short_hname)\[$(_xcr)\]"
 
 	# Show the value of $? (in inverse red if it's non-zero)
 	PS1="$PS1{\[\$(_xc_retval)\]\$?\[$(_xcr)\]}"

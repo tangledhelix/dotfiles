@@ -124,7 +124,7 @@ function _scm_info {
 	fi
 	
 	# Output the prompt.
-	echo -ne " ($_branch)${_remote}"
+	echo -n " ($_branch)${_remote}"
 
 	return $_retval
 }
@@ -179,6 +179,13 @@ function _check_for_mail {
 function _xc {
 	local _retval=$?
 	echo -ne "\033[$1m"
+	return $_retval
+}
+
+# Make the colored text underscored
+function _xcu {
+	local _retval=$?
+	echo -ne "\033[$1;4m"
 	return $_retval
 }
 
