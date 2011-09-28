@@ -721,6 +721,11 @@ nmap K <Nul>
 " typing out the closing marks to skip them.
 inoremap <C-l> <Esc>A<CR>
 
+" When I type 'o' to start a new line, it copies the indent from the current
+" line but if I then hit enter, it leaves whitespace behind on an otherwise
+" blank line. 'A' does not do that. So I remap o to A. Cheap, but it works.
+nnoremap o A<CR>
+
 " }}}
 " --------------------------------------------------------------------
 " Auto-command triggers {{{
