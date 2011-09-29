@@ -39,15 +39,27 @@ test -n "$INTERACTIVE" && {
 	# _xcb <color>
 	#     Same as _xc(), but uses bold (bright) variant.
 	#
+	# _xcu <color>
+	#     Same as _xc(), but uses underlined variant.
+	#
 	# _xcr
 	#     Resets to default colors.
 	#
 	# _short_hname
 	#     Returns a shortened version of local system name.
 	#
+	# _scm_color (escaped to eval on each prompt)
+	#     Determines color for branch/repo type returned by _scm_info().
+	#     All CVS/Subversion, and clean git, return cyan.
+	#     Git with pending commits or other "dirty" state is red or yellow.
+	#
 	# _scm_info (escaped to eval on each prompt)
 	#     Looks for code repositories. If git is found, branch name is shown.
-	#     For CVS or Subversion directories, the repository type is shown.
+	#     Git branches also show an arrow icon for state. Up arrow if the
+	#     branch has commits pending push. Down arrow if the branch is
+	#     behind and can be fast-forwarded. Double-headed arrow if the
+	#     branch has gone into a diverged state.
+	#     For CVS or Subversion directories, only the repo type is shown.
 	#
 	# _xc_retval (escaped to eval on each prompt)
 	#     Returns a highlighted color if $? is non-zero.
