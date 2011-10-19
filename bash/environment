@@ -18,6 +18,11 @@ export HISTCONTROL="erasedups"
 # Increase history size
 export HISTSIZE="10000"
 
+# For RubyGems on Dreamhost
+test -d "$HOME/.gems" && export GEM_HOME="$HOME/.gems"
+test -n "$GEM_HOME" && export GEM_PATH="$GEM_HOME:/usr/lib/ruby/gems/1.8"
+test -d "$HOME/local/lib" && export RUBYLIB="$HOME/local/lib:$RUBYLIB"
+
 # Need local terminfo files for xterm-256color on some platforms.
 # Yeah, I'm looking at you, Solaris.
 test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
@@ -57,6 +62,7 @@ for _this in \
 	/usr/X11R6/bin \
 	/Developer/usr/bin \
 	/usr/local/Cellar/ruby/1.9.2-p290/bin \
+	~/.gems/bin \
 	~/.gem/ruby/1.9.1/bin \
 	~/.gem/ruby/1.8/bin \
 	~/Dropbox/bin \
