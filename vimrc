@@ -26,11 +26,13 @@ runtime macros/matchit.vim
 " --------------------------------------------------------------------
 " Tab settings {{{
 
-" These settings work best when coding, indenting from the left column, but
-" not using <Tab> to indent other than that - e.g. right-hand comments would
-" be indented using spaces, to avoid formatting breakage if later viewed in an
-" editor with a different tab stop. I tend to avoid right-hand comments anyway
-" precisely becuase of that format problem.
+" My general indent strategy is to use real h-tabs (0x09) on the left column
+" and spaces everywhere else. That way relative indentation is always the
+" same regardless of someone's tab stop, but formatting of right-hand
+" indentation is consistent even when tab stop is not.
+" 
+" I use Smart-Tabs (plugin/ctab.vim) to make Tab do that automatically.
+" https://github.com/vim-scripts/Smart-Tabs
 
 " Use tabs, not spaces
 set noexpandtab
@@ -41,20 +43,20 @@ set noexpandtab
 set tabstop=4
 set softtabstop=0
 
-" Number of spaces to use for (auto)indent. Generally this should be the
+" Number of columns to use for (auto)indent. Generally this should be the
 " same as the tabstop.
 set shiftwidth=4
 
 " Set the indent width to 2, 4, or 8
-nmap <Leader>2 :setlocal tabstop=2 shiftwidth=2<CR>
-nmap <Leader>4 :setlocal tabstop=4 shiftwidth=4<CR>
-nmap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
+nnoremap <Leader>2 :setlocal tabstop=2 shiftwidth=2<CR>
+nnoremap <Leader>4 :setlocal tabstop=4 shiftwidth=4<CR>
+nnoremap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 
 " Re-tab the current file (changes tab->space or space->tab depending on the
 " current setting of expandtab). This can be dangerous, because on occasion
 " a raw tab will be embedded in a non-whitespace area like a string. One
 " hopes not, since we have things like \t, but you never know.
-"nmap <silent> <Leader>T :if &expandtab <Bar>
+"nnoremap <silent> <Leader>T :if &expandtab <Bar>
 	"\    set noexpandtab<CR>
 	"\    retab!<CR>
 	"\    echo "Converted spaces to tabs." <Bar>
@@ -64,17 +66,11 @@ nmap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 	"\    echo "Converted tabs to spaces." <Bar>
 	"\endif<CR>
 
-" I tried the Smart Tab plugin, which purports to use Tab on the left
-" edge (where there is only whitespace between col 0 and the cursor),
-" and use spaces after the first non-whitespace on a line. But it doesn't
-" work. In fact it has all sorts of odd behavior. I believe it interacts
-" poorly with other plugins, particularly snipmate. Maybe snipmate can be
-" told to expand with another trigger, like ^E?
-"
 " This is slightly hacky, but it's easy and it works. Tab uses normal
 " tab behavior. Leader-Tab will always insert space-expanded tabs, but
 " honors the current tab stop.
-inoremap <Leader><Tab> <Esc>:set expandtab<CR>a<Tab><Esc>:set noexpandtab<CR>a
+" This is not needed with Smart-Tab in place.
+"inoremap <Leader><Tab> <Esc>:set expandtab<CR>a<Tab><Esc>:set noexpandtab<CR>a
 
 " }}}
 " --------------------------------------------------------------------
@@ -94,9 +90,7 @@ inoremap <Leader><Tab> <Esc>:set expandtab<CR>a<Tab><Esc>:set noexpandtab<CR>a
 "  Good for coding. Handles indenting of blocks automatically.
 "set autoindent
 
-" Copies the indentation characters of the previous line. This will
-" help avoid situations where I edit a file and my expandtab makes
-" a space-indented line just below a tab-indented line.
+" Copies the indentation characters of the previous line.
 "set copyindent
 
 " Preserve the existing indent as much as possible, when shifting indentation
@@ -124,8 +118,8 @@ inoremap # X#
 set shiftround
 
 " Keep selection when indent/dedenting in select mode
-vmap > >gv
-vmap < <gv
+vnoremap > >gv
+vnoremap < <gv
 
 " }}}
 " --------------------------------------------------------------------
@@ -176,7 +170,7 @@ set hlsearch
 nnoremap <Leader><Space> :nohlsearch<CR>
 
 " Turn hlsearch on or off.
-nmap <Leader>h :set hlsearch!<CR>
+nnoremap <Leader>h :set hlsearch!<CR>
 
 " Incremental search - live updating, like Emacs or iTunes.
 set incsearch
@@ -203,10 +197,10 @@ set magic
 set gdefault
 
 " Open fuzzyfinder in line mode (search current buffer)
-nmap <silent> <Leader>/ :FufLine<CR>
+nnoremap <silent> <Leader>/ :FufLine<CR>
 
 " Use ack. Grep, refined. (Trailing space on this map is intentional.)
-nmap <Leader>a :Ack --smart-case 
+nnoremap <Leader>a :Ack --smart-case 
 
 " }}}
 " --------------------------------------------------------------------
@@ -234,7 +228,8 @@ endif
 " --------------------------------------------------------------------
 " Status indicators {{{
 
-" Set the title bar if running as GUI, never in terminals.
+" Set the title bar if running as GUI, never in terminals. If set in
+" a terminal, it will wipe away my title and not reset it on exit.
 if has("gui_running")
 	set title
 else
@@ -267,7 +262,7 @@ else
 endif
 
 " Turn invisibles on/off.
-nmap <silent> <Leader>i :set list!<CR>
+nnoremap <silent> <Leader>i :set list!<CR>
 
 " This only works in iTerm2. Change cursor to a bar in insert mode,
 " a block in other modes.
@@ -282,17 +277,14 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " Show line numbers as relative to current, not as absolute. This makes it
 " easy to use count-based commands, e.g. 5dd or 10j. Fall back to regular
 " numbering if we're on an old vim.
+" Map <leader>n to toggle the number column. They get in the way of copying
+" in a terminal.
 if v:version >= 703
 	set relativenumber
+	nnoremap <silent> <Leader>n :set relativenumber!<CR>
 else
 	set number
-endif
-
-" Toggle number column. They get in the way of copying in a terminal.
-if v:version >= 703
-	nmap <silent> <Leader>n :set relativenumber!<CR>
-else
-	nmap <silent> <Leader>n :set number!<CR>
+	nnoremap <silent> <Leader>n :set number!<CR>
 endif
 
 " Show row/col of cursor position, and percentage into the file we are.
@@ -312,23 +304,23 @@ set cursorline
 set formatoptions=qrn1
 
 " Insert two spaces after a period with every joining of lines?
-" No! The 'two spaces' rule is archaic typewriter-era nonsense.
+" No! The 'two spaces' rule is an archaic typewriter-era practice.
 set nojoinspaces
 
 " Reformat current selection or paragraph.
 " gq reformats a paragraph/selection; gw does it without moving the cursor.
-vmap Q gw
-nmap Q gwip
+vnoremap Q gw
+nnoremap Q gwip
 
 " Toggle autoclose mode
-nmap <Leader>A <Plug>ToggleAutoCloseMappings
+nnoremap <Leader>A <Plug>ToggleAutoCloseMappings
 
 " Strip trailing whitespace file-wide, preserving cursor location
 nnoremap <Leader>W :call Preserve("%s/\\s\\+$//e")<CR>
 
 " Swap ' for " (or vice versa) on strings, preserving cursor location
-nmap <silent> <Leader>' :call Preserve("normal cs\"'")<CR>
-nmap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
+nnoremap <silent> <Leader>' :call Preserve("normal cs\"'")<CR>
+nnoremap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
 
 " Insert a space (easier for code reformatting sometimes...)
 "nnoremap <space> i<space><esc>l
@@ -336,12 +328,12 @@ nmap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
 "nnoremap <BS> X
 
 " Bubble single lines
-nmap <S-Up> [e
-nmap <S-Down> ]e
+nnoremap <S-Up> [e
+nnoremap <S-Down> ]e
 
 " Bubble multiple lines
-vmap <S-Up> [egv
-vmap <S-Down> ]egv
+vnoremap <S-Up> [egv
+vnoremap <S-Down> ]egv
 
 " Remap ~ to use a function if invoked in visual mode. Cycles through
 " uppercase, lowercase, title-case.
@@ -358,11 +350,11 @@ vnoremap <Space> I<Space><Esc>gv
 " --------------------------------------------------------------------
 " Navigation {{{
 
-" Do not jump to line start with page commands, i.e. keep the current column.
+" Do not jump to line start with page commands, i.e. keep current column.
 set nostartofline
 
 " Keep a few lines above/below the cursor when I scroll to next screen.
-"set scrolloff=3
+set scrolloff=3
 
 " By default, ' jumps to the line you marked, and ` jumps to line -and- col
 " that you marked. So ` is more useful. But harder to type. So swap them.
@@ -381,25 +373,28 @@ vnoremap j gj
 vnoremap k gk
 
 " Go to matching brace / delimiter using <Tab>. % still works.
-" Turning this off - since <Tab> == ^I, this breaks the ^O / ^I
-" jumping-around model.
+" Turning this off - since <Tab> == ^I, this breaks ^O / ^I jumps.
 "nnoremap <tab> %
 "vnoremap <tab> %
 
-" Stay out of insert mode as much as humanly possible.
+" If I wanted to live in insert mode, I'd use emacs or pico.
 set noinsertmode
 
 " Open quickfix window
-nmap <Leader>q :cwindow<CR>
+nnoremap <Leader>q :cwindow<CR>
 
 " Go to next/previous quickfix entry (C-arrow doesn't work)
-"nmap <C-Down> :cnext<CR>
-"nmap <C-Up> :cprevious<CR>
+"nnoremap <C-Down> :cnext<CR>
+"nnoremap <C-Up> :cprevious<CR>
 
 " Make Vim act like a pager, kinda.
 " This sounds great in theory, but is very annoying in practice.
 "nnoremap <Space> <PageDown>
 "nnoremap <Backspace> <PageUp>
+
+" Scroll the viewport a little faster than one line at a time
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 
 " }}}
 " ----------------------------------------------------------------------
@@ -416,21 +411,20 @@ nnoremap <Leader>Ft Vatzf
 " Syntax-related mappings {{{
 
 " Toggle syntax highlighting.
-nmap <silent> <Leader>S :if exists("g:syntax_on") <Bar>
+nnoremap <silent> <Leader>S :if exists("g:syntax_on") <Bar>
 	\    syntax off <Bar>
 	\else <Bar>
-	\    syntax enable<CR>
 	\    source $MYVIMRC <Bar>
 	\endif<CR>
 
 " Toggle spellcheck mode
-nmap <Leader>s :set spell!<CR>
+nnoremap <Leader>s :set spell!<CR>
 
 " Re-indent entire file, preserving cursor location
-nmap <Leader>= :call Preserve("normal gg=G")<CR>
+nnoremap <Leader>= :call Preserve("normal gg=G")<CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
-nmap <Leader>H :TOhtml<CR>
+nnoremap <Leader>H :TOhtml<CR>
 
 " A couple of conveniences for Markdown and others
 inoremap <Leader>uu <Esc>kyypVr-o
@@ -439,7 +433,7 @@ nnoremap <Leader>uu ddkYpVr-$
 nnoremap <Leader>uU ddkYpVr=$
 
 " Ask Vim for the syntax type at cursor location
-nmap <Leader>? :call SynStack()<CR>
+nnoremap <Leader>? :call SynStack()<CR>
 
 " }}}
 " ----------------------------------------------------------------------
@@ -452,10 +446,10 @@ set splitbelow
 nnoremap <silent> <Leader>w :wincmd v<CR>:wincmd l<CR>
 
 " Easier navigation keys (ctrl + normal movement keys h,j,k,l)
-nnoremap <silent> <C-H> :wincmd h<CR>
-nnoremap <silent> <C-J> :wincmd j<CR>
-nnoremap <silent> <C-K> :wincmd k<CR>
-nnoremap <silent> <C-L> :wincmd l<CR>
+nnoremap <silent> <C-h> :wincmd h<CR>
+nnoremap <silent> <C-j> :wincmd j<CR>
+nnoremap <silent> <C-k> :wincmd k<CR>
+nnoremap <silent> <C-l> :wincmd l<CR>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
@@ -464,12 +458,12 @@ set helpheight=0
 nnoremap <silent> <Leader>t :tabnew<CR>
 
 " Navigate left/right through tabs using shift + left/right arrow keys.
-nmap <silent> <S-Left> :tabprevious<CR>
-nmap <silent> <S-Right> :tabnext<CR>
-"vmap <silent> <S-Left> :tabprevious<CR>
-"vmap <silent> <S-Right> :tabnext<CR>
-"imap <silent> <S-Left> <Esc>:tabprevious<CR>
-"imap <silent> <S-Right> <Esc>:tabnext<CR>
+nnoremap <silent> <S-Left> :tabprevious<CR>
+nnoremap <silent> <S-Right> :tabnext<CR>
+"vnoremap <silent> <S-Left> :tabprevious<CR>
+"vnoremap <silent> <S-Right> :tabnext<CR>
+"inoremap <silent> <S-Left> <Esc>:tabprevious<CR>
+"inoremap <silent> <S-Right> <Esc>:tabnext<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -520,7 +514,7 @@ set wildmode=list:longest
 
 " Turn English-word completion from system dictionary on or off. (^N, ^P)
 set dictionary=/usr/share/dict/words
-nmap <silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completion')<CR>
+nnoremap <silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completion')<CR>
 
 " }}}
 " --------------------------------------------------------------------
@@ -531,7 +525,7 @@ set pastetoggle=,,
 
 " Duplicate current selection (best used for lines, but can be used
 " with any selection). Pastes duplicate at end of select region.
-vmap D y'>p
+vnoremap D y`>p
 
 " Reselect what was just pasted so I can so something with it.
 " (To reslect last selection even if it is not the last paste, use gv.)
@@ -543,7 +537,7 @@ nnoremap <silent> <Leader>y :YRShow<CR>
 " Where to store the history file (don't want it in $HOME)
 let g:yankring_history_dir = '$HOME/.vim'
 
-if has("gui_running")
+"if has("gui_running")
 
 	" Disabling ,Y and ,P mappings - no point when cmd-C, cmd-V are
 	" already available, and I just end up using these in terminal
@@ -566,7 +560,7 @@ if has("gui_running")
 	" the system pasteboard in a more explicit way.
 	"set clipboard+=unnamed
 
-endif
+"endif
 
 " }}}
 " --------------------------------------------------------------------
@@ -589,36 +583,36 @@ set history=100
 " Finding and opening files {{{
 
 " Toggle the NERDTree browser.
-nmap <Leader>f :NERDTreeToggle<CR>
+nnoremap <Leader>f :NERDTreeToggle<CR>
 
 " This variant is supposed to honor the current working directory, but that
 " does not work with :cd as I expected it would.
-"nmap <Leader>f :execute 'NERDTreeToggle ' . getcwd()<CR>
+"nnoremap <Leader>f :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " NERDTree should close when I choose a file to open
-let NERDTreeQuitOnOpen=1
+let NERDTreeQuitOnOpen = 1
 
 " Open FuzzyFinder in file mode. This *does* work properly with :cd.
-nmap <Leader>* :FufFile<CR>
+nnoremap <Leader>* :FufFile<CR>
 
 " Preload the :edit command with the directory where the file in
 " the current buffer is located.
 " This is no longer useful, there's now an autocmd that cd's to the current
 " directory whenever you load a file.
-"nmap <Leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
+"nnoremap <Leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
 
 " Variants that open in split, vsplit or a tab
-"nmap <Leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-"nmap <Leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-"nmap <Leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+"nnoremap <Leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+"nnoremap <Leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+"nnoremap <Leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " Open filename under cursor (optionally in new tab or window)
-nmap <Leader>of gf
-vmap <Leader>of gf
-nmap <Leader>ow :wincmd f
-vmap <Leader>ow :wincmd f
-nmap <Leader>ot :wincmd gf
-vmap <Leader>ot :wincmd gf
+nnoremap <Leader>of gf
+vnoremap <Leader>of gf
+nnoremap <Leader>ow :wincmd f
+vnoremap <Leader>ow :wincmd f
+nnoremap <Leader>ot :wincmd gf
+vnoremap <Leader>ot :wincmd gf
 
 " }}}
 " --------------------------------------------------------------------
@@ -662,13 +656,13 @@ endif
 " Read current buffer, turn it into a bookmarklet, insert that bookmarklet
 " in a comment on line 1 (discarding previously inserted bookmarklet if it
 " exists), copy bookmarklet to the clipboard.
-nmap <silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
+nnoremap <silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
 
 " Preview a markdown file in the default browser
-nmap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/%.html<CR><CR>
+nnoremap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/%.html<CR><CR>
 
 " QuickRun the current buffer, autodetecting syntax
-nmap <Leader>r :QuickRun<CR>
+nnoremap <Leader>r :QuickRun<CR>
 
 " Convert file, or selection, so each contiguous non-whitespace blob is
 " on its own line. Strip all other whitespace.
@@ -703,16 +697,16 @@ vnoremap <F1> <Esc>
 " map <C-V>127 <C-H>
 "cmap <C-V>127 <C-H>
 " the same for Linux Debian which uses
-imap <Esc>[3~ <C-H>
-imap  <C-H>
-cmap  <C-H>
+inoremap <Esc>[3~ <C-H>
+inoremap  <C-H>
+cnoremap  <C-H>
 
 " Unmap the K key, it usually doesn't do anything useful anyway.
-nmap K <Nul>
+nnoremap K <Nul>
 
 " Example of changing the contents of a tag to TitleCase.
 " e.g.: <foo>BAR BAZ</foo> becomes <foo>Bar Baz</foo>
-"nmap <Leader>x vit:s/\%V\<\(\w\)\(\w*\)\>/\u\1\L\2/<CR>
+"nnoremap <Leader>x vit:s/\%V\<\(\w\)\(\w*\)\>/\u\1\L\2/<CR>
 
 " Hit ^L in insert mode to skip the rest of this line and go to the next
 " line. This is handy when I've gotten to the end of the line, but autoclose
@@ -746,6 +740,7 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead *.global set filetype=m4
 	autocmd BufNewFile,BufRead exim.cf* set filetype=exim
 
+	" Look inside .epub files
 	au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
 
 	" Italic, bold surrounds for Mediawiki (plugin 'surround')
@@ -770,6 +765,8 @@ if has("autocmd")
 
 	" Automatically reload .vimrc if we edited it.
 	autocmd BufWritePost .vimrc source $MYVIMRC
+	autocmd BufWritePost vimrc source $MYVIMRC
+	autocmd BufWritePost .dotfiles/vimrc source $MYVIMRC
 
 	" Restore cursor position from our last session, if known.
 	autocmd BufReadPost *
@@ -796,17 +793,25 @@ if has("gui_running")
 endif
 
 " Activate syntax highlighting
-syntax enable
+" 'syntax enable' will turn on syntax highlighting without wiping out
+" any highlight commands already in place. 'syntax on' will reset it
+" all to defaults. So I use 'syntax on' and put my highlight commands
+" after this point, that way I can ':so ~/.vimrc' and reset everything
+" whenever I want.
+
+"syntax enable
+syntax on
+
+" I'm using Solarized Light everywhere no, no need to do a check anymore.
+set background=light
 
 "if has("gui_running")
-	"" Use light scheme in GUI to differentiate it from terminal
+	" Use light scheme in GUI to differentiate it from terminal
 	"set background=light
 "else
-	"" I usually use a dark-background terminal
+	" I usually use a dark-background terminal
 	"set background=dark
 "endif
-
-set background=light
 
 " Colorscheme: Zenburn {{{
 
