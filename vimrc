@@ -241,6 +241,7 @@ set laststatus=2
 
 " Settings for vim-statline plugin. See :help statline
 " https://github.com/millermedeiros/vim-statline
+let g:statline_syntastic = 1
 let g:statline_fugitive = 1
 let g:statline_rvm = 0
 let g:statline_trailing_space = 1
