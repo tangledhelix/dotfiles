@@ -46,9 +46,6 @@
 [submodule "vim/bundle/textobj-rubyblock"]
 	path = vim/bundle/textobj-rubyblock
 	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
-[submodule "vim/bundle/endwise"]
-	path = vim/bundle/endwise
-	url = https://github.com/tpope/vim-endwise.git
 [submodule "vim/bundle/quickrun"]
 	path = vim/bundle/quickrun
 	url = https://github.com/thinca/vim-quickrun.git
@@ -76,3 +73,6 @@
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "vim/bundle/endwise"]
+	path = vim/bundle/endwise
+	url = https://github.com/tangledhelix/vim-endwise.git
