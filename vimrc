@@ -30,7 +30,7 @@ runtime macros/matchit.vim
 " and spaces everywhere else. That way relative indentation is always the
 " same regardless of someone's tab stop, but formatting of right-hand
 " indentation is consistent even when tab stop is not.
-" 
+"
 " I use Smart-Tabs (plugin/ctab.vim) to make Tab do that automatically.
 " https://github.com/vim-scripts/Smart-Tabs
 
@@ -239,8 +239,16 @@ endif
 " Show the status line
 set laststatus=2
 
-" Status line format
-set statusline=%<%f\ %h%m%r%y\ %=%-14.(%l,%c%V%)\ %P
+" Settings for vim-statline plugin. See :help statline
+" https://github.com/millermedeiros/vim-statline
+let g:statline_fugitive = 1
+let g:statline_rvm = 0
+let g:statline_trailing_space = 1
+let g:statline_mixed_indent = 1
+let g:statline_show_charcode = 0
+
+" Old status line format
+"set statusline=%<%f\ %h%m%r%y\ %=%-14.(%l,%c%V%)\ %P
 
 " Show current uncompleted command.
 set showcmd
