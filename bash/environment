@@ -23,6 +23,10 @@ test -d "$HOME/.gems" && export GEM_HOME="$HOME/.gems"
 test -n "$GEM_HOME" && export GEM_PATH="$GEM_HOME:/usr/lib/ruby/gems/1.8"
 test -d "$HOME/local/lib" && export RUBYLIB="$HOME/local/lib:$RUBYLIB"
 
+# For Python Pygments on Dreamhost
+test -d "$HOME/local/pygments-install" && \
+	export PYTHONPATH="$HOME/local/pygments-install"
+
 # Need local terminfo files for xterm-256color on some platforms.
 # Yeah, I'm looking at you, Solaris.
 test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
