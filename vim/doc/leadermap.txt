@@ -43,7 +43,7 @@ Current leader key map:                                            *leadermap*
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
   ,uu           Underline previous line with hyphens
-  ,uU           Underline previous line with equal-signs
+  ,UU           Underline previous line with equal-signs
   ,v            Reselect what was just pasted (use gv for last selection)
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file

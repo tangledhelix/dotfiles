@@ -337,12 +337,12 @@ nnoremap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
 "nnoremap <BS> X
 
 " Bubble single lines
-nnoremap <S-Up> [e
-nnoremap <S-Down> ]e
+nmap <S-Up> [e
+nmap <S-Down> ]e
 
 " Bubble multiple lines
-vnoremap <S-Up> [egv
-vnoremap <S-Down> ]egv
+vmap <S-Up> [egv
+vmap <S-Down> ]egv
 
 " Remap ~ to use a function if invoked in visual mode. Cycles through
 " uppercase, lowercase, title-case.
@@ -437,9 +437,9 @@ nnoremap <Leader>H :TOhtml<CR>
 
 " A couple of conveniences for Markdown and others
 inoremap <Leader>uu <Esc>kyypVr-o
-inoremap <Leader>uU <Esc>kyypVr=o
+inoremap <Leader>UU <Esc>kyypVr=o
 nnoremap <Leader>uu ddkYpVr-$
-nnoremap <Leader>uU ddkYpVr=$
+nnoremap <Leader>UU ddkYpVr=$
 
 " Ask Vim for the syntax type at cursor location
 nnoremap <Leader>? :call SynStack()<CR>
