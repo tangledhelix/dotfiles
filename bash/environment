@@ -67,6 +67,8 @@ for _this in \
 	~/.gem/ruby/1.8/bin \
 	~/Dropbox/bin \
 	/usr/local/Cellar/python/2.7/bin \
+	/usr/local/Cellar/python/2.7.1/bin \
+	/usr/local/Cellar/python/2.7.2/bin \
 	~/tools
 do
 	test -d $_this && {
