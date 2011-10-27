@@ -891,3 +891,13 @@ endif
 
 " }}}
 " --------------------------------------------------------------------
+" Local customizations {{{
+
+" In case I or someone else wants to override this file without
+" modifying the master copy in git.
+if filereadable($HOME . '/.vimrc.local')
+	source ~/.vimrc.local
+endif
+
+" }}}
+" --------------------------------------------------------------------
