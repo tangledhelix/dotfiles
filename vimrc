@@ -668,7 +668,7 @@ endif
 nnoremap <silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
 
 " Preview a markdown file in the default browser
-nnoremap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % > /tmp/%.html && open /tmp/%.html<CR><CR>
+nnoremap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % \| $HOME/.vim/bin/SmartyPants.pl > /tmp/%.html && open /tmp/%.html<CR><CR>
 
 " QuickRun the current buffer, autodetecting syntax
 nnoremap <Leader>r :QuickRun<CR>
