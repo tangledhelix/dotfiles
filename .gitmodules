@@ -76,3 +76,6 @@
 [submodule "vim/bundle/endwise"]
 	path = vim/bundle/endwise
 	url = https://github.com/tangledhelix/vim-endwise.git
+[submodule "vim/bundle/help"]
+	path = vim/bundle/help
+	url = https://github.com/tangledhelix/vim-help.git
