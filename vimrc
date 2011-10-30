@@ -241,12 +241,12 @@ set laststatus=2
 
 " Settings for vim-statline plugin. See :help statline
 " https://github.com/millermedeiros/vim-statline
-let g:statline_syntastic = 1
-let g:statline_fugitive = 1
-let g:statline_rvm = 0
+let g:statline_syntastic      = 1
+let g:statline_fugitive       = 1
+let g:statline_rvm            = 0
 let g:statline_trailing_space = 1
-let g:statline_mixed_indent = 1
-let g:statline_show_charcode = 0
+let g:statline_mixed_indent   = 1
+let g:statline_show_charcode  = 0
 
 " Old status line format
 "set statusline=%<%f\ %h%m%r%y\ %=%-14.(%l,%c%V%)\ %P
@@ -337,11 +337,11 @@ nnoremap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
 "nnoremap <BS> X
 
 " Bubble single lines
-nmap <S-Up> [e
+nmap <S-Up>   [e
 nmap <S-Down> ]e
 
 " Bubble multiple lines
-vmap <S-Up> [egv
+vmap <S-Up>   [egv
 vmap <S-Down> ]egv
 
 " Remap ~ to use a function if invoked in visual mode. Cycles through
@@ -467,11 +467,11 @@ set helpheight=0
 nnoremap <silent> <Leader>t :tabnew<CR>
 
 " Navigate left/right through tabs using shift + left/right arrow keys.
-nnoremap <silent> <S-Left> :tabprevious<CR>
+nnoremap <silent> <S-Left>  :tabprevious<CR>
 nnoremap <silent> <S-Right> :tabnext<CR>
-"vnoremap <silent> <S-Left> :tabprevious<CR>
+"vnoremap <silent> <S-Left>  :tabprevious<CR>
 "vnoremap <silent> <S-Right> :tabnext<CR>
-"inoremap <silent> <S-Left> <Esc>:tabprevious<CR>
+"inoremap <silent> <S-Left>  <Esc>:tabprevious<CR>
 "inoremap <silent> <S-Right> <Esc>:tabnext<CR>
 
 " }}}
@@ -668,7 +668,7 @@ endif
 nnoremap <silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
 
 " Preview a markdown file in the default browser
-nnoremap <Leader>M :w!<CR>:!$HOME/.vim/bin/Markdown.pl % \| $HOME/.vim/bin/SmartyPants.pl > /tmp/%.html && open /tmp/%.html<CR><CR>
+nnoremap <Leader>M :w!<CR>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<CR><CR>
 
 " QuickRun the current buffer, autodetecting syntax
 nnoremap <Leader>r :QuickRun<CR>
@@ -736,18 +736,18 @@ nnoremap o A<CR>
 if has("autocmd")
 	autocmd!
 
-	autocmd BufNewFile,BufRead *.t set filetype=perl
-	autocmd BufNewFile,BufRead *.inc set filetype=php
-	autocmd BufNewFile,BufRead *.com set filetype=bindzone
-	autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
-	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
+	autocmd BufNewFile,BufRead *.t                            set filetype=perl
+	autocmd BufNewFile,BufRead *.inc                          set filetype=php
+	autocmd BufNewFile,BufRead *.com                          set filetype=bindzone
+	autocmd BufNewFile,BufRead *.wiki,*ISSwiki*               set filetype=mediawiki
+	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md        set filetype=markdown
 	autocmd BufNewFile,BufRead .bash/*,bash/*,.dotfiles/bash* set filetype=sh
-	autocmd BufNewFile,BufRead distfile.common set filetype=rdist
-	autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
-	autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
-	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
-	autocmd BufNewFile,BufRead *.global set filetype=m4
-	autocmd BufNewFile,BufRead exim.cf* set filetype=exim
+	autocmd BufNewFile,BufRead distfile.common                set filetype=rdist
+	autocmd BufNewFile,BufRead ejabberd.cfg                   set filetype=erlang
+	autocmd BufNewFile,BufRead aliases.*                      set filetype=mailaliases
+	autocmd BufNewFile,BufRead [Mm]akefile*                   set filetype=make
+	autocmd BufNewFile,BufRead *.global                       set filetype=m4
+	autocmd BufNewFile,BufRead exim.cf*                       set filetype=exim
 
 	" Look inside .epub files
 	au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
@@ -773,9 +773,7 @@ if has("autocmd")
 	autocmd BufEnter * cd %:p:h
 
 	" Automatically reload .vimrc if we edited it.
-	autocmd BufWritePost .vimrc source $MYVIMRC
-	autocmd BufWritePost vimrc source $MYVIMRC
-	autocmd BufWritePost .dotfiles/vimrc source $MYVIMRC
+	autocmd BufWritePost .vimrc,vimrc,.dotfiles/vimrc source $MYVIMRC
 
 	" Restore cursor position from our last session, if known.
 	autocmd BufReadPost *

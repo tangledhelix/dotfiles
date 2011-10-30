@@ -1,0 +1,35 @@
+#!/bin/sh
+
+FILE="$1"
+if [ "$FILE" = "" ]; then
+	echo "missing argument"
+	exit 1
+fi
+
+cat <<EOF
+<html>
+<head>
+	<title>$FILE</title>
+	<style type="text/css">
+		body { margin: 3em 5em; }
+		#main { width: 50em; }
+	</style>
+</head>
+
+<body>
+
+<div id="main">
+
+EOF
+
+HERE=`dirname $0`
+cat $FILE | $HERE/Markdown.pl | $HERE/SmartyPants.pl
+
+cat <<EOF
+
+</div>
+
+</body>
+</html>
+EOF
+
