@@ -48,4 +48,5 @@ Current leader key map:                                            *leadermap*
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
   ,y            Toggle yankring window (plugin: |yankring|)
+  ,z            Focus on the current fold
 

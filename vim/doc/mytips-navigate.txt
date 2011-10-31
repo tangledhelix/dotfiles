@@ -1,0 +1,28 @@
+*mytips-navigate.txt*  Dan's personal Vim tips              *mytips-navigate*
+
+Navigating / jumping around
+
+    ^       beginning of line ignoring leading whitespace (vs. '0')
+    g_      end of line ignoring trailing whitespace (vs '$')
+
+    [{      jump back to opening brace of the current code block
+
+    H       high (top) line on this page
+    M       middle line on this page
+    L       low (bottom) line on this page
+
+    zt      keep cursor in place, but move that line to top of view
+    zz      keep cursor in place, but move that line to middle of view
+    zb      keep cursor in place, but move that line to bottom of view
+
+    (, )    jump to start, end of current 'sentence'
+    {, }    jump to start, end of current 'paragraph'
+
+    `.      return to last line you edited
+    '.      return to last line you edited
+
+    g;      go to position of last change (again to go to change before...)
+    g,      move through changelist in opposite direction
+
+    ^O      move backward through jump list
+    ^I      move forward through jump list

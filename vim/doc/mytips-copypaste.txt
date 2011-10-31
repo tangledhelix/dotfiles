@@ -1,0 +1,17 @@
+*mytips-copypaste.txt*  Dan's personal Vim tips *mytips-copy* *mytips-paste*
+
+Copy and paste
+
+    yyp     duplicate this line
+
+    ddP     delete line, then paste *back into place* leaving copy on buffer
+            though that's the same as yy isn't it?
+
+    y       yank
+    Y       yank line (isn't this the same as yy ?)
+
+    cc      cut entire line and enter insert mode ("change line")
+
+    :registers   Show what is in the current registers
+    "2p          Paste contents of current register
+

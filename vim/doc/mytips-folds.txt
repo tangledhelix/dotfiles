@@ -1,0 +1,9 @@
+*mytips-folds.txt*  Dan's personal Vim tips                     *mytips-folds*
+
+Folds
+
+    zo      open closed fold under cursor
+    zc      close current fold region
+    zR      open "(R)ip open?" all folds
+    zM      close "(M)inimize?" all folds
+

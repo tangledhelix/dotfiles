@@ -1,0 +1,13 @@
+*mytips-coerce.txt*  Dan's personal Vim tips                *mytips-coerce*
+
+Return to |mytips|
+
+    type   convert to
+
+    crc    camelCase
+    crm    MixedCase
+    cr_    snake_case
+    crs    snake_case
+    cru    SNAKE_UPPERCASE
+    cr-    dash-case (irreversible)
+

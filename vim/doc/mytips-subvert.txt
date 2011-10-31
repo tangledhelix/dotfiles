@@ -1,0 +1,27 @@
+*mytips-subvert.txt*  Dan's personal Vim tips               *mytips-subvert*
+
+Return to |mytips|
+
+|Abolish| plugin provides |:Subvert| aka :S command.
+
+    :S/box{,es}/bag{,s}/g
+
+    Changes:
+        box -> bag
+        Box -> Bag
+        BOX -> BAG
+        boxes -> bags
+        Boxes -> Bags
+        BOXES -> BAGS
+
+    :%S/facilit{y,ies}/building{,s}/g
+
+    Changes:
+        facility -> building
+        FACILITIES -> BUILDINGS
+        ... and so on
+
+    Can be repeated with &
+    Honors % for global application
+    Honors ending flags such as 'g'
+

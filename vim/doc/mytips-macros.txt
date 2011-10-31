@@ -1,0 +1,10 @@
+*mytips-macros.txt*  Dan's personal Vim tips                *mytips-macros*
+
+Macros
+
+    q.      record macro into default register
+    q       stop recording
+    @.      play macro from default register
+
+    qa, @a  using register a
+

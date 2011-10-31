@@ -415,6 +415,9 @@ set foldmethod=marker
 " Fold current HTML tag.
 nnoremap <Leader>Ft Vatzf
 
+" Focus on the current fold
+nnoremap <Leader>z zMzvzz
+
 " }}}
 " ----------------------------------------------------------------------
 " Syntax-related mappings {{{

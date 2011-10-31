@@ -1,0 +1,13 @@
+*mytips-indent.txt*  Dan's personal Vim tips                *mytips-indent*
+
+Indenting
+
+    =       syntax-aware reindent of selection
+    ==      syntax-aware reindent of line
+    gg=G    syntax reindent entire file
+
+    In insert mode:
+
+    ^T      indent line one shiftwidth
+    ^D      de-dent line one shiftwidth
+

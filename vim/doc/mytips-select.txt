@@ -1,0 +1,48 @@
+*mytips-select.txt*  Dan's personal Vim tips    *mytips-select* *mytips-match*
+
+Selections and matching on things
+
+    B matches a block, so in a block you can say (a is 'around' or
+    'this block plus enclosing delimiters, if any')
+        >aB     ident the current block
+        <aB     outdent the current block
+        daB     delete current block
+        caB     change current block
+
+    viw     select a word ('word' delimited not whitespace-delimited)
+    viW     select a word, whitespace delimited
+
+    gv      reselect last selection
+
+    o       (in visual block mode) move cursor to another corner of the
+            select area (to control which corner you're resizing from).
+
+Text object selections
+
+After a command like d (delete) or c (change) you can supply delimiters
+like brackets, braces.
+
+<img src="foo-bar-baz.jpg" alt="whatever" />
+
+    di>
+    # delete inner angle-bracket
+    # results in: <>
+
+    da>
+    # delete all-inclusive angle-bracket
+    # results in entire thing being removed.
+
+    ci>
+    # change inner angle-bracket
+    # wipes out contents, leaving you in insert mode inside to replace it.
+
+    ca>
+    # change all-inclusive angle-bracket
+    # wipes out the entire tag, leaving you in insert mode to replace it.
+
+    # you can use either delimiter in the pair, < or >, ( or ), { or },
+    # [ or ] ....
+
+    # w matches a puncuation-delimited word
+    # W matches a space-delimited word
+
