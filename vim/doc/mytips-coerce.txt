@@ -1,7 +1,5 @@
 *mytips-coerce.txt*  Dan's personal Vim tips                *mytips-coerce*
 
-Return to |mytips|
-
     type   convert to
 
     crc    camelCase

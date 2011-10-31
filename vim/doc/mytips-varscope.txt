@@ -1,7 +1,5 @@
 *mytips-varscope.txt*  Dan's personal Vim tips              *mytips-varscope*
 
-Return to |mytips|
-
 Variable scoping
 
            (nothing) In a function: local to a function; otherwise: global

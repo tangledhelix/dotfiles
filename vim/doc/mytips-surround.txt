@@ -1,7 +1,5 @@
 *mytips-surround.txt*  Dan's personal Vim tips              *mytips-surround*
 
-Return to |mytips|
-
     cs = "change surrounding"
     ds = "delete surrounding"
 

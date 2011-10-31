@@ -1,7 +1,5 @@
 *mytips-subvert.txt*  Dan's personal Vim tips               *mytips-subvert*
 
-Return to |mytips|
-
 |Abolish| plugin provides |:Subvert| aka :S command.
 
     :S/box{,es}/bag{,s}/g

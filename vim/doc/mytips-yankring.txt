@@ -1,7 +1,5 @@
 *mytips-yankring.txt*  Dan's personal Vim tips              *mytips-yankring*
 
-Return to |mytips|
-
 (from Steve Losh)
 
 Vim's copying and pasting functionality (which uses registers) is very, very

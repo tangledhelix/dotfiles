@@ -19,7 +19,7 @@ External commands               |mytips-extcommands|
 
 Tips about plugin functionality
 
-Using |:Subvert|                |mytips-subvert|    plugin: |abolish|
+Using |:Subvert|                  |mytips-subvert|    plugin: |abolish|
 Case coercion (cr)              |mytips-coerce|     plugin: |abolish|
 Using surround                  |mytips-surround|   plugin: |surround|
 Steve Losh on yankring          |mytips-yankring|   plugin: |yankring|
