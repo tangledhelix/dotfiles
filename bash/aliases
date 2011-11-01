@@ -10,7 +10,6 @@ else
 	alias ls='/bin/ls -F'
 fi
 
-alias gs='git status'
 alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit'
 
 # CVS at work uses an unexpected path. This is aliased because it breaks other
@@ -29,6 +28,7 @@ alias More='more'
 alias Grep='grep'
 alias vm='rm'
 alias chkcofnig='chkconfig'
+alias cd..='cd ..'
 
 # Just in case I'm somewhere that all the fancy color stuff doesn't
 # work right, or I'm running screen, I can use this.
