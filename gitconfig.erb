@@ -5,6 +5,16 @@
 [alias]
 	co = checkout
 	ci = commit
+	st = status -sb
+	lol = log --pretty=oneline --abbrev-commit --graph --decorate
+	unstage = reset HEAD
+	aa = add .
+	# Not yet added - doesn't include ignored files
+	new = ls-files --others --exclude-standard
+	# Files that are in the staging area
+	added = diff --cached --name-only
+	today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+	ff = merge --ff-only
 
 [remote "ntt"]
 	receivepack = /usr/local/bin/git-receive-pack
@@ -15,11 +25,22 @@
 	excludesfile = ~/.gitignore
 
 [color]
-	diff = auto
-	status = auto
-	branch = auto
+	ui = auto
 
 [github]
 	user = <%= $github_username %>
 	token = <%= $github_api_token %>
 
+[merge]
+	tool = <%= File.exists?('/usr/bin/opendiff') ? 'opendiff' : 'vimdiff' %>
+
+[diff]
+	# For Github-style word diffs
+	wordRegex = [^[:space:]]
+
+[help]
+	autocorrect = 1
+
+[push]
+	# Push current branch even if you've never pushed it before
+	default = current
