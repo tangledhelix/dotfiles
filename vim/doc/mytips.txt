@@ -5,6 +5,7 @@ Vim tips and tricks:
 Editing text                    |mytips-editing|
 Copy and paste                  |mytips-copypaste|
 Selection and matching          |mytips-select|
+The |:g| and |:v| commands          |mytips-g-and-v|
 Search and replace              |mytips-search|
 Indenting                       |mytips-indent|
 Navigation / jumping around     |mytips-navigate|

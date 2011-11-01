@@ -2,13 +2,16 @@
 
 General editing
 
-    c<x>    change
+    c       change (cX where X = movements, etc.)
     ce      change to end of word
     c$      change to end of line
     C       change to end of line
     c/foo   change until match 'foo'
+    ctf     change until next occurrence of 'f'
+    ciw     change this word (inside)
+    caw     change this word (outside)
 
-    K       go to man page for the word under the cursor (disabled)
+    K       go to man page for the word under the cursor (disabled...)
 
     s       delete this char, then enter insert mode (xi)
     S       erase entire line, sub with new (0C or 0Da)

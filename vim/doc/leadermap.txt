@@ -42,11 +42,11 @@ Current leader key map:                                            *leadermap*
   ,s            Toggle spell-check mode
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
-  ,uu           Underline previous line with hyphens
-  ,UU           Underline previous line with equal-signs
+  ,uu           Underline previous line with hyphens (for markdown)
+  ,UU           Underline previous line with equal-signs (for markdown)
   ,v            Reselect what was just pasted (use gv for last selection)
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
   ,y            Toggle yankring window (plugin: |yankring|)
-  ,z            Focus on the current fold
+  ,z            Focus on the current fold (fold down all other folds)
 

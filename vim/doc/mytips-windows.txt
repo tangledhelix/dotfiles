@@ -9,21 +9,21 @@ Window resizing
 
 Windows moving
 
-	Ctrl-J      Move to window below
-	Ctrl-K      Move to window above
-	Ctrl-H      Move to window at left
-	Ctrl-L      Move to window at right
+    Ctrl-J      Move to window below
+    Ctrl-K      Move to window above
+    Ctrl-H      Move to window at left
+    Ctrl-L      Move to window at right
 
 Creating a window
 
-	,w          Open a vertical window to the right
+    ,w          Open a vertical window to the right
 
 Creating a tab
 
-	,t          Create a new tab
+    ,t          Create a new tab
 
 Moving among tabs
 
-	Shift-right     Move to tab at right
-	Shift-left      Move to tab at left
+    Shift-right     Move to tab at right
+    Shift-left      Move to tab at left
 
