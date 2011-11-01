@@ -188,6 +188,10 @@ set smartcase
 nnoremap / /\v
 vnoremap / /\v
 
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
 " Use 'magic' patterns (extended regex) in search patterns. ("\s\+").
 " This isn't used by the / search due to the above remappings, but it
 " does give you better regex options for :s and :g and so forth.
