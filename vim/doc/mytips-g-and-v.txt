@@ -1,0 +1,19 @@
+*mytips-g-and-v.txt*  Dan's personal Vim tips           *mytips-g* *mytips-v*
+
+|:g| globally applies the subsequent command to all lines matching a regex.
+
+|:v| is the same as :v but operates on the conVerse, lines that do not match
+the regex.
+
+Address prefixing:
+
+:.,+21g/foo/d       delete any lines matching /foo/ from current + 21 lines
+
+:.,$v/bar/d         delete any lines from here to EOF not matching /bar/
+
+Can mix this with |:s| and/or |:%| do to stuff like this:
+
+:%g/foo/s/bar/zzz/g
+
+For every line containing 'foo', substitute all 'bar' with 'zzz'.
+
