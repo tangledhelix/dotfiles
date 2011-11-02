@@ -203,8 +203,11 @@ set gdefault
 " Open fuzzyfinder in line mode (search current buffer)
 nnoremap <silent> <Leader>/ :FufLine<CR>
 
-" Use ack. Grep, refined. (Trailing space on this map is intentional.)
-nnoremap <Leader>a :Ack --smart-case 
+" Use ack. Grep, refined. Provided by ack.vim plugin.
+" Use <CWORD> alternately if desired.
+nnoremap <leader>a :Ack <cword><CR>
+" (Trailing space on this map is intentional.)
+nnoremap <Leader>A :Ack --smart-case 
 
 " }}}
 " --------------------------------------------------------------------
@@ -326,7 +329,7 @@ vnoremap Q gw
 nnoremap Q gwip
 
 " Toggle autoclose mode
-nnoremap <Leader>A <Plug>ToggleAutoCloseMappings
+nnoremap <Leader>C <Plug>ToggleAutoCloseMappings
 
 " Strip trailing whitespace file-wide, preserving cursor location
 nnoremap <Leader>W :call Preserve("%s/\\s\\+$//e")<CR>
