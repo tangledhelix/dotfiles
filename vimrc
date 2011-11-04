@@ -537,6 +537,12 @@ nnoremap <silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completio
 
 " }}}
 " --------------------------------------------------------------------
+" Abbreviations {{{
+
+abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ornare metus. In justo metus, auctor nec semper in, laoreet porttitor augue. Maecenas tortor libero, dignissim vel placerat sit amet, malesuada ut quam. Curabitur vitae velit lacus, sed imperdiet sapien. Sed posuere, odio nec pharetra adipiscing
+
+" }}}
+" --------------------------------------------------------------------
 " Copy and paste {{{
 
 " Key combo to toggle paste-mode
@@ -891,10 +897,10 @@ highlight EOLWS ctermbg=cyan guibg=gray
 " Window size (GUI) {{{
 
 " Only set the window size if it was not set already.
-if has("gui_running") && !exists('g:dmlSetWindowSize')
+if has("gui_running") && !exists('w:dmlSetWindowSize')
 	set lines=40
 	set columns=90
-	let g:dmlSetWindowSize=1
+	let w:dmlSetWindowSize=1
 endif
 
 " }}}
