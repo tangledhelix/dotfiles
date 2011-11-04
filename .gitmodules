@@ -1,18 +1,12 @@
 [submodule "vim/vim-pathogen"]
 	path = vim/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
-[submodule "vim/bundle/L9"]
-	path = vim/bundle/L9
-	url = https://github.com/vim-scripts/L9.git
 [submodule "vim/bundle/ack"]
 	path = vim/bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/fuzzyfinder"]
-	path = vim/bundle/fuzzyfinder
-	url = https://github.com/vim-scripts/FuzzyFinder.git
 [submodule "vim/bundle/nerd_commenter"]
 	path = vim/bundle/nerd_commenter
 	url = https://github.com/vim-scripts/The-NERD-Commenter.git
@@ -79,3 +73,6 @@
 [submodule "vim/bundle/help"]
 	path = vim/bundle/help
 	url = https://github.com/tangledhelix/vim-help.git
+[submodule "vim/bundle/ctrlp"]
+	path = vim/bundle/ctrlp
+	url = https://github.com/kien/ctrlp.vim.git
