@@ -200,14 +200,11 @@ set magic
 " Assume /g at the end of any :s command. I usually want that anyway.
 set gdefault
 
-" Open fuzzyfinder in line mode (search current buffer)
-nnoremap <silent> <Leader>/ :FufLine<CR>
-
 " Use ack. Grep, refined. Provided by ack.vim plugin.
 " Use <CWORD> alternately if desired.
 nnoremap <leader>a :Ack <cword><CR>
 " (Trailing space on this map is intentional.)
-nnoremap <Leader>A :Ack --smart-case 
+nnoremap <Leader>/ :Ack --smart-case 
 
 " }}}
 " --------------------------------------------------------------------
@@ -329,7 +326,7 @@ vnoremap Q gw
 nnoremap Q gwip
 
 " Toggle autoclose mode
-nnoremap <Leader>C <Plug>ToggleAutoCloseMappings
+nnoremap <Leader>A <Plug>ToggleAutoCloseMappings
 
 " Strip trailing whitespace file-wide, preserving cursor location
 nnoremap <Leader>W :call Preserve("%s/\\s\\+$//e")<CR>
@@ -617,8 +614,8 @@ nnoremap <Leader>f :NERDTreeToggle<CR>
 " NERDTree should close when I choose a file to open
 let NERDTreeQuitOnOpen = 1
 
-" Open FuzzyFinder in file mode. This *does* work properly with :cd.
-nnoremap <Leader>* :FufFile<CR>
+" Search for files with CtrlP
+nnoremap <Leader>* :CtrlP<CR>
 
 " Preload the :edit command with the directory where the file in
 " the current buffer is located.
