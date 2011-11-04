@@ -15,3 +15,8 @@ Copy and paste
     :registers   Show what is in the current registers
     "2p          Paste contents of current register
 
+    P       paste above/before cursor, not after/below as with 'p'
+    "0p     paste last explicitly copied text, not the cut buffer
+    "*p     paste from system clipboard (if extant, e.g. on a Mac)
+    :reg    show list of registers that can be pasted with "<n>p
+
