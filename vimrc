@@ -189,8 +189,10 @@ nnoremap / /\v
 vnoremap / /\v
 
 " Keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" This is nice, but it breaks the wraparound warning because we hit
+" more stuff after that's displayed, clearing it.
+"nnoremap n nzzzv
+"nnoremap N Nzzzv
 
 " Use 'magic' patterns (extended regex) in search patterns. ("\s\+").
 " This isn't used by the / search due to the above remappings, but it
@@ -613,6 +615,12 @@ nnoremap <Leader>f :NERDTreeToggle<CR>
 
 " NERDTree should close when I choose a file to open
 let NERDTreeQuitOnOpen = 1
+
+" Suppress extra UI such as "press ? for help"
+let NERDTreeMinimalUI = 1
+
+" Use arrowpoint glyphs for directories instead of + and ~
+let NERDTreeDirArrows = 1
 
 " Search for files with CtrlP
 nnoremap <Leader>* :CtrlP<CR>
