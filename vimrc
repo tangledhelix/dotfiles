@@ -41,7 +41,7 @@ set noexpandtab
 " for code nesting IMO. Should match shiftwidth. Sometimes I do use an
 " indent of 2, e.g. in YAML files, due to convention.
 set tabstop=4
-set softtabstop=0
+set softtabstop=4
 
 " Number of columns to use for (auto)indent. Generally this should be the
 " same as the tabstop.
