@@ -781,7 +781,8 @@ if has("autocmd")
 	autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
 	autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
 
-	" Bold for Markdown (plugin 'surround')
+	" Bold/italic for Markdown (plugin 'surround')
+	autocmd FileType markdown let g:surround_{char2nr('i')} = "*\r*"
 	autocmd FileType markdown let g:surround_{char2nr('b')} = "**\r**"
 
 	" Save all unclean buffers when focus is lost (ala TextMate).
