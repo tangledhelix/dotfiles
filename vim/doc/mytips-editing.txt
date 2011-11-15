@@ -23,3 +23,7 @@ General editing
 
     ^Y      yank character directly above you to current line (duplicate)
 
+	:e!     Revert buffer to file on disk
+
+	:bd!    Remove buffer from buffer list, discarding changes
+

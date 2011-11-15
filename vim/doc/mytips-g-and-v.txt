@@ -23,6 +23,8 @@ For every line containing 'foo', substitute all 'bar' with 'zzz'.
 :%g/foo/m$      Move all lines matching /foo/ to end of file,
                 while preserving their original ordering.
 
+:g/^$/d         Delete all empty lines
+
 ===========================================================================
 
 How to affect lines surrounding your match. Example:

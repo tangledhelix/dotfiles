@@ -15,6 +15,7 @@
 	added = diff --cached --name-only
 	today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
 	ff = merge --ff-only
+	pullsubs = submodule foreach git pull origin master
 
 [remote "ntt"]
 	receivepack = /usr/local/bin/git-receive-pack

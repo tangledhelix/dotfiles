@@ -306,22 +306,6 @@ function .. {
 	done
 }
 
-# Pull changes for all the dotfiles submodules
-function update_dotfile_submodules {
-	local _module
-	local _base="$HOME/.dotfiles"
-
-	cd $_base
-	for _module in `git submodule | awk '{print $2}'`; do
-		echo "[[ $_module ]]"
-		cd $_base/$_module
-		git pull origin HEAD
-	done
-
-	cd $_base
-	git status
-}
-
 # Test for a perl module and print its version if any.
 function pmver {
 	local _module="$1"
