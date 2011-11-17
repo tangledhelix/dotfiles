@@ -1,9 +1,11 @@
 require 'erb'
 
 task :default do
-	puts 'Usage: rake [ install | force ]'
-	puts '    install : ask first before overwriting'
-	puts '    force   : just do it, no questions'
+	puts 'Usage: rake [ install | force | gitconfig ]'
+	puts '    install   : ask first before overwriting'
+	puts '    force     : just do it, no questions'
+	puts '    gitconfig : reinstall ~/.gitconfig from template'
+	puts "        (note: install/force run gitconfig if it doesn't exist)"
 end
 
 task :install do
@@ -14,6 +16,10 @@ end
 task :force do
 	$replace_all = true
 	installer
+end
+
+task :gitconfig do
+	gitconfig_check
 end
 
 def installer
@@ -102,6 +108,20 @@ def gitconfig_installer
 			puts "WARN: chmod of #{output_file} failed!"
 		end
 
+	end
+end
+
+def gitconfig_check
+	file_path = ENV['HOME'] + '/.gitconfig'
+	if File.exists?(file_path)
+		print "#{file_path} exists, are you sure? (y/N) "
+		case STDIN.gets.chomp
+		when 'y'
+			File.unlink(file_path)
+			gitconfig_installer
+		else
+			puts "    skipping #{file_path}"
+		end
 	end
 end
 
