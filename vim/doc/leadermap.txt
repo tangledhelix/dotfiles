@@ -4,10 +4,10 @@
 
 Current leader key map:                                            *leadermap*
 
+  ,,<motion>    Easy Motions (plugin: |easymotion|)
   ,"            Change surrounding ' to " (plugin: |surround|)
   ,'            Change surrounding " to ' (plugin: |surround|)
   ,*            Fuzzy search for files/buffers/MRU (plugin: |ctrlp|)
-  ,,            Toggle paste mode
   ,/            Invoke Ack in smart-case mode (plugin: |ack|)
   ,=            Re-indent entire buffer
   ,?            Query Vim syntax type at cursor position
@@ -37,6 +37,7 @@ Current leader key map:                                            *leadermap*
   ,of           Open filename under cursor, displacing this buffer
   ,ot           Open filename under cursor in a new tab
   ,ow           Open filename under cursor in a new window
+  ,p            Toggle paste mode
   ,q            Open quickfix window
   ,r            QuickRun the current buffer (:QuickRun from vim-quickrun)
   ,s            Toggle spell-check mode

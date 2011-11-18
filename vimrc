@@ -545,7 +545,7 @@ abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ornar
 " Copy and paste {{{
 
 " Key combo to toggle paste-mode
-set pastetoggle=,,
+set pastetoggle=,p
 
 " Duplicate current selection (best used for lines, but can be used
 " with any selection). Pastes duplicate at end of select region.
