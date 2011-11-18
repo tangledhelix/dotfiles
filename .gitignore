@@ -1,7 +1,9 @@
 .DS_Store
 .*.swp
 *~
-.netrwhist
-vim/yankring_history*.txt
-tags
-tags-ja
+/vim/.netrwhist
+/vim/yankring_history*.txt
+/vim/doc/tags
+/vim/doc/tags-ja
+/vim/bundle/*/docs/tags
+/vim/bundle/*/docs/tags-ja
