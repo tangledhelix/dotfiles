@@ -43,8 +43,7 @@ Current leader key map:                                            *leadermap*
   ,s            Toggle spell-check mode
   ,S            Toggle syntax highlighting
   ,t            Open a new tab in current view
-  ,uu           Underline previous line with hyphens (for markdown)
-  ,UU           Underline previous line with equal-signs (for markdown)
+  ,u            Toggle Gundo window (plugin: |gundo|)
   ,v            Reselect what was just pasted (use gv for last selection)
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file

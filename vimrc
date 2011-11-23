@@ -1,7 +1,7 @@
 " Vim configuration
 
 " ------------------------------------------------------------------------
-" Initial config, library and plugin loading {{{
+" Initial bootstrap {{{
 
 " This needs to be first, because it changes Vim's behavior in many places.
 " Turn off vi compatibility. If I wanted vi, I would use vi.
@@ -10,16 +10,27 @@ set nocompatible
 " Define my leader key (my personal namespace in the keymap).
 let mapleader=","
 
-" Load Pathogen (sanely manages and compartmentalizes plugins, etc.)
-filetype off
-call pathogen#infect()
-
-" Use filetype detection, including syntax-aware indenting
-filetype plugin indent on
-
 " Load matchit library. This lets % match if/elsif/else/end, open/close
 " XML tags, stuff like that, instead of just brackets and parens.
 runtime macros/matchit.vim
+
+" }}}
+" --------------------------------------------------------------------
+" Pathogen -- sane plugin management {{{
+
+" Turn this off before Pathogen loads
+filetype off
+
+" Exceptions
+let g:pathogen_disabled=[]
+if !has("python") | let g:pathogen_disabled+=["gundo"] | endif
+
+call pathogen#infect()
+call pathogen#helptags()
+
+" Safe to turn this on now.
+" Use filetype detection, including syntax-aware indenting.
+filetype plugin indent on
 
 " }}}
 " --------------------------------------------------------------------
@@ -444,10 +455,10 @@ nnoremap <Leader>= :call Preserve("normal gg=G")<CR>
 nnoremap <Leader>H :TOhtml<CR>
 
 " A couple of conveniences for Markdown and others
-inoremap <Leader>uu <Esc>kyypVr-o
-inoremap <Leader>UU <Esc>kyypVr=o
-nnoremap <Leader>uu ddkYpVr-$
-nnoremap <Leader>UU ddkYpVr=$
+"inoremap <Leader>uu <Esc>kyypVr-o
+"nnoremap <Leader>uu ddkYpVr-$
+"inoremap <Leader>uU <Esc>kyypVr=o
+"nnoremap <Leader>uU ddkYpVr=$
 
 " Ask Vim for the syntax type at cursor location
 nnoremap <Leader>? :call SynStack()<CR>
@@ -600,6 +611,13 @@ set history=100
 " after closing/opening a file (<filename>.un~). This has some appeal,
 " but I don't want the litter.
 "set undofile
+
+" Toggle Gundo window
+if has("python")
+	nnoremap <Leader>u :GundoToggle<CR>
+else
+	nnoremap <Leader>u :echo "Gundo requires Python support"<CR>
+endif
 
 " }}}
 " --------------------------------------------------------------------
