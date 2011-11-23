@@ -46,9 +46,6 @@
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = https://github.com/altercation/vim-colors-solarized
-[submodule "vim/bundle/puppet"]
-	path = vim/bundle/puppet
-	url = https://github.com/tangledhelix/vim-puppet.git
 [submodule "vim/bundle/tabular"]
 	path = vim/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
