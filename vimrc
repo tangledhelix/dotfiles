@@ -12,8 +12,7 @@ let mapleader=","
 
 " Load Pathogen (sanely manages and compartmentalizes plugins, etc.)
 filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+call pathogen#infect()
 
 " Use filetype detection, including syntax-aware indenting
 filetype plugin indent on
