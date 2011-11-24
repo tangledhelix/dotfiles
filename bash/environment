@@ -66,6 +66,7 @@ for _this in \
 	/usr/X11R6/bin \
 	/Developer/usr/bin \
 	/usr/local/Cellar/ruby/1.9.2-p290/bin \
+	/usr/local/Cellar/ruby/1.9.3-p0/bin \
 	~/.gems/bin \
 	~/.gem/ruby/1.9.1/bin \
 	~/.gem/ruby/1.8/bin \
