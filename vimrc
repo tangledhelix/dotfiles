@@ -454,12 +454,6 @@ nnoremap <Leader>= :call Preserve("normal gg=G")<CR>
 " Create an HTML version of our syntax highlighting for display or printing.
 nnoremap <Leader>H :TOhtml<CR>
 
-" A couple of conveniences for Markdown and others
-"inoremap <Leader>uu <Esc>kyypVr-o
-"nnoremap <Leader>uu ddkYpVr-$
-"inoremap <Leader>uU <Esc>kyypVr=o
-"nnoremap <Leader>uU ddkYpVr=$
-
 " Ask Vim for the syntax type at cursor location
 nnoremap <Leader>? :call SynStack()<CR>
 
@@ -774,18 +768,18 @@ nnoremap o A<CR>
 if has("autocmd")
 	autocmd!
 
-	autocmd BufNewFile,BufRead *.t                            set filetype=perl
-	autocmd BufNewFile,BufRead *.inc                          set filetype=php
-	autocmd BufNewFile,BufRead *.com                          set filetype=bindzone
-	autocmd BufNewFile,BufRead *.wiki,*ISSwiki*               set filetype=mediawiki
-	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md        set filetype=markdown
-	autocmd BufNewFile,BufRead .bash/*,bash/*,.dotfiles/bash* set filetype=sh
-	autocmd BufNewFile,BufRead distfile.common                set filetype=rdist
-	autocmd BufNewFile,BufRead ejabberd.cfg                   set filetype=erlang
-	autocmd BufNewFile,BufRead aliases.*                      set filetype=mailaliases
-	autocmd BufNewFile,BufRead [Mm]akefile*                   set filetype=make
-	autocmd BufNewFile,BufRead *.global                       set filetype=m4
-	autocmd BufNewFile,BufRead exim.cf*                       set filetype=exim
+	autocmd BufNewFile,BufRead *.t set filetype=perl
+	autocmd BufNewFile,BufRead *.inc set filetype=php
+	autocmd BufNewFile,BufRead *.com set filetype=bindzone
+	autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
+	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
+	autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
+	autocmd BufNewFile,BufRead distfile.common set filetype=rdist
+	autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
+	autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
+	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
+	autocmd BufNewFile,BufRead *.global set filetype=m4
+	autocmd BufNewFile,BufRead exim.cf* set filetype=exim
 
 	" Look inside .epub files
 	au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
