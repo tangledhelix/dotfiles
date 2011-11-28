@@ -39,6 +39,7 @@ unset PATH
 for _this in \
 	~/local/bin \
 	~/bin \
+	~/.rbenv/bin \
 	/admin/bin \
 	/usr/local/bin \
 	/bin \
