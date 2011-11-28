@@ -5,7 +5,7 @@
 if [[ "$OS" = "Linux" ]]; then
 	# Silly Linux makes up its own timestamp formatting.
 	# That breaks project-mgmt. Bad Linux!
-	alias ls='/bin/ls -F --time-style=+"%b %e %H:%M"'
+	alias ls='/bin/ls -F --time-style=+"%b %e %H:%M" --color=auto'
 else
 	alias ls='/bin/ls -F'
 fi
