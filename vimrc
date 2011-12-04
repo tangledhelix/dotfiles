@@ -773,6 +773,7 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead *.com set filetype=bindzone
 	autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
 	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
+	autocmd BufNewFile,BufRead *.markdown set filetype=octopress tw=78 wrap linebreak
 	autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 	autocmd BufNewFile,BufRead distfile.common set filetype=rdist
 	autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
@@ -792,9 +793,9 @@ if has("autocmd")
 	autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
 	autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
 
-	" Bold/italic for Markdown (plugin 'surround')
-	autocmd FileType markdown let g:surround_{char2nr('i')} = "*\r*"
-	autocmd FileType markdown let g:surround_{char2nr('b')} = "**\r**"
+	" Bold/italic for Markdown/Octopress (plugin 'surround')
+	autocmd FileType markdown,octopress let g:surround_{char2nr('i')} = "*\r*"
+	autocmd FileType markdown,octopress let g:surround_{char2nr('b')} = "**\r**"
 
 	" Save all unclean buffers when focus is lost (ala TextMate).
 	" Not sure whether I like this idea. This is GUI only, terminal
