@@ -333,3 +333,13 @@ function mkpuppetmodule {
 	ls -l
 }
 
+# Get a short URL for GitHub
+function git.io {
+	test -z "$1" && { echo "Usage: git.io <url> [<code>]"; return; }
+	test -n "$2" && {
+		curl -i http://git.io -F "url=$1" -F "code=$2"
+	} || {
+		curl -i http://git.io -F "url=$1"
+	}
+}
+
