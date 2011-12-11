@@ -341,7 +341,8 @@ nnoremap Q gwip
 nnoremap <Leader>A <Plug>ToggleAutoCloseMappings
 
 " Strip trailing whitespace file-wide, preserving cursor location
-nnoremap <Leader>W :call Preserve("%s/\\s\\+$//e")<CR>
+"nnoremap <Leader>W :call Preserve("%s/\\s\\+$//e")<CR>
+nnoremap <Leader>W :call Preserve('%s/\s\+$//e')<CR>
 
 " Swap ' for " (or vice versa) on strings, preserving cursor location
 nnoremap <silent> <Leader>' :call Preserve("normal cs\"'")<CR>
@@ -881,10 +882,8 @@ colorscheme solarized
 
 " }}}
 
-" Mark trailing whitespace with a red background to make it stand out
-autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
-autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-highlight EOLWS ctermbg=cyan guibg=gray
+" Mark trailing whitespace with to make it stand out
+match ErrorMsg '\s\+$'
 
 " Terminal setup before xterm-256color {{{
 "if !has("gui") && has("terminfo")
