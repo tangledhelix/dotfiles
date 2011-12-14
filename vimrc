@@ -8,7 +8,7 @@
 set nocompatible
 
 " Define my leader key (my personal namespace in the keymap).
-let mapleader=","
+let mapleader=','
 
 " Load matchit library. This lets % match if/elsif/else/end, open/close
 " XML tags, stuff like that, instead of just brackets and parens.
@@ -23,7 +23,7 @@ filetype off
 
 " Exceptions
 let g:pathogen_disabled=[]
-if !has("python") | let g:pathogen_disabled+=["gundo"] | endif
+if !has('python') | let g:pathogen_disabled+=['gundo'] | endif
 
 call pathogen#infect()
 call pathogen#helptags()
@@ -233,7 +233,7 @@ set shortmess=atI
 " Flash the screen instead of making a beep.
 set visualbell
 
-if !has("gui_running")
+if !has('gui_running')
 
 	" Terminal's visual bell - turned off to make Vim quiet.
 	set t_vb=
@@ -246,7 +246,7 @@ endif
 
 " Set the title bar if running as GUI, never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
-if has("gui_running")
+if has('gui_running')
 	set title
 else
 	set notitle
@@ -277,7 +277,7 @@ set showmatch
 set showmode
 
 " Whether and how to display tabs and EOL
-if has("multi_byte")
+if has('multi_byte')
 	set encoding=utf-8
 	set nolist
 	set listchars=tab:▸\ ,eol:¬
@@ -440,7 +440,7 @@ nnoremap <Leader>z zMzvzz
 " Syntax-related mappings {{{
 
 " Toggle syntax highlighting.
-nnoremap <silent> <Leader>S :if exists("g:syntax_on") <Bar>
+nnoremap <silent> <Leader>S :if exists('g:syntax_on') <Bar>
 	\    syntax off <Bar>
 	\else <Bar>
 	\    source $MYVIMRC <Bar>
@@ -450,7 +450,7 @@ nnoremap <silent> <Leader>S :if exists("g:syntax_on") <Bar>
 nnoremap <Leader>s :set spell!<CR>
 
 " Re-indent entire file, preserving cursor location
-nnoremap <Leader>= :call Preserve("normal gg=G")<CR>
+nnoremap <Leader>= :call Preserve('normal gg=G')<CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 nnoremap <Leader>H :TOhtml<CR>
@@ -516,7 +516,7 @@ set nowritebackup
 "set directory=~/.tmp-vim//,.,/var/tmp,/tmp
 
 " Shell to use. Stick with the old standard.
-let &shell="/bin/sh"
+let &shell='/bin/sh'
 
 " }}}
 " --------------------------------------------------------------------
@@ -608,10 +608,10 @@ set history=100
 "set undofile
 
 " Toggle Gundo window
-if has("python")
+if has('python')
 	nnoremap <Leader>u :GundoToggle<CR>
 else
-	nnoremap <Leader>u :echo "Gundo requires Python support"<CR>
+	nnoremap <Leader>u :echo 'Gundo requires Python support'<CR>
 endif
 
 " }}}
@@ -641,12 +641,12 @@ nnoremap <Leader>* :CtrlP<CR>
 " the current buffer is located.
 " This is no longer useful, there's now an autocmd that cd's to the current
 " directory whenever you load a file.
-"nnoremap <Leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
+"nnoremap <Leader>e :edit <C-R>=expand("%:p:h") . '/' <CR>
 
 " Variants that open in split, vsplit or a tab
-"nnoremap <Leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-"nnoremap <Leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-"nnoremap <Leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+"nnoremap <Leader>es :sp <C-R>=expand("%:p:h") . '/' <CR>
+"nnoremap <Leader>ev :vsp <C-R>=expand("%:p:h") . '/' <CR>
+"nnoremap <Leader>et :tabe <C-R>=expand("%:p:h") . '/' <CR>
 
 " Open filename under cursor (optionally in new tab or window)
 nnoremap <Leader>of gf
@@ -673,10 +673,10 @@ set modelines=0
 " Spellcheck language
 set spelllang=en_us
 
-" Turn off " pairing in vim files (plugin: autoclose [my fork])
-let g:autoclose_vim_commentmode = 1
+" Ignore whitespace-only changes in diff mode
+set diffopt=iwhite
 
-if has("gui_running")
+if has('gui_running')
 
 	" Disable the toolbar
 	set guioptions=-t
@@ -829,7 +829,7 @@ endif
 	"set t_Co=256
 "endif
 
-if has("gui_running")
+if has('gui_running')
 	set guifont=Menlo:h14
 	set antialias
 endif
@@ -914,10 +914,10 @@ match ErrorMsg '\s\+$'
 " Window size (GUI) {{{
 
 " Only set the window size if it was not set already.
-if has("gui_running") && !exists('w:dmlSetWindowSize')
+if has('gui_running') && !exists('w:dmlSetWindowSize')
 	set lines=40
 	set columns=90
-	let w:dmlSetWindowSize=1
+	let w:dmlSetWindowSize = 1
 endif
 
 " }}}
