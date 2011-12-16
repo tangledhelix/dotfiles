@@ -1,1 +1,0 @@
-../vim-smart-tabs/plugin/ctab.vim
