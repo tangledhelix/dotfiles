@@ -4,20 +4,22 @@ Search and replace
 
     *       search for the word under the cursor
     #       ... and in reverse
-
     gd      go to declaration of variable under the cursor
+    [I      Show lines containing word under cursor
 
-    " 'find'
-    f<c>    jump to next occurrence of char <c>
+    f<c>    jump to next occurrence of char <c>                     ('Find')
     F<c>    ... and in reverse
-    " 'til' or 'until'
-    t<c>    jump to position *left* of next occurrence of char <c>
+
+    t<c>    jump to position *left* of next occurrence of char <c>  ('unTil')
     T<c>    ... and in reverse
 
     e       go to end of word (also works with v, c, d, etc.)
     b       go to beginning of word
 
     ctrl-d  Show possible expansions on current completion
+
+    q/      Open search history window to edit/use search history
+    /^F     Switch from search mode to search history window
 
     :%g/foo/m$      move all lines matching foo to end of file
                         % = global search
