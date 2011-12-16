@@ -36,16 +36,11 @@ filetype plugin indent on
 " --------------------------------------------------------------------
 " Tab settings {{{
 
-" My general indent strategy is to use real h-tabs (0x09) on the left column
-" and spaces everywhere else. That way relative indentation is always the
-" same regardless of someone's tab stop, but formatting of right-hand
-" indentation is consistent even when tab stop is not.
-"
-" I use Smart-Tabs (plugin/ctab.vim) to make Tab do that automatically.
-" https://github.com/vim-scripts/Smart-Tabs
+" I've gone back and forth on this over the years, and I always come back
+" to spaces instead of tabs. So be it.
 
-" Use tabs, not spaces
-set noexpandtab
+" Use spaces, not tabs
+set expandtab
 
 " My tab width is 4. Because 8 is too much, but 2 is visually too small
 " for code nesting IMO. Should match shiftwidth. Sometimes I do use an
@@ -769,19 +764,18 @@ nnoremap o A<CR>
 if has("autocmd")
 	autocmd!
 
-	autocmd BufNewFile,BufRead *.t set filetype=perl
-	autocmd BufNewFile,BufRead *.inc set filetype=php
-	autocmd BufNewFile,BufRead *.com set filetype=bindzone
-	autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
-	autocmd BufNewFile,BufRead *Safari*WordPress*,*.md set filetype=markdown
-	autocmd BufNewFile,BufRead *.markdown set filetype=octopress tw=78 wrap linebreak
-	autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
-	autocmd BufNewFile,BufRead distfile.common set filetype=rdist
-	autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
-	autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
-	autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
-	autocmd BufNewFile,BufRead *.global set filetype=m4
-	autocmd BufNewFile,BufRead exim.cf* set filetype=exim
+	autocmd BufNewFile,BufRead *.t set ft=perl
+	autocmd BufNewFile,BufRead *.inc set ft=php
+	autocmd BufNewFile,BufRead *.com set ft=bindzone
+	autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set ft=mediawiki
+	autocmd BufNewFile,BufRead *.md,*.markdown set ft=octopress tw=78 wrap lbr
+	autocmd BufNewFile,BufRead .bash/*,bash/* set ft=sh
+	autocmd BufNewFile,BufRead distfile.common set ft=rdist
+	autocmd BufNewFile,BufRead ejabberd.cfg set ft=erlang
+	autocmd BufNewFile,BufRead aliases.* set ft=mailaliases
+	autocmd BufNewFile,BufRead [Mm]akefile* set ft=make noet
+	autocmd BufNewFile,BufRead *.global set ft=m4
+	autocmd BufNewFile,BufRead exim.cf* set ft=exim
 
 	" Look inside .epub files
 	au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
