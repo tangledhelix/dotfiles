@@ -1,9 +1,19 @@
+# Mac OS X Finder cache files
 .DS_Store
+
+# Vim swap files
 .*.swp
+
+# Emacs auto-save and backup files
 *~
+\#*#
+.#*
+
+# Vim caches and metadata
 /vim/.netrwhist
 /vim/yankring_history*.txt
 /vim/doc/tags
 /vim/doc/tags-ja
 /vim/bundle/*/docs/tags
 /vim/bundle/*/docs/tags-ja
+
