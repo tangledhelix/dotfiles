@@ -1,47 +1,48 @@
 [user]
-	name = <%= $git_name %>
-	email = <%= $git_email %>
+    name = <%= $git_name %>
+    email = <%= $git_email %>
 
 [alias]
-	co = checkout
-	ci = commit
-	st = status -s
-	lol = log --pretty=oneline --abbrev-commit --graph --decorate
-	unstage = reset HEAD
-	aa = add .
-	# Not yet added - doesn't include ignored files
-	new = ls-files --others --exclude-standard
-	# Files that are in the staging area
-	added = diff --cached --name-only
-	today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
-	ff = merge --ff-only
-	pullsubs = submodule foreach git pull origin master
+    co = checkout
+    ci = commit
+    st = status -s
+    lol = log --pretty=oneline --abbrev-commit --graph --decorate
+    unstage = reset HEAD
+    aa = add .
+    # Not yet added - doesn't include ignored files
+    new = ls-files --others --exclude-standard
+    # Files that are in the staging area
+    added = diff --cached --name-only
+    today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+    ff = merge --ff-only
+    pullsubs = submodule foreach git pull origin master
 
 [remote "ntt"]
-	receivepack = /usr/local/bin/git-receive-pack
-	uploadpack = /usr/local/bin/git-upload-pack
+    receivepack = /usr/local/bin/git-receive-pack
+    uploadpack = /usr/local/bin/git-upload-pack
 
 [core]
-	quotepath = false
-	excludesfile = ~/.gitignore
+    quotepath = false
+    excludesfile = ~/.gitignore
 
 [color]
-	ui = auto
+    ui = auto
 
 [github]
-	user = <%= $github_username %>
-	token = <%= $github_api_token %>
+    user = <%= $github_username %>
+    token = <%= $github_api_token %>
 
 [merge]
-	tool = <%= File.exists?('/usr/bin/opendiff') ? 'opendiff' : 'vimdiff' %>
+    tool = <%= File.exists?('/usr/bin/opendiff') ? 'opendiff' : 'vimdiff' %>
 
 [diff]
-	# For Github-style word diffs
-	wordRegex = [^[:space:]]
+    # For Github-style word diffs
+    wordRegex = [^[:space:]]
 
 [help]
-	autocorrect = 1
+    autocorrect = 1
 
 [push]
-	# Push current branch even if you've never pushed it before
-	default = current
+    # Push current branch even if you've never pushed it before
+    default = current
+

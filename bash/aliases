@@ -3,11 +3,11 @@
 # I still want the trailing file-type indicators (-F).
 
 if [[ "$OS" = "Linux" ]]; then
-	# Silly Linux makes up its own timestamp formatting.
-	# That breaks project-mgmt. Bad Linux!
-	alias ls='/bin/ls -F --time-style=+"%b %e %H:%M" --color=auto'
+    # Silly Linux makes up its own timestamp formatting.
+    # That breaks project-mgmt. Bad Linux!
+    alias ls='/bin/ls -F --time-style=+"%b %e %H:%M" --color=auto'
 else
-	alias ls='/bin/ls -F'
+    alias ls='/bin/ls -F'
 fi
 
 alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit'
@@ -56,7 +56,7 @@ alias jst='TZ=Asia/Tokyo date'
 
 # Solaris diff sucks, use my GNU diff instead.
 test -x /usr/local/pkg/diffutils/bin/diff &&
-	alias diff='/usr/local/pkg/diffutils/bin/diff'
+    alias diff='/usr/local/pkg/diffutils/bin/diff'
 
 # Tell me what OS this is
 alias os='uname -srm'

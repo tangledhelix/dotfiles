@@ -2,14 +2,14 @@
 
 Window resizing
 
-	(Ctrl-W works in place of :winc)
+    (Ctrl-W works in place of :winc)
 
     :res        resize to maximum available
     :res -N     downsize by count N
     :res +N     upsize by count N
     :winc =     make all windows as equal as possible
-	:winc _     maximize window height
-	:winc |     maximize window width
+    :winc _     maximize window height
+    :winc |     maximize window width
 
 Windows moving
 

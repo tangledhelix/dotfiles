@@ -62,14 +62,14 @@ nnoremap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
 " a raw tab will be embedded in a non-whitespace area like a string. One
 " hopes not, since we have things like \t, but you never know.
 "nnoremap <silent> <Leader>T :if &expandtab <Bar>
-	"\    set noexpandtab<CR>
-	"\    retab!<CR>
-	"\    echo "Converted spaces to tabs." <Bar>
-	"\else <Bar>
-	"\    set expandtab<CR>
-	"\    retab!<CR>
-	"\    echo "Converted tabs to spaces." <Bar>
-	"\endif<CR>
+    "\    set noexpandtab<CR>
+    "\    retab!<CR>
+    "\    echo "Converted spaces to tabs." <Bar>
+    "\else <Bar>
+    "\    set expandtab<CR>
+    "\    retab!<CR>
+    "\    echo "Converted tabs to spaces." <Bar>
+    "\endif<CR>
 
 " This is slightly hacky, but it's easy and it works. Tab uses normal
 " tab behavior. Leader-Tab will always insert space-expanded tabs, but
@@ -230,8 +230,8 @@ set visualbell
 
 if !has('gui_running')
 
-	" Terminal's visual bell - turned off to make Vim quiet.
-	set t_vb=
+    " Terminal's visual bell - turned off to make Vim quiet.
+    set t_vb=
 
 endif
 
@@ -242,9 +242,9 @@ endif
 " Set the title bar if running as GUI, never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
 if has('gui_running')
-	set title
+    set title
 else
-	set notitle
+    set notitle
 endif
 
 " Show the status line
@@ -273,12 +273,12 @@ set showmode
 
 " Whether and how to display tabs and EOL
 if has('multi_byte')
-	set encoding=utf-8
-	set nolist
-	set listchars=tab:▸\ ,eol:¬
+    set encoding=utf-8
+    set nolist
+    set listchars=tab:▸\ ,eol:¬
 else
-	set nolist
-	set listchars=tab:>-,eol:$
+    set nolist
+    set listchars=tab:>-,eol:$
 endif
 
 " Turn invisibles on/off.
@@ -300,11 +300,11 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " Map <leader>n to toggle the number column. They get in the way of copying
 " in a terminal.
 if v:version >= 703
-	set relativenumber
-	nnoremap <silent> <Leader>n :set relativenumber!<CR>
+    set relativenumber
+    nnoremap <silent> <Leader>n :set relativenumber!<CR>
 else
-	set number
-	nnoremap <silent> <Leader>n :set number!<CR>
+    set number
+    nnoremap <silent> <Leader>n :set number!<CR>
 endif
 
 " Show row/col of cursor position, and percentage into the file we are.
@@ -439,10 +439,10 @@ nnoremap <Leader>z zMzvzz
 
 " Toggle syntax highlighting.
 nnoremap <silent> <Leader>S :if exists('g:syntax_on') <Bar>
-	\    syntax off <Bar>
-	\else <Bar>
-	\    source $MYVIMRC <Bar>
-	\endif<CR>
+    \    syntax off <Bar>
+    \else <Bar>
+    \    source $MYVIMRC <Bar>
+    \endif<CR>
 
 " Toggle spellcheck mode
 nnoremap <Leader>s :set spell!<CR>
@@ -566,26 +566,26 @@ let g:yankring_history_dir = '$HOME/.vim'
 
 "if has("gui_running")
 
-	" Disabling ,Y and ,P mappings - no point when cmd-C, cmd-V are
-	" already available, and I just end up using these in terminal
-	" sessions where they don't work. cmd-C and cmd-V work either way.
+    " Disabling ,Y and ,P mappings - no point when cmd-C, cmd-V are
+    " already available, and I just end up using these in terminal
+    " sessions where they don't work. cmd-C and cmd-V work either way.
 
-	" Copy current line or selection to OS X clipboard
-	"nnoremap <Leader>Y "*yy
-	"vnoremap <Leader>Y "*y
+    " Copy current line or selection to OS X clipboard
+    "nnoremap <Leader>Y "*yy
+    "vnoremap <Leader>Y "*y
 
-	" Paste from OS X clipboard explicitly. If something was copied to the
-	" OS X clipboard after the last time something was copied to MacVim's
-	" clipboard, then 'p' will behave the same way, but these will always
-	" go directly to the OS X clipboard, bypassing anything in MacVim's.
-	"nnoremap <Leader>P "*p
-	"vnoremap <Leader>P "*p
+    " Paste from OS X clipboard explicitly. If something was copied to the
+    " OS X clipboard after the last time something was copied to MacVim's
+    " clipboard, then 'p' will behave the same way, but these will always
+    " go directly to the OS X clipboard, bypassing anything in MacVim's.
+    "nnoremap <Leader>P "*p
+    "vnoremap <Leader>P "*p
 
-	" Whatever we copy, send to the system clipboard too.
-	" I don't like this, it can obliterate my Launchbar clipboard history
-	" quickly. Replaced this with ,Y and ,P mappings to easily interact with
-	" the system pasteboard in a more explicit way.
-	"set clipboard+=unnamed
+    " Whatever we copy, send to the system clipboard too.
+    " I don't like this, it can obliterate my Launchbar clipboard history
+    " quickly. Replaced this with ,Y and ,P mappings to easily interact with
+    " the system pasteboard in a more explicit way.
+    "set clipboard+=unnamed
 
 "endif
 
@@ -607,9 +607,9 @@ set history=100
 
 " Toggle Gundo window
 if has('python')
-	nnoremap <Leader>u :GundoToggle<CR>
+    nnoremap <Leader>u :GundoToggle<CR>
 else
-	nnoremap <Leader>u :echo 'Gundo requires Python support'<CR>
+    nnoremap <Leader>u :echo 'Gundo requires Python support'<CR>
 endif
 
 " }}}
@@ -676,16 +676,16 @@ set diffopt=iwhite
 
 if has('gui_running')
 
-	" Disable the toolbar
-	set guioptions=-t
+    " Disable the toolbar
+    set guioptions=-t
 
-	" Enable the right scrollbar
-	"set guioptions=+r
+    " Enable the right scrollbar
+    "set guioptions=+r
 
 else
 
-	" Are we using a fast terminal?
-	set ttyfast
+    " Are we using a fast terminal?
+    set ttyfast
 
 endif
 
@@ -765,53 +765,53 @@ nnoremap o A<CR>
 " Auto-command triggers {{{
 
 if has("autocmd")
-	autocmd!
+    autocmd!
 
-	autocmd BufNewFile,BufRead *.t set ft=perl
-	autocmd BufNewFile,BufRead *.inc set ft=php
-	autocmd BufNewFile,BufRead *.com set ft=bindzone
-	autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set ft=mediawiki
-	autocmd BufNewFile,BufRead *.md,*.markdown set ft=octopress tw=78 wrap lbr
-	autocmd BufNewFile,BufRead .bash/*,bash/* set ft=sh
-	autocmd BufNewFile,BufRead distfile.common set ft=rdist
-	autocmd BufNewFile,BufRead ejabberd.cfg set ft=erlang
-	autocmd BufNewFile,BufRead aliases.* set ft=mailaliases
-	autocmd BufNewFile,BufRead [Mm]akefile* set ft=make noet
-	autocmd BufNewFile,BufRead *.global set ft=m4
-	autocmd BufNewFile,BufRead exim.cf* set ft=exim
+    autocmd BufNewFile,BufRead *.t set ft=perl
+    autocmd BufNewFile,BufRead *.inc set ft=php
+    autocmd BufNewFile,BufRead *.com set ft=bindzone
+    autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set ft=mediawiki
+    autocmd BufNewFile,BufRead *.md,*.markdown set ft=octopress tw=78 wrap lbr
+    autocmd BufNewFile,BufRead .bash/*,bash/* set ft=sh
+    autocmd BufNewFile,BufRead distfile.common set ft=rdist
+    autocmd BufNewFile,BufRead ejabberd.cfg set ft=erlang
+    autocmd BufNewFile,BufRead aliases.* set ft=mailaliases
+    autocmd BufNewFile,BufRead [Mm]akefile* set ft=make noet
+    autocmd BufNewFile,BufRead *.global set ft=m4
+    autocmd BufNewFile,BufRead exim.cf* set ft=exim
 
-	" Look inside .epub files
-	au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
+    " Look inside .epub files
+    au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
 
-	" Italic, bold surrounds for Mediawiki (plugin 'surround')
-	autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
-	autocmd FileType mediawiki let g:surround_{char2nr('b')} = "'''\r'''"
-	" Header levels 2, 3, 4
-	autocmd FileType mediawiki let g:surround_{char2nr('2')} = "==\r=="
-	autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
-	autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
+    " Italic, bold surrounds for Mediawiki (plugin 'surround')
+    autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
+    autocmd FileType mediawiki let g:surround_{char2nr('b')} = "'''\r'''"
+    " Header levels 2, 3, 4
+    autocmd FileType mediawiki let g:surround_{char2nr('2')} = "==\r=="
+    autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
+    autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
 
-	" Bold/italic for Markdown/Octopress (plugin 'surround')
-	autocmd FileType markdown,octopress let g:surround_{char2nr('i')} = "*\r*"
-	autocmd FileType markdown,octopress let g:surround_{char2nr('b')} = "**\r**"
+    " Bold/italic for Markdown/Octopress (plugin 'surround')
+    autocmd FileType markdown,octopress let g:surround_{char2nr('i')} = "*\r*"
+    autocmd FileType markdown,octopress let g:surround_{char2nr('b')} = "**\r**"
 
-	" Save all unclean buffers when focus is lost (ala TextMate).
-	" Not sure whether I like this idea. This is GUI only, terminal
-	" vim has no concept of focus (or does it know it was backgrounded?)
-	"autocmd FocusLost * :wa
+    " Save all unclean buffers when focus is lost (ala TextMate).
+    " Not sure whether I like this idea. This is GUI only, terminal
+    " vim has no concept of focus (or does it know it was backgrounded?)
+    "autocmd FocusLost * :wa
 
-	" cd to the directory of the current file. Makes it easier to :e
-	" files in the same directory.
-	autocmd BufEnter * cd %:p:h
+    " cd to the directory of the current file. Makes it easier to :e
+    " files in the same directory.
+    autocmd BufEnter * cd %:p:h
 
-	" Automatically reload .vimrc if we edited it.
-	autocmd BufWritePost .vimrc,vimrc,.dotfiles/vimrc source $MYVIMRC
+    " Automatically reload .vimrc if we edited it.
+    autocmd BufWritePost .vimrc,vimrc,.dotfiles/vimrc source $MYVIMRC
 
-	" Restore cursor position from our last session, if known.
-	autocmd BufReadPost *
-		\ if line("'\"") > 1 && line("'\"") <= line("$") |
-		\     execute "normal! g`\"" |
-		\ endif
+    " Restore cursor position from our last session, if known.
+    autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \     execute "normal! g`\"" |
+        \ endif
 
 endif
 
@@ -823,12 +823,12 @@ endif
 " that terminfo for xterm-256color is present.
 " According to deryni on #vim this is autodetected. Apparently so.
 "if !has("gui") && has("terminfo")
-	"set t_Co=256
+    "set t_Co=256
 "endif
 
 if has('gui_running')
-	set guifont=Menlo:h14
-	set antialias
+    set guifont=Menlo:h14
+    set antialias
 endif
 
 " Activate syntax highlighting
@@ -845,11 +845,11 @@ syntax on
 set background=light
 
 "if has("gui_running")
-	" Use light scheme in GUI to differentiate it from terminal
-	"set background=light
+    " Use light scheme in GUI to differentiate it from terminal
+    "set background=light
 "else
-	" I usually use a dark-background terminal
-	"set background=dark
+    " I usually use a dark-background terminal
+    "set background=dark
 "endif
 
 " Colorscheme: Zenburn {{{
@@ -884,13 +884,13 @@ match ErrorMsg '\s\+$'
 
 " Terminal setup before xterm-256color {{{
 "if !has("gui") && has("terminfo")
-	"set t_Co=16
-	"set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-	"set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+    "set t_Co=16
+    "set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+    "set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
 "else
-	"set t_Co=16
-	"set t_Sf=[3%dm
-	"set t_Sb=[4%dm
+    "set t_Co=16
+    "set t_Sf=[3%dm
+    "set t_Sb=[4%dm
 "endif
 " }}}
 
@@ -912,9 +912,9 @@ match ErrorMsg '\s\+$'
 
 " Only set the window size if it was not set already.
 if has('gui_running') && !exists('w:dmlSetWindowSize')
-	set lines=40
-	set columns=90
-	let w:dmlSetWindowSize = 1
+    set lines=40
+    set columns=90
+    let w:dmlSetWindowSize = 1
 endif
 
 " }}}
@@ -924,7 +924,7 @@ endif
 " In case I or someone else wants to override this file without
 " modifying the master copy in git.
 if filereadable($HOME . '/.vimrc.local')
-	source ~/.vimrc.local
+    source ~/.vimrc.local
 endif
 
 " }}}
