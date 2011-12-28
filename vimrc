@@ -367,6 +367,9 @@ vnoremap <Space> I<Space><Esc>gv
 " Same thing but using a tab
 "vnoremap <Tab> I<Tab><Esc>gv
 
+" Split line at cursor position
+nnoremap S i<CR><Esc><Right>
+
 " }}}
 " --------------------------------------------------------------------
 " Navigation {{{
