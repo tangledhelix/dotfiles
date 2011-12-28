@@ -767,18 +767,29 @@ nnoremap o A<CR>
 if has("autocmd")
     autocmd!
 
+    " Set filetypes based on filenames
     autocmd BufNewFile,BufRead *.t set ft=perl
     autocmd BufNewFile,BufRead *.inc set ft=php
     autocmd BufNewFile,BufRead *.com set ft=bindzone
     autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set ft=mediawiki
-    autocmd BufNewFile,BufRead *.md,*.markdown set ft=octopress tw=78 wrap lbr
     autocmd BufNewFile,BufRead .bash/*,bash/* set ft=sh
     autocmd BufNewFile,BufRead distfile.common set ft=rdist
     autocmd BufNewFile,BufRead ejabberd.cfg set ft=erlang
     autocmd BufNewFile,BufRead aliases.* set ft=mailaliases
-    autocmd BufNewFile,BufRead [Mm]akefile* set ft=make noet
     autocmd BufNewFile,BufRead *.global set ft=m4
     autocmd BufNewFile,BufRead exim.cf* set ft=exim
+
+    " Makefile requires real tabs, not spaces
+    autocmd BufNewFile,BufRead [Mm]akefile* set ft=make noet
+
+    " Octopress is a superset of Markdown so just use it everywhere.
+    " Set line wrapping for convenience.
+    autocmd BufNewFile,BufRead *.md,*.markdown set ft=octopress tw=78 wrap lbr
+
+    " Snippet files need real tabs, at least on the left margin.
+    " This works out okay because when they're triggered, if expandtab
+    " is set, they will be translated to spaces during expansion.
+    autocmd FileType snippet set noet
 
     " Look inside .epub files
     au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
