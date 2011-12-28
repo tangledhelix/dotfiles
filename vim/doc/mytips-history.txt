@@ -15,8 +15,8 @@ History views
     type ':' then up/down arrow to see command history
     type '/' then up/down arrow to see search history
 
-    :^F     switch from command line to command history window
-    /^F     switch from search to search history window
+    ^f     switch from command line or search input line, to command
+           line history or search history, respectively.
 
     :args   Shows command line you used to start vim
 

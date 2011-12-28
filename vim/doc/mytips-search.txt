@@ -19,7 +19,7 @@ Search and replace
     ctrl-d  Show possible expansions on current completion
 
     q/      Open search history window to edit/use search history
-    /^F     Switch from search mode to search history window
+    ^f      From search input field, switch to search history window
 
     :%g/foo/m$      move all lines matching foo to end of file
                         % = global search
