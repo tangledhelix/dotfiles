@@ -558,6 +558,9 @@ vnoremap D y`>p
 " (To reslect last selection even if it is not the last paste, use gv.)
 nnoremap <Leader>v `[v`]
 
+" Select current line, excluding leading and trailing whitespace
+nnoremap vv ^vg_
+
 " Toggle Yankring window
 nnoremap <silent> <Leader>y :YRShow<CR>
 
