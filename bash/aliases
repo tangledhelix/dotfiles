@@ -68,6 +68,9 @@ alias sshnx='ssh -x'
 # Tail a file even if it's rotated out (e.g. log files) - needs GNU tail
 alias tailf='tail --follow=name'
 
+# Count something fed in on stdin
+alias count='sort | uniq -c | sort -n'
+
 # Strip comment / blank lines from an output
 alias stripcomments="egrep -v '^([\ \t]*#|$)'"
 
