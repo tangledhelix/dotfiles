@@ -55,9 +55,6 @@
 [submodule "vim/bundle/kickstart"]
 	path = vim/bundle/kickstart
 	url = https://github.com/tangledhelix/vim-kickstart.git
-[submodule "vim/bundle/statline"]
-	path = vim/bundle/statline
-	url = https://github.com/millermedeiros/vim-statline.git
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
