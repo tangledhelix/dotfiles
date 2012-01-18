@@ -16,6 +16,9 @@ alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit'
 # repositories, e.g. sourceforge.
 alias wcvs='CVS_SERVER=/usr/local/bin/cvs cvs'
 
+# validate a puppet manifest
+alias ppv='puppet parser validate'
+
 # convenience aliases
 alias c='clear'
 #alias p='proj'
