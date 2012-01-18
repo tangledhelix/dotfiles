@@ -53,29 +53,29 @@ set softtabstop=4
 set shiftwidth=4
 
 " Set the indent width to 2, 4, or 8
-nnoremap <Leader>2 :setlocal tabstop=2 shiftwidth=2<CR>
-nnoremap <Leader>4 :setlocal tabstop=4 shiftwidth=4<CR>
-nnoremap <Leader>8 :setlocal tabstop=8 shiftwidth=8<CR>
+nnoremap <leader>2 :setlocal tabstop=2 shiftwidth=2<cr>
+nnoremap <leader>4 :setlocal tabstop=4 shiftwidth=4<cr>
+nnoremap <leader>8 :setlocal tabstop=8 shiftwidth=8<cr>
 
 " Re-tab the current file (changes tab->space or space->tab depending on the
 " current setting of expandtab). This can be dangerous, because on occasion
 " a raw tab will be embedded in a non-whitespace area like a string. One
 " hopes not, since we have things like \t, but you never know.
-"nnoremap <silent> <Leader>T :if &expandtab <Bar>
-    "\    set noexpandtab<CR>
-    "\    retab!<CR>
-    "\    echo "Converted spaces to tabs." <Bar>
-    "\else <Bar>
-    "\    set expandtab<CR>
-    "\    retab!<CR>
-    "\    echo "Converted tabs to spaces." <Bar>
-    "\endif<CR>
+"nnoremap <silent> <leader>T :if &expandtab <bar>
+    "\    set noexpandtab<cr>
+    "\    retab!<cr>
+    "\    echo "Converted spaces to tabs." <bar>
+    "\else <bar>
+    "\    set expandtab<cr>
+    "\    retab!<cr>
+    "\    echo "Converted tabs to spaces." <bar>
+    "\endif<cr>
 
 " This is slightly hacky, but it's easy and it works. Tab uses normal
 " tab behavior. Leader-Tab will always insert space-expanded tabs, but
 " honors the current tab stop.
 " This is not needed with Smart-Tab in place.
-"inoremap <Leader><Tab> <Esc>:set expandtab<CR>a<Tab><Esc>:set noexpandtab<CR>a
+"inoremap <leader><tab> <esc>:set expandtab<cr>a<tab><esc>:set noexpandtab<cr>a
 
 " }}}
 " --------------------------------------------------------------------
@@ -172,10 +172,10 @@ command! -nargs=* Noprose setlocal textwidth=0 formatoptions-=at colorcolumn=81
 set hlsearch
 
 " Clear the highlighted words from an hlsearch. (Can be visual clutter)
-nnoremap <Leader><Space> :nohlsearch<CR>
+nnoremap <leader><space> :nohlsearch<cr>
 
 " Turn hlsearch on or off.
-nnoremap <Leader>h :set hlsearch!<CR>
+nnoremap <leader>h :set hlsearch!<cr>
 
 " Incremental search - live updating, like Emacs or iTunes.
 set incsearch
@@ -196,8 +196,8 @@ vnoremap / /\v
 " Keep search matches in the middle of the window.
 " This is nice, but it breaks the wraparound warning because we hit
 " more stuff after that's displayed, clearing it.
-"nnoremap n nzzzv
-"nnoremap N Nzzzv
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " Use 'magic' patterns (extended regex) in search patterns. ("\s\+").
 " This isn't used by the / search due to the above remappings, but it
@@ -209,9 +209,9 @@ set gdefault
 
 " Use ack. Grep, refined. Provided by ack.vim plugin.
 " Use <CWORD> alternately if desired.
-nnoremap <leader>a :Ack <cword><CR>
+nnoremap <leader>a :Ack <cword><cr>
 " (Trailing space on this map is intentional.)
-nnoremap <Leader>/ :Ack --smart-case 
+nnoremap <leader>/ :Ack --smart-case 
 
 " }}}
 " --------------------------------------------------------------------
@@ -250,14 +250,17 @@ endif
 " Show the status line
 set laststatus=2
 
+" Use fancy symbols in powerline. Needs a patched font.
+let g:Powerline_symbols = 'fancy'
+
 " Settings for vim-statline plugin. See :help statline
 " https://github.com/millermedeiros/vim-statline
-let g:statline_syntastic      = 1
-let g:statline_fugitive       = 1
-let g:statline_rvm            = 0
-let g:statline_trailing_space = 1
-let g:statline_mixed_indent   = 1
-let g:statline_show_charcode  = 0
+"let g:statline_syntastic      = 1
+"let g:statline_fugitive       = 1
+"let g:statline_rvm            = 0
+"let g:statline_trailing_space = 1
+"let g:statline_mixed_indent   = 1
+"let g:statline_show_charcode  = 0
 
 " Old status line format
 "set statusline=%<%f\ %h%m%r%y\ %=%-14.(%l,%c%V%)\ %P
@@ -271,18 +274,19 @@ set showmatch
 " Show the current mode.
 set showmode
 
-" Whether and how to display tabs and EOL
+" Whether and how to display tabs, EOL, other invisibles
 if has('multi_byte')
     set encoding=utf-8
     set nolist
-    set listchars=tab:▸\ ,eol:¬
+    set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+    set showbreak=↪
 else
     set nolist
     set listchars=tab:>-,eol:$
 endif
 
 " Turn invisibles on/off.
-nnoremap <silent> <Leader>i :set list!<CR>
+nnoremap <silent> <leader>i :set list!<cr>
 
 " This only works in iTerm2. Change cursor to a bar in insert mode,
 " a block in other modes.
@@ -301,10 +305,10 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " in a terminal.
 if v:version >= 703
     set relativenumber
-    nnoremap <silent> <Leader>n :set relativenumber!<CR>
+    nnoremap <silent> <leader>n :set relativenumber!<cr>
 else
     set number
-    nnoremap <silent> <Leader>n :set number!<CR>
+    nnoremap <silent> <leader>n :set number!<cr>
 endif
 
 " Show row/col of cursor position, and percentage into the file we are.
@@ -333,42 +337,42 @@ vnoremap Q gw
 nnoremap Q gwip
 
 " Toggle autoclose mode
-nnoremap <Leader>A <Plug>ToggleAutoCloseMappings
+nnoremap <leader>A <plug>ToggleAutoCloseMappings
 
 " Strip trailing whitespace file-wide, preserving cursor location
-"nnoremap <Leader>W :call Preserve("%s/\\s\\+$//e")<CR>
-nnoremap <Leader>W :call Preserve('%s/\s\+$//e')<CR>
+"nnoremap <leader>W :call Preserve("%s/\\s\\+$//e")<cr>
+nnoremap <leader>W :call Preserve('%s/\s\+$//e')<cr>
 
 " Swap ' for " (or vice versa) on strings, preserving cursor location
-nnoremap <silent> <Leader>' :call Preserve("normal cs\"'")<CR>
-nnoremap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
+nnoremap <silent> <leader>' :call Preserve("normal cs\"'")<cr>
+nnoremap <silent> <leader>" :call Preserve("normal cs'\"")<cr>
 
 " Insert a space (easier for code reformatting sometimes...)
 "nnoremap <space> i<space><esc>l
 " and have backspace become destructive...
-"nnoremap <BS> X
+"nnoremap <bs> X
 
 " Bubble single lines
-nmap <S-Up>   [e
-nmap <S-Down> ]e
+nmap <s-up>   [e
+nmap <s-down> ]e
 
 " Bubble multiple lines
-vmap <S-Up>   [egv
-vmap <S-Down> ]egv
+vmap <s-up>   [egv
+vmap <s-down> ]egv
 
 " Remap ~ to use a function if invoked in visual mode. Cycles through
 " uppercase, lowercase, title-case.
-vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
+vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
 
 " In a visual block selection, space will insert a space, then return to
 " the selection. This is intended to push a block over to the right,
 " e.g. a fixed-width area in a mediawiki document.
-vnoremap <Space> I<Space><Esc>gv
+vnoremap <space> I<space><esc>gv
 " Same thing but using a tab
-"vnoremap <Tab> I<Tab><Esc>gv
+"vnoremap <tab> I<tab><esc>gv
 
 " Split line at cursor position
-nnoremap S i<CR><Esc><Right>
+nnoremap S i<cr><esc><right>
 
 " }}}
 " --------------------------------------------------------------------
@@ -396,6 +400,14 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+" h, l promoted by shift to start-of-line, end-of-line
+nnoremap H ^
+nnoremap L g_
+
+" Play along with Emacs-ish muscle memory
+inoremap <C-a> <Esc>I
+inoremap <C-e> <Esc>A
+
 " Go to matching brace / delimiter using <Tab>. % still works.
 " Turning this off - since <Tab> == ^I, this breaks ^O / ^I jumps.
 "nnoremap <tab> %
@@ -405,20 +417,20 @@ vnoremap k gk
 set noinsertmode
 
 " Open quickfix window
-nnoremap <Leader>q :cwindow<CR>
+nnoremap <leader>q :cwindow<cr>
 
 " Go to next/previous quickfix entry (C-arrow doesn't work)
-"nnoremap <C-Down> :cnext<CR>
-"nnoremap <C-Up> :cprevious<CR>
+"nnoremap <c-down> :cnext<cr>
+"nnoremap <c-up> :cprevious<cr>
 
 " Make Vim act like a pager, kinda.
 " This sounds great in theory, but is very annoying in practice.
-"nnoremap <Space> <PageDown>
-"nnoremap <Backspace> <PageUp>
+"nnoremap <space> <pagedown>
+"nnoremap <backspace> <pageup>
 
 " Scroll the viewport a little faster than one line at a time
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
+nnoremap <c-e> 3<c-e>
+nnoremap <c-y> 3<c-y>
 
 " }}}
 " ----------------------------------------------------------------------
@@ -428,33 +440,33 @@ nnoremap <C-y> 3<C-y>
 set foldmethod=marker
 
 " Fold current HTML tag.
-nnoremap <Leader>Ft Vatzf
+nnoremap <leader>Ft Vatzf
 
 " Focus on the current fold
-nnoremap <Leader>z zMzvzz
+nnoremap <leader>z zMzvzz
 
 " }}}
 " ----------------------------------------------------------------------
 " Syntax-related mappings {{{
 
 " Toggle syntax highlighting.
-nnoremap <silent> <Leader>S :if exists('g:syntax_on') <Bar>
-    \    syntax off <Bar>
-    \else <Bar>
-    \    source $MYVIMRC <Bar>
-    \endif<CR>
+nnoremap <silent> <leader>S :if exists('g:syntax_on') <bar>
+    \    syntax off <bar>
+    \else <bar>
+    \    source $MYVIMRC <bar>
+    \endif<cr>
 
 " Toggle spellcheck mode
-nnoremap <Leader>s :set spell!<CR>
+nnoremap <leader>s :set spell!<cr>
 
 " Re-indent entire file, preserving cursor location
-nnoremap <Leader>= :call Preserve('normal gg=G')<CR>
+nnoremap <leader>= :call Preserve('normal gg=G')<cr>
 
 " Create an HTML version of our syntax highlighting for display or printing.
-nnoremap <Leader>H :TOhtml<CR>
+nnoremap <leader>H :TOhtml<cr>
 
 " Ask Vim for the syntax type at cursor location
-nnoremap <Leader>? :call SynStack()<CR>
+nnoremap <leader>? :call SynStack()<cr>
 
 " }}}
 " ----------------------------------------------------------------------
@@ -464,27 +476,27 @@ nnoremap <Leader>? :call SynStack()<CR>
 set splitbelow
 
 " Create a new vertical window to the right, and switch to it.
-nnoremap <silent> <Leader>w :wincmd v<CR>:wincmd l<CR>
+nnoremap <silent> <leader>w :wincmd v<cr>:wincmd l<cr>
 
 " Easier navigation keys (ctrl + normal movement keys h,j,k,l)
-nnoremap <silent> <C-h> :wincmd h<CR>
-nnoremap <silent> <C-j> :wincmd j<CR>
-nnoremap <silent> <C-k> :wincmd k<CR>
-nnoremap <silent> <C-l> :wincmd l<CR>
+nnoremap <silent> <c-h> :wincmd h<cr>
+nnoremap <silent> <c-j> :wincmd j<cr>
+nnoremap <silent> <c-k> :wincmd k<cr>
+nnoremap <silent> <c-l> :wincmd l<cr>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
 
 " Open a new tab in the current view
-nnoremap <silent> <Leader>t :tabnew<CR>
+nnoremap <silent> <leader>t :tabnew<cr>
 
 " Navigate left/right through tabs using shift + left/right arrow keys.
-nnoremap <silent> <S-Left>  :tabprevious<CR>
-nnoremap <silent> <S-Right> :tabnext<CR>
-"vnoremap <silent> <S-Left>  :tabprevious<CR>
-"vnoremap <silent> <S-Right> :tabnext<CR>
-"inoremap <silent> <S-Left>  <Esc>:tabprevious<CR>
-"inoremap <silent> <S-Right> <Esc>:tabnext<CR>
+nnoremap <silent> <s-left>  :tabprevious<cr>
+nnoremap <silent> <s-right> :tabnext<cr>
+"vnoremap <silent> <s-left>  :tabprevious<cr>
+"vnoremap <silent> <s-right> :tabnext<cr>
+"inoremap <silent> <s-left>  <esc>:tabprevious<cr>
+"inoremap <silent> <s-right> <esc>:tabnext<cr>
 
 " }}}
 " --------------------------------------------------------------------
@@ -525,7 +537,7 @@ let &shell='/bin/sh'
 set iskeyword=@,48-57,_,192-255,-,.,@-@
 
 " The char/key-combo used for "expansion" on the command line. Default is ^E.
-set wildchar=<Tab>
+set wildchar=<tab>
 
 " Show me more than the first possible completion.
 set wildmenu
@@ -535,7 +547,7 @@ set wildmode=list:longest
 
 " Turn English-word completion from system dictionary on or off. (^N, ^P)
 set dictionary=/usr/share/dict/words
-nnoremap <silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completion')<CR>
+nnoremap <silent> <leader>E :call ToggleFlag('complete', 'k', 'English completion')<cr>
 
 " }}}
 " --------------------------------------------------------------------
@@ -556,13 +568,13 @@ vnoremap D y`>p
 
 " Reselect what was just pasted so I can so something with it.
 " (To reslect last selection even if it is not the last paste, use gv.)
-nnoremap <Leader>v `[v`]
+nnoremap <leader>v `[v`]
 
 " Select current line, excluding leading and trailing whitespace
 nnoremap vv ^vg_
 
 " Toggle Yankring window
-nnoremap <silent> <Leader>y :YRShow<CR>
+nnoremap <silent> <leader>y :YRShow<cr>
 
 " Where to store the history file (don't want it in $HOME)
 let g:yankring_history_dir = '$HOME/.vim'
@@ -574,15 +586,15 @@ let g:yankring_history_dir = '$HOME/.vim'
     " sessions where they don't work. cmd-C and cmd-V work either way.
 
     " Copy current line or selection to OS X clipboard
-    "nnoremap <Leader>Y "*yy
-    "vnoremap <Leader>Y "*y
+    "nnoremap <leader>Y "*yy
+    "vnoremap <leader>Y "*y
 
     " Paste from OS X clipboard explicitly. If something was copied to the
     " OS X clipboard after the last time something was copied to MacVim's
     " clipboard, then 'p' will behave the same way, but these will always
     " go directly to the OS X clipboard, bypassing anything in MacVim's.
-    "nnoremap <Leader>P "*p
-    "vnoremap <Leader>P "*p
+    "nnoremap <leader>P "*p
+    "vnoremap <leader>P "*p
 
     " Whatever we copy, send to the system clipboard too.
     " I don't like this, it can obliterate my Launchbar clipboard history
@@ -610,9 +622,9 @@ set history=100
 
 " Toggle Gundo window
 if has('python')
-    nnoremap <Leader>u :GundoToggle<CR>
+    nnoremap <leader>u :GundoToggle<cr>
 else
-    nnoremap <Leader>u :echo 'Gundo requires Python support'<CR>
+    nnoremap <leader>u :echo 'Gundo requires Python support'<cr>
 endif
 
 " }}}
@@ -620,11 +632,11 @@ endif
 " Finding and opening files {{{
 
 " Toggle the NERDTree browser.
-nnoremap <Leader>f :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeToggle<cr>
 
 " This variant is supposed to honor the current working directory, but that
 " does not work with :cd as I expected it would.
-"nnoremap <Leader>f :execute 'NERDTreeToggle ' . getcwd()<CR>
+"nnoremap <leader>f :execute 'NERDTreeToggle ' . getcwd()<cr>
 
 " NERDTree should close when I choose a file to open
 let NERDTreeQuitOnOpen = 1
@@ -636,26 +648,26 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
 " Search for files with CtrlP
-nnoremap <Leader>* :CtrlP<CR>
+nnoremap <leader>* :CtrlP<cr>
 
 " Preload the :edit command with the directory where the file in
 " the current buffer is located.
 " This is no longer useful, there's now an autocmd that cd's to the current
 " directory whenever you load a file.
-"nnoremap <Leader>e :edit <C-R>=expand("%:p:h") . '/' <CR>
+"nnoremap <leader>e :edit <C-R>=expand("%:p:h") . '/' <cr>
 
 " Variants that open in split, vsplit or a tab
-"nnoremap <Leader>es :sp <C-R>=expand("%:p:h") . '/' <CR>
-"nnoremap <Leader>ev :vsp <C-R>=expand("%:p:h") . '/' <CR>
-"nnoremap <Leader>et :tabe <C-R>=expand("%:p:h") . '/' <CR>
+"nnoremap <leader>es :sp <C-R>=expand("%:p:h") . '/' <cr>
+"nnoremap <leader>ev :vsp <C-R>=expand("%:p:h") . '/' <cr>
+"nnoremap <leader>et :tabe <C-R>=expand("%:p:h") . '/' <cr>
 
 " Open filename under cursor (optionally in new tab or window)
-nnoremap <Leader>of gf
-vnoremap <Leader>of gf
-nnoremap <Leader>ow :wincmd f
-vnoremap <Leader>ow :wincmd f
-nnoremap <Leader>ot :wincmd gf
-vnoremap <Leader>ot :wincmd gf
+nnoremap <leader>of gf
+vnoremap <leader>of gf
+nnoremap <leader>ow :wincmd f
+vnoremap <leader>ow :wincmd f
+nnoremap <leader>ot :wincmd gf
+vnoremap <leader>ot :wincmd gf
 
 " }}}
 " --------------------------------------------------------------------
@@ -699,18 +711,18 @@ endif
 " Read current buffer, turn it into a bookmarklet, insert that bookmarklet
 " in a comment on line 1 (discarding previously inserted bookmarklet if it
 " exists), copy bookmarklet to the clipboard.
-nnoremap <silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
+nnoremap <silent> <leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<cr>
 
 " Preview a markdown file in the default browser
-nnoremap <Leader>M :w!<CR>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<CR><CR>
+nnoremap <leader>M :w!<cr>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<cr><cr>
 
 " QuickRun the current buffer, autodetecting syntax
-nnoremap <Leader>r :QuickRun<CR>
+nnoremap <leader>r :QuickRun<cr>
 
 " Convert file, or selection, so each contiguous non-whitespace blob is
 " on its own line. Strip all other whitespace.
-nnoremap <Leader>1 :%!$HOME/bin/convert-to-one-string-per-line.rb<CR>
-vnoremap <Leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<CR>
+nnoremap <leader>1 :%!$HOME/bin/convert-to-one-string-per-line.rb<cr>
+vnoremap <leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 
 " }}}
 " --------------------------------------------------------------------
@@ -723,9 +735,9 @@ vnoremap <Leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<CR>
 
 " Remap F1 to Esc, because they're right next to each other, and I know how
 " to type ":h" already, thank you very much.
-inoremap <F1> <Esc>
-nnoremap <F1> <Esc>
-vnoremap <F1> <Esc>
+inoremap <f1> <esc>
+nnoremap <f1> <esc>
+vnoremap <f1> <esc>
 
 " Swap ; in place of : for commands - no need to hit shift constantly.
 " Note: do not map : back to ; to try to reclaim the ';' functionality,
@@ -740,28 +752,28 @@ vnoremap <F1> <Esc>
 " map <C-V>127 <C-H>
 "cmap <C-V>127 <C-H>
 " the same for Linux Debian which uses
-inoremap <Esc>[3~ <C-H>
-inoremap  <C-H>
-cnoremap  <C-H>
+inoremap <esc>[3~ <c-h>
+inoremap  <c-h>
+cnoremap  <c-h>
 
 " Unmap the K key, it usually doesn't do anything useful anyway.
-nnoremap K <Nul>
+nnoremap K <nul>
 
 " Example of changing the contents of a tag to TitleCase.
 " e.g.: <foo>BAR BAZ</foo> becomes <foo>Bar Baz</foo>
-"nnoremap <Leader>x vit:s/\%V\<\(\w\)\(\w*\)\>/\u\1\L\2/<CR>
+"nnoremap <leader>x vit:s/\%V\<\(\w\)\(\w*\)\>/\u\1\L\2/<cr>
 
 " Hit ^L in insert mode to skip the rest of this line and go to the next
 " line. This is handy when I've gotten to the end of the line, but autoclose
 " has added a bunch of closing punctuation to the right. I can skip to the
 " next line without having to get into normal mode and start a new line, or
 " typing out the closing marks to skip them.
-inoremap <C-l> <Esc>A<CR>
+inoremap <c-l> <esc>A<cr>
 
 " When I type 'o' to start a new line, it copies the indent from the current
 " line but if I then hit enter, it leaves whitespace behind on an otherwise
 " blank line. 'A' does not do that. So I remap o to A. Cheap, but it works.
-nnoremap o A<CR>
+nnoremap o A<cr>
 
 " }}}
 " --------------------------------------------------------------------
@@ -841,7 +853,8 @@ endif
 "endif
 
 if has('gui_running')
-    set guifont=Menlo:h14
+    "set guifont=Menlo:h14
+    set guifont=Menlo\ Regular\ for\ Powerline:h14
     set antialias
 endif
 
