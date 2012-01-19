@@ -13,3 +13,6 @@ set show-all-if-ambiguous On
 # Append file-type indicator to end of filenames in completions (cf. ls -F).
 set visible-stats On
 
+# Use vi keystrokes in readline apps like psql
+set editing-mode vi
+
