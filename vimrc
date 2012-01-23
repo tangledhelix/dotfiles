@@ -53,9 +53,9 @@ set softtabstop=4
 set shiftwidth=4
 
 " Set the indent width to 2, 4, or 8
-nnoremap <leader>2 :setlocal tabstop=2 shiftwidth=2<cr>
-nnoremap <leader>4 :setlocal tabstop=4 shiftwidth=4<cr>
-nnoremap <leader>8 :setlocal tabstop=8 shiftwidth=8<cr>
+nnoremap <leader>2 :setlocal tabstop=2 softtabstop=2 shiftwidth=2<cr>
+nnoremap <leader>4 :setlocal tabstop=4 softtabstop=4 shiftwidth=4<cr>
+nnoremap <leader>8 :setlocal tabstop=8 softtabstop=8 shiftwidth=8<cr>
 
 " Re-tab the current file (changes tab->space or space->tab depending on the
 " current setting of expandtab). This can be dangerous, because on occasion
@@ -195,9 +195,9 @@ vnoremap / /\v
 
 " Keep search matches in the middle of the window.
 " This is nice, but it breaks the wraparound warning because we hit
-" more stuff after that's displayed, clearing it.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" more stuff after that's displayed, clearing it...
+"nnoremap n nzzzv
+"nnoremap N Nzzzv
 
 " Use 'magic' patterns (extended regex) in search patterns. ("\s\+").
 " This isn't used by the / search due to the above remappings, but it
@@ -262,7 +262,7 @@ let g:Powerline_symbols = 'fancy'
 "let g:statline_mixed_indent   = 1
 "let g:statline_show_charcode  = 0
 
-" Old status line format
+" Old custom status line
 "set statusline=%<%f\ %h%m%r%y\ %=%-14.(%l,%c%V%)\ %P
 
 " Show current uncompleted command.
@@ -282,7 +282,7 @@ if has('multi_byte')
     set showbreak=↪
 else
     set nolist
-    set listchars=tab:>-,eol:$
+    set listchars=tab:>-,eol:$,extends:>,precedes:<
 endif
 
 " Turn invisibles on/off.
@@ -401,8 +401,8 @@ vnoremap j gj
 vnoremap k gk
 
 " h, l promoted by shift to start-of-line, end-of-line
-nnoremap H ^
-nnoremap L g_
+"nnoremap H ^
+"nnoremap L g_
 
 " Play along with Emacs-ish muscle memory
 inoremap <C-a> <Esc>I
@@ -448,13 +448,6 @@ nnoremap <leader>z zMzvzz
 " }}}
 " ----------------------------------------------------------------------
 " Syntax-related mappings {{{
-
-" Toggle syntax highlighting.
-nnoremap <silent> <leader>S :if exists('g:syntax_on') <bar>
-    \    syntax off <bar>
-    \else <bar>
-    \    source $MYVIMRC <bar>
-    \endif<cr>
 
 " Toggle spellcheck mode
 nnoremap <leader>s :set spell!<cr>
@@ -516,8 +509,9 @@ set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.tgz,.sit,.dmg,.hqx
 " Write a backup before overwriting a file. This backup is then erased,
 " unless 'backup' is also set. I hate tilde files, isn't this what the
 " .<filename>.swp file is for?
-set nobackup
-set nowritebackup
+" See 'history and undo' section
+"set nobackup
+"set nowritebackup
 
 " Where to store swap files. Putting them in . is good, because then you
 " can't edit the same file twice. However, when using a remote volume,
@@ -619,6 +613,14 @@ set history=100
 " after closing/opening a file (<filename>.un~). This has some appeal,
 " but I don't want the litter.
 "set undofile
+
+" Stealing some Steve Losh settings as an experiment.
+set undodir=~/.vim/tmp/undo//     " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap//   " swap files
+set backup                        " enable backups
+"set noswapfile                    " It's 2012, Vim.
+" Hmm. Why is 'directory' set if 'noswapfile' is set?
 
 " Toggle Gundo window
 if has('python')
