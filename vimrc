@@ -614,13 +614,12 @@ set history=100
 " but I don't want the litter.
 "set undofile
 
-" Stealing some Steve Losh settings as an experiment.
+" Some cache / backup locations
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
 "set noswapfile                    " It's 2012, Vim.
-" Hmm. Why is 'directory' set if 'noswapfile' is set?
 
 " Toggle Gundo window
 if has('python')
