@@ -22,6 +22,9 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
         echo
     }
 
+    # Create some Vim cache directories if they don't exist.
+    mkdir -p ~/.vim/tmp/{undo,backup,swap}
+
     # Check yankring permissions
     _yankring="$HOME/.vim/yankring_history_v2.txt"
     if [[ -f $_yankring ]]; then
