@@ -51,6 +51,7 @@ for _this in \
     /admin/tools/mail/sbin \
     /admin/config/auth/bin \
     /usr/local/pkg/perl/bin \
+    /usr/local/pkg/ruby/bin \
     /usr/local/pkg/mailman/bin \
     /usr/local/pkg/mysql/bin \
     /usr/local/pkg/pgsql/bin \
