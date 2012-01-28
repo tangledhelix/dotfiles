@@ -432,6 +432,9 @@ nnoremap <leader>q :cwindow<cr>
 nnoremap <c-e> 3<c-e>
 nnoremap <c-y> 3<c-y>
 
+" Select curent line *without* leading or trailing whitespace.
+nnoremap vv ^vg_
+
 " }}}
 " ----------------------------------------------------------------------
 " Folding {{{
