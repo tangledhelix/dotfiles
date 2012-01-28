@@ -775,6 +775,12 @@ inoremap <c-l> <esc>A<cr>
 " blank line. 'A' does not do that. So I remap o to A. Cheap, but it works.
 nnoremap o A<cr>
 
+" Create a private gist with proper file typing (assumes correct filename).
+" This is only really set up on my Mac so I have it wrapped in a test.
+if filereadable("/usr/local/bin/gist")
+    vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
+endif
+
 " }}}
 " --------------------------------------------------------------------
 " Auto-command triggers {{{
