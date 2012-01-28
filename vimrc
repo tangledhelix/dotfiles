@@ -730,9 +730,8 @@ vnoremap <leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 " Misc. mappings {{{
 
 " Use jj to get back to command mode instead of Esc, which is out of the
-" way. Esc still works too.
-" Turning this off, probably easier to map this only one way (in my head).
-"inoremap jj <Esc>
+" way and on some keyboards hard to reach. Esc still works too.
+inoremap jj <Esc>
 
 " Remap F1 to Esc, because they're right next to each other, and I know how
 " to type ":h" already, thank you very much.
@@ -869,7 +868,7 @@ endif
 "syntax enable
 syntax on
 
-" I'm using Solarized Light everywhere no, no need to do a check anymore.
+" I'm using Solarized Light everywhere now, no need to do a check anymore.
 set background=light
 
 "if has("gui_running")
