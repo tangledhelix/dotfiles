@@ -10,9 +10,6 @@
 [submodule "vim/bundle/nerd_commenter"]
 	path = vim/bundle/nerd_commenter
 	url = https://github.com/vim-scripts/The-NERD-Commenter.git
-[submodule "vim/bundle/nerd_tree"]
-	path = vim/bundle/nerd_tree
-	url = https://github.com/scrooloose/nerdtree.git
 [submodule "vim/bundle/rdist"]
 	path = vim/bundle/rdist
 	url = https://github.com/tangledhelix/vim-rdist.git

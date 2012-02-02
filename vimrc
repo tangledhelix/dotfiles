@@ -461,18 +461,6 @@ autocmd BufEnter * cd %:p:h
 " ":edit" command. Most of these are files created by LaTeX.
 set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.tgz,.sit,.dmg,.hqx
 
-" Toggle the NERDTree browser.
-nnoremap <leader>f :NERDTreeToggle<cr>
-
-" NERDTree should close when I choose a file to open
-let NERDTreeQuitOnOpen = 1
-
-" Suppress extra UI such as "press ? for help"
-let NERDTreeMinimalUI = 1
-
-" Use arrowpoint glyphs for directories instead of + and ~
-let NERDTreeDirArrows = 1
-
 " Search for files with CtrlP
 nnoremap <leader>* :CtrlP<cr>
 
