@@ -300,11 +300,13 @@ set viminfo=%,'50,\"100,:100,n~/.viminfo
 set history=100
 
 " Some cache / backup locations
-set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
 "set noswapfile                    " It's 2012, Vim.
+if has("persistent_undo")
+    set undodir=~/.vim/tmp/undo//     " undo files
+endif
 
 " Toggle Gundo window
 if has("python")
