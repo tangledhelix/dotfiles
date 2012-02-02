@@ -20,9 +20,10 @@ Navigating / jumping around
 
     `.      return to last line you edited
     '.      return to last line you edited
+    ``      return to last jump point (same as ^o)
 
     g;      go to position of last change (again to go to change before...)
     g,      move through changelist in opposite direction
 
-    ^O      move backward through jump list
-    ^I      move forward through jump list
+    ^o      move backward through jump list
+    ^i      move forward through jump list

@@ -442,11 +442,9 @@ autocmd VimResized * :wincmd =
 " --------------------------------------------------------------------- }}}
 " GUI window size {{{
 
-" Only set the window size if it was not set already.
-if has("gui_running") && !exists("w:dmlSetWindowSize")
+if has("gui_running")
     set lines=40
     set columns=90
-    let w:dmlSetWindowSize = 1
 endif
 
 " --------------------------------------------------------------------- }}}
