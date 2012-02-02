@@ -6,5 +6,5 @@ External comands
 
     !cmd            pipe selection through command, replace with result
 
-    :echo glob($VIMRUNTIME . '/syntax/*.vim')      Show all known syntaxes
+    :echo glob($VIMRUNTIME . "/syntax/*.vim")      Show all known syntaxes
 

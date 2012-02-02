@@ -1,8 +1,8 @@
 
 [[ "$OS" = "Darwin" ]] && {
 
-    alias ldd='otool -L'
-    alias telnet='/usr/bin/telnet -K'
+    alias ldd="otool -L"
+    alias telnet="/usr/bin/telnet -K"
 
     # Formats a man page as PDF, then supplies to Preview.app on stdin.
     pman() {

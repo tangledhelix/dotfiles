@@ -13,7 +13,7 @@
     new = ls-files --others --exclude-standard
     # Files that are in the staging area
     added = diff --cached --name-only
-    today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+    today = log --stat --since="1 Day Ago" --graph --pretty=oneline --abbrev-commit --date=relative
     ff = merge --ff-only
     pullsubs = submodule foreach git pull origin master
 
@@ -33,7 +33,7 @@
     token = <%= $github_api_token %>
 
 [merge]
-    tool = <%= File.exists?('/usr/bin/opendiff') ? 'opendiff' : 'vimdiff' %>
+    tool = <%= File.exists?("/usr/bin/opendiff") ? "opendiff" : "vimdiff" %>
 
 [diff]
     # For Github-style word diffs

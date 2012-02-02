@@ -6,8 +6,8 @@ General editing
     ce      change to end of word
     c$      change to end of line
     C       change to end of line
-    c/foo   change until match 'foo'
-    ctf     change until next occurrence of 'f'
+    c/foo   change until match "foo"
+    ctf     change until next occurrence of "f"
     ciw     change this word (inside)
     caw     change this word (outside)
 

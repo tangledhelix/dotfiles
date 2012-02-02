@@ -2,14 +2,14 @@
 
 Selections and matching on things
 
-    B matches a block, so in a block you can say (a is 'around' or
-    'this block plus enclosing delimiters, if any')
+    B matches a block, so in a block you can say (a is "around" or
+    "this block plus enclosing delimiters, if any")
         >aB     ident the current block
         <aB     outdent the current block
         daB     delete current block
         caB     change current block
 
-    viw     select a word ('word' delimited not whitespace-delimited)
+    viw     select a word ("word" delimited not whitespace-delimited)
     viW     select a word, whitespace delimited
 
     gv      reselect last selection

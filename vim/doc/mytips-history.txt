@@ -12,8 +12,8 @@ History views
     q/     search history
     q:     command history
 
-    type ':' then up/down arrow to see command history
-    type '/' then up/down arrow to see search history
+    type ":" then up/down arrow to see command history
+    type "/" then up/down arrow to see search history
 
     ^f     switch from command line or search input line, to command
            line history or search history, respectively.

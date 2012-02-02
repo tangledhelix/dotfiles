@@ -15,9 +15,9 @@ function md {
 # If an argument is supplied, grep for it.
 function path {
     test -n "$1" && {
-        echo $PATH | perl -p -e 's/:/\n/g;' | grep -i "$1"
+        echo $PATH | perl -p -e "s/:/\n/g;" | grep -i "$1"
     } || {
-        echo $PATH | perl -p -e 's/:/\n/g;'
+        echo $PATH | perl -p -e "s/:/\n/g;"
     }
 }
 
@@ -39,7 +39,7 @@ function hw {
 
 # Translate AS numbers / RR communities
 function astr {
-    echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
+    echo "$1" | tr "[A-J0-9]" "[0-9A-J]"
 }
 
 # Check if we're in a CVS repository
@@ -142,13 +142,13 @@ function gitinit {
 function _short_hname {
     local _retval=$?
 
-    echo $HOST | perl -p -e '
+    echo $HOST | perl -p -e "
         if (scalar(split(/\./)) > 3) {
-            s/^([^.]+\.[^.]+).*$/$1/;
+            s/^([^.]+\.[^.]+).*$/\$1/;
         } else {
-            s/^([^.]+).*$/$1/;
+            s/^([^.]+).*$/\$1/;
         }
-    '
+    "
 
     # Alternate version from Ravi Pina. Much shorter, but it gives
     # you three atoms on long names, not two, and on a single

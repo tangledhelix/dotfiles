@@ -516,7 +516,7 @@ set background=light
 colorscheme solarized
 
 " Mark trailing whitespace with red to make it stand out.
-match ErrorMsg '\s\+$'
+match ErrorMsg "\s\+$"
 
 " --------------------------------------------------------------------- }}}
 " Syntax {{{

@@ -112,12 +112,11 @@ test -n "$INTERACTIVE" && {
     export PS1
 
     # A decent tcsh prompt:
-    #set prompt = '%n@%M:%c{%?}%# '
+    #set prompt = "%n@%M:%c{%?}%# "
 
-    stty erase '^?' -parenb -istrip echo echoe echoctl echoke tabs cs8
+    stty erase "^?" -parenb -istrip echo echoe echoctl echoke tabs cs8
 
     # Keybindings for commandline edits (emacs or vi)
-    #set -o emacs
     set -o vi
 
     # notify of bg job completion immediately

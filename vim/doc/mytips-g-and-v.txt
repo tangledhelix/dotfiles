@@ -15,10 +15,10 @@ Can mix this with |:s| and/or |:%| do to stuff like this:
 
 :%g/foo/s/bar/zzz/g
 
-For every line containing 'foo', substitute all 'bar' with 'zzz'.
+For every line containing "foo", substitute all "bar" with "zzz".
 
-'m' to move
-'j' to join
+"m" to move
+"j" to join
 
 :%g/foo/m$      Move all lines matching /foo/ to end of file,
                 while preserving their original ordering.

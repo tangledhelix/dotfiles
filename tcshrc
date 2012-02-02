@@ -1,5 +1,5 @@
 # A simple prompt
-set prompt = '%n@%M:%c{%?}%# '
+set prompt = "%n@%M:%c{%?}%# "
 
 ######################################################################
 # Hostname tab completion for multiple commands

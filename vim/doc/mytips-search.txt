@@ -7,10 +7,10 @@ Search and replace
     gd      go to declaration of variable under the cursor
     [I      Show lines containing word under cursor
 
-    f<c>    jump to next occurrence of char <c>                     ('Find')
+    f<c>    jump to next occurrence of char <c>                     ("Find")
     F<c>    ... and in reverse
 
-    t<c>    jump to position *left* of next occurrence of char <c>  ('unTil')
+    t<c>    jump to position *left* of next occurrence of char <c>  ("unTil")
     T<c>    ... and in reverse
 
     e       go to end of word (also works with v, c, d, etc.)

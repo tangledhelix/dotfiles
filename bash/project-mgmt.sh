@@ -19,7 +19,7 @@ test -n "$INTERACTIVE" && {
         local _pattern="$1"
         local _line
 
-        /bin/ls -ltr | while read -r _line; do
+        projls -ltr | while read -r _line; do
             set -- $_line
             test -d "$9" && {
                 [[ "$9" =~ ^[0-9]{8}-.*$_pattern ]] && echo $9

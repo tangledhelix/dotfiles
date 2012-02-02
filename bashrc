@@ -1,18 +1,18 @@
 
 # detect interactive shells
 case "$-" in
-    *i*) INTERACTIVE=yes ;;
+    *i*) INTERACTIVE="yes" ;;
     *) unset INTERACTIVE ;;
 esac
 
-source ~/.bash/environment
-source ~/.bash/functions
-source ~/.bash/config
-source ~/.bash/aliases
-source ~/.bash/mac
-source ~/.bash/completion
-source ~/.bash/project-mgmt
-source ~/.bash/non-root
+source ~/.bash/environment.sh
+source ~/.bash/functions.sh
+source ~/.bash/config.sh
+source ~/.bash/aliases.sh
+source ~/.bash/mac.sh
+source ~/.bash/completion.sh
+source ~/.bash/project-mgmt.sh
+source ~/.bash/non-root.sh
 
 test -f ~/.bashrc.local && source ~/.bashrc.local
 

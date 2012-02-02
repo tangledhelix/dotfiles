@@ -1,10 +1,10 @@
-require 'erb'
+require "erb"
 
 task :default do
-    puts 'Usage: rake [ install | force | gitconfig ]'
-    puts '    install   : ask first before overwriting'
-    puts '    force     : just do it, no questions'
-    puts '    gitconfig : reinstall ~/.gitconfig from template'
+    puts "Usage: rake [ install | force | gitconfig ]"
+    puts "    install   : ask first before overwriting"
+    puts "    force     : just do it, no questions"
+    puts "    gitconfig : reinstall ~/.gitconfig from template"
     puts "        (note: install/force run gitconfig if it doesn't exist)"
 end
 
@@ -24,7 +24,7 @@ end
 
 def installer
     ignore_files = %w(README.md Rakefile gitconfig.erb install.sh)
-    Dir['*'].each do |file|
+    Dir["*"].each do |file|
         next if ignore_files.include?(file) or file =~ /.*~$/
             determine_action(file)
     end
@@ -32,18 +32,18 @@ def installer
 end
 
 def determine_action(file)
-    if File.exist?(File.join(ENV['HOME'], ".#{file}"))
+    if File.exist?(File.join(ENV["HOME"], ".#{file}"))
         if $replace_all
             replace_file(file)
         else
             print "Overwrite ~/.#{file}? [yNaq] "
             case STDIN.gets.chomp
-            when 'a'
+            when "a"
                 $replace_all = true
                 replace_file(file)
-            when 'y'
+            when "y"
                 replace_file(file)
-            when 'q'
+            when "q"
                 exit
             else
                 puts "    skipping ~/.#{file}"
@@ -70,8 +70,8 @@ end
 # dotfiles repo, which is publicly visible.
 
 def gitconfig_installer
-    template_file = 'gitconfig.erb'
-    output_file = ENV['HOME'] + '/.gitconfig'
+    template_file = "gitconfig.erb"
+    output_file = ENV["HOME"] + "/.gitconfig"
 
     # If we find an older install with the symlink in place,
     # clean that up first
@@ -82,24 +82,24 @@ def gitconfig_installer
 
     unless File.exists?(output_file)
 
-        puts ''
+        puts ""
         puts "=== Creating #{output_file} ==="
-        puts ''
+        puts ""
 
-        print '    Name: '
+        print "    Name: "
         $git_name = STDIN.gets.chomp
 
-        print '    Email address: '
+        print "    Email address: "
         $git_email = STDIN.gets.chomp
 
-        print '    GitHub username: '
+        print "    GitHub username: "
         $github_username = STDIN.gets.chomp
 
-        print '    GitHub API token: '
+        print "    GitHub API token: "
         $github_api_token = STDIN.gets.chomp
 
         template = ERB.new(File.read(template_file))
-        File.open(output_file, 'w') do |f|
+        File.open(output_file, "w") do |f|
             f.write(template.result())
         end
 
@@ -112,11 +112,11 @@ def gitconfig_installer
 end
 
 def gitconfig_check
-    file_path = ENV['HOME'] + '/.gitconfig'
+    file_path = ENV["HOME"] + "/.gitconfig"
     if File.exists?(file_path)
         print "#{file_path} exists, are you sure? (y/N) "
         case STDIN.gets.chomp
-        when 'y'
+        when "y"
             File.unlink(file_path)
             gitconfig_installer
         else

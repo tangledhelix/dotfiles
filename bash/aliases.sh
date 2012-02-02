@@ -1,88 +1,86 @@
 
-# I intentionally do not use color support for ls because it looks awful.
-# I still want the trailing file-type indicators (-F).
-
 if [[ "$OS" = "Linux" ]]; then
-    # Silly Linux makes up its own timestamp formatting.
-    # That breaks project-mgmt. Bad Linux!
-    alias ls='/bin/ls -F --time-style=+"%b %e %H:%M" --color=auto'
+    alias ls="/bin/ls -F --color=auto"
+    # Linux has its own timestamp formatting. Breaks project-mgmt. Bad Linux!
+    alias projls="/bin/ls --time-style=+'%b %e %H:%M'"
 else
-    alias ls='/bin/ls -F'
+    alias ls="/bin/ls -F"
+    alias projls="/bin/ls"
 fi
 
-alias ggraph='git log --graph --decorate --pretty=oneline --abbrev-commit'
+alias ggraph="git log --graph --decorate --pretty=oneline --abbrev-commit"
 
 # CVS at work uses an unexpected path. This is aliased because it breaks other
 # repositories, e.g. sourceforge.
-alias wcvs='CVS_SERVER=/usr/local/bin/cvs cvs'
+alias wcvs="CVS_SERVER=/usr/local/bin/cvs cvs"
 
 # validate a puppet manifest
-alias ppv='puppet parser validate'
+alias ppv="puppet parser validate"
 
 # convenience aliases
-alias c='clear'
-#alias p='proj'
-#alias mp='mkproj'
+alias c="clear"
+#alias p="proj"
+#alias mp="mkproj"
 
 # Common typos. Don't judge.
-alias whios='whois'
-alias mroe='more'
-alias More='more'
-alias Grep='grep'
-alias vm='rm'
-alias chkcofnig='chkconfig'
-alias cd..='cd ..'
+alias whios="whois"
+alias mroe="more"
+alias More="more"
+alias Grep="grep"
+alias vm="rm"
+alias chkcofnig="chkconfig"
+alias cd..="cd .."
 
 # Just in case I'm somewhere that all the fancy color stuff doesn't
 # work right, or I'm running screen, I can use this.
 alias simpleprompt='export PS1="\u@$(_short_hname):\w{\$?}[\j]\\$ "'
 
 # print the directory structure from the current directory in tree format
-alias dirf='find . -type d|sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"'
+alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
 
 # find name...
-alias fn='find . -name'
+alias fn="find . -name"
 
 # file list without trailing type characters or anything.
-alias fl='/bin/ls | cat'
-alias fla='/bin/ls -a | cat'
+alias fl="/bin/ls | cat"
+alias fla="/bin/ls -a | cat"
 
 # Show me time in GMT / UTC
-alias utc='TZ=UTC date'
-alias gmt='TZ=GMT date'
+alias utc="TZ=UTC date"
+alias gmt="TZ=GMT date"
 # Time in Tokyo
-alias jst='TZ=Asia/Tokyo date'
+alias jst="TZ=Asia/Tokyo date"
 
 # Solaris paths
-#test -x /usr/bin/mailx && alias mail='/usr/bin/mailx'
-#test -x /usr/ucb/Mail && alias Mail='/usr/ucb/Mail'
+#test -x /usr/bin/mailx && alias mail="/usr/bin/mailx"
+#test -x /usr/ucb/Mail && alias Mail="/usr/ucb/Mail"
 
 # Solaris diff sucks, use my GNU diff instead.
 test -x /usr/local/pkg/diffutils/bin/diff &&
-    alias diff='/usr/local/pkg/diffutils/bin/diff'
+    alias diff="/usr/local/pkg/diffutils/bin/diff"
 
 # Tell me what OS this is
-alias os='uname -srm'
+alias os="uname -srm"
 
 # Shortcut to ssh with X11 forwarding explicitly enabled and disabled
-alias sshx='ssh -X'
-alias sshnx='ssh -x'
+alias sshx="ssh -X"
+alias sshnx="ssh -x"
 
 # Tail a file even if it's rotated out (e.g. log files) - needs GNU tail
-alias tailf='tail --follow=name'
+alias tailf="tail --follow=name"
 
 # Count something fed in on stdin
-alias count='sort | uniq -c | sort -n'
+alias count="sort | uniq -c | sort -n"
 
 # Strip comment / blank lines from an output
 alias stripcomments="egrep -v '^([\ \t]*#|$)'"
 
 # Check for hosed SMF services on (Solaris >= 10)
 # No, I no longer need the xv image viewer in 2011.
-test -x /bin/svcs && alias xv='svcs -xv'
+test -x /bin/svcs && alias xv="svcs -xv"
 
 # Show me an SMF service with its processes (Solaris >= 10)
-test -x /bin/svcs && alias sp='svcs -p'
+test -x /bin/svcs && alias sp="svcs -p"
 
 # I like to use smart-case with Ack.
 test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
@@ -91,8 +89,8 @@ test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
 alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
 
 # reload bash config
-alias reload='source ~/.bashrc'
+alias reload="source ~/.bashrc"
 
 # commands starting with % for pasting from web
-alias %=' '
+alias %=" "
 
