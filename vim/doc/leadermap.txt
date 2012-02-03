@@ -19,13 +19,6 @@ Current leader key map:                                            *leadermap*
   ,a            Invoke Ack on current word (<cword>) (plugin: |ack|)
   ,A            Toggle autoclose mode (plugin: autoclose)
   ,B            Build Javascript bookmarklet from current buffer
-  ,c{x}         Manage commenting (plugin: |NERDCommenter|)
-        ,cc         Comment current line or selection
-        ,cu         Uncomment current line or selection
-        ,c<space>   Toggle commenting, based on first line's current state
-        ,c$         Comment from cursor to end-of-line
-        ,ci         Invert each line's current state
-        ,cy         Yank line or selection, then comment it
   ,E            Toggle completion from system dictionary
   ,Ft           Fold current tag in HTML (should also work in XML)
   ,G            Create private gist (only set up on Mac currently)

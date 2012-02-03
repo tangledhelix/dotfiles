@@ -1,5 +1,7 @@
 *mytips.txt*  Dan's personal Vim tips                       *mytips* *dmltips*
 
+Learn these two files inside out and upside down: |change.txt|, |motion.txt|
+
 Vim tips and tricks:
 
 Editing text                    |mytips-editing|

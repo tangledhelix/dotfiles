@@ -7,9 +7,6 @@
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/nerd_commenter"]
-	path = vim/bundle/nerd_commenter
-	url = https://github.com/vim-scripts/The-NERD-Commenter.git
 [submodule "vim/bundle/rdist"]
 	path = vim/bundle/rdist
 	url = https://github.com/tangledhelix/vim-rdist.git
@@ -73,3 +70,6 @@
 [submodule "vim/bundle/powerline"]
 	path = vim/bundle/powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "vim/bundle/tcomment"]
+	path = vim/bundle/tcomment
+	url = https://github.com/tomtom/tcomment_vim.git
