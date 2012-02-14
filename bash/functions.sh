@@ -329,8 +329,10 @@ function beep {
 function mkpuppetmodule {
     [[ -d $1 ]] && { echo "directory '$1' already exists"; return; }
     mkdir -p $1/{files,templates,manifests}
-    cd $1
-    ls -l
+    cd $1/manifests
+    [[ -f init.pp ]] && { echo "init.pp exists, not creating it."; return; }
+    printf "\nclass $1 {\n\n}\n\n" > init.pp
+    $EDITOR +3 init.pp
 }
 
 # Get a short URL for GitHub
