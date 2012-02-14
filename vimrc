@@ -12,7 +12,7 @@ autocmd!
 " XML tags, stuff like that, instead of just brackets and parens.
 runtime macros/matchit.vim
 
-" --------------------------------------------------------------------- }}}
+"    --------------------------------------------------------------------- }}}
 " Pathogen {{{
 
 " vim-pathogen, for sane plugin management.
@@ -29,7 +29,7 @@ call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " General settings {{{
 
 let mapleader = ","
@@ -41,7 +41,7 @@ set hidden
 " Ignore whitespace-only changes in diff mode
 set diffopt=iwhite
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " General keymaps {{{
 
 " Use jj to get back to command mode instead of Esc, which is out of the
@@ -62,7 +62,7 @@ nnoremap <leader>q :cwindow<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>
 vnoremap <leader>S y:execute @@<cr>
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Fix braindead keymaps {{{
 
 " Remap F1 to Esc, because they're right next to each other, and I know how
@@ -84,7 +84,7 @@ inoremap <esc>[3~ <c-h>
 " Unmap the K key, it usually doesn't do anything useful anyway.
 nnoremap K <nul>
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Messages and alerts {{{
 
 set noerrorbells
@@ -101,7 +101,7 @@ if !has("gui_running")
     set t_vb=
 endif
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Status and title bars {{{
 
 " Always show the status bar
@@ -129,7 +129,7 @@ if has("gui_running")
     set guioptions=-t
 endif
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Cursor and position indicators {{{
 
 " Show current cursor line position
@@ -163,7 +163,7 @@ autocmd BufReadPost *
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Tabs and indenting {{{
 
 " I've gone back and forth on this over the years, and I always come back
@@ -189,7 +189,7 @@ set shiftround
 vnoremap > >gv
 vnoremap < <gv
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Selecting {{{
 
 " Reselect what was just pasted so I can so something with it.
@@ -199,7 +199,7 @@ nnoremap <leader>v `[v`]
 " Select current line, excluding leading and trailing whitespace
 nnoremap vv ^vg_
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Copy and paste {{{
 
 " Key combo to toggle paste-mode
@@ -215,7 +215,7 @@ nnoremap <silent> <leader>y :YRShow<cr>
 " Where to store the Yankring history file (don't want it in $HOME)
 let g:yankring_history_dir = "$HOME/.vim"
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Formatting {{{
 
 " Text formatting options, used by 'gq', 'gw' and elsewhere. :help fo-table
@@ -256,7 +256,7 @@ nnoremap S i<cr><esc><right>
 " Toggle autoclose mode
 nmap <leader>A <Plug>ToggleAutoCloseMappings
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Wrapping {{{
 
 " I use Vim mostly to write code. This doesn't auto-wrap lines, it only does
@@ -274,7 +274,7 @@ set nolinebreak
 " Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Folding {{{
 
 " Use explicit markers for folding (triple curly-brace)
@@ -289,7 +289,7 @@ nnoremap <leader>z zMzvzz
 " Fold current HTML tag.
 nnoremap <leader>Ft Vatzf
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " History, undo and caches {{{
 
 " What to store from an editing session in the viminfo file.
@@ -315,7 +315,7 @@ else
     nnoremap <leader>u :echo "Gundo requires Python support"<cr>
 endif
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Search and replace {{{
 
 " Highlight matches, and use incremental search (like iTunes).
@@ -356,7 +356,7 @@ nnoremap <leader>a :Ack <cword><cr>
 " (Trailing space on below map is intentional.)
 nnoremap <leader>/ :Ack --smart-case 
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Invisibles {{{
 
 " Do not show invisibles by default.
@@ -374,13 +374,13 @@ else
     set listchars=tab:>-,eol:$,extends:>,precedes:<
 endif
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Abbreviations {{{
 
 " Lorem ipsum text
 abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ornare metus. In justo metus, auctor nec semper in, laoreet porttitor augue. Maecenas tortor libero, dignissim vel placerat sit amet, malesuada ut quam. Curabitur vitae velit lacus, sed imperdiet sapien. Sed posuere, odio nec pharetra adipiscing
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Expansion and completion {{{
 
 " Add the dash ('-'), the dot ('.'), and the '@' as "letters" to "words".
@@ -399,7 +399,7 @@ set wildmode=list:longest
 " Toggle English-word completion from system dictionary. (^n, ^p)
 nnoremap <silent> <leader>E :call ToggleFlag("complete", "k", "English completion")<cr>
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Spelling {{{
 
 " System dictionary to use
@@ -411,7 +411,7 @@ set spelllang=en_us
 " Toggle spellcheck mode
 nnoremap <leader>s :set spell!<cr>
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Windows and tabpages {{{
 
 " Create new windows below current one, if no direction was specified.
@@ -439,7 +439,7 @@ nnoremap <silent> <s-right> :tabnext<cr>
 " Resize splits when the window is resized.
 autocmd VimResized * :wincmd =
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " GUI window size {{{
 
 if has("gui_running")
@@ -447,7 +447,7 @@ if has("gui_running")
     set columns=90
 endif
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Finding and opening files {{{
 
 " List of directories to search when I specify a file with an edit command.
@@ -472,7 +472,7 @@ vnoremap <leader>ow :wincmd f
 nnoremap <leader>ot :wincmd gf
 vnoremap <leader>ot :wincmd gf
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Shell and external commands {{{
 
 " Shell to use. Stick with the old standard.
@@ -504,7 +504,7 @@ if filereadable("/usr/local/bin/gist")
     vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
 endif
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
 
 if has("gui_running")
@@ -518,7 +518,7 @@ colorscheme solarized
 " Mark trailing whitespace with red to make it stand out.
 match ErrorMsg "\s\+$"
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax {{{
 
 " Syntax: General {{{
@@ -549,45 +549,45 @@ nnoremap <leader>H :TOhtml<cr>
 " Ask Vim for the syntax type at cursor location
 nnoremap <leader>? :call SynStack()<cr>
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: BIND {{{
 
 autocmd BufNewFile,BufRead *.com set filetype=bindzone
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: C {{{
 
 autocmd FileType c setlocal foldmethod=syntax
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: Email and Exim {{{
 
 autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
 autocmd BufNewFile,BufRead exim.cf* set filetype=exim
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: Epub {{{
 
 " Look inside .epub files
 au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: Erlang {{{
 
 autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: M4 {{{
 
 autocmd BufNewFile,BufRead *.global set filetype=m4
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: Make {{{
 
 " Makefile requires real tabs, not spaces
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make noexpandtab
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: Markdown, MultiMarkdown, Octopress {{{
 
 " Octopress is a superset of Markdown so just use it everywhere.
@@ -598,7 +598,7 @@ autocmd BufNewFile,BufRead *.md,*.markdown set filetype=octopress textwidth=78 w
 autocmd FileType markdown,octopress let g:surround_{char2nr("i")} = "*\r*"
 autocmd FileType markdown,octopress let g:surround_{char2nr("b")} = "**\r**"
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: Mediawiki {{{
 
 autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
@@ -612,32 +612,37 @@ autocmd FileType mediawiki let g:surround_{char2nr("2")} = "==\r=="
 autocmd FileType mediawiki let g:surround_{char2nr("3")} = "===\r==="
 autocmd FileType mediawiki let g:surround_{char2nr("4")} = "====\r===="
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: Perl {{{
 
 autocmd BufNewFile,BufRead *.t set filetype=perl
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: PHP {{{
 
 autocmd BufNewFile,BufRead *.inc set filetype=php
 
-" --------------------------------------------------------------------- }}}
-"  Syntax: Rdist {{{
+" ------------------------------------------------------------------------ }}}
+" Syntax: Rdist {{{
 
 autocmd BufNewFile,BufRead distfile.common set filetype=rdist
 
-" --------------------------------------------------------------------- }}}
-"  Syntax: Ruby {{{
+" ------------------------------------------------------------------------ }}}
+" Syntax: Ruby {{{
 
 autocmd Filetype ruby setlocal foldmethod=syntax
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Syntax: Shell {{{
 
 autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
+" Syntax: Taskpaper {{{
+
+autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
+
+" ------------------------------------------------------------------------ }}}
 " Syntax: Vim {{{
 
 " Snippet files need real tabs, at least on the left margin.
@@ -645,9 +650,9 @@ autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 " is set, they will be translated to spaces during expansion.
 autocmd FileType snippet set noexpandtab
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Local customizations {{{
 
 " Override this file without modifying the master copy in git.
@@ -655,4 +660,4 @@ if filereadable($HOME . "/.vimrc.local")
     source ~/.vimrc.local
 endif
 
-" --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
