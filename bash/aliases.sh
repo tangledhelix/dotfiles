@@ -31,6 +31,15 @@ alias vm="rm"
 alias chkcofnig="chkconfig"
 alias cd..="cd .."
 
+# Companions to the ..() function
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias .......="cd ../../../../../.."
+alias ........="cd ../../../../../../.."
+alias .........="cd ../../../../../../../.."
+
 # Just in case I'm somewhere that all the fancy color stuff doesn't
 # work right, or I'm running screen, I can use this.
 alias simpleprompt='export PS1="\u@$(_short_hname):\w{\$?}[\j]\\$ "'
@@ -87,6 +96,9 @@ test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
 
 # Give me a list of the RPM package groups
 alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
+
+# Watch Puppet logs
+alias tailp="tail -f /var/log/daemon/debug | grep puppet"
 
 # reload bash config
 alias reload="source ~/.bashrc"
