@@ -1,4 +1,6 @@
 
+export TERM="xterm-256color"
+
 # Make sure bash can find .inputrc
 test -n "$INPUTRC" || export INPUTRC="~/.inputrc"
 
