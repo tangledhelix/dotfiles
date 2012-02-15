@@ -15,7 +15,7 @@ export CVS_RSH="ssh"
 export IRCNAME="dan"
 
 # Erase duplicate entries from history
-#export HISTCONTROL="erasedups"
+export HISTCONTROL="erasedups"
 
 # Increase history size
 export HISTSIZE="10000"
