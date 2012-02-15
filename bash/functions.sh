@@ -21,6 +21,15 @@ function path {
     }
 }
 
+# Run ssh and reset titlebar when it exits (so I don't have to
+# close a window to get rid of 'puck', 'hagstrom' in the title bar).
+function ssh() {
+    local _ssh="/usr/bin/ssh"
+    test -x /usr/local/bin/ssh && _ssh="/usr/local/bin/ssh"
+    $_ssh $@
+    echo -ne "\x1b]2;$HOST\x07\x1b]1;$HOST\x07"
+}
+
 # Look up error codes
 function errno {
     perl -e "\$! = $1; print \"\$! \\n\";"
