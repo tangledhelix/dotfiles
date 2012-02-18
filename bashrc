@@ -11,7 +11,7 @@ source ~/.bash/config
 source ~/.bash/aliases
 source ~/.bash/mac
 source ~/.bash/completion
-source ~/.bash/project-mgmt.sh
+source ~/.bash/project-mgmt
 source ~/.bash/non-root
 
 test -f ~/.bashrc.local && source ~/.bashrc.local
