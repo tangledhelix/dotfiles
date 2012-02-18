@@ -23,7 +23,7 @@ function path {
 
 # Run ssh and reset titlebar when it exits (so I don't have to
 # close a window to get rid of 'puck', 'hagstrom' in the title bar).
-function ssh() {
+function ssh {
     local _ssh="/usr/bin/ssh"
     test -x /usr/local/bin/ssh && _ssh="/usr/local/bin/ssh"
     $_ssh $@
@@ -303,16 +303,19 @@ function perlmodver {
 # Move backward through the directory tree easily. When called without
 # an argument, goes back one level ('cd ..'). When called with a numeric
 # argument, goes back that many levels.
-#       '.. 2' = 'cd ../..'
-#       '.. 3' = 'cd ../../..'
-#       '.. 4' = 'cd ../../../..'
-function .. {
+#       '_.. 2' = 'cd ../..'
+#       '_.. 3' = 'cd ../../..'
+#       '_.. 4' = 'cd ../../../..'
+# When called with an optional second argument, cd's to that directory
+# after having backed out $1 levels
+function _.. {
     local _count
     test -n "$1" && _count="$1" || _count="1"
     while [[ "$_count" > 0 ]]; do
         cd ..
         _count=$((_count - 1))
     done
+    test -n "$2" && cd "$2"
 }
 
 # Test for a perl module and print its version if any.

@@ -48,5 +48,17 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
     # Is screen running?
     test -n "$HAVE_SCREEN" && $HAVE_SCREEN -list | grep -v '^No Sockets'
 
+    # Is tmux running?
+    if [[ -n "$HAVE_TMUX" -a -z "$TMUX" ]]; then
+        _num_tmux_procs=`pgrep -u $USER tmux | wc -l`
+        case $_num_tmux_procs in
+            0) ;;
+            1) echo "tmux is detached" ;;
+            2) echo "tmux is attached" ;;
+            *) echo "tmux: unexpected state: $_num_tmux_procs processes" ;;
+        esac
+        grabssh
+    fi
+
 }
 

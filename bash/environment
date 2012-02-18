@@ -89,6 +89,7 @@ HAVE_ACK=$(command -v ack 2>/dev/null)
 HAVE_LESS=$(command -v less 2>/dev/null)
 HAVE_MVIM=$(command -v mvim 2>/dev/null)
 HAVE_SCREEN=$(command -v screen 2>/dev/null)
+HAVE_TMUX=$(command -v tmux 2>/dev/null)
 HAVE_VIM=$(command -v vim 2>/dev/null)
 HAVE_VIMDIFF=$(command -v vimdiff 2>/dev/null)
 

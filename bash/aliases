@@ -32,13 +32,14 @@ alias chkcofnig="chkconfig"
 alias cd..="cd .."
 
 # Companions to the ..() function
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
-alias .......="cd ../../../../../.."
-alias ........="cd ../../../../../../.."
-alias .........="cd ../../../../../../../.."
+alias ..="_.. 1"
+alias ...="_.. 2"
+alias ....="_.. 3"
+alias .....="_.. 4"
+alias ......="_.. 5"
+alias .......="_.. 6"
+alias ........="_.. 7"
+alias .........="_.. 8"
 
 # Just in case I'm somewhere that all the fancy color stuff doesn't
 # work right, or I'm running screen, I can use this.
@@ -99,6 +100,9 @@ alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
 
 # Watch Puppet logs
 alias tailp="tail -f /var/log/daemon/debug | grep puppet"
+
+# fix ssh variables for re-attached tmux sessions
+alias fixssh="source ~/bin/fixssh"
 
 # reload bash config
 alias reload="source ~/.bashrc"

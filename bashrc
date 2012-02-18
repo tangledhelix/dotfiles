@@ -5,14 +5,14 @@ case "$-" in
     *) unset INTERACTIVE ;;
 esac
 
-source ~/.bash/environment.sh
-source ~/.bash/functions.sh
-source ~/.bash/config.sh
-source ~/.bash/aliases.sh
-source ~/.bash/mac.sh
-source ~/.bash/completion.sh
+source ~/.bash/environment
+source ~/.bash/functions
+source ~/.bash/config
+source ~/.bash/aliases
+source ~/.bash/mac
+source ~/.bash/completion
 source ~/.bash/project-mgmt.sh
-source ~/.bash/non-root.sh
+source ~/.bash/non-root
 
 test -f ~/.bashrc.local && source ~/.bashrc.local
 
