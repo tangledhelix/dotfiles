@@ -49,7 +49,7 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
     test -n "$HAVE_SCREEN" && $HAVE_SCREEN -list | grep -v '^No Sockets'
 
     # Is tmux running?
-    if [[ -n "$HAVE_TMUX" -a -z "$TMUX" ]]; then
+    if [[ "$OS" = "Linux" && -n "$HAVE_TMUX" && -z "$TMUX" ]]; then
         _num_tmux_procs=`pgrep -u $USER tmux | wc -l`
         case $_num_tmux_procs in
             0) ;;
