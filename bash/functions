@@ -142,6 +142,8 @@ function _scm_info {
 function gitinit {
     git init
     printf ".DS_Store\n.*.swp\n*~\n" > .gitignore
+    git add .gitignore
+    git ci -m "initializing repo" .gitignore
 }
 
 # Give me a shortened version of the local hostname.
