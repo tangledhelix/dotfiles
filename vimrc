@@ -132,8 +132,10 @@ endif
 " ------------------------------------------------------------------------ }}}
 " Cursor and position indicators {{{
 
-" Show current cursor line position
+" Show current cursor line position, but only in the current window
 set cursorline
+autocmd WinLeave * set nocursorline
+autocmd WinEnter * set cursorline
 
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
@@ -143,9 +145,12 @@ set ruler
 " numbering if we're on an old vim.
 " Map <leader>n to toggle the number column. They get in the way of copying
 " in a terminal.
-if v:version >= 703
+if exists("+relativenumber")
     set relativenumber
     nnoremap <silent> <leader>n :set relativenumber!<cr>
+    " Use static line numbers in insert mode, relative otherwise.
+    autocmd InsertEnter * setl nu
+    autocmd InsertLeave * setl rnu
 else
     set number
     nnoremap <silent> <leader>n :set number!<cr>
@@ -162,6 +167,12 @@ autocmd BufReadPost *
 " http://code.google.com/p/iterm2/wiki/ProprietaryEscapeCodes
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" Only show the "margin" column in insert mode
+if exists("&colorcolumn")
+    autocmd InsertEnter * set colorcolumn=80
+    autocmd InsertLeave * set colorcolumn=""
+endif
 
 " ------------------------------------------------------------------------ }}}
 " Tabs and indenting {{{
@@ -630,7 +641,7 @@ autocmd BufNewFile,BufRead distfile.common set filetype=rdist
 " ------------------------------------------------------------------------ }}}
 " Syntax: Ruby {{{
 
-autocmd Filetype ruby setlocal foldmethod=syntax
+autocmd FileType ruby setlocal foldmethod=syntax
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Shell {{{
