@@ -100,6 +100,8 @@ alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
 
 # Watch Puppet logs
 alias tailp="tail -f /var/log/daemon/debug | grep puppet"
+alias tailpa="tail -f /var/log/daemon/debug | grep puppet-agent"
+alias tailpm="tail -f /var/log/daemon/debug | grep puppet-master"
 
 # fix ssh variables for re-attached tmux sessions
 alias fixssh="source ~/bin/fixssh"
