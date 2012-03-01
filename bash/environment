@@ -57,7 +57,7 @@ for _this in \
     /usr/local/pkg/mysql/bin \
     /usr/local/pkg/pgsql/bin \
     /usr/local/pkg/openldap/{bin,sbin} \
-    /opt/openldap/{bin,sbin} |
+    /opt/openldap/{bin,sbin} \
     /usr/sfw/bin \
     /usr/X11R6/bin \
     /Developer/usr/bin \
