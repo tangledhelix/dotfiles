@@ -49,30 +49,23 @@ for _this in \
     /usr/openwin/bin \
     /usr/dt/bin \
     /admin/tools/system \
-    /admin/tools/mail/bin \
-    /admin/tools/mail/sbin \
+    /admin/tools/mail/{bin,sbin} \
     /admin/config/auth/bin \
     /usr/local/pkg/perl/bin \
     /usr/local/pkg/ruby/bin \
     /usr/local/pkg/mailman/bin \
     /usr/local/pkg/mysql/bin \
     /usr/local/pkg/pgsql/bin \
-    /usr/local/pkg/openldap/bin \
-    /usr/local/pkg/openldap/sbin \
-    /opt/openldap/bin \
-    /opt/openldap/sbin \
+    /usr/local/pkg/openldap/{bin,sbin} \
+    /opt/openldap/{bin,sbin} |
     /usr/sfw/bin \
     /usr/X11R6/bin \
     /Developer/usr/bin \
-    /usr/local/Cellar/ruby/1.9.2-p290/bin \
-    /usr/local/Cellar/ruby/1.9.3-p0/bin \
+    /usr/local/Cellar/ruby/*/bin \
     ~/.gems/bin \
-    ~/.gem/ruby/1.9.1/bin \
-    ~/.gem/ruby/1.8/bin \
+    ~/.gem/ruby/*/bin \
     ~/Dropbox/bin \
-    /usr/local/Cellar/python/2.7/bin \
-    /usr/local/Cellar/python/2.7.1/bin \
-    /usr/local/Cellar/python/2.7.2/bin \
+    /usr/local/Cellar/python/*/bin \
     ~/tools
 do
     test -d $_this && {
