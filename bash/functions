@@ -1,19 +1,19 @@
 
 # "h" shows a tailed history
 # "h <pattern>" shows all history entries matching the string
-function h {
+h() {
     test -n "$1" && { history | grep -i "$1"; } || { history | tail -15; }
 }
 
 # Make a directory, then go there
-function md {
+md() {
     test -n "$1" || return
     mkdir -p "$1" && cd "$1"
 }
 
 # "path" shows current path, one element per line.
 # If an argument is supplied, grep for it.
-function path {
+path() {
     test -n "$1" && {
         echo $PATH | perl -p -e "s/:/\n/g;" | grep -i "$1"
     } || {
@@ -23,7 +23,7 @@ function path {
 
 # Run ssh and reset titlebar when it exits (so I don't have to
 # close a window to get rid of 'puck', 'hagstrom' in the title bar).
-function ssh {
+ssh() {
     local _ssh="/usr/bin/ssh"
     test -x /usr/local/bin/ssh && _ssh="/usr/local/bin/ssh"
     $_ssh $@
@@ -31,12 +31,12 @@ function ssh {
 }
 
 # Look up error codes
-function errno {
+errno() {
     perl -e "\$! = $1; print \"\$! \\n\";"
 }
 
 # Machine type, on Solaris systems
-function hw {
+hw() {
     [[ "$OS" != "SunOS" ]] && {
         echo "'hw' is only available in SunOS."
         return
@@ -47,27 +47,27 @@ function hw {
 }
 
 # Translate AS numbers / RR communities
-function astr {
+astr() {
     echo "$1" | tr "[A-J0-9]" "[0-9A-J]"
 }
 
 # Check if we're in a CVS repository
-function is_cvs_repository {
+is_cvs_repository() {
     test -f ./CVS/Root > /dev/null 2>&1
 }
 
 # Check if we're in a Subversion repository
-function is_svn_repository {
+is_svn_repository() {
     test -d ./.svn > /dev/null 2>&1
 }
 
 # Check if we're in a git repository
-function is_git_repository {
+is_git_repository() {
     git branch > /dev/null 2>&1
 }
 
 # Figure out our SCM coloring.
-function _scm_color {
+_scm_color() {
     local _retval=$?
     local _git_status
 
@@ -96,7 +96,7 @@ function _scm_color {
 # Look for code repositories. If git, show me the branch name. If CVS or
 # Subversion, just show me the repo type (they don't have good branch info).
 # Preserve the value of $? by returning it as we received it.
-function _scm_info {
+_scm_info() {
     local _retval=$?
     local _branch
     local _git_status
@@ -139,7 +139,7 @@ function _scm_info {
 }
 
 # Create a new git repo in cwd
-function gitinit {
+gitinit() {
     git init
     printf ".DS_Store\n.*.swp\n*~\n" > .gitignore
     git add .gitignore
@@ -150,7 +150,7 @@ function gitinit {
 # If it's 1-3 atoms, give me only the first.
 # If it's more than that, give me the first two.
 # Preserve the value of $? by returning it as we received it.
-function _short_hname {
+_short_hname() {
     local _retval=$?
 
     echo $HOST | perl -p -e "
@@ -171,7 +171,7 @@ function _short_hname {
 
 # Check to see if I have local mail on this system. If mail is waiting,
 # output a few chars that are supposed to resemble an envelope.
-function _check_for_mail {
+_check_for_mail() {
     local _retval=$?
     local _mail_cmd
 
@@ -187,14 +187,14 @@ function _check_for_mail {
 
 # Output a color.
 # Preserve the value of $? by returning it as we received it.
-function _xc {
+_xc() {
     local _retval=$?
     echo -ne "\033[$1m"
     return $_retval
 }
 
 # Make the colored text underscored
-function _xcu {
+_xcu() {
     local _retval=$?
     echo -ne "\033[$1;4m"
     return $_retval
@@ -202,7 +202,7 @@ function _xcu {
 
 # Make the foreground color bold (bright) instead of normal.
 # Preserve the value of $? by returning it as we received it.
-function _xcb {
+_xcb() {
     local _retval=$?
     echo -ne "\033[1;$1m"
     return $_retval
@@ -210,7 +210,7 @@ function _xcb {
 
 # Set back to normal colors (reset).
 # Preserve the value of $? by returning it as we received it.
-function _xcr {
+_xcr() {
     local _retval=$?
     echo -ne "\033[0m"
     return $_retval
@@ -220,7 +220,7 @@ function _xcr {
 # Preserve the original value of $? by returning it as we received it.
 # 31 = red
 # 7 = reverse
-function _xc_retval {
+_xc_retval() {
     local _retval=$?
     [[ $_retval != 0 ]] && echo -ne "\033[31;7m"
     return $_retval
@@ -229,7 +229,7 @@ function _xc_retval {
 # Get job count, return an attention grabbing color if there are > 0.
 # Preserve the original value of $? by returning it as we received it.
 # 31 = red
-function _xc_jobs {
+_xc_jobs() {
     local _retval=$?
     local _jobcount=`jobs | wc -l`
     [[ $_jobcount -gt 0 ]] && _xc 31
@@ -237,7 +237,7 @@ function _xc_jobs {
 }
 
 # Used by ff(), fd()... execute a find command, possible filtering results
-function _finder {
+_finder() {
     local _type="$1"
     local _include="$2"
     local _exclude="$3"
@@ -254,7 +254,7 @@ function _finder {
 }
 
 # Show file tree, optionally filtering results
-function ff {
+ff() {
     if [[ "$1" =~ ^\(-h\|--help\) ]]; then
         echo "Usage: ff [<include-pattern>] [<exclude-pattern>]"
         return
@@ -264,7 +264,7 @@ function ff {
 }
 
 # Show directory tree, optionally filtering results
-function fd {
+fd() {
     if [[ "$1" =~ ^\(-h\|--help\) ]]; then
         echo "Usage: fd [<include-pattern>] [<exclude-pattern>]"
         return
@@ -274,28 +274,28 @@ function fd {
 }
 
 # Set a window title
-function set_window_title {
+set_window_title() {
     echo -ne "\033]2;$1\a"
 }
 
 # Set an iTerm2 *tab* title independent of window title
-function set_tab_title {
+set_tab_title() {
     echo -ne "\033]1;$1\a"
 }
 
 # Set both window and tab titles
-function set_titles {
+set_titles() {
     set_window_title "$1"
     set_tab_title "$1"
 }
 
 # Steal focus
-function steal_focus {
+steal_focus() {
     echo -ne "\033]50;StealFocus\a"
 }
 
 # Tell me the installed version of a Perl module.
-function perlmodver {
+perlmodver() {
     local _module="$1"
 
     test -n "$_module" || { echo "missing argument"; return; }
@@ -305,12 +305,12 @@ function perlmodver {
 # Move backward through the directory tree easily. When called without
 # an argument, goes back one level ('cd ..'). When called with a numeric
 # argument, goes back that many levels.
-#       '_.. 2' = 'cd ../..'
-#       '_.. 3' = 'cd ../../..'
-#       '_.. 4' = 'cd ../../../..'
+#       '_cdback 2' == 'cd ../..'
+#       '_cdback 3' == 'cd ../../..'
+#       '_cdback 4' == 'cd ../../../..'
 # When called with an optional second argument, cd's to that directory
 # after having backed out $1 levels
-function _.. {
+_cdback() {
     local _count
     test -n "$1" && _count="$1" || _count="1"
     while [[ "$_count" > 0 ]]; do
@@ -321,7 +321,7 @@ function _.. {
 }
 
 # Test for a perl module and print its version if any.
-function pmver {
+pmver() {
     local _module="$1"
 
     if [[ -z "$_module" ]]; then
@@ -334,13 +334,13 @@ function pmver {
 
 # Beep the terminal. If a time is specified, wait that number
 # of seconds, then beep.
-function beep {
+beep() {
     test -n "$1" && sleep $1
     echo -ne "\a"
 }
 
 # Make a new puppet module
-function mkpuppetmodule {
+mkpuppetmodule() {
     [[ -d $1 ]] && { echo "directory '$1' already exists"; return; }
     mkdir -p $1/{files,templates,manifests}
     cd $1/manifests
@@ -350,8 +350,8 @@ function mkpuppetmodule {
 }
 
 # Get a short URL for GitHub
-function git.io {
-    test -z "$1" && { echo "Usage: git.io <url> [<code>]"; return; }
+gitshorturl() {
+    test -z "$1" && { echo "Usage: gitshorturl <url> [<code>]"; return; }
     test -n "$2" && {
         curl -i http://git.io -F "url=$1" -F "code=$2"
     } || {
