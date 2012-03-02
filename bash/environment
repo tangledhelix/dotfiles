@@ -31,12 +31,19 @@ test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
 #######################################################################
 # Command search path
 
+_rsort() {
+    /bin/ls -d $1 | /usr/bin/sort -r
+}
+
 unset PATH
 
 for _this in \
     ~/local/bin \
     ~/bin \
     ~/.rbenv/bin \
+    $(_rsort "/usr/local/Cellar/ruby/*/bin") \
+    ~/.gems/bin \
+    $(_rsort "$HOME/.gem/ruby/*/bin") \
     /admin/bin \
     /usr/local/bin \
     /bin \
@@ -60,12 +67,8 @@ for _this in \
     /opt/openldap/{bin,sbin} \
     /usr/sfw/bin \
     /usr/X11R6/bin \
-    /Developer/usr/bin \
-    /usr/local/Cellar/ruby/*/bin \
-    ~/.gems/bin \
-    ~/.gem/ruby/*/bin \
-    ~/Dropbox/bin \
-    /usr/local/Cellar/python/*/bin \
+    $(_rsort "/usr/local/Cellar/python3/*/bin") \
+    $(_rsort "/usr/local/Cellar/python/*/bin") \
     ~/tools
 do
     test -d $_this && {
@@ -101,8 +104,7 @@ for _this in \
     /usr/openwin/man \
     /usr/sfw/man \
     ~/local/man \
-    ~/local/share/man \
-    ~/Dropbox/man
+    ~/local/share/man
 do
     test -d $_this && {
         test -n "$MANPATH" && MANPATH="$MANPATH:$_this" || MANPATH="$_this"
