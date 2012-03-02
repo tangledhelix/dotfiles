@@ -32,7 +32,7 @@ test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
 # Command search path
 
 _rsort() {
-    /bin/ls -d $1 | /usr/bin/sort -r
+    /bin/ls -d $1 2>/dev/null | /usr/bin/sort -r
 }
 
 unset PATH
