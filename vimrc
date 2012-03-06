@@ -48,6 +48,10 @@ set diffopt=iwhite
 " way and on some keyboards hard to reach. Esc still works too.
 inoremap jj <Esc>
 
+" Use more natural key movement on wrapped lines.
+nnoremap j gj
+nnoremap k gk
+
 " Hit ^L in insert mode to skip the rest of this line and go to the next
 " line. This is handy when I've gotten to the end of the line, but autoclose
 " has added a bunch of closing punctuation to the right. I can skip to the
@@ -285,6 +289,18 @@ set nolinebreak
 " Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
 
+function ToggleShowBreak()
+    if &showbreak == ""
+        if has("multi_byte")
+            execute("set showbreak=↪")
+        endif
+    else
+        execute("set showbreak=")
+    endif
+endfunction
+
+nnoremap <silent> <Leader>N :call ToggleShowBreak()<cr>
+
 " ------------------------------------------------------------------------ }}}
 " Folding {{{
 
@@ -358,8 +374,8 @@ set magic
 set gdefault
 
 " Keep search matches positioned in the middle of the window.
-" nnoremap n nzzzv
-" nnoremap N Nzzzv
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " Use ack. Grep, refined. Provided by ack.vim plugin.
 " Use <CWORD> alternately if desired.
