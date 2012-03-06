@@ -50,13 +50,7 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
 
     # Is tmux running?
     if [[ "$OS" = "Linux" && -n "$HAVE_TMUX" && -z "$TMUX" ]]; then
-        _num_tmux_procs=`pgrep -u $USER tmux | wc -l`
-        case $_num_tmux_procs in
-            0) ;;
-            1) echo "tmux is detached" ;;
-            2) echo "tmux is attached" ;;
-            *) echo "tmux: unexpected state: $_num_tmux_procs processes" ;;
-        esac
+        pgrep -u $LOGNAME -l -f 'tmux -[CL]'
         grabssh
     fi
 
