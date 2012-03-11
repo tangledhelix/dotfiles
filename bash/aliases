@@ -76,9 +76,6 @@ alias os="uname -srm"
 alias sshx="ssh -X"
 alias sshnx="ssh -x"
 
-# Tail a file even if it's rotated out (e.g. log files) - needs GNU tail
-alias tailf="tail --follow=name"
-
 # Count something fed in on stdin
 alias count="sort | uniq -c | sort -n"
 
@@ -99,9 +96,9 @@ test -n "$HAVE_ACK" && alias ack="$HAVE_ACK --smart-case"
 alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
 
 # Watch Puppet logs
-alias tailp="tail -f /var/log/daemon/debug | grep puppet"
-alias tailpa="tail -f /var/log/daemon/debug | grep puppet-agent"
-alias tailpm="tail -f /var/log/daemon/debug | grep puppet-master"
+alias tailp="tail -F /var/log/daemon/debug | grep puppet"
+alias tailpa="tail -F /var/log/daemon/debug | grep puppet-agent"
+alias tailpm="tail -F /var/log/daemon/debug | grep puppet-master"
 
 # fix ssh variables for re-attached tmux sessions
 alias fixssh="source ~/bin/fixssh"
