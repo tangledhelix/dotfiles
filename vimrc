@@ -531,6 +531,25 @@ if filereadable("/usr/local/bin/gist")
     vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
 endif
 
+" Reload Google Chrome on Mac from Vim.
+" Adapted from:  https://github.com/gcollazo/BrowserRefresh-Sublime/
+if has("python")
+    function! ChromeReload()
+        python << EOF
+from subprocess import call
+browser = """
+tell application "Google Chrome" to tell the active tab of its first window
+    reload
+end tell
+-- tell application "Google Chrome" to activate
+"""
+call(['osascript', '-e', browser])
+EOF
+    endfunction
+endif
+
+nnoremap <silent> <Leader>R :call ChromeReload()<cr>
+
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
 
@@ -668,6 +687,12 @@ autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 " Syntax: Taskpaper {{{
 
 autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
+
+" ------------------------------------------------------------------------ }}}
+" Syntax: Version control {{{
+
+" Highlight VCS conflict markers, e.g. those in Git
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Vim {{{
