@@ -12,6 +12,14 @@ autocmd!
 " XML tags, stuff like that, instead of just brackets and parens.
 runtime macros/matchit.vim
 
+" Detect the OS
+if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        let s:has_darwin = 1
+    endif
+endif
+
 "    --------------------------------------------------------------------- }}}
 " Pathogen {{{
 
@@ -66,27 +74,18 @@ nnoremap <leader>q :cwindow<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>
 vnoremap <leader>S y:execute @@<cr>
 
-" ------------------------------------------------------------------------ }}}
-" Fix braindead keymaps {{{
-
-" Remap F1 to Esc, because they're right next to each other, and I know how
-" to type ":h" already, thank you very much.
-inoremap <f1> <esc>
-nnoremap <f1> <esc>
-vnoremap <f1> <esc>
+" Redraw the screen
+nnoremap <leader>l :redraw!<cr>
 
 " Define "del" char to be the same backspace (saves a LOT of trouble!)
 " As the angle notation cannot be use with the LeftHandSide
 " with mappings you must type this in *literally*!
 " map <C-V>127 <C-H>
-"cmap <C-V>127 <C-H>
+" cmap <C-V>127 <C-H>
 inoremap  <c-h>
 cnoremap  <c-h>
 " the same for Linux Debian which uses
 inoremap <esc>[3~ <c-h>
-
-" Unmap the K key, it usually doesn't do anything useful anyway.
-nnoremap K <nul>
 
 " ------------------------------------------------------------------------ }}}
 " Messages and alerts {{{
@@ -209,7 +208,7 @@ vnoremap < <gv
 
 " Reselect what was just pasted so I can so something with it.
 " (To reslect last selection even if it is not the last paste, use gv.)
-nnoremap <leader>v `[v`]
+nnoremap <leader>V `[v`]
 
 " Select current line, excluding leading and trailing whitespace
 nnoremap vv ^vg_
@@ -229,6 +228,23 @@ nnoremap <silent> <leader>y :YRShow<cr>
 
 " Where to store the Yankring history file (don't want it in $HOME)
 let g:yankring_history_dir = "$HOME/.vim"
+
+" Key combos to copy/paste using Mac clipboard
+if exists("s:has_darwin")
+    nnoremap <leader>c "*yy
+    vnoremap <leader>c "*y
+    nnoremap <leader>v "*p
+    vnoremap <leader>v "*p
+    " Variants that set paste first. How to preserve paste if it's
+    " already set, though?
+    " nnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
+    " vnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
+else
+    nnoremap <leader>c :echo "Only supported on Mac"<cr>
+    vnoremap <leader>c :echo "Only supported on Mac"<cr>
+    nnoremap <leader>v :echo "Only supported on Mac"<cr>
+    vnoremap <leader>v :echo "Only supported on Mac"<cr>
+endif
 
 " ------------------------------------------------------------------------ }}}
 " Formatting {{{
@@ -270,6 +286,10 @@ nnoremap S i<cr><esc><right>
 
 " Toggle autoclose mode
 nmap <leader>A <Plug>ToggleAutoCloseMappings
+
+" Invoke Tabular
+nnoremap <leader>= :Tab /
+vnoremap <leader>= :Tab /
 
 " ------------------------------------------------------------------------ }}}
 " Wrapping {{{
@@ -330,7 +350,7 @@ set history=100
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
-"set noswapfile                    " It's 2012, Vim.
+" set noswapfile                    " It's 2012, Vim.
 if has("persistent_undo")
     set undodir=~/.vim/tmp/undo//     " undo files
 endif
@@ -499,6 +519,9 @@ vnoremap <leader>ow :wincmd f
 nnoremap <leader>ot :wincmd gf
 vnoremap <leader>ot :wincmd gf
 
+" Open a file browser
+nnoremap <leader>e :edit .<cr>
+
 " ------------------------------------------------------------------------ }}}
 " Shell and external commands {{{
 
@@ -518,22 +541,18 @@ nnoremap <leader>r :QuickRun<cr>
 nnoremap <silent> <leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<cr>
 
 " Preview a markdown file in the default browser
-nnoremap <leader>M :w!<cr>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<cr><cr>
+if exists("s:has_darwin")
+    nnoremap <leader>M :w!<cr>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<cr><cr>
+endif
 
 " Convert file, or selection, so each contiguous non-whitespace blob is
 " on its own line. Strip all other whitespace.
 nnoremap <leader>1 :%!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 vnoremap <leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 
-" Create a private gist with proper file typing (assumes correct filename).
-" This is only really set up on my Mac so I have it wrapped in a test.
-if filereadable("/usr/local/bin/gist")
-    vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
-endif
-
 " Reload Google Chrome on Mac from Vim.
 " Adapted from:  https://github.com/gcollazo/BrowserRefresh-Sublime/
-if has("python")
+if has("python") && exists("s:has_darwin")
     function! ChromeReload()
         python << EOF
 from subprocess import call
@@ -587,7 +606,7 @@ set nomodeline
 set modelines=0
 
 " Re-indent entire file, preserving cursor location
-nnoremap <leader>= :call Preserve("normal! gg=G")<cr>
+"nnoremap <leader>= :call Preserve("normal! gg=G")<cr>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 nnoremap <leader>H :TOhtml<cr>

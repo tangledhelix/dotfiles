@@ -9,7 +9,7 @@ Current leader key map:                                            *leadermap*
   ,'            Change surrounding " to ' (plugin: |surround|)
   ,*            Fuzzy search for files/buffers/MRU (plugin: |ctrlp|)
   ,/            Invoke Ack in smart-case mode (plugin: |ack|)
-  ,=            Re-indent entire buffer
+  ,=            Invoke Tabular for alignment
   ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight
   ,1            Convert file or selection to one string per line
@@ -19,12 +19,14 @@ Current leader key map:                                            *leadermap*
   ,a            Invoke Ack on current word (<cword>) (plugin: |ack|)
   ,A            Toggle autoclose mode (plugin: autoclose)
   ,B            Build Javascript bookmarklet from current buffer
+  ,c            Copy line or selection to Mac clipboard
+  ,e            Open the file browser
   ,E            Toggle completion from system dictionary
   ,Ft           Fold current tag in HTML (should also work in XML)
-  ,G            Create private gist (only set up on Mac currently)
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
+  ,l            Redraw the editor window
   ,M            Preview Markdown file in default browser (incl. SmartyPants)
   ,n            Toggle line numbering
   ,N            Toggle the linewrap break indicator
@@ -39,7 +41,8 @@ Current leader key map:                                            *leadermap*
   ,S            :execute current line
   ,t            Open a new tab in current view
   ,u            Toggle Gundo window (plugin: |gundo|)
-  ,v            Reselect what was just pasted (use gv for last selection)
+  ,v            Paste from Mac clipboard
+  ,V            Reselect what was just pasted (use gv for last selection)
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
   ,y            Toggle yankring window (plugin: |yankring|)
