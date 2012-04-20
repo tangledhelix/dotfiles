@@ -60,13 +60,6 @@ inoremap jj <Esc>
 nnoremap j gj
 nnoremap k gk
 
-" Hit ^L in insert mode to skip the rest of this line and go to the next
-" line. This is handy when I've gotten to the end of the line, but autoclose
-" has added a bunch of closing punctuation to the right. I can skip to the
-" next line without having to get into normal mode and start a new line, or
-" typing out the closing marks to skip them.
-inoremap <c-l> <esc>A<cr>
-
 " Open quickfix window
 nnoremap <leader>q :cwindow<cr>
 
@@ -75,7 +68,7 @@ nnoremap <leader>S ^vg_y:execute @@<cr>
 vnoremap <leader>S y:execute @@<cr>
 
 " Redraw the screen
-nnoremap <leader>l :redraw!<cr>
+nnoremap <leader>l :syntax sync fromstart<cr>:redraw!<cr>
 
 " Define "del" char to be the same backspace (saves a LOT of trouble!)
 " As the angle notation cannot be use with the LeftHandSide
@@ -86,6 +79,9 @@ inoremap  <c-h>
 cnoremap  <c-h>
 " the same for Linux Debian which uses
 inoremap <esc>[3~ <c-h>
+
+" go to location of last change
+nnoremap gl `.
 
 " ------------------------------------------------------------------------ }}}
 " Messages and alerts {{{
@@ -284,9 +280,6 @@ vnoremap <tab> I<tab><esc>gv
 " Split line at cursor position
 nnoremap S i<cr><esc><right>
 
-" Toggle autoclose mode
-nmap <leader>A <Plug>ToggleAutoCloseMappings
-
 " Invoke Tabular
 nnoremap <leader>= :Tab /
 vnoremap <leader>= :Tab /
@@ -319,7 +312,7 @@ function ToggleShowBreak()
     endif
 endfunction
 
-nnoremap <silent> <Leader>N :call ToggleShowBreak()<cr>
+nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Folding {{{
@@ -397,11 +390,18 @@ set gdefault
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Since we borrowed , for the mapleader, replicate its purpose in \
+" (the mapleader we displaced).
+nnoremap \ ,
+
 " Use ack. Grep, refined. Provided by ack.vim plugin.
 " Use <CWORD> alternately if desired.
 nnoremap <leader>a :Ack <cword><cr>
 " (Trailing space on below map is intentional.)
-nnoremap <leader>/ :Ack --smart-case 
+nnoremap <leader>A :Ack --smart-case 
+
+" Open a Quickfix window for the last search.
+nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " ------------------------------------------------------------------------ }}}
 " Invisibles {{{
@@ -445,6 +445,32 @@ set wildmode=list:longest
 
 " Toggle English-word completion from system dictionary. (^n, ^p)
 nnoremap <silent> <leader>E :call ToggleFlag("complete", "k", "English completion")<cr>
+
+" ------------------------------------------------------------------------ }}}
+" Text object 'N': number {{{
+
+onoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+xnoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+onoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
+onoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+
+function! s:NumberTextObject(whole)
+    normal! v
+
+    while getline('.')[col('.')] =~# '\v[0-9]'
+        normal! l
+    endwhile
+
+    if a:whole
+        normal! o
+
+        while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
+            normal! h
+        endwhile
+    endif
+endfunction
 
 " ------------------------------------------------------------------------ }}}
 " Spelling {{{
@@ -567,7 +593,7 @@ EOF
     endfunction
 endif
 
-nnoremap <silent> <Leader>R :call ChromeReload()<cr>
+nnoremap <silent> <leader>R :call ChromeReload()<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
@@ -581,7 +607,8 @@ set background=light
 colorscheme solarized
 
 " Mark trailing whitespace with red to make it stand out.
-match ErrorMsg "\s\+$"
+" Mark Git-style conflict markers.
+match ErrorMsg '\(\s\+$\|^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)'
 
 " ------------------------------------------------------------------------ }}}
 " Syntax {{{
@@ -708,10 +735,9 @@ autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
 
 " ------------------------------------------------------------------------ }}}
-" Syntax: Version control {{{
+" Syntax: Text {{{
 
-" Highlight VCS conflict markers, e.g. those in Git
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+autocmd BufNewFile,BufRead *.txt set filetype=text
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Vim {{{
