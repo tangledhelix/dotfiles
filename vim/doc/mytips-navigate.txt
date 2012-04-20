@@ -25,5 +25,8 @@ Navigating / jumping around
     g;      go to position of last change (again to go to change before...)
     g,      move through changelist in opposite direction
 
+    gi      go to last place you exited insert mode
+    gl      go to last change (same as `.)
+
     ^o      move backward through jump list
     ^i      move forward through jump list
