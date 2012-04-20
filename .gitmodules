@@ -25,9 +25,6 @@
 [submodule "vim/bundle/abolish"]
 	path = vim/bundle/abolish
 	url = https://github.com/tpope/vim-abolish.git
-[submodule "vim/bundle/autoclose"]
-	path = vim/bundle/autoclose
-	url = https://github.com/tangledhelix/vim-autoclose.git
 [submodule "vim/bundle/textobj-user"]
 	path = vim/bundle/textobj-user
 	url = https://github.com/kana/vim-textobj-user.git
