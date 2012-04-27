@@ -47,7 +47,10 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
 
     test -n "$HAVE_SCREEN" && $HAVE_SCREEN -list | grep -v '^No Sockets'
 
-    test -n "$HAVE_TMUX" && tmux ls
+    if [ -n "$HAVE_TMUX" -a -z "$TMUX" ]; then
+        echo "## tmux"
+        tmux ls
+    fi
 
 }
 
