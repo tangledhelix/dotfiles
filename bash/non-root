@@ -45,14 +45,9 @@ test -n "$INTERACTIVE" -a "$UID" != "0" && {
         chmod 0600 $_yankring
     fi
 
-    # Is screen running?
     test -n "$HAVE_SCREEN" && $HAVE_SCREEN -list | grep -v '^No Sockets'
 
-    # Is tmux running?
-    if [[ "$OS" = "Linux" && -n "$HAVE_TMUX" && -z "$TMUX" ]]; then
-        pgrep -u $LOGNAME -l -f 'tmux -[CL]'
-        grabssh
-    fi
+    test -n "$HAVE_TMUX" && tmux ls
 
 }
 
