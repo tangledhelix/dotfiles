@@ -83,6 +83,9 @@ inoremap <esc>[3~ <c-h>
 " go to location of last change
 nnoremap gl `.
 
+" Default binding for this key is useless
+nnoremap K <nop>
+
 " ------------------------------------------------------------------------ }}}
 " Messages and alerts {{{
 
@@ -148,8 +151,8 @@ if exists("+relativenumber")
     set relativenumber
     nnoremap <silent> <leader>n :set relativenumber!<cr>
     " Use static line numbers in insert mode, relative otherwise.
-    autocmd InsertEnter * setlocal number
-    autocmd InsertLeave * setlocal relativenumber
+    "autocmd InsertEnter * setlocal number
+    "autocmd InsertLeave * setlocal relativenumber
 else
     set number
     nnoremap <silent> <leader>n :set number!<cr>
@@ -354,6 +357,8 @@ if has("python")
 else
     nnoremap <leader>u :echo "Gundo requires Python support"<cr>
 endif
+
+let g:Powerline_cache_file = $HOME . "/.vim/tmp/Powerline.cache"
 
 " ------------------------------------------------------------------------ }}}
 " Search and replace {{{
