@@ -163,14 +163,11 @@ LESS="-iRw"
 
 export PAGER MANPAGER LESS
 
-#######################################################################
-# Oracle
+## Oracle
 
 test -d /apps/oracle/product/9.2.0 &&
     export ORACLE_HOME="/apps/oracle/product/9.2.0"
 
 test -d /apps/oracle/product/10.2.0 &&
     export ORACLE_HOME="/apps/oracle/product/10.2.0"
-
-#######################################################################
 
