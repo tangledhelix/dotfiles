@@ -1,0 +1,20 @@
+*mytips-completion.txt*  Dan's personal Vim tips         *mytips-completion*
+
+Completion and expansion
+
+    To auto-complete what you are typing (words, variable names, etc.),
+    type part of the word and use ctrl-n or ctrl-p to show completions.
+    If there is only one match it is auto-inserted.
+
+    Keep using ctrl-n or ctrl-p until you have the one you want, then
+    keep typing, hit Esc, whatever.
+
+    ctrl-n          Next match in completion mode
+    ctrl-p          Previous match in completion mode
+
+    ctrl-x ctrl-l   Whole-line completion mode (instead of words)
+
+    And when completing something like a file path for :e ...
+
+    ctrl-d          Show possible expansions on current completion
+
