@@ -2,7 +2,7 @@
 
 Window resizing
 
-    (Ctrl-W works in place of :winc)
+    (ctrl-W works in place of :winc)
 
     :res        resize to maximum available
     :res -N     downsize by count N
@@ -13,10 +13,10 @@ Window resizing
 
 Windows moving
 
-    Ctrl-J      Move to window below
-    Ctrl-K      Move to window above
-    Ctrl-H      Move to window at left
-    Ctrl-L      Move to window at right
+    ctrl-j      Move to window below
+    ctrl-k      Move to window above
+    ctrl-h      Move to window at left
+    ctrl-l      Move to window at right
 
 Creating a window
 
@@ -28,6 +28,6 @@ Creating a tab
 
 Moving among tabs
 
-    Shift-right     Move to tab at right
-    Shift-left      Move to tab at left
+    shift-right     Move to tab at right
+    shift-left      Move to tab at left
 

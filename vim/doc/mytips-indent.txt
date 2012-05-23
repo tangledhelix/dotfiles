@@ -8,6 +8,6 @@ Indenting
 
     In insert mode:
 
-    ^T      indent line one shiftwidth
-    ^D      de-dent line one shiftwidth
+    ctrl-t  indent line one shiftwidth
+    ctrl-d  de-dent line one shiftwidth
 

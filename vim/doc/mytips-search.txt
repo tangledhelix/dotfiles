@@ -16,10 +16,8 @@ Search and replace
     e       go to end of word (also works with v, c, d, etc.)
     b       go to beginning of word
 
-    ctrl-d  Show possible expansions on current completion
-
     q/      Open search history window to edit/use search history
-    ^f      From search input field, switch to search history window
+    ctrl-f  From search input field, switch to search history window
 
     :%g/foo/m$      move all lines matching foo to end of file
                         % = global search
