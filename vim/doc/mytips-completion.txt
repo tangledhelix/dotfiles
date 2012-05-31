@@ -14,6 +14,8 @@ Completion and expansion
 
     ctrl-x ctrl-l   Whole-line completion mode (instead of words)
 
+    ctrl-x ctrl-f   Complete a local filesystem filename
+
     And when completing something like a file path for :e ...
 
     ctrl-d          Show possible expansions on current completion
