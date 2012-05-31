@@ -100,9 +100,6 @@ alias tailp="tail -F /var/log/daemon/debug | grep puppet"
 alias tailpa="tail -F /var/log/daemon/debug | grep puppet-agent"
 alias tailpm="tail -F /var/log/daemon/debug | grep puppet-master"
 
-# fix ssh variables for re-attached tmux sessions
-alias fixssh="source ~/bin/fixssh"
-
 # reload bash config
 alias reload="source ~/.bashrc"
 
