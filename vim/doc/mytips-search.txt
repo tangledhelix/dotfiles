@@ -37,5 +37,8 @@ Search and replace
     :s/\%V_/ /g     Add \%V to limit action to a *block* selection (by
                     default entire lines are affected even in ^v mode).
 
+    :%s/\ r//g      Remove all the ^M from a file
+    :%s/\ r$//g     Remove ^M only at the end of a line
+
     &       repeat last :s command
 
