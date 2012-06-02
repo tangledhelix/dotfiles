@@ -24,9 +24,9 @@ Try iTerm2 instead.
 I have written two blog posts on the subject of iTerm and iTerm2. Give them a
 read; color support is only one of several good reasons to switch.
 
-<http://tangledhelix.com/archive/iterm-terminal>
+<http://tangledhelix.com/blog/2010/11/20/iterm-terminal/>
 
-<http://tangledhelix.com/archive/iterm2-iterm>
+<http://tangledhelix.com/blog/2010/12/06/iterm2-iterm/>
 
 Shell colors in bash
 --------------------
