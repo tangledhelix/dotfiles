@@ -6,13 +6,25 @@ set completion-ignore-case On
 # Show all matches when there's ambiguity.
 set show-all-if-ambiguous On
 
-# Search backward through history with ESC-p. Type a partial command, hit
-# ESC-p, you get completions matching prefix. Hit again to move to next match.
-"\ep": history-search-backward
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# Use the text that has already been typed as the prefix for searching through
+# commands (i.e. more intelligent Up/Down behavior)
+"\e[B": history-search-forward
+"\e[A": history-search-backward
 
 # Append file-type indicator to end of filenames in completions (cf. ls -F).
 set visible-stats On
 
 # Use vi keystrokes in readline apps like psql
 set editing-mode vi
+
+# Be more intelligent when autocompleting by also looking at the text after
+# the cursor. For example, when the current line is "cd ~/src/mozil", and
+# the cursor is on the "z", pressing Tab will not autocomplete it to "cd
+# ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
+# Readline used by Bash 4.)
+# This is turned off because I don't think I have bash 4 most places.
+#set skip-completed-text on
 
