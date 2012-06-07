@@ -439,10 +439,6 @@ abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ornar
 " ------------------------------------------------------------------------ }}}
 " Expansion and completion {{{
 
-" Add the dash ('-'), the dot ('.'), and the '@' as "letters" to "words".
-" This makes it possible to expand email addresses, e.g. guckes-www@vim.org
-set iskeyword=@,48-57,_,192-255,-,.,@-@
-
 " Keystroke used for "expansion" on the command line. Default is <c-e>.
 set wildchar=<tab>
 
@@ -742,6 +738,7 @@ autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 " Syntax: Taskpaper {{{
 
 autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
+autocmd BufNewFile,BufRead *.taskpapertheme setlocal filetype=xml
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Text {{{
