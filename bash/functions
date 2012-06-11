@@ -359,3 +359,34 @@ gitshorturl() {
     }
 }
 
+# Fix ssh variables inside tmux sessions
+function fixssh() {
+
+    if [[ -n "$TMUX" ]]; then
+
+        NEW_SSH_CLIENT="`tmux showenv|grep ^SSH_CLIENT|cut -d = -f 2`"
+        if [[ -n "$NEW_SSH_CLIENT" ]]; then
+          export SSH_CLIENT="$NEW_SSH_CLIENT"
+        fi
+
+        NEW_SSH_TTY="`tmux showenv|grep ^SSH_TTY|cut -d = -f 2`"
+        if [[ -n "$NEW_SSH_TTY" ]]; then
+          export SSH_TTY="$NEW_SSH_TTY"
+        fi
+
+        NEW_SSH_AUTH_SOCK="`tmux showenv|grep ^SSH_AUTH_SOCK|cut -d = -f 2`"
+        if [[ -n "$NEW_SSH_AUTH_SOCK" ]] && [[ -S "$NEW_SSH_AUTH_SOCK" ]]; then
+          export SSH_AUTH_SOCK="$NEW_SSH_AUTH_SOCK"
+        fi
+
+        NEW_SSH_CONNECTION="`tmux showenv|grep ^SSH_CONNECTION|cut -d = -f 2`"
+        if [[ -n "$NEW_SSH_CONNECTION" ]]; then
+          export SSH_CONNECTION="$NEW_SSH_CONNECTION"
+        fi
+
+        unset NEW_SSH_CLIENT NEW_SSH_TTY NEW_SSH_CONNECTION NEW_SSH_AUTH_SOCK
+
+    fi
+
+}
+
