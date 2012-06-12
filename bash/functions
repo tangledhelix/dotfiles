@@ -278,6 +278,11 @@ set_window_title() {
     echo -ne "\033]2;$1\a"
 }
 
+# alias for set_window_title
+title() {
+    set_window_title "$1"
+}
+
 # Set an iTerm2 *tab* title independent of window title
 set_tab_title() {
     echo -ne "\033]1;$1\a"
