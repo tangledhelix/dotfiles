@@ -288,8 +288,8 @@ vnoremap <tab> I<tab><esc>gv
 nnoremap S i<cr><esc><right>
 
 " Invoke Tabular
-nnoremap <leader>= :Tab /
-vnoremap <leader>= :Tab /
+nnoremap <leader>= :Tabularize /
+vnoremap <leader>= :Tabularize /
 
 " ------------------------------------------------------------------------ }}}
 " Wrapping {{{
