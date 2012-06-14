@@ -37,7 +37,9 @@ zstyle ':omz:load' omodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'prompt'
+  'prompt' \
+  'git' \
+  'history-substring-search'
 
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
