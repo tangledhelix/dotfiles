@@ -17,8 +17,12 @@ zstyle ':omz:*:*' case-sensitive 'no'
 # Color output (auto set to 'no' on dumb terminals).
 zstyle ':omz:*:*' color 'yes'
 
-# Auto set the tab and window titles.
-zstyle ':omz:module:terminal' auto-title 'yes'
+# Auto set the tab and window titles except over ssh.
+if [ -n "$SSH_TTY" ]; then
+  zstyle ':omz:module:terminal' auto-title 'no'
+else
+  zstyle ':omz:module:terminal' auto-title 'yes'
+fi
 
 # Set the Zsh modules to load (man zshmodules).
 # zstyle ':omz:load' zmodule 'attr' 'stat'
