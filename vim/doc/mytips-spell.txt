@@ -2,10 +2,10 @@
 
 Spell check
 
-    :set spell!     Toggle spell check mode (also bound to ,s)
-    ]s              Next error
-    [s              Previous error
-    z=              List of suggestions
-    zg              Add to my dictionary (zug to undo)
-    zw              Remove from my dictionary (zuw to undo)
+  :set spell!     Toggle spell check mode (also bound to ,s)
+  ]s              Next error
+  [s              Previous error
+  z=              List of suggestions
+  zg              Add to my dictionary (zug to undo)
+  zw              Remove from my dictionary (zuw to undo)
 

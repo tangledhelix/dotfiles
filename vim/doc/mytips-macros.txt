@@ -2,9 +2,9 @@
 
 Macros
 
-    q.      record macro into default register
-    q       stop recording
-    @.      play macro from default register
+  q.      record macro into default register
+  q       stop recording
+  @.      play macro from default register
 
-    qa, @a  using register a
+  qa, @a  using register a
 

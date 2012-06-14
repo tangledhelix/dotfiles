@@ -2,22 +2,22 @@
 
 Folds
 
-    zo      open closed fold under cursor
-    zc      close current fold region
-    zR      open "(R)ip open?" all folds
-    zM      close "(M)inimize?" all folds
+  zo      open closed fold under cursor
+  zc      close current fold region
+  zR      open "(R)ip open?" all folds
+  zM      close "(M)inimize?" all folds
 
 Fold method
 
-    :set foldmethod=<method>
+  :set foldmethod=<method>
 
-    manual, indent, expr, marker, syntax, diff
+  manual, indent, expr, marker, syntax, diff
 
-    marker: three opening, three closing, curly braces
-    indent: uses indent levels
-    syntax: uses syntax information for current syntax
+  marker: three opening, three closing, curly braces
+  indent: uses indent levels
+  syntax: uses syntax information for current syntax
 
-    indent is handy for large nested files like YAML or similar if they're
-    out of control.
+  indent is handy for large nested files like YAML or similar if they're
+  out of control.
 
-    See |'foldmethod'| for more.
+  See |'foldmethod'| for more.

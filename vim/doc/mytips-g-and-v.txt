@@ -36,8 +36,8 @@ it, and the line after it, everywhere in this text file, from within vim."
 
 This deletes from the first pattern to the second.
 
-    Pattern 1: /Did not get valid lat and long/-
-    Pattern 2: /Did not get valid lat and long/+
+  Pattern 1: /Did not get valid lat and long/-
+  Pattern 2: /Did not get valid lat and long/+
 
 The trailing + and - mean the line before and the line after the match. So this
 deletes the line before through the line after (and the line in the middle just

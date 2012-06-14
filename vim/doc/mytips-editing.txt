@@ -2,29 +2,29 @@
 
 General editing
 
-    c       change (cX where X = movements, etc.)
-    ce      change to end of word
-    c$      change to end of line
-    C       change to end of line
-    c/foo   change until match "foo"
-    ctf     change until next occurrence of "f"
-    ciw     change this word (inside)
-    caw     change this word (outside)
+  c       change (cX where X = movements, etc.)
+  ce      change to end of word
+  c$      change to end of line
+  C       change to end of line
+  c/foo   change until match "foo"
+  ctf     change until next occurrence of "f"
+  ciw     change this word (inside)
+  caw     change this word (outside)
 
-    K       go to man page for the word under the cursor (disabled...)
+  K       go to man page for the word under the cursor (disabled...)
 
-    s       delete this char, then enter insert mode (xi)
-    cc      erase entire line, sub with new (0C or 0Da)
-    S       split line at cursor (custom map)
+  s       delete this char, then enter insert mode (xi)
+  cc      erase entire line, sub with new (0C or 0Da)
+  S       split line at cursor (custom map)
 
-    ctrl-a  increment number under cursor
-    ctrl-x  decrement number under cursor
+  ctrl-a  increment number under cursor
+  ctrl-x  decrement number under cursor
 
-    ga      show char under cursor as dec, hex, oct ASCII.
+  ga      show char under cursor as dec, hex, oct ASCII.
 
-    ctrl-y  yank character directly above you to current line (duplicate)
+  ctrl-y  yank character directly above you to current line (duplicate)
 
-    :e!     Revert buffer to file on disk
+  :e!     Revert buffer to file on disk
 
-    :bd!    Remove buffer from buffer list, discarding changes
+  :bd!    Remove buffer from buffer list, discarding changes
 

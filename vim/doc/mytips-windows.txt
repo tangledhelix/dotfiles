@@ -2,32 +2,32 @@
 
 Window resizing
 
-    (ctrl-W works in place of :winc)
+  (ctrl-W works in place of :winc)
 
-    :res        resize to maximum available
-    :res -N     downsize by count N
-    :res +N     upsize by count N
-    :winc =     make all windows as equal as possible
-    :winc _     maximize window height
-    :winc |     maximize window width
+  :res        resize to maximum available
+  :res -N     downsize by count N
+  :res +N     upsize by count N
+  :winc =     make all windows as equal as possible
+  :winc _     maximize window height
+  :winc |     maximize window width
 
 Windows moving
 
-    ctrl-j      Move to window below
-    ctrl-k      Move to window above
-    ctrl-h      Move to window at left
-    ctrl-l      Move to window at right
+  ctrl-j      Move to window below
+  ctrl-k      Move to window above
+  ctrl-h      Move to window at left
+  ctrl-l      Move to window at right
 
 Creating a window
 
-    ,w          Open a vertical window to the right
+  ,w          Open a vertical window to the right
 
 Creating a tab
 
-    ,t          Create a new tab
+  ,t          Create a new tab
 
 Moving among tabs
 
-    shift-right     Move to tab at right
-    shift-left      Move to tab at left
+  shift-right     Move to tab at right
+  shift-left      Move to tab at left
 

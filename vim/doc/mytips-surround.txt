@@ -1,17 +1,17 @@
 *mytips-surround.txt*  Dan's personal Vim tips              *mytips-surround*
 
-    cs = "change surrounding"
-    ds = "delete surrounding"
+  cs = "change surrounding"
+  ds = "delete surrounding"
 
-    # swap double quotes for single
-    cs"'   (c, s, doublequote, singlequote)
+  # swap double quotes for single
+  cs"'   (c, s, doublequote, singlequote)
 
-    # swap single quotes for <q>..</q>
-    cs'<q>
+  # swap single quotes for <q>..</q>
+  cs'<q>
 
-    # swap surrounding tag, whatever it is, with double quotes
-    cst"
+  # swap surrounding tag, whatever it is, with double quotes
+  cst"
 
-    # remove the delimiter doublequote
-    ds"
+  # remove the delimiter doublequote
+  ds"
 

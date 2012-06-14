@@ -13,11 +13,11 @@ autocmd!
 runtime macros/matchit.vim
 
 " Detect the OS
-if has("unix")
-    let s:uname = system("uname")
-    if s:uname == "Darwin\n"
-        let s:has_darwin = 1
-    endif
+if has('unix')
+  let s:uname = system('uname')
+  if s:uname == "Darwin\n"
+    let s:has_darwin = 1
+  endif
 endif
 
 "    --------------------------------------------------------------------- }}}
@@ -28,8 +28,8 @@ endif
 
 let g:pathogen_disabled = []
 
-if !has("python")
-    let g:pathogen_disabled += ["gundo"]
+if !has('python')
+  let g:pathogen_disabled += ['gundo']
 endif
 
 filetype off
@@ -40,10 +40,10 @@ filetype plugin indent on
 " ------------------------------------------------------------------------ }}}
 " General settings {{{
 
-let mapleader = ","
-let maplocalleader = "\\"
+let mapleader = ','
+let maplocalleader = '\'
 
-" Allow "hidden" buffers. :help hidden
+" Allow 'hidden' buffers. :help hidden
 set hidden
 
 " Ignore whitespace-only changes in diff mode
@@ -70,7 +70,7 @@ vnoremap <leader>S y:execute @@<cr>
 " Redraw the screen
 nnoremap <leader>l :syntax sync fromstart<cr>:redraw!<cr>
 
-" Define "del" char to be the same backspace (saves a LOT of trouble!)
+" Define 'del' char to be the same backspace (saves a LOT of trouble!)
 " As the angle notation cannot be use with the LeftHandSide
 " with mappings you must type this in *literally*!
 " map <C-V>127 <C-H>
@@ -95,12 +95,12 @@ set visualbell
 " Kind of messages to show. Abbreviate them all.
 set shortmess=atI
 
-" Show a report when N lines were changed. report=0 means "show all changes".
+" Show a report when N lines were changed. report=0 means 'show all changes'.
 set report=0
 
-if !has("gui_running")
-    " Terminal's visual bell - turned off to make Vim quiet.
-    set t_vb=
+if !has('gui_running')
+  " Terminal's visual bell - turned off to make Vim quiet.
+  set t_vb=
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -116,19 +116,19 @@ set showmode
 set showcmd
 
 " Use fancy symbols in powerline. Requires a patched font.
-let g:Powerline_symbols = "fancy"
+let g:Powerline_symbols = 'fancy'
 
 " Set the title bar if running as GUI, but never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
-if has("gui_running")
-    set title
+if has('gui_running')
+  set title
 else
-    set notitle
+  set notitle
 endif
 
 " Disable the toolbar in GUI mode
-if has("gui_running")
-    set guioptions=-t
+if has('gui_running')
+  set guioptions=-t
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -147,22 +147,22 @@ set ruler
 " numbering if we're on an old vim.
 " Map <leader>n to toggle the number column. They get in the way of copying
 " in a terminal.
-if exists("+relativenumber")
-    set relativenumber
-    nnoremap <silent> <leader>n :set relativenumber!<cr>
-    " Use static line numbers in insert mode, relative otherwise.
-    "autocmd InsertEnter * setlocal number
-    "autocmd InsertLeave * setlocal relativenumber
+if exists('+relativenumber')
+  set relativenumber
+  nnoremap <silent> <leader>n :set relativenumber!<cr>
+  " Use static line numbers in insert mode, relative otherwise.
+  "autocmd InsertEnter * setlocal number
+  "autocmd InsertLeave * setlocal relativenumber
 else
-    set number
-    nnoremap <silent> <leader>n :set number!<cr>
+  set number
+  nnoremap <silent> <leader>n :set number!<cr>
 endif
 
 " Restore cursor position from our last session, if known.
 autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \     execute "normal! g`\"zvzz" |
-    \ endif
+  \ if line("'\"") > 0 && line("'\"") <= line('$') |
+  \   execute 'normal! g`"zvzz' |
+  \ endif
 
 " This only works in iTerm2. Change cursor to a bar in insert mode,
 " a block in other modes.
@@ -174,10 +174,10 @@ autocmd BufReadPost *
 "let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 "let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-" Only show the "margin" column in insert mode
-if exists("&colorcolumn")
-    autocmd InsertEnter * set colorcolumn=80
-    autocmd InsertLeave * set colorcolumn=""
+" Only show the 'margin' column in insert mode
+if exists('&colorcolumn')
+  autocmd InsertEnter * set colorcolumn=80
+  autocmd InsertLeave * set colorcolumn=""
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -187,12 +187,12 @@ endif
 " to spaces instead of tabs. So be it.
 set expandtab
 
-set tabstop=4
-set softtabstop=4
+set tabstop=2
+set softtabstop=2
 
 " Number of columns to use for (auto)indent. Generally this should be the
 " same as the tabstop.
-set shiftwidth=4
+set shiftwidth=2
 
 " Set the tab width to 2, 4, or 8.
 nnoremap <leader>2 :setlocal tabstop=2 softtabstop=2 shiftwidth=2<cr>
@@ -230,23 +230,23 @@ vnoremap D y`>p
 nnoremap <silent> <leader>y :YRShow<cr>
 
 " Where to store the Yankring history file (don't want it in $HOME)
-let g:yankring_history_dir = "$HOME/.vim"
+let g:yankring_history_dir = '$HOME/.vim'
 
 " Key combos to copy/paste using Mac clipboard
-if exists("s:has_darwin")
-    nnoremap <leader>c "*yy
-    vnoremap <leader>c "*y
-    nnoremap <leader>v "*p
-    vnoremap <leader>v "*p
-    " Variants that set paste first. How to preserve paste if it's
-    " already set, though?
-    " nnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
-    " vnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
+if exists('s:has_darwin')
+  nnoremap <leader>c "*yy
+  vnoremap <leader>c "*y
+  nnoremap <leader>v "*p
+  vnoremap <leader>v "*p
+  " Variants that set paste first. How to preserve paste if it's
+  " already set, though?
+  " nnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
+  " vnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
 else
-    nnoremap <leader>c :echo "Only supported on Mac"<cr>
-    vnoremap <leader>c :echo "Only supported on Mac"<cr>
-    nnoremap <leader>v :echo "Only supported on Mac"<cr>
-    vnoremap <leader>v :echo "Only supported on Mac"<cr>
+  nnoremap <leader>c :echo 'Only supported on Mac'<cr>
+  vnoremap <leader>c :echo 'Only supported on Mac'<cr>
+  nnoremap <leader>v :echo 'Only supported on Mac'<cr>
+  vnoremap <leader>v :echo 'Only supported on Mac'<cr>
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -263,7 +263,7 @@ vnoremap Q gw
 nnoremap Q gwip
 
 " Strip trailing whitespace file-wide, preserving cursor location
-nnoremap <leader>W :call Preserve("%s/\\s\\+$//e")<cr>
+nnoremap <leader>W :call Preserve('%s/\s\+$//e')<cr>
 
 " Swap ' for " (or vice versa) on strings, preserving cursor location
 nnoremap <silent> <leader>' :call Preserve("normal cs\"'")<cr>
@@ -275,7 +275,7 @@ nmap <s-down> ]e
 vmap <s-up>   [egv
 vmap <s-down> ]egv
 
-" Remap ~ to cycle through " uppercase, lowercase, title-case.
+" Remap ~ to cycle through uppercase, lowercase, title-case.
 vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
 
 " In a visual block selection, insert a space or tab, then return to
@@ -303,20 +303,20 @@ set textwidth=0
 
 " Break lines at whitespace or special characters (when tw != 0). Avoids lines
 " where a word shows up on both the right and left edges of the screen. Which
-" makes copy/paste into other apps FUN. Screws up coding. Off normally.
+" makes copy/paste into other apps FUN. Screws up coding. Off normally. makes copy/paste into other apps FUN. Screws up coding. Off normally.
 set nolinebreak
 
 " Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
 
 function ToggleShowBreak()
-    if &showbreak == ""
-        if has("multi_byte")
-            execute("set showbreak=↪")
-        endif
-    else
-        execute("set showbreak=")
+  if &showbreak == ''
+    if has('multi_byte')
+      execute('set showbreak=↪')
     endif
+  else
+    execute('set showbreak=')
+  endif
 endfunction
 
 nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
@@ -351,18 +351,18 @@ set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
 " set noswapfile                    " It's 2012, Vim.
-if has("persistent_undo")
-    set undodir=~/.vim/tmp/undo//     " undo files
+if has('persistent_undo')
+  set undodir=~/.vim/tmp/undo//   " undo files
 endif
 
 " Toggle Gundo window
-if has("python")
-    nnoremap <leader>u :GundoToggle<cr>
+if has('python')
+  nnoremap <leader>u :GundoToggle<cr>
 else
-    nnoremap <leader>u :echo "Gundo requires Python support"<cr>
+  nnoremap <leader>u :echo 'Gundo requires Python support'<cr>
 endif
 
-let g:Powerline_cache_file = $HOME . "/.vim/tmp/Powerline.cache"
+let g:Powerline_cache_file = $HOME . '/.vim/tmp/Powerline.cache'
 
 " ------------------------------------------------------------------------ }}}
 " Search and replace {{{
@@ -383,12 +383,12 @@ nnoremap <leader><space> :nohlsearch<cr>
 nnoremap <leader>h :set hlsearch!<cr>
 
 " Turn off vim's default regex and use normal regexes (behaves more
-" like Perl regex now...) - this is "very magic" mode. Only alphanumerics
-" and underscore are *not* quoted with backslash. See ":help magic".
+" like Perl regex now...) - this is 'very magic' mode. Only alphanumerics
+" and underscore are *not* quoted with backslash. See ':help magic'.
 nnoremap / /\v
 vnoremap / /\v
 
-" Use 'magic' patterns (extended regex) in search patterns. ("\s\+").
+" Use 'magic' patterns (extended regex) in search patterns. ('\s\+').
 " This isn't used by the / search due to the / remaps. For :s and :g.
 set magic
 
@@ -422,12 +422,12 @@ set nolist
 nnoremap <silent> <leader>i :set list!<cr>
 
 " How to display tabs, EOL, and other invisibles.
-if has("multi_byte")
-    set encoding=utf-8
-    set showbreak=↪
-    set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+if has('multi_byte')
+  set encoding=utf-8
+  set showbreak=↪
+  set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 else
-    set listchars=tab:>-,eol:$,extends:>,precedes:<
+  set listchars=tab:>-,eol:$,extends:>,precedes:<
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -439,7 +439,7 @@ abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ornar
 " ------------------------------------------------------------------------ }}}
 " Expansion and completion {{{
 
-" Keystroke used for "expansion" on the command line. Default is <c-e>.
+" Keystroke used for 'expansion' on the command line. Default is <c-e>.
 set wildchar=<tab>
 
 " Show me more than the first possible completion.
@@ -449,7 +449,7 @@ set wildmenu
 set wildmode=list:longest
 
 " Toggle English-word completion from system dictionary. (^n, ^p)
-nnoremap <silent> <leader>E :call ToggleFlag("complete", "k", "English completion")<cr>
+nnoremap <silent> <leader>E :call ToggleFlag('complete', 'k', 'English completion')<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Text object 'N': number {{{
@@ -462,19 +462,19 @@ onoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
 xnoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
 
 function! s:NumberTextObject(whole)
-    normal! v
+  normal! v
 
-    while getline('.')[col('.')] =~# '\v[0-9]'
-        normal! l
+  while getline('.')[col('.')] =~# '\v[0-9]'
+    normal! l
+  endwhile
+
+  if a:whole
+    normal! o
+
+    while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
+      normal! h
     endwhile
-
-    if a:whole
-        normal! o
-
-        while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
-            normal! h
-        endwhile
-    endif
+  endif
 endfunction
 
 " ------------------------------------------------------------------------ }}}
@@ -520,9 +520,9 @@ autocmd VimResized * :wincmd =
 " ------------------------------------------------------------------------ }}}
 " GUI window size {{{
 
-if has("gui_running")
-    set lines=40
-    set columns=90
+if has('gui_running')
+  set lines=40
+  set columns=90
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -557,7 +557,7 @@ nnoremap <leader>e :edit .<cr>
 " Shell and external commands {{{
 
 " Shell to use. Stick with the old standard.
-let &shell="/bin/sh"
+let &shell='/bin/sh'
 
 " Automatically save modifications to files when you use
 " critical (external) commands.
@@ -572,8 +572,8 @@ nnoremap <leader>r :QuickRun<cr>
 nnoremap <silent> <leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<cr>
 
 " Preview a markdown file in the default browser
-if exists("s:has_darwin")
-    nnoremap <leader>M :w!<cr>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<cr><cr>
+if exists('s:has_darwin')
+  nnoremap <leader>M :w!<cr>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<cr><cr>
 endif
 
 " Convert file, or selection, so each contiguous non-whitespace blob is
@@ -581,31 +581,47 @@ endif
 nnoremap <leader>1 :%!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 vnoremap <leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 
-" Reload Google Chrome on Mac from Vim.
-" Adapted from:  https://github.com/gcollazo/BrowserRefresh-Sublime/
-if has("python") && exists("s:has_darwin")
-    function! ChromeReload()
-        python << EOF
+if has('python') && exists('s:has_darwin')
+
+  " Reload Google Chrome on Mac from Vim.
+  " Adapted from:  https://github.com/gcollazo/BrowserRefresh-Sublime/
+  function! ChromeReload()
+    python << EOF
 from subprocess import call
 browser = """
-tell application "Google Chrome" to tell the active tab of its first window
-    reload
+tell app "Google Chrome" to tell the active tab of its first window
+  reload
 end tell
--- tell application "Google Chrome" to activate
 """
 call(['osascript', '-e', browser])
 EOF
-    endfunction
+  endfunction
+
+  " Reload Safari on Mac from Vim.
+  function! SafariReload()
+    python << EOF
+from subprocess import call
+browser = """
+tell application "Safari"
+	do JavaScript "window.location.reload()" in front document
+end tell
+"""
+call(['osascript', '-e', browser])
+EOF
+  endfunction
+
 endif
 
-nnoremap <silent> <leader>R :call ChromeReload()<cr>
+" Map one or the other depending which browser I'm mostly using right now.
+nnoremap <silent> <leader>R :call SafariReload()<cr>
+" nnoremap <silent> <leader>R :call ChromeReload()<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
 
-if has("gui_running")
-    set guifont=Menlo\ Regular\ for\ Powerline:h14
-    set antialias
+if has('gui_running')
+  set guifont=Menlo\ Regular\ for\ Powerline:h14
+  set antialias
 endif
 
 set background=light
@@ -638,7 +654,7 @@ set nomodeline
 set modelines=0
 
 " Re-indent entire file, preserving cursor location
-"nnoremap <leader>= :call Preserve("normal! gg=G")<cr>
+"nnoremap <leader>= :call Preserve('normal! gg=G')<cr>
 
 " Create an HTML version of our syntax highlighting for display or printing.
 nnoremap <leader>H :TOhtml<cr>
@@ -666,7 +682,7 @@ autocmd BufNewFile,BufRead exim.cf* set filetype=exim
 " Syntax: Epub {{{
 
 " Look inside .epub files
-au BufReadCmd *.epub call zip#Browse(expand("<amatch>"))
+au BufReadCmd *.epub call zip#Browse(expand('<amatch>'))
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Erlang {{{
@@ -692,8 +708,8 @@ autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make noexpandtab
 autocmd BufNewFile,BufRead *.md,*.markdown set filetype=octopress textwidth=78 wrap linebreak
 
 " Bold/italic for Markdown/Octopress (plugin 'surround')
-autocmd FileType markdown,octopress let g:surround_{char2nr("i")} = "*\r*"
-autocmd FileType markdown,octopress let g:surround_{char2nr("b")} = "**\r**"
+autocmd FileType markdown,octopress let g:surround_{char2nr('i')} = "*\r*"
+autocmd FileType markdown,octopress let g:surround_{char2nr('b')} = "**\r**"
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Mediawiki {{{
@@ -701,13 +717,13 @@ autocmd FileType markdown,octopress let g:surround_{char2nr("b")} = "**\r**"
 autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
 
 " Italic, bold surrounds for Mediawiki (plugin 'surround')
-autocmd FileType mediawiki let g:surround_{char2nr("i")} = "''\r''"
-autocmd FileType mediawiki let g:surround_{char2nr("b")} = "'''\r'''"
+autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
+autocmd FileType mediawiki let g:surround_{char2nr('b')} = "'''\r'''"
 
 " Header levels 2, 3, 4
-autocmd FileType mediawiki let g:surround_{char2nr("2")} = "==\r=="
-autocmd FileType mediawiki let g:surround_{char2nr("3")} = "===\r==="
-autocmd FileType mediawiki let g:surround_{char2nr("4")} = "====\r===="
+autocmd FileType mediawiki let g:surround_{char2nr('2')} = "==\r=="
+autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
+autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Perl {{{
@@ -759,8 +775,8 @@ autocmd FileType snippet set noexpandtab
 " Local customizations {{{
 
 " Override this file without modifying the master copy in git.
-if filereadable($HOME . "/.vimrc.local")
-    source ~/.vimrc.local
+if filereadable($HOME . '/.vimrc.local')
+  source ~/.vimrc.local
 endif
 
 " ------------------------------------------------------------------------ }}}

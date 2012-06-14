@@ -2,31 +2,31 @@
 
 Navigating / jumping around
 
-    ^       beginning of line ignoring leading whitespace (vs. "0")
-    g_      end of line ignoring trailing whitespace (vs "$")
+  ^       beginning of line ignoring leading whitespace (vs. "0")
+  g_      end of line ignoring trailing whitespace (vs "$")
 
-    [{      jump back to opening brace of the current code block
+  [{      jump back to opening brace of the current code block
 
-    H       high (top) line on this page
-    M       middle line on this page
-    L       low (bottom) line on this page
+  H       high (top) line on this page
+  M       middle line on this page
+  L       low (bottom) line on this page
 
-    zt      keep cursor in place, but move that line to top of view
-    zz      keep cursor in place, but move that line to middle of view
-    zb      keep cursor in place, but move that line to bottom of view
+  zt      keep cursor in place, but move that line to top of view
+  zz      keep cursor in place, but move that line to middle of view
+  zb      keep cursor in place, but move that line to bottom of view
 
-    (, )    jump to start, end of current "sentence"
-    {, }    jump to start, end of current "paragraph"
+  (, )    jump to start, end of current "sentence"
+  {, }    jump to start, end of current "paragraph"
 
-    `.      return to last line you edited
-    '.      return to last line you edited
-    ``      return to last jump point (same as ^o)
+  `.      return to last line you edited
+  '.      return to last line you edited
+  ``      return to last jump point (same as ^o)
 
-    g;      go to position of last change (again to go to change before...)
-    g,      move through changelist in opposite direction
+  g;      go to position of last change (again to go to change before...)
+  g,      move through changelist in opposite direction
 
-    gi      go to last place you exited insert mode
-    gl      go to last change (same as `.)
+  gi      go to last place you exited insert mode
+  gl      go to last change (same as `.)
 
-    ctrl-o  move backward through jump list
-    ctrl-i  move forward through jump list
+  ctrl-o  move backward through jump list
+  ctrl-i  move forward through jump list

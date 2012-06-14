@@ -2,21 +2,21 @@
 
 Copy and paste
 
-    yyp     duplicate this line
+  yyp     duplicate this line
 
-    ddP     delete line, then paste *back into place* leaving copy on buffer
-            though that's the same as yy isn't it?
+  ddP     delete line, then paste *back into place* leaving copy on buffer
+          though that's the same as yy isn't it?
 
-    y       yank
-    Y       yank line (isn't this the same as yy ?)
+  y       yank
+  Y       yank line (isn't this the same as yy ?)
 
-    cc      cut entire line and enter insert mode ("change line")
+  cc      cut entire line and enter insert mode ("change line")
 
-    :registers   Show what is in the current registers
-    "2p          Paste contents of current register
+  :registers   Show what is in the current registers
+  "2p          Paste contents of current register
 
-    P       paste above/before cursor, not after/below as with "p"
-    "0p     paste last explicitly copied text, not the cut buffer
-    "*p     paste from system clipboard (if extant, e.g. on a Mac)
-    :reg    show list of registers that can be pasted with "<n>p
+  P       paste above/before cursor, not after/below as with "p"
+  "0p     paste last explicitly copied text, not the cut buffer
+  "*p     paste from system clipboard (if extant, e.g. on a Mac)
+  :reg    show list of registers that can be pasted with "<n>p
 

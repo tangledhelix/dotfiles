@@ -2,12 +2,12 @@
 
 Indenting
 
-    =       syntax-aware reindent of selection
-    ==      syntax-aware reindent of line
-    gg=G    syntax reindent entire file
+  =       syntax-aware reindent of selection
+  ==      syntax-aware reindent of line
+  gg=G    syntax reindent entire file
 
-    In insert mode:
+  In insert mode:
 
-    ctrl-t  indent line one shiftwidth
-    ctrl-d  de-dent line one shiftwidth
+  ctrl-t  indent line one shiftwidth
+  ctrl-d  de-dent line one shiftwidth
 

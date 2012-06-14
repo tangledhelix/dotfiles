@@ -2,8 +2,9 @@
 #
 # For unenlightened systems where ruby and rake are not available.
 
-for item in bash bash_profile bashrc cvsrc emacs gitignore inputrc \
-    ircrc screenrc tcshrc terminfo vim vimrc
+for item in bash bash_profile bashrc emacs gitignore inputrc \
+    ircrc oh-my-zsh screenrc tcshrc terminfo tmux.conf vim vimrc \
+    zlogin zlogout zshenv zshrc
 do
     if [ -r $HOME/.$item ]; then
         echo "*** WARNING: $HOME/.$item already exists"

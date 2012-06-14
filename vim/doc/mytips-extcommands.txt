@@ -2,9 +2,9 @@
 
 External comands
 
-    :r!<cmd>        read in the result of a command
+  :r!<cmd>        read in the result of a command
 
-    !cmd            pipe selection through command, replace with result
+  !cmd            pipe selection through command, replace with result
 
-    :echo glob($VIMRUNTIME . "/syntax/*.vim")      Show all known syntaxes
+  :echo glob($VIMRUNTIME . "/syntax/*.vim")      Show all known syntaxes
 

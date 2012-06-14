@@ -2,10 +2,10 @@
 
 Named registers
 
-    "c      refers to named register "c", can tie to actions, e.g.
-                "add        del cur line, copy into register a
-                "byy        copy current line into register b
-                "cy/foo     copy up to regex foo into register c
-                "ap         paste from register a
-                "bP         paste from register b to previous line
+  "c      refers to named register "c", can tie to actions, e.g.
+            "add        del cur line, copy into register a
+            "byy        copy current line into register b
+            "cy/foo     copy up to regex foo into register c
+            "ap         paste from register a
+            "bP         paste from register b to previous line
 

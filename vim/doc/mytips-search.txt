@@ -2,43 +2,43 @@
 
 Search and replace
 
-    *       search for the word under the cursor
-    #       ... and in reverse
-    gd      go to declaration of variable under the cursor
-    [I      Show lines containing word under cursor
+  *       search for the word under the cursor
+  #       ... and in reverse
+  gd      go to declaration of variable under the cursor
+  [I      Show lines containing word under cursor
 
-    f<c>    jump to next occurrence of char <c>                     ("Find")
-    F<c>    ... and in reverse
+  f<c>    jump to next occurrence of char <c>                     ("Find")
+  F<c>    ... and in reverse
 
-    t<c>    jump to position *left* of next occurrence of char <c>  ("unTil")
-    T<c>    ... and in reverse
+  t<c>    jump to position *left* of next occurrence of char <c>  ("unTil")
+  T<c>    ... and in reverse
 
-    e       go to end of word (also works with v, c, d, etc.)
-    b       go to beginning of word
+  e       go to end of word (also works with v, c, d, etc.)
+  b       go to beginning of word
 
-    q/      Open search history window to edit/use search history
-    ctrl-f  From search input field, switch to search history window
+  q/      Open search history window to edit/use search history
+  ctrl-f  From search input field, switch to search history window
 
-    :%g/foo/m$      move all lines matching foo to end of file
-                        % = global search
-                        g = command
-                        /foo/ = regex
-                        m = move
-                        $ = to end
-                    you can do the same things with a NOT search
-                    (conVerse) using v instead of g.
+  :%g/foo/m$      move all lines matching foo to end of file
+                      % = global search
+                      g = command
+                      /foo/ = regex
+                      m = move
+                      $ = to end
+                  you can do the same things with a NOT search
+                  (conVerse) using v instead of g.
 
-    :%g/foo/s/bar/zzz/g     for each line /foo/, replace bar with zzz.
+  :%g/foo/s/bar/zzz/g     for each line /foo/, replace bar with zzz.
 
-    :s/foo/bar/     search/replace this line
-    :%s/foo/bar/    search/replace entire file
-        add g (/g) to end for global (also see :help gdefault)
+  :s/foo/bar/     search/replace this line
+  :%s/foo/bar/    search/replace entire file
+      add g (/g) to end for global (also see :help gdefault)
 
-    :s/\%V_/ /g     Add \%V to limit action to a *block* selection (by
-                    default entire lines are affected even in ^v mode).
+  :s/\%V_/ /g     Add \%V to limit action to a *block* selection (by
+                  default entire lines are affected even in ^v mode).
 
-    :%s/\ r//g      Remove all the ^M from a file
-    :%s/\ r$//g     Remove ^M only at the end of a line
+  :%s/\ r//g      Remove all the ^M from a file
+  :%s/\ r$//g     Remove ^M only at the end of a line
 
-    &       repeat last :s command
+  &       repeat last :s command
 
