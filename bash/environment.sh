@@ -40,6 +40,7 @@ unset PATH
 for _this in \
   ~/local/bin \
   ~/bin \
+  ~/.rbenv/bin \
   $(_rsort "/usr/local/Cellar/ruby/*/bin") \
   ~/.gems/bin \
   $(_rsort "$HOME/.gem/ruby/*/bin") \
@@ -170,4 +171,6 @@ test -d /apps/oracle/product/9.2.0 &&
 
 test -d /apps/oracle/product/10.2.0 &&
   export ORACLE_HOME="/apps/oracle/product/10.2.0"
+
+test -f ~/.rbenv/bin/rbenv && eval "$(rbenv init -)"
 
