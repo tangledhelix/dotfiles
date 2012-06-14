@@ -1,11 +1,10 @@
 require 'erb'
+require 'yaml'
 
 task :default do
-  puts 'Usage: rake [ install | force | gitconfig ]'
+  puts 'Usage: rake [ install | force ]'
   puts '    install   : ask first before overwriting'
   puts '    force     : just do it, no questions'
-  puts '    gitconfig : reinstall ~/.gitconfig from template'
-  puts '        (note: install/force run gitconfig if it doesn\'t exist)'
 end
 
 task :install do
@@ -16,10 +15,6 @@ end
 task :force do
   $replace_all = true
   installer
-end
-
-task :gitconfig do
-  gitconfig_check
 end
 
 def installer
@@ -55,12 +50,12 @@ def determine_action(file)
 end
 
 def link_file(file)
-  puts "    linking ~/.#{file}..."
+  puts "    linking ~/.#{file}"
   system `ln -s "$PWD/#{file}" "$HOME/.#{file}"`
 end
 
 def replace_file(file)
-  puts "    removing old ~/.#{file}..."
+  puts "    removing old ~/.#{file}"
   system `rm -f "$HOME/.#{file}"`
   link_file(file)
 end
@@ -72,56 +67,59 @@ end
 def gitconfig_installer
   template_file = 'gitconfig.erb'
   output_file = ENV['HOME'] + '/.gitconfig'
+  cache_file = output_file + '.cache'
+  gitconfig_params = Hash.new
 
   # If we find an older install with the symlink in place,
   # clean that up first
   if File.symlink?(output_file)
     File.unlink(output_file)
-    puts "    deleted symlink #{output_file}..."
+    puts "    deleted symlink #{output_file}"
   end
 
-  unless File.exists?(output_file)
+  unless File.exists?(cache_file)
 
+    puts '    creating ~/.gitconfig.cache'
     puts ''
-    puts "=== Creating #{output_file} ==="
+    puts 'Enter .gitconfig data'
+    puts '(press enter to leave a value blank.)'
     puts ''
 
-    print '  Name: '
-    $git_name = STDIN.gets.chomp
+    print 'Name: '
+    gitconfig_params['git_name'] = STDIN.gets.chomp
 
-    print '  Email address: '
-    $git_email = STDIN.gets.chomp
+    print 'Email address: '
+    gitconfig_params['git_email'] = STDIN.gets.chomp
 
-    print '  GitHub username: '
-    $github_username = STDIN.gets.chomp
+    print 'GitHub username: '
+    gitconfig_params['github_username'] = STDIN.gets.chomp
 
-    print '  GitHub API token: '
-    $github_api_token = STDIN.gets.chomp
+    print 'GitHub API token: '
+    gitconfig_params['github_api_token'] = STDIN.gets.chomp
 
-    template = ERB.new(File.read(template_file))
-    File.open(output_file, 'w') do |f|
-      f.write(template.result())
+    File.open(cache_file, 'w') do |out|
+      YAML.dump(gitconfig_params, out)
     end
 
-    ret = File.chmod(0600, output_file)
+    ret = File.chmod(0600, cache_file)
     if ret != 1
-      puts "WARN: chmod of #{output_file} failed!"
-    end
-
-  end
-end
-
-def gitconfig_check
-  file_path = ENV['HOME'] + '/.gitconfig'
-  if File.exists?(file_path)
-    print "#{file_path} exists, are you sure? (y/N) "
-    case STDIN.gets.chomp
-    when 'y'
-      File.unlink(file_path)
-      gitconfig_installer
-    else
-      puts "    skipping #{file_path}"
+      puts "WARN: chmod of #{cache_file} failed!"
     end
   end
+
+  puts '    generating ~/.gitconfig'
+
+  $template_vars = YAML.load_file(cache_file)
+
+  template = ERB.new(File.read(template_file), nil, '<>')
+  File.open(output_file, 'w') do |f|
+    f.write(template.result())
+  end
+
+  ret = File.chmod(0600, output_file)
+  if ret != 1
+    puts "WARN: chmod of #{output_file} failed!"
+  end
+
 end
 

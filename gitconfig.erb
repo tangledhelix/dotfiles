@@ -1,6 +1,10 @@
 [user]
-    name = <%= $git_name %>
-    email = <%= $git_email %>
+<% unless $template_vars['git_name'].empty? %>
+    name = <%= $template_vars['git_name'] %>
+<% end %>
+<% unless $template_vars['git_email'].empty? %>
+    email = <%= $template_vars['git_email'] %>
+<% end %>
 
 [alias]
     co = checkout
@@ -25,8 +29,12 @@
     ui = auto
 
 [github]
-    user = <%= $github_username %>
-    token = <%= $github_api_token %>
+<% unless $template_vars['github_username'].empty? %>
+    user = <%= $template_vars['github_username'] %>
+<% end %>
+<% unless $template_vars['github_api_token'].empty? %>
+    token = <%= $template_vars['github_api_token'] %>
+<% end %>
 
 [merge]
     tool = <%= File.exists?('/usr/bin/opendiff') ? 'opendiff' : 'vimdiff' %>
