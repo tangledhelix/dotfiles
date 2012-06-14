@@ -6,9 +6,9 @@ case "$-" in
 esac
 
 source ~/.bash/environment.sh
-source ~/.bash/functions.sh
+source ~/.bash/function.sh
 source ~/.bash/config.sh
-source ~/.bash/aliases.sh
+source ~/.bash/alias.sh
 source ~/.bash/mac.sh
 source ~/.bash/completion.sh
 source ~/.bash/project-mgmt.sh
