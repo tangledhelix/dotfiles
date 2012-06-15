@@ -1,5 +1,7 @@
 *mytips-open.txt*  Dan's personal Vim tips                       *mytips-open*
 
+  gf          open filename under the cursor
+
 Finding files
 
   :find       Find a file anywhere under current path, edit it.

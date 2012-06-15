@@ -61,6 +61,11 @@ is_svn_repository() {
   test -d ./.svn > /dev/null 2>&1
 }
 
+# Check if we're in a Mercurial repository
+is_hg_repository() {
+  test -d ./.hg > /dev/null 2>&1
+}
+
 # Check if we're in a git repository
 is_git_repository() {
   git branch > /dev/null 2>&1
@@ -71,9 +76,10 @@ _scm_color() {
   local _retval=$?
   local _git_status
 
-  # First check for CVS, then Subversion
+  # Non-Git repos get colored all the same
   is_cvs_repository && { _xc 36; return $_retval; }
   is_svn_repository && { _xc 36; return $_retval; }
+  is_hg_repository  && { _xc 36; return $_retval; }
 
   # If we got here and it's not a Git repo either, just bail
   is_git_repository || return $_retval
@@ -103,9 +109,10 @@ _scm_info() {
   local _pattern
   local _remote
 
-  # First check for CVS, then Subversion
+  # If it's not Git, I don't bother with branches... just tell me type
   is_cvs_repository && { echo -n " (CVS)";        return $_retval; }
   is_svn_repository && { echo -n " (Subversion)"; return $_retval; }
+  is_hg_repository  && { echo -n " (Mercurial)";  return $_retval; }
 
   # If we're still here, see if it's Git; if not, just bail
   is_git_repository || return $_retval
