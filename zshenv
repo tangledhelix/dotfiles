@@ -5,6 +5,9 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# fix terminal foo on Solaris
+export TERMINFO="$HOME/.terminfo"
+
 # Set the path to Oh My Zsh.
 export OMZ="$HOME/.oh-my-zsh"
 
