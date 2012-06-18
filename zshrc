@@ -150,8 +150,16 @@ alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
 alias tailpa="tail -F /var/log/daemon/debug | grep puppet-agent"
 alias tailpm="tail -F /var/log/daemon/debug | grep puppet-master"
 
-# Things to do only if I am not root
-if [[ $UID -ne 0 ]]; then
+if [[ $UID -eq 0 ]]; then
+
+  ### Things to do only if I am root
+
+  # Messes with rdist
+  unset SSH_AUTH_SOCK
+
+else
+
+  ### Things to do only if I am not root
 
   # set title to hostname
   printf "\x1b]2;$(uname -n)\x07\x1b]1;$(uname -n)\x07"
