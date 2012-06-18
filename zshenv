@@ -102,6 +102,8 @@ export PAGER='less'
 # Browser (Default)
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
+elif [[ -n "$(command -v links)" ]]; then
+  export BROWSER='links'
 fi
 
 # Less
@@ -115,4 +117,14 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 if (( $+commands[lesspipe.sh] )); then
   export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
 fi
+
+export ACK_PAGER="less"
+
+export CVS_RSH="ssh"
+
+test -d /apps/oracle/product/9.2.0 &&
+    export ORACLE_HOME="/apps/oracle/product/9.2.0"
+
+test -d /apps/oracle/product/10.2.0 &&
+    export ORACLE_HOME="/apps/oracle/product/10.2.0"
 
