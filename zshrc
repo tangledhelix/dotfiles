@@ -54,3 +54,16 @@ source "$OMZ/init.zsh"
 
 HAVE_TMUX=$(command -v tmux)
 test -n "$HAVE_TMUX" && alias tmux="$HAVE_TMUX -u"
+
+ssh() {
+  if [[ -x /usr/local/bin/ssh ]]; then
+    /usr/local/bin/ssh $@
+  else
+    /usr/bin/ssh $@
+  fi
+  printf "\x1b]2;$(uname -n)\x07"
+}
+
+# set title
+printf "\x1b]2;$(uname -n)\x07"
+
