@@ -1,52 +1,62 @@
 [user]
 <% unless $template_vars['git_name'].empty? %>
-    name = <%= $template_vars['git_name'] %>
+  name = <%= $template_vars['git_name'] %>
 <% end %>
 <% unless $template_vars['git_email'].empty? %>
-    email = <%= $template_vars['git_email'] %>
+  email = <%= $template_vars['git_email'] %>
 <% end %>
 
 [alias]
-    co = checkout
-    ci = commit
-    st = status -s
-    lol = log --pretty=oneline --abbrev-commit --graph --decorate
-    unstage = reset HEAD
-    aa = add .
-    # Not yet added - doesn't include ignored files
-    new = ls-files --others --exclude-standard
-    # Files that are in the staging area
-    added = diff --cached --name-only
-    today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
-    ff = merge --ff-only
-    pullsubs = submodule foreach git pull origin master
+  co = checkout
+  ci = commit
+  cm = commit -m
+  st = status -sb
+  lol = log --pretty=oneline --abbrev-commit --graph --decorate
+  unstage = reset HEAD
+  aa = add .
+  # Not yet added - doesn't include ignored files
+  new = ls-files --others --exclude-standard
+  # Files that are in the staging area
+  added = diff --cached --name-only
+  today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+  ff = merge --ff-only
+  pullsubs = submodule foreach git pull origin master
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
 
 [core]
-    quotepath = false
-    excludesfile = ~/.gitignore
+  pager = less
+  editor = vim
+  quotepath = false
+  excludesfile = ~/.gitignore
 
 [color]
-    ui = auto
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = auto
 
 [github]
 <% unless $template_vars['github_username'].empty? %>
-    user = <%= $template_vars['github_username'] %>
+  user = <%= $template_vars['github_username'] %>
 <% end %>
 <% unless $template_vars['github_api_token'].empty? %>
-    token = <%= $template_vars['github_api_token'] %>
+  token = <%= $template_vars['github_api_token'] %>
 <% end %>
 
 [merge]
-    tool = <%= File.exists?('/usr/bin/opendiff') ? 'opendiff' : 'vimdiff' %>
+  tool = <%= File.exists?('/usr/bin/opendiff') ? 'opendiff' : 'vimdiff' %>
 
 [diff]
-    # For Github-style word diffs
-    wordRegex = [^[:space:]]
+  # For Github-style word diffs
+  wordRegex = [^[:space:]]
 
 [help]
-    autocorrect = 1
+  autocorrect = 1
 
 [push]
-    # Push current branch even if you've never pushed it before
-    default = current
+  # Push current branch even if you've never pushed it before
+  default = current
 
