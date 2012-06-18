@@ -79,9 +79,9 @@ path=(
 
 # homebrew
 if [[ -d /usr/local/Cellar ]]; then
-  path+='/usr/local/Cellar/ruby/*/bin'
-  path+='/usr/local/Cellar/python3/*/bin'
-  path+='/usr/local/Cellar/python/*/bin'
+  path+=$(echo /usr/local/Cellar/ruby/*/bin)
+  path+=$(echo /usr/local/Cellar/python3/*/bin)
+  path+=$(echo /usr/local/Cellar/python/*/bin)
 fi
 
 for path_file in /etc/paths.d/*(.N); do
