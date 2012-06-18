@@ -46,7 +46,8 @@ zstyle ':omz:load' omodule \
 # Auto set to 'off' on dumb terminals.
 # zstyle ':omz:module:prompt' theme 'sorin'
 # zstyle ':omz:module:prompt' theme 'nicoulaj'
-zstyle ':omz:module:prompt' theme 'steeef'
+# zstyle ':omz:module:prompt' theme 'steeef'
+zstyle ':omz:module:prompt' theme 'tangledhelix'
 
 # This will make you shout: OH MY ZSHELL!
 source "$OMZ/init.zsh"
@@ -67,4 +68,20 @@ ssh() {
 
 # set title
 printf "\x1b]2;$(uname -n)\x07\x1b]1;$(uname -n)\x07"
+
+alias c='clear'
+alias ppv='puppet parser validate'
+
+# print the directory structure from the current directory in tree format
+alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
+
+# Show me time in GMT / UTC
+alias utc="TZ=UTC date"
+alias gmt="TZ=GMT date"
+# Time in Tokyo
+alias jst="TZ=Asia/Tokyo date"
+
+alias os="uname -srm"
+
+test -s $HOME/.zshrc.local && source $HOME/.zshrc.local
 
