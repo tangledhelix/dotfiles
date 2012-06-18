@@ -65,7 +65,7 @@ ssh() {
 }
 
 # always unicode in tmux
-test -n "$(command -v tmux)" && alias tmux="$HAVE_TMUX -u"
+test -n "$(command -v tmux)" && alias tmux="tmux -u"
 
 alias c='clear'
 alias ppv='puppet parser validate'
