@@ -51,9 +51,6 @@ source "$OMZ/init.zsh"
 
 # Customize to your needs...
 
-# set title to hostname
-printf "\x1b]2;$(uname -n)\x07\x1b]1;$(uname -n)\x07"
-
 # after ssh, set the title back to local host's name
 ssh() {
   if [[ -x /usr/local/bin/ssh ]]; then
@@ -153,30 +150,38 @@ alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
 alias tailpa="tail -F /var/log/daemon/debug | grep puppet-agent"
 alias tailpm="tail -F /var/log/daemon/debug | grep puppet-master"
 
-test -f ~/.rbenv/bin/rbenv && eval "$(rbenv init -)"
+# Things to do only if I am not root
+if [[ $UID -ne 0 ]]; then
 
-# Check for broken services on SMF-based systems
-test -x /bin/svcs && svcs -xv
+  # set title to hostname
+  printf "\x1b]2;$(uname -n)\x07\x1b]1;$(uname -n)\x07"
 
-# Create some Vim cache directories if they don't exist.
-mkdir -p ~/.vim/tmp/{undo,backup,swap}
+  test -f ~/.rbenv/bin/rbenv && eval "$(rbenv init -)"
 
-# fix yankring permissions
-__yankring="$HOME/.vim/yankring_history_v2.txt"
-if [[ -f $__yankring ]]; then
-  if [[ ! -O $__yankring ]]; then
-    echo "WARNING: yankring history file is not writeable"
+  # Check for broken services on SMF-based systems
+  test -x /bin/svcs && svcs -xv
+
+  # Create some Vim cache directories if they don't exist.
+  mkdir -p ~/.vim/tmp/{undo,backup,swap}
+
+  # fix yankring permissions
+  __yankring="$HOME/.vim/yankring_history_v2.txt"
+  if [[ -f $__yankring ]]; then
+    if [[ ! -O $__yankring ]]; then
+      echo "WARNING: yankring history file is not writeable"
+    else
+      chmod 0600 $__yankring
+    fi
   else
+    touch $__yankring
     chmod 0600 $__yankring
   fi
-else
-  touch $__yankring
-  chmod 0600 $__yankring
-fi
 
-# List tmux sessions
-if [[ -n "$(command -v tmux)" && -z "$TMUX" ]]; then
-  tmux ls 2>/dev/null
+  # List tmux sessions
+  if [[ -n "$(command -v tmux)" && -z "$TMUX" ]]; then
+    tmux ls 2>/dev/null
+  fi
+
 fi
 
 # local settings override global ones
