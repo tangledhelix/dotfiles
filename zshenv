@@ -51,8 +51,7 @@ unset path_file
 path=(
   ~/local/bin
   ~/bin
-  ~/rbenv/bin
-  /usr/local/Cellar/ruby/*/bin
+  ~/.rbenv/bin
   ~/.gems/bin
   /admin/bin
   /usr/local/{bin,sbin}
@@ -60,8 +59,7 @@ path=(
   /{bin,sbin}
   /usr/ccs/bin
   /usr/proc/bin
-  /usr/openwin/bin
-  /usr/dt/bin
+  /usr/{openwin,dt}/bin
   /admin/tools/system/
   /admin/tools/mail/{bin,sbin}
   /admin/config/auth/bin
@@ -75,11 +73,16 @@ path=(
   /opt/openldap/{bin,sbin}
   /usr/sfw/bin
   /usr/X11R6/bin
-  /usr/local/Cellar/python3/*/bin
-  /usr/local/Cellar/python/*/bin
   ~/tools
   $path
 )
+
+# homebrew
+if [[ -d /usr/local/Cellar ]]; then
+  path+='/usr/local/Cellar/ruby/*/bin'
+  path+='/usr/local/Cellar/python3/*/bin'
+  path+='/usr/local/Cellar/python/*/bin'
+fi
 
 for path_file in /etc/paths.d/*(.N); do
   path+=($(<$path_file))
