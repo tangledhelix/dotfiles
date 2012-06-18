@@ -29,8 +29,16 @@ infopath=(
 
 # Set the list of directories that man searches for manuals.
 manpath=(
+  /usr/local/man
+  /usr/man
   /usr/local/share/man
   /usr/share/man
+  /usr/local/pkg/perl/man
+  /usr/dt/man
+  /usr/openwin/man
+  /usr/sfw/man
+  ~/local/man
+  ~/local/share/man
   $manpath
 )
 
@@ -41,9 +49,35 @@ unset path_file
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  ~/local/bin
+  ~/bin
+  ~/rbenv/bin
+  /usr/local/Cellar/ruby/*/bin
+  ~/.gems/bin
+  /admin/bin
   /usr/local/{bin,sbin}
   /usr/{bin,sbin}
   /{bin,sbin}
+  /usr/ccs/bin
+  /usr/proc/bin
+  /usr/openwin/bin
+  /usr/dt/bin
+  /admin/tools/system/
+  /admin/tools/mail/{bin,sbin}
+  /admin/config/auth/bin
+  /usr/local/pkg/perl/bin
+  /usr/local/pkg/ruby/bin
+  /usr/local/pkg/mailman/bin
+  /usr/lib/mailman/bin
+  /usr/local/pkg/mysql/bin
+  /usr/local/pkg/pgsql/bin
+  /usr/local/pkg/openldap/{bin,sbin}
+  /opt/openldap/{bin,sbin}
+  /usr/sfw/bin
+  /usr/X11R6/bin
+  /usr/local/Cellar/python3/*/bin
+  /usr/local/Cellar/python/*/bin
+  ~/tools
   $path
 )
 
