@@ -48,7 +48,9 @@ done
 unset path_file
 
 # Set the list of directories that Zsh searches for programs.
-path=(
+path=()
+
+path_candidates=(
   ~/local/bin
   ~/bin
   ~/.rbenv/bin
@@ -74,8 +76,11 @@ path=(
   /usr/sfw/bin
   /usr/X11R6/bin
   ~/tools
-  $path
 )
+
+for path_candidate in $path_candidates; do
+  test -d $path_candidate && path+=$path_candidate
+done
 
 # homebrew
 if [[ -d /usr/local/Cellar ]]; then
