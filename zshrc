@@ -61,9 +61,9 @@ ssh() {
   else
     /usr/bin/ssh $@
   fi
-  printf "\x1b]2;$(uname -n)\x07"
+  printf "\x1b]2;$(uname -n)\x07\x1b]1;$(uname -n)\x07"
 }
 
 # set title
-printf "\x1b]2;$(uname -n)\x07"
+printf "\x1b]2;$(uname -n)\x07\x1b]1;$(uname -n)\x07"
 
