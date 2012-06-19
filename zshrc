@@ -9,7 +9,7 @@
 zstyle ':omz:module:editor' keymap 'vi'
 
 # Auto convert .... to ../..
-zstyle ':omz:module:editor' dot-expansion 'no'
+zstyle ':omz:module:editor' dot-expansion 'yes'
 
 # Set case-sensitivity for completion, history lookup, etc.
 zstyle ':omz:*:*' case-sensitive 'no'
