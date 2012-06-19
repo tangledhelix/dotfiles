@@ -119,7 +119,7 @@ set showcmd
 let g:Powerline_symbols = 'fancy'
 
 " Use Powerline's Solarized theme
-let g:Powerline_theme = 'solarized'
+" let g:Powerline_theme = 'solarized'
 
 " Set the title bar if running as GUI, but never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
