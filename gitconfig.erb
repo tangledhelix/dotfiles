@@ -12,6 +12,8 @@
   cm = commit -m
   st = status -sb
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%%an>%Creset' --abbrev-commit
+  lgp = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%%an>%Creset' --abbrev-commit -p
   unstage = reset HEAD
   aa = add .
   # Not yet added - doesn't include ignored files
