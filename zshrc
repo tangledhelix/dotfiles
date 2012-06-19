@@ -58,11 +58,26 @@ ssh() {
   else
     /usr/bin/ssh $@
   fi
-  printf "\x1b]2;$(uname -n)\x07\x1b]1;$(uname -n)\x07"
+  set-tab-title $(uname -n)
 }
 
-# always unicode in tmux
-test -n "$(command -v tmux)" && alias tmux="tmux -u"
+if [[ -n "$(command -v tmux)" ]]; then
+  alias tmux='tmux -u'
+  alias tls='tmux ls'
+
+  tnew() {
+    test -z "$1" && { echo 'missing session name'; return }
+    set-tab-title "tmux:$1"
+    tmux new -s $1
+  }
+
+  tatt() {
+    test -z "$1" && { echo 'missing session name'; return }
+    set-tab-title "tmux:$1"
+    tmux -u attach -t $1
+  }
+
+fi
 
 alias c='clear'
 alias ppv='puppet parser validate'
@@ -103,7 +118,8 @@ perlmodver() {
 
 # sleep this long, then beep
 beep() {
-  local __timer=$1
+  local __timer=0
+  test -n "$1" && __timer=$1
   until [[ $__timer = 0 ]]; do
     printf "  T minus $__timer     \r"
     __timer=$((__timer - 1))
@@ -161,8 +177,7 @@ else
 
   ### Things to do only if I am not root
 
-  # set title to hostname
-  printf "\x1b]2;$(uname -n)\x07\x1b]1;$(uname -n)\x07"
+  set-tab-title $(uname -n)
 
   test -f ~/.rbenv/bin/rbenv && eval "$(rbenv init -)"
 
@@ -187,7 +202,9 @@ else
 
   # List tmux sessions
   if [[ -n "$(command -v tmux)" && -z "$TMUX" ]]; then
-    tmux ls 2>/dev/null
+    if [[ -n "$(tmux ls 2>/dev/null)" ]]; then
+      echo "\n\x1b[1;35m$(tmux ls 2>/dev/null)\x1b[0m"
+    fi
   fi
 
 fi
