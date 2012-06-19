@@ -118,6 +118,9 @@ set showcmd
 " Use fancy symbols in powerline. Requires a patched font.
 let g:Powerline_symbols = 'fancy'
 
+" Use Powerline's Solarized theme
+let g:Powerline_theme = 'solarized'
+
 " Set the title bar if running as GUI, but never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
 if has('gui_running')
@@ -624,7 +627,7 @@ if has('gui_running')
   set antialias
 endif
 
-set background=light
+set background=dark
 colorscheme solarized
 
 " Mark trailing whitespace with red to make it stand out.
