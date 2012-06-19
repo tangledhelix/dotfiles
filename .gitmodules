@@ -73,3 +73,6 @@
 [submodule "vim/bundle/clam"]
 	path = vim/bundle/clam
 	url = https://github.com/sjl/clam.vim.git
+[submodule "vim/bundle/gitv"]
+	path = vim/bundle/gitv
+	url = https://github.com/gregsexton/gitv.git

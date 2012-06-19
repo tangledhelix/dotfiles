@@ -535,8 +535,8 @@ endif
 set path=.
 
 " cd to the directory of the current file. Makes it easier to :e
-" files in the same directory.
-autocmd BufEnter * cd %:p:h
+" files in the same directory... but it breaks gitv.
+" autocmd BufEnter * cd %:p:h
 
 " Ignore filename with any of these suffixes when using the
 " ":edit" command. Most of these are files created by LaTeX.
