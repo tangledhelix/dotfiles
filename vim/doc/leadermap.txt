@@ -28,7 +28,7 @@ Current leader key map:                                            *leadermap*
   ,i            Toggle viewing of invisible characters
   ,l            Redraw the editor window
   ,M            Preview Markdown file in default browser (incl. SmartyPants)
-  ,n            Toggle line numbering
+  ,n            Switch line number mode: relative, absolute, off
   ,N            Toggle the linewrap break indicator
   ,of           Open filename under cursor, displacing this buffer
   ,ot           Open filename under cursor in a new tab

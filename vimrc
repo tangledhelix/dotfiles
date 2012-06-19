@@ -148,17 +148,29 @@ set ruler
 " Show line numbers as relative to current, not as absolute. This makes it
 " easy to use count-based commands, e.g. 5dd or 10j. Fall back to regular
 " numbering if we're on an old vim.
-" Map <leader>n to toggle the number column. They get in the way of copying
-" in a terminal.
+" Map <leader>n to toggle the number column between relative (if supported),
+" absolute, and off.
+
 if exists('+relativenumber')
   set relativenumber
-  nnoremap <silent> <leader>n :set relativenumber!<cr>
-  " Use static line numbers in insert mode, relative otherwise.
-  "autocmd InsertEnter * setlocal number
-  "autocmd InsertLeave * setlocal relativenumber
+  set numberwidth=3
+
+  " cycles between relative / absolute / no numbering
+  function! RelativeNumberToggle()
+    if (&relativenumber == 1)
+      set number number?
+    elseif (&number == 1)
+      set nonumber number?
+    else
+      set relativenumber relativenumber?
+    endif
+  endfunc
+
+  nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
+
 else
   set number
-  nnoremap <silent> <leader>n :set number!<cr>
+  nnoremap <silent> <leader>n :set number! number?<CR>
 endif
 
 " Restore cursor position from our last session, if known.
