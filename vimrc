@@ -55,6 +55,8 @@ set diffopt=iwhite
 " Use jj to get back to command mode instead of Esc, which is out of the
 " way and on some keyboards hard to reach. Esc still works too.
 inoremap jj <Esc>
+" map this too to be uniform with oh-my-zsh
+inoremap jk <Esc>
 
 " Use more natural key movement on wrapped lines.
 nnoremap j gj
@@ -299,8 +301,11 @@ vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
 vnoremap <space> I<space><esc>gv
 vnoremap <tab> I<tab><esc>gv
 
+" Retain cursor position on line join
+nnoremap J mzJ`z
+
 " Split line at cursor position
-nnoremap S i<cr><esc><right>
+nnoremap S mzi<cr><esc>`zj0
 
 " Invoke Tabular
 nnoremap <leader>= :Tabularize /
