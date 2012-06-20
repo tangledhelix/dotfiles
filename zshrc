@@ -68,7 +68,7 @@ if [[ -n "$(command -v tmux)" ]]; then
   tnew() {
     test -z "$1" && { echo 'missing session name'; return }
     set-tab-title "tmux:$1"
-    tmux new -s $1
+    tmux -u new -s $1
     set-tab-title $(uname -n)
   }
 
