@@ -69,12 +69,14 @@ if [[ -n "$(command -v tmux)" ]]; then
     test -z "$1" && { echo 'missing session name'; return }
     set-tab-title "tmux:$1"
     tmux new -s $1
+    set-tab-title $(uname -n)
   }
 
   tatt() {
     test -z "$1" && { echo 'missing session name'; return }
     set-tab-title "tmux:$1"
     tmux -u attach -t $1
+    set-tab-title $(uname -n)
   }
 
 fi
@@ -165,6 +167,12 @@ alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
 # Watch Puppet logs
 alias tailpa="tail -F /var/log/daemon/debug | grep puppet-agent"
 alias tailpm="tail -F /var/log/daemon/debug | grep puppet-master"
+
+# Get my current public IP
+alias get-ip="curl --silent http://icanhazip.com"
+
+# less with no-wrap (oh-my-zsh default, could be useful sometimes)
+alias less-nowrap="less -S"
 
 if [[ $UID -eq 0 ]]; then
 
