@@ -81,6 +81,10 @@ if [[ -n "$(command -v tmux)" ]]; then
 
 fi
 
+alias vi='vim'
+alias view='vim -R'
+alias vimdiff='vimdiff -O'
+
 alias c='clear'
 alias ppv='puppet parser validate'
 
