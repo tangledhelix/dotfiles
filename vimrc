@@ -1,5 +1,3 @@
-" My Vim configuration. Crafted with love. Forever evolving.
-
 " Bootstrap {{{
 
 " Turn off vi compatibility. If I wanted vi, I would use vi.
@@ -20,7 +18,7 @@ if has('unix')
   endif
 endif
 
-"    --------------------------------------------------------------------- }}}
+" ------------------------------------------------------------------------ }}}
 " Pathogen {{{
 
 " vim-pathogen, for sane plugin management.
@@ -63,30 +61,30 @@ nnoremap j gj
 nnoremap k gk
 
 " Open quickfix window
-nnoremap <leader>q :cwindow<cr>
+nnoremap <Leader>q :cwindow<CR>
 
 " Source the current line
-nnoremap <leader>S ^vg_y:execute @@<cr>
-vnoremap <leader>S y:execute @@<cr>
+nnoremap <Leader>S ^vg_y:execute @@<CR>
+vnoremap <Leader>S y:execute @@<CR>
 
 " Redraw the screen
-nnoremap <leader>l :syntax sync fromstart<cr>:redraw!<cr>
+nnoremap <Leader>l :syntax sync fromstart<CR>:redraw!<CR>
 
 " Define 'del' char to be the same backspace (saves a LOT of trouble!)
 " As the angle notation cannot be use with the LeftHandSide
 " with mappings you must type this in *literally*!
 " map <C-V>127 <C-H>
 " cmap <C-V>127 <C-H>
-inoremap  <c-h>
-cnoremap  <c-h>
+inoremap  <C-H>
+cnoremap  <C-H>
 " the same for Linux Debian which uses
-inoremap <esc>[3~ <c-h>
+inoremap <Esc>[3~ <C-H>
 
 " go to location of last change
 nnoremap gl `.
 
 " Default binding for this key is useless
-nnoremap K <nop>
+nnoremap K <Nop>
 
 " ------------------------------------------------------------------------ }}}
 " Messages and alerts {{{
@@ -168,11 +166,11 @@ if exists('+relativenumber')
     endif
   endfunc
 
-  nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
+  nnoremap <silent> <Leader>n :call RelativeNumberToggle()<CR>
 
 else
   set number
-  nnoremap <silent> <leader>n :set number! number?<CR>
+  nnoremap <silent> <Leader>n :set number! number?<CR>
 endif
 
 " Restore cursor position from our last session, if known.
@@ -212,9 +210,9 @@ set softtabstop=2
 set shiftwidth=2
 
 " Set the tab width to 2, 4, or 8.
-nnoremap <leader>2 :setlocal tabstop=2 softtabstop=2 shiftwidth=2<cr>
-nnoremap <leader>4 :setlocal tabstop=4 softtabstop=4 shiftwidth=4<cr>
-nnoremap <leader>8 :setlocal tabstop=8 softtabstop=8 shiftwidth=8<cr>
+nnoremap <Leader>2 :setlocal tabstop=2 softtabstop=2 shiftwidth=2<CR>
+nnoremap <Leader>4 :setlocal tabstop=4 softtabstop=4 shiftwidth=4<CR>
+nnoremap <Leader>8 :setlocal tabstop=8 softtabstop=8 shiftwidth=8<CR>
 
 " When changing indent with <, >, >>, <<, use a multiple of shiftwidth.
 set shiftround
@@ -228,7 +226,7 @@ vnoremap < <gv
 
 " Reselect what was just pasted so I can so something with it.
 " (To reslect last selection even if it is not the last paste, use gv.)
-nnoremap <leader>V `[v`]
+nnoremap <Leader>V `[v`]
 
 " Select current line, excluding leading and trailing whitespace
 nnoremap vv ^vg_
@@ -244,26 +242,26 @@ set pastetoggle=,p
 vnoremap D y`>p
 
 " Toggle Yankring window
-nnoremap <silent> <leader>y :YRShow<cr>
+nnoremap <silent> <Leader>y :YRShow<CR>
 
 " Where to store the Yankring history file (don't want it in $HOME)
 let g:yankring_history_dir = '$HOME/.vim'
 
 " Key combos to copy/paste using Mac clipboard
 if exists('s:has_darwin')
-  nnoremap <leader>c "*yy
-  vnoremap <leader>c "*y
-  nnoremap <leader>v "*p
-  vnoremap <leader>v "*p
+  nnoremap <Leader>c "*yy
+  vnoremap <Leader>c "*y
+  nnoremap <Leader>v "*p
+  vnoremap <Leader>v "*p
   " Variants that set paste first. How to preserve paste if it's
   " already set, though?
-  " nnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
-  " vnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
+  " nnoremap <Leader>v :set paste<CR>"*p:set nopaste<CR>
+  " vnoremap <Leader>v :set paste<CR>"*p:set nopaste<CR>
 else
-  nnoremap <leader>c :echo 'Only supported on Mac'<cr>
-  vnoremap <leader>c :echo 'Only supported on Mac'<cr>
-  nnoremap <leader>v :echo 'Only supported on Mac'<cr>
-  vnoremap <leader>v :echo 'Only supported on Mac'<cr>
+  nnoremap <Leader>c :echo 'Only supported on Mac'<CR>
+  vnoremap <Leader>c :echo 'Only supported on Mac'<CR>
+  nnoremap <Leader>v :echo 'Only supported on Mac'<CR>
+  vnoremap <Leader>v :echo 'Only supported on Mac'<CR>
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -280,36 +278,36 @@ vnoremap Q gw
 nnoremap Q gwip
 
 " Strip trailing whitespace file-wide, preserving cursor location
-nnoremap <leader>W :call Preserve('%s/\s\+$//e')<cr>
+nnoremap <Leader>W :call Preserve('%s/\s\+$//e')<CR>
 
 " Swap ' for " (or vice versa) on strings, preserving cursor location
-nnoremap <silent> <leader>' :call Preserve("normal cs\"'")<cr>
-nnoremap <silent> <leader>" :call Preserve("normal cs'\"")<cr>
+nnoremap <silent> <Leader>' :call Preserve("normal cs\"'")<CR>
+nnoremap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
 
 " Bubble line or selection
-nmap <s-up>   [e
-nmap <s-down> ]e
-vmap <s-up>   [egv
-vmap <s-down> ]egv
+nmap <S-Up>   [e
+nmap <S-Down> ]e
+vmap <S-Up>   [egv
+vmap <S-Down> ]egv
 
 " Remap ~ to cycle through uppercase, lowercase, title-case.
-vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
+vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 
 " In a visual block selection, insert a space or tab, then return to
 " the selection. This is intended to push a block over to the right,
 " e.g. a fixed-width area in a mediawiki document.
-vnoremap <space> I<space><esc>gv
-vnoremap <tab> I<tab><esc>gv
+vnoremap <Space> I<Space><Esc>gv
+vnoremap <Tab> I<Tab><Esc>gv
 
 " Retain cursor position on line join
 nnoremap J mzJ`z
 
 " Split line at cursor position
-nnoremap S mzi<cr><esc>`zj0
+nnoremap S mzi<CR><Esc>`zj0
 
 " Invoke Tabular
-nnoremap <leader>= :Tabularize /
-vnoremap <leader>= :Tabularize /
+nnoremap <Leader>= :Tabularize /
+vnoremap <Leader>= :Tabularize /
 
 " ------------------------------------------------------------------------ }}}
 " Wrapping {{{
@@ -339,7 +337,7 @@ function ToggleShowBreak()
   endif
 endfunction
 
-nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
+nnoremap <silent> <Leader>N :call ToggleShowBreak()<CR>
 
 " ------------------------------------------------------------------------ }}}
 " Folding {{{
@@ -348,13 +346,13 @@ nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
 set foldmethod=marker
 
 " Use space to toggle folds.
-nnoremap <space> za
+nnoremap <Space> za
 
 " Focus on the current fold
-nnoremap <leader>z zMzvzz
+nnoremap <Leader>z zMzvzz
 
 " Fold current HTML tag.
-nnoremap <leader>Ft Vatzf
+nnoremap <Leader>Ft Vatzf
 
 " ------------------------------------------------------------------------ }}}
 " History, undo and caches {{{
@@ -377,9 +375,9 @@ endif
 
 " Toggle Gundo window
 if has('python')
-  nnoremap <leader>u :GundoToggle<cr>
+  nnoremap <Leader>u :GundoToggle<CR>
 else
-  nnoremap <leader>u :echo 'Gundo requires Python support'<cr>
+  nnoremap <Leader>u :echo 'Gundo requires Python support'<CR>
 endif
 
 let g:Powerline_cache_file = $HOME . '/.vim/tmp/Powerline.cache'
@@ -397,10 +395,10 @@ set ignorecase
 set smartcase
 
 " Clear the highlighted words from an hlsearch (can be visual clutter).
-nnoremap <leader><space> :nohlsearch<cr>
+nnoremap <Leader><Space> :nohlsearch<CR>
 
 " Turn hlsearch on or off.
-nnoremap <leader>h :set hlsearch!<cr>
+nnoremap <Leader>h :set hlsearch!<CR>
 
 " Turn off vim's default regex and use normal regexes (behaves more
 " like Perl regex now...) - this is 'very magic' mode. Only alphanumerics
@@ -425,12 +423,12 @@ nnoremap \ ,
 
 " Use ack. Grep, refined. Provided by ack.vim plugin.
 " Use <CWORD> alternately if desired.
-nnoremap <leader>a :Ack <cword><cr>
+nnoremap <Leader>a :Ack <cword><CR>
 " (Trailing space on below map is intentional.)
-nnoremap <leader>A :Ack --smart-case 
+nnoremap <Leader>A :Ack --smart-case 
 
 " Open a Quickfix window for the last search.
-nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> <Leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " ------------------------------------------------------------------------ }}}
 " Invisibles {{{
@@ -439,7 +437,7 @@ nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 set nolist
 
 " Turn invisibles on/off.
-nnoremap <silent> <leader>i :set list!<cr>
+nnoremap <silent> <Leader>i :set list!<CR>
 
 " How to display tabs, EOL, and other invisibles.
 if has('multi_byte')
@@ -460,7 +458,7 @@ abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ornar
 " Expansion and completion {{{
 
 " Keystroke used for 'expansion' on the command line. Default is <c-e>.
-set wildchar=<tab>
+set wildchar=<Tab>
 
 " Show me more than the first possible completion.
 set wildmenu
@@ -469,17 +467,17 @@ set wildmenu
 set wildmode=list:longest
 
 " Toggle English-word completion from system dictionary. (^n, ^p)
-nnoremap <silent> <leader>E :call ToggleFlag('complete', 'k', 'English completion')<cr>
+nnoremap <silent> <Leader>E :call ToggleFlag('complete', 'k', 'English completion')<CR>
 
 " ------------------------------------------------------------------------ }}}
 " Text object 'N': number {{{
 
-onoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
-xnoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
-onoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
-xnoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
-onoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
-xnoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+onoremap N :<C-U>call <SID>NumberTextObject(0)<CR>
+xnoremap N :<C-U>call <SID>NumberTextObject(0)<CR>
+onoremap aN :<C-U>call <SID>NumberTextObject(1)<CR>
+xnoremap aN :<C-U>call <SID>NumberTextObject(1)<CR>
+onoremap iN :<C-U>call <SID>NumberTextObject(1)<CR>
+xnoremap iN :<C-U>call <SID>NumberTextObject(1)<CR>
 
 function! s:NumberTextObject(whole)
   normal! v
@@ -507,7 +505,7 @@ set dictionary=/usr/share/dict/words
 set spelllang=en_us
 
 " Toggle spellcheck mode
-nnoremap <leader>s :set spell!<cr>
+nnoremap <Leader>s :set spell!<CR>
 
 " ------------------------------------------------------------------------ }}}
 " Windows and tabpages {{{
@@ -516,23 +514,23 @@ nnoremap <leader>s :set spell!<cr>
 set splitbelow
 
 " Create a new vertical window to the right, and switch to it.
-nnoremap <silent> <leader>w :wincmd v<cr>:wincmd l<cr>
+nnoremap <silent> <Leader>w :wincmd v<CR>:wincmd l<CR>
 
-" Easier navigation keys (ctrl + normal movement keys: h,j,k,l)
-nnoremap <silent> <c-h> :wincmd h<cr>
-nnoremap <silent> <c-j> :wincmd j<cr>
-nnoremap <silent> <c-k> :wincmd k<cr>
-nnoremap <silent> <c-l> :wincmd l<cr>
+" Easier window nav keys (ctrl-w ctrl-<h,j,k,l>)
+nnoremap <silent> <C-W><C-H> :wincmd h<CR>
+nnoremap <silent> <C-W><C-J> :wincmd j<CR>
+nnoremap <silent> <C-W><C-K> :wincmd k<CR>
+nnoremap <silent> <C-W><C-L> :wincmd l<CR>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
 
 " Open a new tab in the current view.
-nnoremap <silent> <leader>t :tabnew<cr>
+nnoremap <silent> <Leader>t :tabnew<CR>
 
 " Navigate left/right through tabs using shift + left/right arrow keys.
-nnoremap <silent> <s-left>  :tabprevious<cr>
-nnoremap <silent> <s-right> :tabnext<cr>
+nnoremap <silent> <S-Left>  :tabprevious<CR>
+nnoremap <silent> <S-Right> :tabnext<CR>
 
 " Resize splits when the window is resized.
 autocmd VimResized * :wincmd =
@@ -560,18 +558,18 @@ set path=.
 set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.tgz,.sit,.dmg,.hqx
 
 " Search for files with CtrlP
-nnoremap <leader>* :CtrlP<cr>
+nnoremap <Leader>* :CtrlP<CR>
 
 " Open filename under cursor (optionally in new tab or window)
-nnoremap <leader>of gf
-vnoremap <leader>of gf
-nnoremap <leader>ow :wincmd f
-vnoremap <leader>ow :wincmd f
-nnoremap <leader>ot :wincmd gf
-vnoremap <leader>ot :wincmd gf
+nnoremap <Leader>of gf
+vnoremap <Leader>of gf
+nnoremap <Leader>ow :wincmd f
+vnoremap <Leader>ow :wincmd f
+nnoremap <Leader>ot :wincmd gf
+vnoremap <Leader>ot :wincmd gf
 
 " Open a file browser
-nnoremap <leader>e :edit .<cr>
+nnoremap <Leader>e :edit .<CR>
 
 " ------------------------------------------------------------------------ }}}
 " Shell and external commands {{{
@@ -584,22 +582,22 @@ let &shell='/bin/sh'
 set autowrite
 
 " QuickRun the current buffer, autodetecting syntax
-nnoremap <leader>r :QuickRun<cr>
+nnoremap <Leader>r :QuickRun<CR>
 
 " Read current buffer, turn it into a bookmarklet, insert that bookmarklet
 " in a comment on line 1 (discarding previously inserted bookmarklet if it
 " exists), copy bookmarklet to the clipboard.
-nnoremap <silent> <leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<cr>
+nnoremap <silent> <Leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<CR>
 
 " Preview a markdown file in the default browser
 if exists('s:has_darwin')
-  nnoremap <leader>M :w!<cr>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<cr><cr>
+  nnoremap <Leader>M :w!<CR>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<CR><CR>
 endif
 
 " Convert file, or selection, so each contiguous non-whitespace blob is
 " on its own line. Strip all other whitespace.
-nnoremap <leader>1 :%!$HOME/bin/convert-to-one-string-per-line.rb<cr>
-vnoremap <leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
+nnoremap <Leader>1 :%!$HOME/bin/convert-to-one-string-per-line.rb<CR>
+vnoremap <Leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<CR>
 
 if has('python') && exists('s:has_darwin')
 
@@ -633,8 +631,8 @@ EOF
 endif
 
 " Map one or the other depending which browser I'm mostly using right now.
-nnoremap <silent> <leader>R :call SafariReload()<cr>
-" nnoremap <silent> <leader>R :call ChromeReload()<cr>
+nnoremap <silent> <Leader>R :call SafariReload()<CR>
+" nnoremap <silent> <Leader>R :call ChromeReload()<CR>
 
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
@@ -674,13 +672,13 @@ set nomodeline
 set modelines=0
 
 " Re-indent entire file, preserving cursor location
-"nnoremap <leader>= :call Preserve('normal! gg=G')<cr>
+"nnoremap <Leader>= :call Preserve('normal! gg=G')<CR>
 
 " Create an HTML version of our syntax highlighting for display or printing.
-nnoremap <leader>H :TOhtml<cr>
+nnoremap <Leader>H :TOhtml<CR>
 
 " Ask Vim for the syntax type at cursor location
-nnoremap <leader>? :call SynStack()<cr>
+nnoremap <Leader>? :call SynStack()<CR>
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: BIND {{{
@@ -718,14 +716,16 @@ autocmd BufNewFile,BufRead *.global set filetype=m4
 " Syntax: Make {{{
 
 " Makefile requires real tabs, not spaces
-autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make noexpandtab
+autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
+autocmd Filetype make set noexpandtab
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Markdown, MultiMarkdown, Octopress {{{
 
 " Octopress is a superset of Markdown so just use it everywhere.
 " Set line wrapping for convenience.
-autocmd BufNewFile,BufRead *.md,*.markdown set filetype=octopress textwidth=78 wrap linebreak
+autocmd BufNewFile,BufRead *.md,*.markdown set ft=octopress
+autocmd FileType markdown,octopress set tw=78 wrap lbr ts=4 sw=4 sts=4
 
 " Bold/italic for Markdown/Octopress (plugin 'surround')
 autocmd FileType markdown,octopress let g:surround_{char2nr('i')} = "*\r*"
@@ -774,7 +774,7 @@ autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 " Syntax: Taskpaper {{{
 
 autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
-autocmd BufNewFile,BufRead *.taskpapertheme setlocal filetype=xml
+autocmd BufNewFile,BufRead *.taskpapertheme set filetype=xml
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Text {{{
