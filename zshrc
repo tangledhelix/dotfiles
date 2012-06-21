@@ -142,18 +142,31 @@ mkpuppetmodule() {
   printf "\nclass $1 {\n\n}\n\n" > init.pp
 }
 
+# make a project directory
+mkproj() {
+  test -n "$1" || { echo "missing argument"; return }
+  local _dir
+  local _date=$(date +"%Y%m%d")
+  local _name="$1"
+  local _suffix
+  test -n "$2" && _suffix="-${2}"
+  _dir="${_date}-${_name}${_suffix}"
+  test -d ~/$_dir && { echo "already exists!"; return }
+  mkdir ~/$_dir && cd ~/$_dir
+}
+
 # fix ssh variables inside tmux
-function fixssh() {
-  local __new
+fixssh() {
+  local _new
   if [[ -n "$TMUX" ]]; then
-    __new=$(tmux showenv | grep ^SSH_CLIENT | cut -d = -f 2)
-    [[ -n "$__new" ]] && export SSH_CLIENT="$__new"
-    __new=$(tmux showenv | grep ^SSH_TTY | cut -d = -f 2)
-    [[ -n "$__new" ]] && export SSH_TTY="$__new"
-    __new=$(tmux showenv | grep ^SSH_CONNECTION | cut -d = -f 2)
-    [[ -n "$__new" ]] && export SSH_CONNECTION="$__new"
-    __new=$(tmux showenv | grep ^SSH_AUTH_SOCK | cut -d = -f 2)
-    [[ -n "$__new" && -S "$__new" ]] && export SSH_AUTH_SOCK="$__new"
+    _new=$(tmux showenv | grep ^SSH_CLIENT | cut -d = -f 2)
+    [[ -n "$_new" ]] && export SSH_CLIENT="$_new"
+    _new=$(tmux showenv | grep ^SSH_TTY | cut -d = -f 2)
+    [[ -n "$_new" ]] && export SSH_TTY="$_new"
+    _new=$(tmux showenv | grep ^SSH_CONNECTION | cut -d = -f 2)
+    [[ -n "$_new" ]] && export SSH_CONNECTION="$_new"
+    _new=$(tmux showenv | grep ^SSH_AUTH_SOCK | cut -d = -f 2)
+    [[ -n "$_new" && -S "$_new" ]] && export SSH_AUTH_SOCK="$_new"
   fi
 }
 
@@ -215,7 +228,7 @@ else
   # List tmux sessions
   if [[ -n "$(command -v tmux)" && -z "$TMUX" ]]; then
     if [[ -n "$(tmux ls 2>/dev/null)" ]]; then
-      echo "\n\x1b[1;35m$(tmux ls 2>/dev/null)\x1b[0m"
+      echo "\n\x1b[1;35m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
     fi
   fi
 
