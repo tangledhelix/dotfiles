@@ -28,9 +28,11 @@ zstyle ':omz:module:terminal' auto-title 'no'
 
 # Set the Oh My Zsh modules to load (browse modules).
 # The order matters.
-# 'prompt' should be last
-# 'syntax-highlighting' should be next to last, but, it must be before
-#   'history-substring-search'.
+#   * 'environment' should be first.
+#   * 'completion' must be after 'utility'.
+#   * 'syntax-highlighting' should be next to last, but, it must be
+#      before 'history-substring-search'.
+#   * 'prompt' should be last
 zstyle ':omz:load' omodule \
   'environment' \
   'terminal' \
