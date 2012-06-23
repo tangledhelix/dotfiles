@@ -28,6 +28,9 @@ zstyle ':omz:module:terminal' auto-title 'no'
 
 # Set the Oh My Zsh modules to load (browse modules).
 # The order matters.
+# 'prompt' should be last
+# 'syntax-highlighting' should be next to last, but, it must be before
+#   'history-substring-search'.
 zstyle ':omz:load' omodule \
   'environment' \
   'terminal' \
@@ -37,9 +40,10 @@ zstyle ':omz:load' omodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'prompt' \
   'git' \
-  'history-substring-search'
+  'syntax-highlighting' \
+  'history-substring-search' \
+  'prompt'
 
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
@@ -66,14 +70,14 @@ if [[ -n "$(command -v tmux)" ]]; then
   alias tls='tmux ls'
 
   tnew() {
-    test -z "$1" && { echo 'missing session name'; return }
+    [[ -z "$1" ]] && { echo 'missing session name'; return }
     set-tab-title "tmux:$1"
     tmux -u new -s $1
     set-tab-title $(uname -n)
   }
 
   tatt() {
-    test -z "$1" && { echo 'missing session name'; return }
+    [[ -z "$1" ]] && { echo 'missing session name'; return }
     set-tab-title "tmux:$1"
     tmux -u attach -t $1
     set-tab-title $(uname -n)
@@ -101,10 +105,7 @@ alias jst="TZ=Asia/Tokyo date"
 alias os="uname -srm"
 
 hw() {
-  if [[ "$(uname -s)" != "SunOS" ]]; then
-    echo "'hw' only works on Solaris"
-    return
-  fi
+  [[ "$(uname -s)" != "SunOS" ]] && { echo "This is not Solaris..."; return }
   /usr/platform/`uname -m`/sbin/prtdiag | head -1 | \
     sed "s/^System Configuration: *Sun Microsystems *//" | \
     sed "s/^`uname -m` *//"
@@ -118,14 +119,14 @@ astr() {
 # show me installed version of a perl module
 perlmodver() {
   local __module="$1"
-  test -n "$__module" || { echo "missing argument"; return; }
+  [[ -n "$__module" ]] || { echo "missing argument"; return; }
   perl -M$__module -e "print \$$__module::VERSION,\"\\n\";"
 }
 
 # sleep this long, then beep
 beep() {
   local __timer=0
-  test -n "$1" && __timer=$1
+  [[ -n "$1" ]] && __timer=$1
   until [[ $__timer = 0 ]]; do
     printf "  T minus $__timer     \r"
     __timer=$((__timer - 1))
@@ -136,7 +137,7 @@ beep() {
 
 # fabricate a puppet module directory set
 mkpuppetmodule() {
-  test -d "$1" && { echo "'$1' already exists"; return }
+  [[ -d "$1" ]] && { echo "'$1' already exists"; return }
   mkdir -p $1/{files,templates,manifests}
   cd $1/manifests
   printf "\nclass $1 {\n\n}\n\n" > init.pp
@@ -144,14 +145,14 @@ mkpuppetmodule() {
 
 # make a project directory
 mkproj() {
-  test -n "$1" || { echo "missing argument"; return }
+  [[ -n "$1" ]] || { echo "missing argument"; return }
   local _dir
   local _date=$(date +"%Y%m%d")
   local _name="$1"
   local _suffix
-  test -n "$2" && _suffix="-${2}"
+  [[ -n "$2" ]] && _suffix="-${2}"
   _dir="${_date}-${_name}${_suffix}"
-  test -d ~/$_dir && { echo "already exists!"; return }
+  [[ -d ~/$_dir ]] && { echo "already exists!"; return }
   mkdir ~/$_dir && cd ~/$_dir
 }
 
@@ -204,10 +205,10 @@ else
 
   set-tab-title $(uname -n)
 
-  test -f ~/.rbenv/bin/rbenv && eval "$(rbenv init -)"
+  [[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
 
   # Check for broken services on SMF-based systems
-  test -x /bin/svcs && svcs -xv
+  [[ -x /bin/svcs ]] && svcs -xv
 
   # Create some Vim cache directories if they don't exist.
   mkdir -p ~/.vim/tmp/{undo,backup,swap}
@@ -235,5 +236,5 @@ else
 fi
 
 # local settings override global ones
-test -s $HOME/.zshrc.local && source $HOME/.zshrc.local
+[[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
 
