@@ -79,7 +79,7 @@ path_candidates=(
 )
 
 for path_candidate in $path_candidates; do
-  test -d $path_candidate && path+=$path_candidate
+  [[ -d $path_candidate ]] && path+=$path_candidate
 done
 
 # homebrew
@@ -100,9 +100,9 @@ if [[ -z "$LANG" ]]; then
 fi
 
 # Editors
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='less'
+export EDITOR="vim"
+export VISUAL="vim"
+export PAGER="less"
 
 # Browser (Default)
 if [[ "$OSTYPE" == darwin* ]]; then
@@ -118,7 +118,7 @@ fi
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 #
 # Removed -S, don't want no-wrap by default (use less-nowrap for that)
-export LESS='-F -g -i -M -R -w -X -z-4'
+export LESS="-F -g -i -M -R -w -X -z-4"
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then

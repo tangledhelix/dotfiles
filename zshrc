@@ -96,30 +96,30 @@ alias ppv='puppet parser validate'
 alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
 
 # Show me time in GMT / UTC
-alias utc="TZ=UTC date"
-alias gmt="TZ=GMT date"
+alias utc='TZ=UTC date'
+alias gmt='TZ=GMT date'
 # Time in Tokyo
-alias jst="TZ=Asia/Tokyo date"
+alias jst='TZ=Asia/Tokyo date'
 
 # show me platform info
-alias os="uname -srm"
+alias os='uname -srm'
 
 hw() {
-  [[ "$(uname -s)" != "SunOS" ]] && { echo "This is not Solaris..."; return }
+  [[ "$(uname -s)" != 'SunOS' ]] && { echo 'This is not Solaris...'; return }
   /usr/platform/`uname -m`/sbin/prtdiag | head -1 | \
-    sed "s/^System Configuration: *Sun Microsystems *//" | \
-    sed "s/^`uname -m` *//"
+    sed 's/^System Configuration: *Sun Microsystems *//' | \
+    sed 's/^$(uname -m) *//'
 }
 
 # translate AS/RR numbers
 astr() {
-  echo "$1" | tr "[A-J0-9]" "[0-9A-J]"
+  echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
 }
 
 # show me installed version of a perl module
 perlmodver() {
   local __module="$1"
-  [[ -n "$__module" ]] || { echo "missing argument"; return; }
+  [[ -n "$__module" ]] || { echo 'missing argument'; return; }
   perl -M$__module -e "print \$$__module::VERSION,\"\\n\";"
 }
 
@@ -145,14 +145,14 @@ mkpuppetmodule() {
 
 # make a project directory
 mkproj() {
-  [[ -n "$1" ]] || { echo "missing argument"; return }
+  [[ -n "$1" ]] || { echo 'missing argument'; return }
   local _dir
-  local _date=$(date +"%Y%m%d")
+  local _date=$(date +'%Y%m%d')
   local _name="$1"
   local _suffix
   [[ -n "$2" ]] && _suffix="-${2}"
   _dir="${_date}-${_name}${_suffix}"
-  [[ -d ~/$_dir ]] && { echo "already exists!"; return }
+  [[ -d ~/$_dir ]] && { echo 'already exists!'; return }
   mkdir ~/$_dir && cd ~/$_dir
 }
 
@@ -160,37 +160,37 @@ mkproj() {
 fixssh() {
   local _new
   if [[ -n "$TMUX" ]]; then
-    _new=$(tmux showenv | grep ^SSH_CLIENT | cut -d = -f 2)
+    _new=$(tmux showenv | grep '^SSH_CLIENT' | cut -d = -f 2)
     [[ -n "$_new" ]] && export SSH_CLIENT="$_new"
-    _new=$(tmux showenv | grep ^SSH_TTY | cut -d = -f 2)
+    _new=$(tmux showenv | grep '^SSH_TTY' | cut -d = -f 2)
     [[ -n "$_new" ]] && export SSH_TTY="$_new"
-    _new=$(tmux showenv | grep ^SSH_CONNECTION | cut -d = -f 2)
+    _new=$(tmux showenv | grep '^SSH_CONNECTION' | cut -d = -f 2)
     [[ -n "$_new" ]] && export SSH_CONNECTION="$_new"
-    _new=$(tmux showenv | grep ^SSH_AUTH_SOCK | cut -d = -f 2)
+    _new=$(tmux showenv | grep '^SSH_AUTH_SOCK' | cut -d = -f 2)
     [[ -n "$_new" && -S "$_new" ]] && export SSH_AUTH_SOCK="$_new"
   fi
 }
 
 # count something fed in on stdin
-alias count="sort | uniq -c | sort -n"
+alias count='sort | uniq -c | sort -n'
 
 # Strip comment / blank lines from an output
 alias stripcomments="egrep -v '^([\ \t]*#|$)'"
 
-alias ack="ack --smart-case"
+alias ack='ack --smart-case'
 
 # Give me a list of the RPM package groups
-alias rpmgroups="cat /usr/share/doc/rpm-*/GROUPS"
+alias rpmgroups='cat /usr/share/doc/rpm-*/GROUPS'
 
 # Watch Puppet logs
-alias tailpa="tail -F /var/log/daemon/debug | grep puppet-agent"
-alias tailpm="tail -F /var/log/daemon/debug | grep puppet-master"
+alias tailpa='tail -F /var/log/daemon/debug | grep puppet-agent'
+alias tailpm='tail -F /var/log/daemon/debug | grep puppet-master'
 
 # Get my current public IP
-alias get-ip="curl --silent http://icanhazip.com"
+alias get-ip='curl --silent http://icanhazip.com'
 
 # less with no-wrap (oh-my-zsh default, could be useful sometimes)
-alias less-nowrap="less -S"
+alias less-nowrap='less -S'
 
 if [[ $UID -eq 0 ]]; then
 
@@ -217,7 +217,7 @@ else
   __yankring="$HOME/.vim/yankring_history_v2.txt"
   if [[ -f $__yankring ]]; then
     if [[ ! -O $__yankring ]]; then
-      echo "WARNING: yankring history file is not writeable"
+      echo 'WARNING: yankring history file is not writeable'
     else
       chmod 0600 $__yankring
     fi
