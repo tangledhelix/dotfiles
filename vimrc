@@ -31,6 +31,7 @@ if !has('python')
 endif
 
 filetype off
+runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
@@ -300,7 +301,7 @@ vnoremap <Space> I<Space><Esc>gv
 vnoremap <Tab> I<Tab><Esc>gv
 
 " Retain cursor position on line join
-nnoremap J mzJ`z
+" nnoremap J mzJ`z
 
 " Split line at cursor position
 nnoremap S mzi<CR><Esc>`zj0
@@ -683,7 +684,7 @@ nnoremap <Leader>? :call SynStack()<CR>
 " ------------------------------------------------------------------------ }}}
 " Syntax: BIND {{{
 
-autocmd BufNewFile,BufRead *.com set filetype=bindzone
+autocmd BufNewFile,BufRead *.com setfiletype bindzone
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: C {{{
@@ -693,8 +694,8 @@ autocmd FileType c setlocal foldmethod=syntax
 " ------------------------------------------------------------------------ }}}
 " Syntax: Email and Exim {{{
 
-autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
-autocmd BufNewFile,BufRead exim.cf* set filetype=exim
+autocmd BufNewFile,BufRead aliases.* setfiletype mailaliases
+autocmd BufNewFile,BufRead exim.cf* setfiletype exim
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Epub {{{
@@ -705,81 +706,81 @@ au BufReadCmd *.epub call zip#Browse(expand('<amatch>'))
 " ------------------------------------------------------------------------ }}}
 " Syntax: Erlang {{{
 
-autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
+autocmd BufNewFile,BufRead ejabberd.cfg setfiletype erlang
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: M4 {{{
 
-autocmd BufNewFile,BufRead *.global set filetype=m4
+autocmd BufNewFile,BufRead *.global setfiletype m4
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Make {{{
 
 " Makefile requires real tabs, not spaces
-autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
-autocmd Filetype make set noexpandtab
+autocmd BufNewFile,BufRead [Mm]akefile* setfiletype make
+autocmd Filetype make setlocal noexpandtab
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Markdown, MultiMarkdown, Octopress {{{
 
 " Octopress is a superset of Markdown so just use it everywhere.
 " Set line wrapping for convenience.
-autocmd BufNewFile,BufRead *.md,*.markdown set ft=octopress
-autocmd FileType markdown,octopress set tw=78 wrap lbr ts=4 sw=4 sts=4
+autocmd BufNewFile,BufRead *.md,*.markdown setfiletype octopress
+autocmd FileType markdown,octopress setlocal tw=78 wrap lbr ts=4 sw=4 sts=4
 
 " Bold/italic for Markdown/Octopress (plugin 'surround')
-autocmd FileType markdown,octopress let g:surround_{char2nr('i')} = "*\r*"
-autocmd FileType markdown,octopress let g:surround_{char2nr('b')} = "**\r**"
+autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"
+autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Mediawiki {{{
 
-autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
+autocmd BufNewFile,BufRead *.wiki,*ISSwiki* setfiletype mediawiki
 
 " Italic, bold surrounds for Mediawiki (plugin 'surround')
-autocmd FileType mediawiki let g:surround_{char2nr('i')} = "''\r''"
-autocmd FileType mediawiki let g:surround_{char2nr('b')} = "'''\r'''"
+autocmd FileType mediawiki let b:surround_{char2nr('i')} = "''\r''"
+autocmd FileType mediawiki let b:surround_{char2nr('b')} = "'''\r'''"
 
 " Header levels 2, 3, 4
-autocmd FileType mediawiki let g:surround_{char2nr('2')} = "==\r=="
-autocmd FileType mediawiki let g:surround_{char2nr('3')} = "===\r==="
-autocmd FileType mediawiki let g:surround_{char2nr('4')} = "====\r===="
+autocmd FileType mediawiki let b:surround_{char2nr('2')} = "==\r=="
+autocmd FileType mediawiki let b:surround_{char2nr('3')} = "===\r==="
+autocmd FileType mediawiki let b:surround_{char2nr('4')} = "====\r===="
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Perl {{{
 
-autocmd BufNewFile,BufRead *.t set filetype=perl
+autocmd BufNewFile,BufRead *.t setfiletype perl
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: PHP {{{
 
-autocmd BufNewFile,BufRead *.inc set filetype=php
+autocmd BufNewFile,BufRead *.inc setfiletype php
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Rdist {{{
 
-autocmd BufNewFile,BufRead distfile.common set filetype=rdist
+autocmd BufNewFile,BufRead distfile.common setfiletype rdist
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Ruby {{{
 
-autocmd FileType ruby setlocal foldmethod=syntax
+" autocmd FileType ruby setlocal foldmethod=syntax
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Shell {{{
 
-autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
+autocmd BufNewFile,BufRead .bash/*,bash/* setfiletype sh
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Taskpaper {{{
 
 autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
-autocmd BufNewFile,BufRead *.taskpapertheme set filetype=xml
+autocmd BufNewFile,BufRead *.taskpapertheme setfiletype xml
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Text {{{
 
-autocmd BufNewFile,BufRead *.txt set filetype=text
+autocmd BufNewFile,BufRead *.txt setfiletype text
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Vim {{{
@@ -787,7 +788,7 @@ autocmd BufNewFile,BufRead *.txt set filetype=text
 " Snippet files need real tabs, at least on the left margin.
 " This works out okay because when they're triggered, if expandtab
 " is set, they will be translated to spaces during expansion.
-autocmd FileType snippet set noexpandtab
+autocmd FileType snippet setlocal noexpandtab
 
 " ------------------------------------------------------------------------ }}}
 
