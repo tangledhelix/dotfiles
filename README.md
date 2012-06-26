@@ -7,17 +7,30 @@ varying flavors. They are published here because I occasionally want to share
 them or use them as examples, and this is an easy way to do so. Feel free to
 use anything you find here.
 
+Note however, that I do not make any particular effort to make this easy for
+others to use. I randomly move things around, add and remove Vim bundles,
+according to my needs. If you want to use these dotfiles, I would definitely
+suggest forking them to your own repo so you can selectively merge changes as
+you see fit. YMMV.
+
 Compatibility
 -------------
 
-I am a bash user; much of the shell environment may well work in other advanced
-Bourne derivatives such as zsh, but some of it will break.
+I am a Zsh user. This repo goes in conjunction with my [oh-my-zsh][] fork. If
+you want to use zsh, I suggest cloning that repo into `~/.oh-my-zsh` and
+installing the `.z*` files from this repo.
+
+You can use `rake install:zsh` to install my Zsh setup.
+
+Using Bash does not need any external repos. Use `rake install:bash` to
+install my Bash setup. I used Bash for many years, and those files are fairly
+mature, but I am no longer paying a lot of attention to them.
 
 I regularly use this setup with Mac OS X, Solaris, Linux and FreeBSD systems.
 
-Some parts of the Bash and Vim configs may assume you have 256 color support in
-your terminal. If you are using Apple Terminal before OS X Lion, you don't.
-Try iTerm2 instead.
+Some parts of the Bash, Zsh, and Vim configs may assume you have 256 color
+support in your terminal. If you are using Apple Terminal before OS X Lion,
+you don't. Try iTerm2 instead.
 
 <http://sites.google.com/site/iterm2home/>
 
@@ -28,14 +41,17 @@ read; color support is only one of several good reasons to switch.
 
 <http://tangledhelix.com/blog/2010/12/06/iterm2-iterm/>
 
-Shell colors in bash
---------------------
+Shell colors
+------------
 
-The colors in the prompt ($PS1) are currently set up assuming the terminal
-is using [Solarized][] as a color scheme. They may not look very good in
-other terminal setups.
+The colors in the shell prompts for both Bash and Zsh are currently set up
+assuming the terminal is using [Solarized][] (light) as a color scheme. They
+may not look very good in other terminal setups.
 
 [solarized]: http://ethanschoonover.com/solarized
+
+The Zsh setup lets you pick from multiple prompts. Run `prompt -l` to
+see them, and set what you like in `~/.zshrc`.
 
 Installation
 ------------
@@ -50,13 +66,16 @@ To install my dotfiles as *your* dotfiles, you can create symlinks with `rake`.
 If you do *not* run the rake command, everything will be isolated inside of
 the `.dotfiles` directory and will not interfere with your existing environment.
 
-    rake install
+    rake install:all
 
 Rake will ask you before overwriting any files that already exist.
 
-Occasionally I run into a system where rake isn't installed and I can't
-easily install it. For those cases, I have `install.sh`, which does the
-job, but isn't as graceful.
+You can also install subsets of the environment using one of the following.
+
+    rake install:bash
+    rake install:zsh
+    rake install:vim
+    rake install:git
 
 Submodules
 ----------
