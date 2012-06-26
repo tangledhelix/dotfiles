@@ -28,3 +28,5 @@ General editing
 
   :bd!    Remove buffer from buffer list, discarding changes
 
+  g ctrl-g    show word count and other info
+
