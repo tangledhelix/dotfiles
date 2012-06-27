@@ -129,6 +129,10 @@ export ACK_PAGER="less"
 
 export CVS_RSH="ssh"
 
+if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
+  export NODE_PATH="/usr/local/lib/node_modules"
+fi
+
 test -d /apps/oracle/product/9.2.0 &&
     export ORACLE_HOME="/apps/oracle/product/9.2.0"
 
