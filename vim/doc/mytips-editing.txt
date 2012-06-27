@@ -24,9 +24,5 @@ General editing
 
   ctrl-y  yank character directly above you to current line (duplicate)
 
-  :e!     Revert buffer to file on disk
-
-  :bd!    Remove buffer from buffer list, discarding changes
-
   g ctrl-g    show word count and other info
 

@@ -6,6 +6,7 @@ Vim tips and tricks:
 
 Editing text                    |mytips-editing|
 Finding and opening files       |mytips-open|
+Managing files and buffers      |mytips-file-mgmt|
 Copy and paste                  |mytips-copypaste|
 Selection and matching          |mytips-select|
 Completion and expansion        |mytips-completion|

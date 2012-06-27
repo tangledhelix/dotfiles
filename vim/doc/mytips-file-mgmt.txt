@@ -1,0 +1,9 @@
+*mytips-file-mgmt.txt*  Dan's personal Vim tips            *mytips-file-mgmt*
+
+  :e!     Revert buffer to file on disk
+
+  :bd!    Remove buffer from buffer list, discarding changes
+
+  :wa     Write all buffers
+  :xa     Write all buffers, then exit
+
