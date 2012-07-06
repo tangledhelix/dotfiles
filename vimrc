@@ -643,7 +643,7 @@ if has('gui_running')
   set antialias
 endif
 
-set background=light
+set background=dark
 colorscheme solarized
 
 " Mark trailing whitespace with red to make it stand out.
