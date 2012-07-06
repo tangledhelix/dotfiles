@@ -240,3 +240,6 @@ fi
 # local settings override global ones
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
 
+# Make the prompt happy so I don't have $? true on every load
+__zsh_load_complete=1
+
