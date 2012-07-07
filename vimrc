@@ -285,11 +285,9 @@ nnoremap <Leader>W :call Preserve('%s/\s\+$//e')<CR>
 nnoremap <silent> <Leader>' :call Preserve("normal cs\"'")<CR>
 nnoremap <silent> <Leader>" :call Preserve("normal cs'\"")<CR>
 
-" Bubble line or selection
-nmap <S-Up>   [e
-nmap <S-Down> ]e
-vmap <S-Up>   [egv
-vmap <S-Down> ]egv
+" Bubble selection
+vmap K [egv
+vmap J ]egv
 
 " Remap ~ to cycle through uppercase, lowercase, title-case.
 vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
@@ -529,9 +527,9 @@ set helpheight=0
 " Open a new tab in the current view.
 nnoremap <silent> <Leader>t :tabnew<CR>
 
-" Navigate left/right through tabs using shift + left/right arrow keys.
-nnoremap <silent> <S-Left>  :tabprevious<CR>
-nnoremap <silent> <S-Right> :tabnext<CR>
+" Navigate left/right through tabs using ^H, ^L
+nnoremap <C-h> :tabprevious<CR>
+nnoremap <C-l> :tabnext<CR>
 
 " Resize splits when the window is resized.
 autocmd VimResized * :wincmd =
