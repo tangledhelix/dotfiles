@@ -26,3 +26,10 @@ General editing
 
   g ctrl-g    show word count and other info
 
+  (in insert mode)
+    ctrl-r = (equation)     calculate and insert, e.g.    ^R=53+17
+
+  (with visual selection)
+    K     bubble selection up
+    J     bubble selection down
+

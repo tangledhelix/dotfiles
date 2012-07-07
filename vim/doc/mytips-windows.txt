@@ -13,10 +13,10 @@ Window resizing
 
 Windows moving
 
-  ctrl-j      Move to window below
-  ctrl-k      Move to window above
-  ctrl-h      Move to window at left
-  ctrl-l      Move to window at right
+  ctrl-w ctrl-j      Move to window below
+  ctrl-w ctrl-k      Move to window above
+  ctrl-w ctrl-h      Move to window at left
+  ctrl-w ctrl-l      Move to window at right
 
 Creating a window
 
@@ -28,6 +28,6 @@ Creating a tab
 
 Moving among tabs
 
-  shift-right     Move to tab at right
-  shift-left      Move to tab at left
+  ctrl-h      Move to tab at left
+  ctrl-l      Move to tab at right
 

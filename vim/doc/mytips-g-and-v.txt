@@ -17,6 +17,10 @@ Can mix this with |:s| and/or |:%| do to stuff like this:
 
 For every line containing "foo", substitute all "bar" with "zzz".
 
+:g/foo/s/^/#/g
+
+Comment out lines containing "foo"
+
 "m" to move
 "j" to join
 
