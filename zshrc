@@ -231,7 +231,7 @@ else
   # List tmux sessions
   if [[ -n "$(command -v tmux)" && -z "$TMUX" ]]; then
     if [[ -n "$(tmux ls 2>/dev/null)" ]]; then
-      echo "\n\x1b[1;35m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
+      echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
     fi
   fi
 
