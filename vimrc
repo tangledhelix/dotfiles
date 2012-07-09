@@ -259,10 +259,10 @@ if exists('s:has_darwin')
   " nnoremap <Leader>v :set paste<CR>"*p:set nopaste<CR>
   " vnoremap <Leader>v :set paste<CR>"*p:set nopaste<CR>
 else
-  nnoremap <Leader>c :echo 'Only supported on Mac'<CR>
-  vnoremap <Leader>c :echo 'Only supported on Mac'<CR>
-  nnoremap <Leader>v :echo 'Only supported on Mac'<CR>
-  vnoremap <Leader>v :echo 'Only supported on Mac'<CR>
+  nnoremap <Leader>c :echoerr 'Only supported on Mac'<CR>
+  vnoremap <Leader>c :echoerr 'Only supported on Mac'<CR>
+  nnoremap <Leader>v :echoerr 'Only supported on Mac'<CR>
+  vnoremap <Leader>v :echoerr 'Only supported on Mac'<CR>
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -376,7 +376,7 @@ endif
 if has('python')
   nnoremap <Leader>u :GundoToggle<CR>
 else
-  nnoremap <Leader>u :echo 'Gundo requires Python support'<CR>
+  nnoremap <Leader>u :echoerr 'Gundo requires Python support'<CR>
 endif
 
 let g:Powerline_cache_file = $HOME . '/.vim/tmp/Powerline.cache'
