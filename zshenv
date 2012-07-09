@@ -100,9 +100,9 @@ if [[ -z "$LANG" ]]; then
 fi
 
 # Editors
-export EDITOR="vim"
-export VISUAL="vim"
-export PAGER="less"
+export EDITOR='vim'
+export VISUAL='vim'
+export PAGER='less'
 
 # Browser (Default)
 if [[ "$OSTYPE" == darwin* ]]; then
@@ -112,14 +112,12 @@ elif [[ -n "$(command -v links)" ]]; then
 fi
 
 if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
-  export NODE_PATH="/usr/local/lib/node_modules"
+  export NODE_PATH='/usr/local/lib/node_modules'
 fi
 
-test -d /apps/oracle/product/9.2.0 &&
-    export ORACLE_HOME="/apps/oracle/product/9.2.0"
-
-test -d /apps/oracle/product/10.2.0 &&
-    export ORACLE_HOME="/apps/oracle/product/10.2.0"
+[[ -d /apps/oracle/product/9.2.0 ]]  && ORACLE_HOME='/apps/oracle/product/9.2.0'
+[[ -d /apps/oracle/product/10.2.0 ]] && ORACLE_HOME='/apps/oracle/product/10.2.0'
+[[ -n "$ORACLE_HOME" ]] && export ORACLE_HOME
 
 # Less
 
@@ -128,14 +126,14 @@ test -d /apps/oracle/product/10.2.0 &&
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 #
 # Removed -S, don't want no-wrap by default (use less-nowrap for that)
-export LESS="-F -g -i -M -R -w -X -z-4"
+export LESS='-F -g -i -M -R -w -X -z-4'
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then
   export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
 fi
 
-export ACK_PAGER="less"
+export ACK_PAGER='less'
 
-export CVS_RSH="ssh"
+export CVS_RSH='ssh'
 
