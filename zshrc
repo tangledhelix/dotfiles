@@ -108,7 +108,7 @@ alias os='uname -srm'
 
 hw() {
   [[ "$(uname -s)" != 'SunOS' ]] && { echo 'This is not Solaris...'; return }
-  /usr/platform/`uname -m`/sbin/prtdiag | head -1 | \
+  /usr/platform/$(uname -m)/sbin/prtdiag | /usr/bin/head -1 | \
     sed 's/^System Configuration: *Sun Microsystems *//' | \
     sed 's/^$(uname -m) *//'
 }
