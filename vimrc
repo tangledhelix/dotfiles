@@ -576,6 +576,10 @@ nnoremap <Leader>e :edit .<CR>
 " Shell to use. Stick with the old standard.
 let &shell='/bin/sh'
 
+" Execute the current line via the default shell, replacing the line with
+" the resulting output.
+nnoremap <silent> <Leader>X :echo 'Executing...'<CR>:execute ':.!' . &shell<CR>
+
 " Automatically save modifications to files when you use
 " critical (external) commands.
 set autowrite

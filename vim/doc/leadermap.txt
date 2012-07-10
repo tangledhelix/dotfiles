@@ -45,6 +45,7 @@ Current leader key map:                                            *leadermap*
   ,V            Reselect what was just pasted (use gv for last selection)
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
+  ,X            Execute the current line in &shell, replace with result
   ,y            Toggle yankring window (plugin: |yankring|)
   ,z            Focus on the current fold (fold down all other folds)
 
