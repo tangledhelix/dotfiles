@@ -147,7 +147,8 @@ mkpuppetmodule() {
 
 # make a project directory
 mkproj() {
-  [[ -n "$1" ]] || { echo 'missing argument'; return }
+  local _usage='Usage: mkproj <desc> [<ticket>]'
+  [[ -z "$1" || "$1" =~ '^(-h|--help)' ]] && { echo $_usage; return }
   local _dir
   local _date=$(date +'%Y%m%d')
   local _name="$1"
@@ -156,6 +157,37 @@ mkproj() {
   _dir="${_date}-${_name}${_suffix}"
   [[ -d ~/$_dir ]] && { echo 'already exists!'; return }
   mkdir ~/$_dir && cd ~/$_dir
+}
+
+# find a project directory
+proj() {
+  local _usage='Usage: proj [<pattern>]'
+  [[ "$1" =~ '^(-h|--help)' ]] && { echo $_usage; return }
+  # If there's no pattern, go to the most recent project.
+  [[ -z "$1" ]] && { cd ~/(19|20)[0-9][0-9][01][0-9][0-3][0-9]-*(/om[1]); return }
+  local _this
+  local _choice=0
+  local _index=1
+  local _projects
+  typeset -a _projects
+  _projects=()
+  for _this in ~/(19|20)[0-9][0-9][01][0-9][0-3][0-9]-*$1*; do
+    [[ -d $_this ]] && _projects+=$_this
+  done 2>/dev/null
+  [[ $#_projects -eq 0 ]] && { echo 'No match.'; return }
+  [[ $#_projects -eq 1 ]] && { cd $_projects[1]; return }
+  for _this in $_projects[1,-2]; do
+    echo "  [$_index] $(basename $_this)"
+    _index=$(( $_index + 1 ))
+  done
+  echo "* [$_index] \e[0;31;47m$(basename $_projects[-1])\e[0m"
+  echo
+  until [[ $_choice -ge 1 && $_choice -le $#_projects ]]; do
+    printf 'select> '
+    read _choice
+    [[ -z "$_choice" ]] && { cd $_projects[-1]; return }
+  done
+  cd $_projects[$_choice]
 }
 
 # fix ssh variables inside tmux
