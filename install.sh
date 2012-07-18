@@ -1,6 +1,7 @@
 #!/bin/sh
 #
 # For unenlightened systems where ruby and rake are not available.
+# This is quite possibly out of date compared to Rakefile.
 
 for item in bash bash_profile bashrc emacs gitignore inputrc \
   ircrc screenrc tcshrc terminfo tmux.conf vim vimrc
