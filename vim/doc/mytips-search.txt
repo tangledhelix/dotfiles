@@ -19,6 +19,8 @@ Search and replace
   q/      Open search history window to edit/use search history
   ctrl-f  From search input field, switch to search history window
 
+  /foo/e          search for foo, placing cursor at end of match
+
   :%g/foo/m$      move all lines matching foo to end of file
                       % = global search
                       g = command

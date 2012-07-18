@@ -8,3 +8,5 @@ External comands
 
   :echo glob($VIMRUNTIME . "/syntax/*.vim")      Show all known syntaxes
 
+  command | vim -     edit command's output in vim as a buffer
+
