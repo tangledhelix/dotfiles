@@ -114,9 +114,7 @@ hw() {
 }
 
 # translate AS/RR numbers
-astr() {
-  echo "$1" | tr '[A-J0-9]' '[0-9A-J]'
-}
+astr() { echo "$1" | tr '[A-J0-9]' '[0-9A-J]' }
 
 # show me installed version of a perl module
 perlmodver() {
