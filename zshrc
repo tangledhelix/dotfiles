@@ -24,7 +24,7 @@ zstyle ':omz:module:terminal' auto-title 'no'
 # zstyle ':omz:load' zmodule 'attr' 'stat'
 
 # Set the Zsh functions to load (man zshcontrib).
-# zstyle ':omz:load' zfunction 'zargs' 'zmv'
+zstyle ':omz:load' zfunction 'zargs' 'zmv'
 
 # Set the Oh My Zsh modules to load (browse modules).
 # The order matters.
