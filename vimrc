@@ -274,9 +274,10 @@ set formatoptions=qrn1
 " Insert two spaces after a period with every joining of lines? No!
 set nojoinspaces
 
-" Reformat current selection or paragraph.
-vnoremap Q gw
-nnoremap Q gwip
+" Reformat current paragraph, selection, or line.
+nnoremap Q gqip
+vnoremap Q gq
+nnoremap ql ^vg_gq
 
 " Strip trailing whitespace file-wide, preserving cursor location
 nnoremap <Leader>W :call Preserve('%s/\s\+$//e')<CR>
@@ -413,8 +414,8 @@ set magic
 set gdefault
 
 " Keep search matches positioned in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
 
 " Since we borrowed , for the mapleader, replicate its purpose in \
 " (the mapleader we displaced).
