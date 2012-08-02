@@ -10,6 +10,8 @@ General editing
   ctf     change until next occurrence of "f"
   ciw     change this word (inside)
   caw     change this word (outside)
+  ci{     change inside block (ca{ for outside)
+  di{     delete inside block
 
   K       go to man page for the word under the cursor (disabled...)
 
@@ -32,4 +34,7 @@ General editing
   (with visual selection)
     K     bubble selection up
     J     bubble selection down
+
+  guu     convert line to lowercase
+  gUU     convert line to uppercase
 

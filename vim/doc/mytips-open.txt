@@ -2,6 +2,8 @@
 
   gf          open filename under the cursor
 
+  '0          Open last-edited file (and '1, '2 ... '9)
+
 Finding files
 
   :find       Find a file anywhere under current path, edit it.
