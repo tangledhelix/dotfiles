@@ -137,3 +137,6 @@ export ACK_PAGER='less'
 
 export CVS_RSH='ssh'
 
+# Avoid an RCS checkin log headache
+[[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
+
