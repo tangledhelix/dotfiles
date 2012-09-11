@@ -42,5 +42,7 @@ Search and replace
   :%s/\ r//g      Remove all the ^M from a file
   :%s/\ r$//g     Remove ^M only at the end of a line
 
+  :s!/usr/local/!/opt/alt/!       Use delimiter other than /
+
   &       repeat last :s command
 
