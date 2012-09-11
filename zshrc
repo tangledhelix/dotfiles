@@ -68,20 +68,27 @@ ssh() {
 }
 
 if [[ -n "$(command -v tmux)" ]]; then
-  alias tmux='tmux -u'
-  alias tls='tmux ls'
 
-  tnew() {
-    [[ -z "$1" ]] && { echo 'missing session name'; return }
-    set-tab-title "tmux:$1"
-    tmux -u new -s $1
-    set-tab-title $(uname -n)
-  }
+  # Fix ssh socket for tmux happiness
+  if [[ -z "$TMUX" ]]; then
+    if [[ -n "$SSH_TTY" ]]; then
+      if [[ -n "$SSH_AUTH_SOCK" ]]; then
+        ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
+      fi
+      export SSH_AUTH_SOCK="$HOME/.wrap_auth_sock"
+    fi
+  fi
 
-  tatt() {
-    [[ -z "$1" ]] && { echo 'missing session name'; return }
-    set-tab-title "tmux:$1"
-    tmux -u attach -t $1
+  # tmux magic alias to list, show, or attach
+  t() {
+    [[ -z "$1" ]] && { tmux ls; return }
+    export STY="tmux:$1"
+    set-tab-title $STY
+    if tmux has-session -t "$1"; then
+      exec tmux -u attach-session -t "$1"
+    else
+      exec tmux -u new-session -s "$1"
+    fi
     set-tab-title $(uname -n)
   }
 
@@ -93,6 +100,11 @@ alias vimdiff='vimdiff -O'
 
 alias c='clear'
 alias ppv='puppet parser validate'
+
+erbck() {
+  [[ -n "$1" ]] || { echo 'Missing argument'; return }
+  erb -P -x -T '-' $1 | ruby -c
+}
 
 # print the directory structure from the current directory in tree format
 alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
