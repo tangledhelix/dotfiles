@@ -252,7 +252,7 @@ else
       [[ -z "$1" ]] && { tmux ls 2>/dev/null; return }
       export STY="tmux:$1"
       set-tab-title $STY
-      if tmux has-session -t "$1"; then
+      if tmux has-session -t "$1" 2>/dev/null; then
         tmux -u attach-session -t "$1"
       else
         tmux -u new-session -s "$1"
