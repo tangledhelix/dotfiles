@@ -39,6 +39,7 @@ manpath=(
   /usr/sfw/man
   ~/local/man
   ~/local/share/man
+  ~/.cabal/share/man
   $manpath
 )
 
@@ -76,6 +77,7 @@ path_candidates=(
   /usr/sfw/bin
   /usr/X11R6/bin
   ~/tools
+  ~/.cabal/bin
 )
 
 for path_candidate in $path_candidates; do
