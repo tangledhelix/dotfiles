@@ -28,6 +28,7 @@ Comment out lines containing "foo"
                 while preserving their original ordering.
 
 :g/^$/d         Delete all empty lines
+:g/pattern/#    Display each line matching pattern, with line numbers
 
 ===========================================================================
 
