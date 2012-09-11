@@ -173,21 +173,6 @@ proj() {
   cd $_projects[$_choice]
 }
 
-# fix ssh variables inside tmux
-fixssh() {
-  local _new
-  if [[ -n "$TMUX" ]]; then
-    _new=$(tmux showenv | grep '^SSH_CLIENT' | cut -d = -f 2)
-    [[ -n "$_new" ]] && export SSH_CLIENT="$_new"
-    _new=$(tmux showenv | grep '^SSH_TTY' | cut -d = -f 2)
-    [[ -n "$_new" ]] && export SSH_TTY="$_new"
-    _new=$(tmux showenv | grep '^SSH_CONNECTION' | cut -d = -f 2)
-    [[ -n "$_new" ]] && export SSH_CONNECTION="$_new"
-    _new=$(tmux showenv | grep '^SSH_AUTH_SOCK' | cut -d = -f 2)
-    [[ -n "$_new" && -S "$_new" ]] && export SSH_AUTH_SOCK="$_new"
-  fi
-}
-
 # count something fed in on stdin
 alias count='sort | uniq -c | sort -n'
 
