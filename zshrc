@@ -67,33 +67,6 @@ ssh() {
   set-tab-title $(uname -n)
 }
 
-if [[ -n "$(command -v tmux)" ]]; then
-
-  # Fix ssh socket for tmux happiness
-  if [[ -z "$TMUX" ]]; then
-    if [[ -n "$SSH_TTY" ]]; then
-      if [[ -n "$SSH_AUTH_SOCK" ]]; then
-        ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
-      fi
-      export SSH_AUTH_SOCK="$HOME/.wrap_auth_sock"
-    fi
-  fi
-
-  # tmux magic alias to list, show, or attach
-  t() {
-    [[ -z "$1" ]] && { tmux ls; return }
-    export STY="tmux:$1"
-    set-tab-title $STY
-    if tmux has-session -t "$1"; then
-      tmux -u attach-session -t "$1"
-    else
-      tmux -u new-session -s "$1"
-    fi
-    set-tab-title $(uname -n)
-  }
-
-fi
-
 alias vi='vim'
 alias view='vim -R'
 alias vimdiff='vimdiff -O'
@@ -270,11 +243,38 @@ else
     chmod 0600 $__yankring
   fi
 
-  # List tmux sessions
-  if [[ -n "$(command -v tmux)" && -z "$TMUX" ]]; then
-    if [[ -n "$(tmux ls 2>/dev/null)" ]]; then
-      echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
+  if [[ -n "$(command -v tmux)" ]]; then
+
+    if [[ -z "$TMUX" ]]; then
+
+      # Fix ssh socket for tmux happiness
+      if [[ -n "$SSH_TTY" ]]; then
+        if [[ -n "$SSH_AUTH_SOCK" ]]; then
+          ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
+        fi
+        export SSH_AUTH_SOCK="$HOME/.wrap_auth_sock"
+      fi
+
+      # List tmux sessions
+      if [[ -n "$(tmux ls 2>/dev/null)" ]]; then
+        echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
+      fi
+
     fi
+
+    # tmux magic alias to list, show, or attach
+    t() {
+      [[ -z "$1" ]] && { tmux ls 2>/dev/null; return }
+      export STY="tmux:$1"
+      set-tab-title $STY
+      if tmux has-session -t "$1"; then
+        tmux -u attach-session -t "$1"
+      else
+        tmux -u new-session -s "$1"
+      fi
+      set-tab-title $(uname -n)
+    }
+
   fi
 
 fi
