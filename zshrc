@@ -85,9 +85,9 @@ if [[ -n "$(command -v tmux)" ]]; then
     export STY="tmux:$1"
     set-tab-title $STY
     if tmux has-session -t "$1"; then
-      exec tmux -u attach-session -t "$1"
+      tmux -u attach-session -t "$1"
     else
-      exec tmux -u new-session -s "$1"
+      tmux -u new-session -s "$1"
     fi
     set-tab-title $(uname -n)
   }
