@@ -16,9 +16,12 @@ you see fit. YMMV.
 Compatibility
 -------------
 
-I am a Zsh user. This repo goes in conjunction with my [oh-my-zsh][] fork. If
-you want to use zsh, I suggest cloning that repo into `~/.oh-my-zsh` and
+I am a Zsh user. This repo goes in conjunction with my
+[fork of oh-my-zsh][zfork].
+If you want to use zsh, I suggest cloning that repo into `~/.oh-my-zsh` and
 installing the `.z*` files from this repo.
+
+[zfork]: https://github.com/tangledhelix/oh-my-zsh
 
 You can use `rake install:zsh` to install my Zsh setup.
 
