@@ -230,21 +230,9 @@ else
 
   if [[ -n "$(command -v tmux)" ]]; then
 
-    if [[ -z "$TMUX" ]]; then
-
-      # Fix ssh socket for tmux happiness
-      if [[ -n "$SSH_TTY" ]]; then
-        if [[ -n "$SSH_AUTH_SOCK" ]]; then
-          ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
-        fi
-        export SSH_AUTH_SOCK="$HOME/.wrap_auth_sock"
-      fi
-
-      # List tmux sessions
-      if [[ -n "$(tmux ls 2>/dev/null)" ]]; then
-        echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
-      fi
-
+    # List tmux sessions
+    if [[ -z "$TMUX" && -n "$(tmux ls 2>/dev/null)" ]]; then
+      echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
     fi
 
     # tmux magic alias to list, show, or attach
