@@ -67,3 +67,6 @@
 [submodule "vim/bundle/pathogen"]
 	path = vim/bundle/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+[submodule "vim/bundle/ultisnips"]
+	path = vim/bundle/ultisnips
+	url = https://github.com/vim-scripts/UltiSnips.git
