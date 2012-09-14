@@ -215,18 +215,18 @@ else
   # Create some Vim cache directories if they don't exist.
   mkdir -p ~/.vim/tmp/{undo,backup,swap}
 
-  # fix yankring permissions
-  __yankring="$HOME/.vim/yankring_history_v2.txt"
-  if [[ -f $__yankring ]]; then
-    if [[ ! -O $__yankring ]]; then
-      echo 'WARNING: yankring history file is not writeable'
-    else
-      chmod 0600 $__yankring
-    fi
-  else
-    touch $__yankring
-    chmod 0600 $__yankring
-  fi
+  # # fix yankring permissions
+  # __yankring="$HOME/.vim/yankring_history_v2.txt"
+  # if [[ -f $__yankring ]]; then
+  #   if [[ ! -O $__yankring ]]; then
+  #     echo 'WARNING: yankring history file is not writeable'
+  #   else
+  #     chmod 0600 $__yankring
+  #   fi
+  # else
+  #   touch $__yankring
+  #   chmod 0600 $__yankring
+  # fi
 
   if [[ -n "$(command -v tmux)" ]]; then
 

@@ -243,10 +243,10 @@ set pastetoggle=,p
 vnoremap D y`>p
 
 " Toggle Yankring window
-nnoremap <silent> <Leader>y :YRShow<CR>
+"nnoremap <silent> <Leader>y :YRShow<CR>
 
 " Where to store the Yankring history file (don't want it in $HOME)
-let g:yankring_history_dir = '$HOME/.vim'
+"let g:yankring_history_dir = '$HOME/.vim'
 
 " Key combos to copy/paste using Mac clipboard
 if exists('s:has_darwin')
