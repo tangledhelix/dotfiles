@@ -13,6 +13,7 @@ History views
 
   q/          search history
   q:          command history
+  @:          repeat last command (optionally prefix with count)
 
   type ":" then up/down arrow to see command history
   type "/" then up/down arrow to see search history
