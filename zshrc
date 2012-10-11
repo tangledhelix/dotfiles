@@ -184,7 +184,9 @@ alias ack='ack --smart-case'
 # Give me a list of the RPM package groups
 alias rpmgroups='cat /usr/share/doc/rpm-*/GROUPS'
 
-# Watch Puppet logs
+# Puppet logs
+alias greppa='grep puppet-agent /var/log/daemon/debug'
+alias greppm='grep puppet-master /var/log/daemon/debug'
 alias tailpa='tail -F /var/log/daemon/debug | grep puppet-agent'
 alias tailpm='tail -F /var/log/daemon/debug | grep puppet-master'
 
