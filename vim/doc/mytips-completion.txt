@@ -12,7 +12,10 @@ Completion and expansion
   ctrl-n          Next match in completion mode
   ctrl-p          Previous match in completion mode
 
+When completing, ctrl-y to accept match, ctrl-e to cancel
+
   ctrl-x ctrl-l   Whole-line completion mode (instead of words)
+  ctrl-x ctrl-o   Syntax-aware omnicomplete
 
   ctrl-x ctrl-f   Complete a local filesystem filename
 
