@@ -212,9 +212,6 @@ else
   # Check for broken services on SMF-based systems
   [[ -x /bin/svcs ]] && svcs -xv
 
-  # Create some Vim cache directories if they don't exist.
-  mkdir -p ~/.vim/tmp/{undo,backup,swap}
-
   if [[ -n "$(command -v tmux)" ]]; then
 
     # List tmux sessions
