@@ -216,21 +216,23 @@ else
 
   if [[ -n "$(command -v tmux)" ]]; then
 
+    alias tmux='tmux -u'
+
+    tmux_ls() {
+      echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
+    }
+
     # List tmux sessions
     if [[ -z "$TMUX" && -n "$(tmux ls 2>/dev/null)" ]]; then
-      echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
+      tmux_ls
     fi
 
     # tmux magic alias to list, show, or attach
     t() {
-      [[ -z "$1" ]] && { tmux ls 2>/dev/null; return }
+      [[ -z "$1" ]] && { tmux_ls; return }
       export STY="tmux:$1"
       set-tab-title $STY
-      if tmux has-session -t "$1" 2>/dev/null; then
-        tmux -u attach-session -t "$1"
-      else
-        tmux -u new-session -s "$1"
-      fi
+      tmux -u new -s "$1" || tmux -u att -t "$1"
       set-tab-title $(uname -n)
     }
 
