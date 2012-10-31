@@ -201,12 +201,12 @@ endif
 " of the author.
 set noexpandtab
 
-set tabstop=2
-set softtabstop=2
+set tabstop=4
+set softtabstop=4
 
 " Number of columns to use for (auto)indent. Generally this should be the
 " same as the tabstop.
-set shiftwidth=2
+set shiftwidth=4
 
 " Set the tab width to 2, 4, or 8.
 nnoremap <leader>2 :setlocal tabstop=2 softtabstop=2 shiftwidth=2<cr>
@@ -803,6 +803,12 @@ autocmd BufNewFile,BufRead *.txt setfiletype text
 " This works out okay because when they're triggered, if expandtab
 " is set, they will be translated to spaces during expansion.
 autocmd FileType snippet setlocal noexpandtab
+
+" ------------------------------------------------------------------------ }}}
+" Syntax: YAML {{{
+
+" YAML requires spaces, not tabs
+autocmd FileType yaml setlocal expandtab
 
 " ------------------------------------------------------------------------ }}}
 
