@@ -34,18 +34,18 @@ zstyle ':omz:load' zfunction 'zargs' 'zmv'
 #      before 'history-substring-search'.
 #   * 'prompt' should be last
 zstyle ':omz:load' omodule \
-  'environment' \
-  'terminal' \
-  'editor' \
-  'history' \
-  'directory' \
-  'spectrum' \
-  'utility' \
-  'completion' \
-  'git' \
-  'syntax-highlighting' \
-  'history-substring-search' \
-  'prompt'
+	'environment' \
+	'terminal' \
+	'editor' \
+	'history' \
+	'directory' \
+	'spectrum' \
+	'utility' \
+	'completion' \
+	'git' \
+	'syntax-highlighting' \
+	'history-substring-search' \
+	'prompt'
 
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
@@ -59,12 +59,12 @@ source "$OMZ/init.zsh"
 
 # after ssh, set the title back to local host's name
 ssh() {
-  if [[ -x /usr/local/bin/ssh ]]; then
-    /usr/local/bin/ssh $@
-  else
-    /usr/bin/ssh $@
-  fi
-  set-tab-title $(uname -n)
+	if [[ -x /usr/local/bin/ssh ]]; then
+		/usr/local/bin/ssh $@
+	else
+		/usr/bin/ssh $@
+	fi
+	set-tab-title $(uname -n)
 }
 
 alias vi='vim'
@@ -73,10 +73,11 @@ alias vimdiff='vimdiff -O'
 
 alias c='clear'
 alias ppv='puppet parser validate'
+alias cdpm='cd /etc/puppet/modules; cd'
 
 erbck() {
-  [[ -n "$1" ]] || { echo 'Missing argument'; return }
-  erb -P -x -T '-' $1 | ruby -c
+	[[ -n "$1" ]] || { echo 'Missing argument'; return }
+	erb -P -x -T '-' $1 | ruby -c
 }
 
 # print the directory structure from the current directory in tree format
@@ -92,10 +93,10 @@ alias jst='TZ=Asia/Tokyo date'
 alias os='uname -srm'
 
 hw() {
-  [[ "$(uname -s)" != 'SunOS' ]] && { echo 'This is not Solaris...'; return }
-  /usr/platform/$(uname -m)/sbin/prtdiag | /usr/bin/head -1 | \
-    sed 's/^System Configuration: *Sun Microsystems *//' | \
-    sed 's/^$(uname -m) *//'
+	[[ "$(uname -s)" != 'SunOS' ]] && { echo 'This is not Solaris...'; return }
+	/usr/platform/$(uname -m)/sbin/prtdiag | /usr/bin/head -1 | \
+		sed 's/^System Configuration: *Sun Microsystems *//' | \
+		sed 's/^$(uname -m) *//'
 }
 
 # translate AS/RR numbers
@@ -103,74 +104,74 @@ astr() { echo "$1" | tr '[A-J0-9]' '[0-9A-J]' }
 
 # show me installed version of a perl module
 perlmodver() {
-  local __module="$1"
-  [[ -n "$__module" ]] || { echo 'missing argument'; return; }
-  perl -M$__module -e "print \$$__module::VERSION,\"\\n\";"
+	local __module="$1"
+	[[ -n "$__module" ]] || { echo 'missing argument'; return; }
+	perl -M$__module -e "print \$$__module::VERSION,\"\\n\";"
 }
 
 # sleep this long, then beep
 beep() {
-  local __timer=0
-  [[ -n "$1" ]] && __timer=$1
-  until [[ $__timer = 0 ]]; do
-    printf "  T minus $__timer     \r"
-    __timer=$((__timer - 1))
-    sleep 1
-  done
-  echo '- BEEP! -    \a\r'
+	local __timer=0
+	[[ -n "$1" ]] && __timer=$1
+	until [[ $__timer = 0 ]]; do
+		printf "  T minus $__timer     \r"
+		__timer=$((__timer - 1))
+		sleep 1
+	done
+	echo '- BEEP! -    \a\r'
 }
 
 # fabricate a puppet module directory set
 mkpuppetmodule() {
-  [[ -d "$1" ]] && { echo "'$1' already exists"; return }
-  mkdir -p $1/{files,templates,manifests}
-  cd $1/manifests
-  printf "\nclass $1 {\n\n}\n\n" > init.pp
+	[[ -d "$1" ]] && { echo "'$1' already exists"; return }
+	mkdir -p $1/{files,templates,manifests}
+	cd $1/manifests
+	printf "\nclass $1 {\n\n}\n\n" > init.pp
 }
 
 # make a project directory
 mkproj() {
-  local _usage='Usage: mkproj <desc> [<ticket>]'
-  [[ -z "$1" || "$1" =~ '^(-h|--help)' ]] && { echo $_usage; return }
-  local _dir
-  local _date=$(date +'%Y%m%d')
-  local _name="$1"
-  local _suffix
-  [[ -n "$2" ]] && _suffix="-${2}"
-  _dir="${_date}-${_name}${_suffix}"
-  [[ -d ~/$_dir ]] && { echo 'already exists!'; return }
-  mkdir ~/$_dir && cd ~/$_dir
+	local _usage='Usage: mkproj <desc> [<ticket>]'
+	[[ -z "$1" || "$1" =~ '^(-h|--help)' ]] && { echo $_usage; return }
+	local _dir
+	local _date=$(date +'%Y%m%d')
+	local _name="$1"
+	local _suffix
+	[[ -n "$2" ]] && _suffix="-${2}"
+	_dir="${_date}-${_name}${_suffix}"
+	[[ -d ~/$_dir ]] && { echo 'already exists!'; return }
+	mkdir ~/$_dir && cd ~/$_dir
 }
 
 # find a project directory
 proj() {
-  local _usage='Usage: proj [<pattern>]'
-  [[ "$1" =~ '^(-h|--help)' ]] && { echo $_usage; return }
-  # If there's no pattern, go to the most recent project.
-  [[ -z "$1" ]] && { cd ~/(19|20)[0-9][0-9][01][0-9][0-3][0-9]-*(/om[1]); return }
-  local _this
-  local _choice=0
-  local _index=1
-  local _projects
-  typeset -a _projects
-  _projects=()
-  for _this in ~/(19|20)[0-9][0-9][01][0-9][0-3][0-9]-*$1*; do
-    [[ -d $_this ]] && _projects+=$_this
-  done 2>/dev/null
-  [[ $#_projects -eq 0 ]] && { echo 'No match.'; return }
-  [[ $#_projects -eq 1 ]] && { cd $_projects[1]; return }
-  for _this in $_projects[1,-2]; do
-    echo "  [$_index] $(basename $_this)"
-    _index=$(( $_index + 1 ))
-  done
-  echo "* [$_index] \e[0;31;47m$(basename $_projects[-1])\e[0m"
-  echo
-  until [[ $_choice -ge 1 && $_choice -le $#_projects ]]; do
-    printf 'select> '
-    read _choice
-    [[ -z "$_choice" ]] && { cd $_projects[-1]; return }
-  done
-  cd $_projects[$_choice]
+	local _usage='Usage: proj [<pattern>]'
+	[[ "$1" =~ '^(-h|--help)' ]] && { echo $_usage; return }
+	# If there's no pattern, go to the most recent project.
+	[[ -z "$1" ]] && { cd ~/(19|20)[0-9][0-9][01][0-9][0-3][0-9]-*(/om[1]); return }
+	local _this
+	local _choice=0
+	local _index=1
+	local _projects
+	typeset -a _projects
+	_projects=()
+	for _this in ~/(19|20)[0-9][0-9][01][0-9][0-3][0-9]-*$1*; do
+		[[ -d $_this ]] && _projects+=$_this
+	done 2>/dev/null
+	[[ $#_projects -eq 0 ]] && { echo 'No match.'; return }
+	[[ $#_projects -eq 1 ]] && { cd $_projects[1]; return }
+	for _this in $_projects[1,-2]; do
+		echo "  [$_index] $(basename $_this)"
+		_index=$(( $_index + 1 ))
+	done
+	echo "* [$_index] \e[0;31;47m$(basename $_projects[-1])\e[0m"
+	echo
+	until [[ $_choice -ge 1 && $_choice -le $#_projects ]]; do
+		printf 'select> '
+		read _choice
+		[[ -z "$_choice" ]] && { cd $_projects[-1]; return }
+	done
+	cd $_projects[$_choice]
 }
 
 # count something fed in on stdin
@@ -198,45 +199,45 @@ alias less-nowrap='less -S'
 
 if [[ $UID -eq 0 ]]; then
 
-  ### Things to do only if I am root
+	### Things to do only if I am root
 
-  # Messes with rdist
-  unset SSH_AUTH_SOCK
+	# Messes with rdist
+	unset SSH_AUTH_SOCK
 
 else
 
-  ### Things to do only if I am not root
+	### Things to do only if I am not root
 
-  set-tab-title $(uname -n)
+	set-tab-title $(uname -n)
 
-  [[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
+	[[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
 
-  # Check for broken services on SMF-based systems
-  [[ -x /bin/svcs ]] && svcs -xv
+	# Check for broken services on SMF-based systems
+	[[ -x /bin/svcs ]] && svcs -xv
 
-  if [[ -n "$(command -v tmux)" ]]; then
+	if [[ -n "$(command -v tmux)" ]]; then
 
-    alias tmux='tmux -u'
+		alias tmux='tmux -u'
 
-    tmux_ls() {
-      echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
-    }
+		tmux_ls() {
+			echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
+		}
 
-    # List tmux sessions
-    if [[ -z "$TMUX" && -n "$(tmux ls 2>/dev/null)" ]]; then
-      tmux_ls
-    fi
+		# List tmux sessions
+		if [[ -z "$TMUX" && -n "$(tmux ls 2>/dev/null)" ]]; then
+			tmux_ls
+		fi
 
-    # tmux magic alias to list, show, or attach
-    t() {
-      [[ -z "$1" ]] && { tmux_ls; return }
-      export STY="tmux:$1"
-      set-tab-title $STY
-      tmux -u new -s "$1" || tmux -u att -t "$1"
-      set-tab-title $(uname -n)
-    }
+		# tmux magic alias to list, show, or attach
+		t() {
+			[[ -z "$1" ]] && { tmux_ls; return }
+			export STY="tmux:$1"
+			set-tab-title $STY
+			tmux -u new -s "$1" || tmux -u att -t "$1"
+			set-tab-title $(uname -n)
+		}
 
-  fi
+	fi
 
 fi
 
