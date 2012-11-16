@@ -129,7 +129,8 @@ fi
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 #
 # Removed -S, don't want no-wrap by default (use less-nowrap for that)
-export LESS='-F -g -i -M -R -w -X -z-4'
+# Added -x 4, to get 4-position as tab stop
+export LESS='-F -g -i -M -R -w -X -x 4 -z-4'
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then
