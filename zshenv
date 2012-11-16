@@ -86,9 +86,10 @@ done
 
 # homebrew
 if [[ -d /usr/local/Cellar ]]; then
-	path+=$(echo /usr/local/Cellar/ruby/*/bin)
-	path+=$(echo /usr/local/Cellar/python3/*/bin)
-	path+=$(echo /usr/local/Cellar/python/*/bin)
+	for i in $(echo /usr/local/Cellar/{ruby,python{,3}}/*/bin)
+	do
+		path+=$i
+	done
 fi
 
 for path_file in /etc/paths.d/*(.N); do
