@@ -11,11 +11,8 @@ Current leader key map:                                            *leadermap*
   ,/            Open a quickfix window for the last search
   ,=            Invoke Tabular for alignment (plugin: |tabular|)
   ,?            Query Vim syntax type at cursor position
-  ,<space>      Hide current search highlight
-  ,1            Convert file or selection to one string per line
-  ,2            Set tab stop to 2
-  ,4            Set tab stop to 4
-  ,8            Set tab stop to 8
+  ,<space>      Hide current search highlight and clear InterestingWord matches
+  ,1 - ,6       Highlight current InterestingWord in 1 of 6 colors
   ,a            Invoke Ack on current word (<cword>) (plugin: |ack|)
   ,A            Invoke Ack in smart-case mode (plugin: |ack|)
   ,B            Build Javascript bookmarklet from current buffer
@@ -34,6 +31,7 @@ Current leader key map:                                            *leadermap*
   ,of           Open filename under cursor, displacing this buffer
   ,ot           Open filename under cursor in a new tab
   ,ow           Open filename under cursor in a new window
+  ,O            Convert file or selection to one string per line
   ,p            Toggle paste mode
   ,q            Open quickfix window
   ,r            QuickRun the current buffer (plugin: |quickrun|)
@@ -41,6 +39,7 @@ Current leader key map:                                            *leadermap*
   ,s            Toggle spell-check mode
   ,S            :execute current line
   ,t            Open a new tab in current view
+  ,T            View or change tab width setting
   ,u            Toggle Gundo window (plugin: |gundo|)
   ,v            Paste from Mac clipboard
   ,V            Reselect what was just pasted (use gv for last selection)

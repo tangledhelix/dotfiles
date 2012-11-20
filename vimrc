@@ -208,10 +208,8 @@ set softtabstop=4
 " same as the tabstop.
 set shiftwidth=4
 
-" Set the tab width to 2, 4, or 8.
-nnoremap <leader>2 :setlocal tabstop=2 softtabstop=2 shiftwidth=2<cr>
-nnoremap <leader>4 :setlocal tabstop=4 softtabstop=4 shiftwidth=4<cr>
-nnoremap <leader>8 :setlocal tabstop=8 softtabstop=8 shiftwidth=8<cr>
+" Set or show tab width info
+nnoremap <leader>T :Stab<cr>
 
 " When changing indent with <, >, >>, <<, use a multiple of shiftwidth.
 set shiftround
@@ -393,7 +391,7 @@ set ignorecase
 set smartcase
 
 " Clear the highlighted words from an hlsearch (can be visual clutter).
-nnoremap <leader><space> :nohlsearch<cr>
+nnoremap <silent> <leader><space> :nohlsearch<cr>:call clearmatches()<cr>
 
 " Turn hlsearch on or off.
 nnoremap <leader>h :set hlsearch!<cr>
@@ -611,8 +609,8 @@ endif
 
 " Convert file, or selection, so each contiguous non-whitespace blob is
 " on its own line. Strip all other whitespace.
-nnoremap <leader>1 :%!$HOME/bin/convert-to-one-string-per-line.rb<cr>
-vnoremap <leader>1 :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
+nnoremap <leader>O :%!$HOME/bin/convert-to-one-string-per-line.rb<cr>
+vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 
 if has('python') && exists('s:has_darwin')
 
@@ -814,6 +812,58 @@ autocmd FileType snippet setlocal noexpandtab
 autocmd FileType yaml setlocal expandtab
 
 " ------------------------------------------------------------------------ }}}
+
+" ------------------------------------------------------------------------ }}}
+" Highlight interesting words {{{
+" A Steve Losh joint
+
+" This needs to be at or near the end of .vimrc for some reason, to work.
+
+" This mini-plugin provides a few mappings for highlighting words temporarily.
+"
+" Sometimes you're looking at a hairy piece of code and would like a certain
+" word or two to stand out temporarily.  You can search for it, but that only
+" gives you one color of highlighting.  Now you can use <leader>N where N is
+" a number from 1-6 to highlight the current word in a specific color.
+
+function! HiInterestingWord(n)
+	" Save our location.
+	normal! mz
+
+	" Yank the current word into the z register.
+	normal! "zyiw
+
+	" Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+	let b:mid = 86750 + a:n
+
+	" Clear existing matches, but don't worry if they don't exist.
+	silent! call matchdelete(b:mid)
+
+	" Construct a literal pattern that has to match at boundaries.
+	let b:pat = '\V\<' . escape(@z, '\') . '\>'
+
+	" Actually match the words.
+	call matchadd("InterestingWord" . a:n, b:pat, 1, b:mid)
+
+	" Move back to our original location.
+	normal! `z
+endfunction
+
+" Mappings
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+
+" Default Highlights
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=129
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
 " ------------------------------------------------------------------------ }}}
 " Local customizations {{{
