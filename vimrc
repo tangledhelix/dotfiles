@@ -354,19 +354,9 @@ set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
 
-if !isdirectory(expand(&backupdir))
-	call mkdir(expand(&backupdir), "p")
-endif
-if !isdirectory(expand(&directory))
-	call mkdir(expand(&directory), "p")
-endif
-
 " set noswapfile                    " It's 2012, Vim.
 if has('persistent_undo')
 	set undodir=~/.vim/tmp/undo//   " undo files
-	if !isdirectory(expand(&undodir))
-		call mkdir(expand(&undodir), "p")
-	endif
 endif
 
 " Toggle Gundo window
