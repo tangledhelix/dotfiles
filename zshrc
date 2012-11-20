@@ -215,6 +215,8 @@ else
 	# Check for broken services on SMF-based systems
 	[[ -x /bin/svcs ]] && svcs -xv
 
+	mkdir -p ~/.vim/tmp/{backup,swap,undo}
+
 	if [[ -n "$(command -v tmux)" ]]; then
 
 		alias tmux='tmux -u'
