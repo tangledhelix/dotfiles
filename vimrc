@@ -751,6 +751,9 @@ autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
 
 autocmd BufNewFile,BufRead *.wiki,*ISSwiki* setfiletype mediawiki
 
+" smarter wrapping
+autocmd FileType mediawiki setlocal tw=78 wrap lbr ts=4 sw=4 sts=4
+
 " Italic, bold surrounds for Mediawiki (plugin 'surround')
 autocmd FileType mediawiki let b:surround_{char2nr('i')} = "''\r''"
 autocmd FileType mediawiki let b:surround_{char2nr('b')} = "'''\r'''"
