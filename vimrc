@@ -650,7 +650,10 @@ colorscheme solarized
 
 " Mark trailing whitespace with red to make it stand out.
 " Mark Git-style conflict markers.
-match ErrorMsg '\(\s\+$\|^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)'
+" match ErrorMsg '\(\s\+$\|^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)'
+
+" Mark Git-style conflict markers.
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " ------------------------------------------------------------------------ }}}
 " Syntax {{{
