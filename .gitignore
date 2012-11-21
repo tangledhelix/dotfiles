@@ -9,12 +9,11 @@
 \#*#
 .#*
 
-# Vim caches and metadata, backups, etc
+# Vim caches and metadata, backups, bundles, etc
 /vim/tmp
 /vim/.netrwhist
 /vim/yankring_history*.txt
 /vim/doc/tags
 /vim/doc/tags-ja
-/vim/bundle/*/docs/tags
-/vim/bundle/*/docs/tags-ja
+/vim/bundle
 
