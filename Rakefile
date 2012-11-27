@@ -6,7 +6,7 @@ files[:zsh]  = %w(zlogin zlogout zshenv zshrc)
 files[:vim]  = %w(vim vimrc)
 files[:bash] = %w(bash bash_profile bashrc inputrc)
 files[:git]  = %w(gitignore)
-files[:misc] = %w(emacs ircrc pryrc screenrc tcshrc terminfo tmux.conf)
+files[:misc] = %w(emacs hgrc ircrc pryrc screenrc tcshrc terminfo tmux.conf)
 
 files_all = Array.new
 [:zsh, :vim, :bash, :git, :misc].each { |symbol| files_all << files[symbol] }
