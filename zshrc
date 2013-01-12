@@ -73,7 +73,11 @@ alias vimdiff='vimdiff -O'
 
 alias c='clear'
 alias ppv='puppet parser validate'
-alias cdpm='cd /etc/puppet/modules; cd'
+
+cdpm() {
+	[[ -n "$1" ]] || { echo 'Missing argument'; return }
+	cd /etc/puppet/modules/$1/manifests
+}
 
 erbck() {
 	[[ -n "$1" ]] || { echo 'Missing argument'; return }
