@@ -506,11 +506,11 @@ set splitbelow
 " Create a new vertical window to the right, and switch to it.
 nnoremap <silent> <leader>w :wincmd v<cr>:wincmd l<cr>
 
-" Easier window nav keys (ctrl-w ctrl-<h,j,k,l>)
-nnoremap <silent> <c-w><c-h> :wincmd h<cr>
-nnoremap <silent> <c-w><c-j> :wincmd j<cr>
-nnoremap <silent> <c-w><c-k> :wincmd k<cr>
-nnoremap <silent> <c-w><c-l> :wincmd l<cr>
+" Easier window nav keys (ctrl-<direction>)
+nnoremap <silent> <c-h> :wincmd h<cr>
+nnoremap <silent> <c-j> :wincmd j<cr>
+nnoremap <silent> <c-k> :wincmd k<cr>
+nnoremap <silent> <c-l> :wincmd l<cr>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
@@ -518,9 +518,9 @@ set helpheight=0
 " Open a new tab in the current view.
 nnoremap <silent> <leader>t :tabnew<cr>
 
-" Navigate left/right through tabs using ^H, ^L
-nnoremap <c-h> :tabprevious<cr>
-nnoremap <c-l> :tabnext<cr>
+" Tab navigation
+"nnoremap <c-h> :tabprevious<cr>
+"nnoremap <c-l> :tabnext<cr>
 
 " Resize splits when the window is resized.
 autocmd VimResized * :wincmd =
