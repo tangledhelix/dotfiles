@@ -404,12 +404,6 @@ set gdefault
 " (the mapleader we displaced).
 nnoremap \ ,
 
-" Use ack. Grep, refined. Provided by ack.vim plugin.
-" Use <CWORD> alternately if desired.
-nnoremap <leader>a :Ack <cword><cr>
-" (Trailing space on below map is intentional.)
-nnoremap <leader>A :Ack --smart-case 
-
 " Open a Quickfix window for the last search.
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
 
