@@ -84,9 +84,6 @@ inoremap <esc>[3~ <c-h>
 " go to location of last change
 nnoremap gl `.
 
-" Default binding for this key is useless
-nnoremap K <nop>
-
 " ------------------------------------------------------------------------ }}}
 " Messages and alerts {{{
 
