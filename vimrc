@@ -174,15 +174,15 @@ endif
 " Restore cursor position from our last session, if known.
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute 'normal! g`"zvzz' | endif
 
-" This only works in iTerm2. Change cursor to a bar in insert mode,
-" a block in other modes.
-" http://code.google.com/p/iterm2/wiki/ProprietaryEscapeCodes
-" This does not work in tmux. You can make it work in tmux using
-" Vitality, but Vitality does some other things that annoy me so I
-" am not using it either. It turns out that the color change in
-" powerline is good enough and I don't care about cursor shape.
-"let &t_SI = "\<esc>]50;CursorShape=1\x7"
-"let &t_EI = "\<esc>]50;CursorShape=0\x7"
+" iTerm2-specific: Use a bar cursor in insert mode, block in other modes.
+" https://gist.github.com/1195581
+if exists('$TMUX')
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " Only show the 'margin' column in insert mode
 if exists('&colorcolumn')
