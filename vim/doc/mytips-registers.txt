@@ -9,3 +9,6 @@ Named registers
             "ap         paste from register a
             "bP         paste from register b to previous line
 
+  "_dd      Delete one line without overriding a buffer
+			"_ is the black hold register
+
