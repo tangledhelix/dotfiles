@@ -13,8 +13,6 @@ Current leader key map:                                            *leadermap*
   ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight and clear InterestingWord matches
   ,1 - ,6       Highlight current InterestingWord in 1 of 6 colors
-  ,a            Invoke Ack on current word (<cword>) (plugin: |ack|)
-  ,A            Invoke Ack in smart-case mode (plugin: |ack|)
   ,B            Build Javascript bookmarklet from current buffer
   ,c            Copy line or selection to Mac clipboard
   ,d            Toggle diff state of current buffer
