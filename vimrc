@@ -777,6 +777,11 @@ autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
 autocmd BufNewFile,BufRead *.taskpapertheme setfiletype xml
 
 " ------------------------------------------------------------------------ }}}
+" Syntax: Template Toolkit {{{
+
+autocmd BufNewFile,BufRead *.tt2 setfiletype tt2
+
+" ------------------------------------------------------------------------ }}}
 " Syntax: Text {{{
 
 autocmd BufNewFile,BufRead *.txt setfiletype text
