@@ -57,6 +57,9 @@ source "$OMZ/init.zsh"
 
 # Customize to your needs...
 
+# no shared history, keep history per session
+setopt no_share_history
+
 # after ssh, set the title back to local host's name
 ssh() {
 	if [[ -x /usr/local/bin/ssh ]]; then
