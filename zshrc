@@ -204,6 +204,9 @@ alias get-ip='curl --silent http://icanhazip.com'
 # less with no-wrap (oh-my-zsh default, could be useful sometimes)
 alias less-nowrap='less -S'
 
+# set tab titles
+alias tt='set-tab-title'
+
 if [[ $UID -eq 0 ]]; then
 
 	### Things to do only if I am root
