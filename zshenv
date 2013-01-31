@@ -85,8 +85,8 @@ for path_candidate in $path_candidates; do
 done
 
 # homebrew
-if [[ -d /usr/local/Cellar ]]; then
-	for i in $(echo /usr/local/Cellar/{ruby,python{,3}}/*/bin)
+if [[ -d /usr/local/Cellar/ruby ]]; then
+	for i in $(echo /usr/local/Cellar/ruby/*/bin)
 	do
 		path+=$i
 	done
