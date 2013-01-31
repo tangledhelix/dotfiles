@@ -26,7 +26,6 @@ $vim_bundles = {
 	'powerline'         => 'Lokaltog/vim-powerline',
 	'puppet'            => 'puppetlabs/puppet-syntax-vim',
 	'quickrun'          => 'thinca/vim-quickrun',
-	'rdist'             => 'tangledhelix/vim-rdist',
 	'repeat'            => 'tpope/vim-repeat',
 	'snipmate'          => 'tangledhelix/vim-snipmate',
 	'snipmate-snippets' => 'tangledhelix/snipmate-snippets',
