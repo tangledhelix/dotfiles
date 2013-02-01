@@ -57,6 +57,7 @@ path_candidates=(
 	~/.rbenv/bin
 	~/.gems/bin
 	/admin/bin
+	/Applications/Postgres.app/Contents/MacOS/bin
 	/usr/local/{bin,sbin}
 	/usr/{bin,sbin}
 	/{bin,sbin}
