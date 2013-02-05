@@ -57,6 +57,8 @@ source "$OMZ/init.zsh"
 
 # Customize to your needs...
 
+umask 022
+
 # no shared history, keep history per session
 setopt no_share_history
 
