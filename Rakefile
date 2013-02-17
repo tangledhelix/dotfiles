@@ -23,6 +23,7 @@ $vim_bundles = {
 	'gundo'             => 'sjl/gundo.vim',
 	'octopress'         => 'tangledhelix/vim-octopress',
 	'pathogen'          => 'tpope/vim-pathogen',
+	'perl'              => 'vim-perl/vim-perl',
 	'powerline'         => 'Lokaltog/vim-powerline',
 	'puppet'            => 'puppetlabs/puppet-syntax-vim',
 	'quickrun'          => 'thinca/vim-quickrun',
