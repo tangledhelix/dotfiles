@@ -41,9 +41,9 @@ hw() {
     echo "'hw' is only available in SunOS."
     return
   }
-  /usr/platform/`uname -m`/sbin/prtdiag | head -1 | \
+  /usr/platform/`/usr/bin/uname -m`/sbin/prtdiag | head -1 | \
     sed "s/^System Configuration: *Sun Microsystems *//" | \
-    sed "s/^`uname -m` *//"
+    sed "s/^`/usr/bin/uname -m` *//"
 }
 
 # Translate AS numbers / RR communities

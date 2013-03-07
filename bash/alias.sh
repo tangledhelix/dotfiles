@@ -70,7 +70,7 @@ test -x /usr/local/pkg/diffutils/bin/diff &&
   alias diff="/usr/local/pkg/diffutils/bin/diff"
 
 # Tell me what OS this is
-alias os="uname -srm"
+alias os="/usr/bin/uname -srm"
 
 # Shortcut to ssh with X11 forwarding explicitly enabled and disabled
 alias sshx="ssh -X"
