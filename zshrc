@@ -110,10 +110,19 @@ hw() {
 astr() { echo "$1" | tr '[A-J0-9]' '[0-9A-J]' }
 
 # show me installed version of a perl module
-perlmodver() {
+pmver() {
 	local __module="$1"
 	[[ -n "$__module" ]] || { echo 'missing argument'; return; }
 	perl -M$__module -e "print \$$__module::VERSION,\"\\n\";"
+}
+
+# tell me if a perl module has a method
+pmhas() {
+	local __module="$1"
+	local __method="$2"
+	[[ -n "__method" ]] || { echo 'Usage: pmhas <module> <method>'; return; }
+	local __result=$(perl -M$__module -e "print ${__module}->can('$__method');")
+	[[ $__result =~ 'CODE' ]] && echo "$__module has $__method"
 }
 
 # sleep this long, then beep
@@ -207,6 +216,33 @@ alias less-nowrap='less -S'
 # set tab titles
 alias tt='set-tab-title'
 
+# magic mv
+# mmv *.c.orig orig/*.c
+alias mmv='noglob zmv -W'
+
+# globbing cheat sheet
+globcheat() {
+
+	echo
+	echo '**/ recurse   ***/ follow symlinks   class: [...]   neg: [^...] or [!...]'
+	echo
+	echo '/ dir  . file  * exec  @ symlink  = socket  p pipe  % device %b block %c char'
+	echo
+	echo 'r u:read   w u:write   x u:exec   U owner-is-my-uid   u123 owner is uid 123'
+	echo 'A g:read   I g:write   E g:exec   G group-is-my-gid   u:dan: owner is dan'
+	echo 'R o:read   W o:write   X o:exec                       or g123, g:dan:'
+	echo
+	echo 'm mtime   default period is days    + or - a value      mw-1 in past week'
+	echo 'a atime   M month  w week  h hour  m minute  s second   aM-1 in past month'
+	echo
+	echo 'L file size (bytes)   k kbytes  m mbytes  p blocks   Lm+1 = larger than 1mb'
+	echo
+	echo '*(u0WLk+10m0) owner root, world write, > 10KB, mtime in past hour'
+
+}
+
+alias -g L='| less'
+
 if [[ $UID -eq 0 ]]; then
 
 	### Things to do only if I am root
@@ -248,6 +284,14 @@ else
 			tmux -u new -s "$1" || tmux -u att -t "$1"
 			set-tab-title $(uname -n)
 		}
+		
+		# Fix ssh socket for tmux happiness
+		if [[ -z "$TMUX" && -n "$SSH_TTY" ]]; then
+			if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "$HOME/.wrap_auth_sock" ]]; then
+				ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
+				export SSH_AUTH_SOCK="$HOME/.wrap_auth_sock"
+			fi
+		fi
 
 	fi
 
