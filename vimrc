@@ -28,6 +28,7 @@ let g:pathogen_disabled = []
 
 if !has('python')
 	let g:pathogen_disabled += ['gundo']
+	let g:pathogen_disabled += ['sparkup']
 endif
 
 filetype off
