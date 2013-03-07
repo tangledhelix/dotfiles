@@ -57,7 +57,6 @@ path_candidates=(
 	~/.rbenv/bin
 	~/.gems/bin
 	/admin/bin
-	/Applications/Postgres.app/Contents/MacOS/bin
 	/usr/local/{bin,sbin}
 	/usr/{bin,sbin}
 	/{bin,sbin}
@@ -144,4 +143,9 @@ export CVS_RSH='ssh'
 
 # Avoid an RCS checkin log headache
 [[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
+
+# http://perlbrew.pl
+if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
+	source ~/perl5/perlbrew/etc/bashrc
+fi
 
