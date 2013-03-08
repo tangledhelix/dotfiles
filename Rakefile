@@ -36,7 +36,6 @@ $vim_bundles = {
 	'surround'              => 'tpope/vim-surround',
 	'syntastic'             => 'scrooloose/syntastic',
 	'tabular'               => 'godlygeek/tabular',
-	'taglist'               => 'vim-scripts/taglist.vim',
 	'tcomment'              => 'tomtom/tcomment_vim',
 	'textobj-rubyblock'     => 'nelstrom/vim-textobj-rubyblock',
 	'textobj-user'          => 'kana/vim-textobj-user',
