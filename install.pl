@@ -3,11 +3,11 @@
 use strict;
 use warnings;
 
+use lib 'lib';
+
 use Cwd 'abs_path';
 use File::Basename;
 use File::Path 'remove_tree';
-
-use lib 'lib';
 use YAML qw/DumpFile LoadFile/;
 
 my %files = (
