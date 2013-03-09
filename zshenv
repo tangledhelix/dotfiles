@@ -54,6 +54,7 @@ path=()
 path_candidates=(
 	~/local/bin
 	~/bin
+	~/.scripts
 	~/.rbenv/bin
 	~/.gems/bin
 	/admin/bin

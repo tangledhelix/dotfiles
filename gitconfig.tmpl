@@ -1,10 +1,6 @@
 [user]
-<% unless $template_vars['git_name'].empty? %>
-	name = <%= $template_vars['git_name'] %>
-<% end %>
-<% unless $template_vars['git_email'].empty? %>
-	email = <%= $template_vars['git_email'] %>
-<% end %>
+	__GIT_NAME__
+	__GIT_EMAIL__
 
 [alias]
 	co = checkout
@@ -12,8 +8,8 @@
 	cm = commit -m
 	st = status -s
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%%an>%Creset' --abbrev-commit
-	lgp = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%%an>%Creset' --abbrev-commit -p
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgp = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -p
 	unstage = reset HEAD
 	aa = add .
 	# Not yet added - doesn't include ignored files
@@ -43,15 +39,8 @@
 	ui = auto
 
 [github]
-<% unless $template_vars['github_username'].empty? %>
-	user = <%= $template_vars['github_username'] %>
-<% end %>
-<% unless $template_vars['github_api_token'].empty? %>
-	token = <%= $template_vars['github_api_token'] %>
-<% end %>
-
-[merge]
-	tool = <%= File.exists?('/usr/bin/opendiff') ? 'opendiff' : 'vimdiff' %>
+	__GITHUB_USERNAME__
+	__GITHUB_API_TOKEN__
 
 [diff]
 	# For Github-style word diffs
