@@ -74,6 +74,9 @@ if ($action eq 'bash') {
     }
     omz_cloner();
 
+} elsif ($action eq 'zsh:update') {
+    omz_updater();
+
 } elsif ($action eq 'omz') {
     omz_cloner();
 
@@ -123,6 +126,8 @@ Usage: $0 <target>
 
     vim:update    - Update vim bundles
     vim:cleanup   - Clean up old vim bundles
+
+    zsh:update    - Update oh-my-zsh and its submodules
 
 EOF
 
@@ -192,6 +197,12 @@ sub omz_cloner {
     }
     system "git clone $repo_url $omz_path";
     system "cd $omz_path && git submodule update --init --recursive";
+}
+
+# update the omz repository
+sub omz_updater {
+    my $omz_path = "$ENV{HOME}/.oh-my-zsh";
+    system "cd $omz_path && git pull && git submodule update --init --recursive";
 }
 
 # install or update vim bundles
