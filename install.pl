@@ -56,7 +56,9 @@ my %vim_bundles = (
 
 my $replace_all = 0;
 my $vim_do_updates = 0;
+
 my $basedir = dirname(abs_path($0));
+chdir $basedir;
 
 print_help() unless defined($ARGV[0]);
 my $action = $ARGV[0];
@@ -222,12 +224,11 @@ sub vim_bundle_updater {
 # clean out old vim bundles
 sub vim_bundle_cleanup {
 	my $bundle_path = "$ENV{HOME}/.vim/bundle";
-	foreach my $d (glob "$bundle_path/*") {
-		my $basename = basename $d;
+	foreach my $dir (glob "$bundle_path/*") {
+		my $basename = basename $dir;
 		unless ($vim_bundles{$basename}) {
 			print "    cleaning up bundle $basename\n";
-			# could also do this with File::Path's rmtree().
-			system "rm -rf $d";
+			remove_tree($dir);
 		}
 	}
 }
