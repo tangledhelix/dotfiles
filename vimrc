@@ -12,10 +12,10 @@ runtime macros/matchit.vim
 
 " Detect the OS
 if has('unix')
-	let s:uname = system('uname')
-	if s:uname == "Darwin\n"
-		let s:has_darwin = 1
-	endif
+    let s:uname = system('uname')
+    if s:uname == "Darwin\n"
+        let s:has_darwin = 1
+    endif
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -27,8 +27,8 @@ endif
 let g:pathogen_disabled = []
 
 if !has('python')
-	let g:pathogen_disabled += ['gundo']
-	let g:pathogen_disabled += ['sparkup']
+    let g:pathogen_disabled += ['gundo']
+    let g:pathogen_disabled += ['sparkup']
 endif
 
 filetype off
@@ -98,8 +98,8 @@ set shortmess=atI
 set report=0
 
 if !has('gui_running')
-	" Terminal's visual bell - turned off to make Vim quiet.
-	set t_vb=
+    " Terminal's visual bell - turned off to make Vim quiet.
+    set t_vb=
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -123,14 +123,14 @@ let g:Powerline_symbols = 'fancy'
 " Set the title bar if running as GUI, but never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
 if has('gui_running')
-	set title
+    set title
 else
-	set notitle
+    set notitle
 endif
 
 " Disable the toolbar in GUI mode
 if has('gui_running')
-	set guioptions=-t
+    set guioptions=-t
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -151,25 +151,25 @@ set ruler
 " absolute, and off.
 
 if exists('+relativenumber')
-	set relativenumber
-	set numberwidth=3
+    set relativenumber
+    set numberwidth=3
 
-	" cycles between relative / absolute / no numbering
-	function! RelativeNumberToggle()
-		if (&relativenumber == 1)
-			set number number?
-		elseif (&number == 1)
-			set nonumber number?
-		else
-			set relativenumber relativenumber?
-		endif
-	endfunc
+    " cycles between relative / absolute / no numbering
+    function! RelativeNumberToggle()
+        if (&relativenumber == 1)
+            set number number?
+        elseif (&number == 1)
+            set nonumber number?
+        else
+            set relativenumber relativenumber?
+        endif
+    endfunc
 
-	nnoremap <silent> <leader>n :call RelativeNumberToggle()<cr>
+    nnoremap <silent> <leader>n :call RelativeNumberToggle()<cr>
 
 else
-	set number
-	nnoremap <silent> <leader>n :set number! number?<cr>
+    set number
+    nnoremap <silent> <leader>n :set number! number?<cr>
 endif
 
 " Restore cursor position from our last session, if known.
@@ -178,26 +178,23 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute '
 " iTerm2-specific: Use a bar cursor in insert mode, block in other modes.
 " https://gist.github.com/1195581
 if exists('$TMUX')
-	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
-	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 " Only show the 'margin' column in insert mode
 if exists('&colorcolumn')
-	autocmd InsertEnter * set colorcolumn=80
-	autocmd InsertLeave * set colorcolumn=""
+    autocmd InsertEnter * set colorcolumn=80
+    autocmd InsertLeave * set colorcolumn=""
 endif
 
 " ------------------------------------------------------------------------ }}}
 " Tabs and indenting {{{
 
-" I've gone back and forth on this over the years, but I think tabs are
-" probably better ultimately. They let the viewer decide indent, instead
-" of the author.
-set noexpandtab
+set expandtab
 
 set tabstop=4
 set softtabstop=4
@@ -238,19 +235,19 @@ vnoremap D y`>p
 
 " Key combos to copy/paste using Mac clipboard
 if exists('s:has_darwin')
-	nnoremap <leader>c "*yy
-	vnoremap <leader>c "*y
-	nnoremap <leader>v "*p
-	vnoremap <leader>v "*p
-	" Variants that set paste first. How to preserve paste if it's
-	" already set, though?
-	" nnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
-	" vnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
+    nnoremap <leader>c "*yy
+    vnoremap <leader>c "*y
+    nnoremap <leader>v "*p
+    vnoremap <leader>v "*p
+    " Variants that set paste first. How to preserve paste if it's
+    " already set, though?
+    " nnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
+    " vnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
 else
-	nnoremap <leader>c :echoerr 'Only supported on Mac'<cr>
-	vnoremap <leader>c :echoerr 'Only supported on Mac'<cr>
-	nnoremap <leader>v :echoerr 'Only supported on Mac'<cr>
-	vnoremap <leader>v :echoerr 'Only supported on Mac'<cr>
+    nnoremap <leader>c :echoerr 'Only supported on Mac'<cr>
+    vnoremap <leader>c :echoerr 'Only supported on Mac'<cr>
+    nnoremap <leader>v :echoerr 'Only supported on Mac'<cr>
+    vnoremap <leader>v :echoerr 'Only supported on Mac'<cr>
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -311,13 +308,13 @@ set nolinebreak
 set backspace=indent,eol,start
 
 function ToggleShowBreak()
-	if &showbreak == ''
-		if has('multi_byte')
-			execute('set showbreak=↪')
-		endif
-	else
-		execute('set showbreak=')
-	endif
+    if &showbreak == ''
+        if has('multi_byte')
+            execute('set showbreak=↪')
+        endif
+    else
+        execute('set showbreak=')
+    endif
 endfunction
 
 nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
@@ -354,14 +351,14 @@ set backup                        " enable backups
 
 " set noswapfile                    " It's 2012, Vim.
 if has('persistent_undo')
-	set undodir=~/.vim/tmp/undo//   " undo files
+    set undodir=~/.vim/tmp/undo//   " undo files
 endif
 
 " Toggle Gundo window
 if has('python')
-	nnoremap <leader>u :GundoToggle<cr>
+    nnoremap <leader>u :GundoToggle<cr>
 else
-	nnoremap <leader>u :echoerr 'Gundo requires Python support'<cr>
+    nnoremap <leader>u :echoerr 'Gundo requires Python support'<cr>
 endif
 
 let g:Powerline_cache_file = $HOME . '/.vim/tmp/Powerline.cache'
@@ -414,11 +411,11 @@ nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
 nnoremap <silent> <leader>d :call DiffToggle()<cr>
 
 function! DiffToggle()
-	if &diff
-		diffoff
-	else
-		diffthis
-	endif
+    if &diff
+        diffoff
+    else
+        diffthis
+    endif
 endfunction
 
 " ------------------------------------------------------------------------ }}}
@@ -432,11 +429,11 @@ nnoremap <silent> <leader>i :set list!<cr>
 
 " How to display tabs, EOL, and other invisibles.
 if has('multi_byte')
-	set encoding=utf-8
-	set showbreak=↪
-	set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+    set encoding=utf-8
+    set showbreak=↪
+    set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 else
-	set listchars=tab:>-,eol:$,extends:>,precedes:<
+    set listchars=tab:>-,eol:$,extends:>,precedes:<
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -471,19 +468,19 @@ onoremap iN :<c-u>call <sid>NumberTextObject(1)<cr>
 xnoremap iN :<c-u>call <sid>NumberTextObject(1)<cr>
 
 function! s:NumberTextObject(whole)
-	normal! v
+    normal! v
 
-	while getline('.')[col('.')] =~# '\v[0-9]'
-		normal! l
-	endwhile
+    while getline('.')[col('.')] =~# '\v[0-9]'
+        normal! l
+    endwhile
 
-	if a:whole
-		normal! o
+    if a:whole
+        normal! o
 
-		while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
-			normal! h
-		endwhile
-	endif
+        while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
+            normal! h
+        endwhile
+    endif
 endfunction
 
 " ------------------------------------------------------------------------ }}}
@@ -530,8 +527,8 @@ autocmd VimResized * :wincmd =
 " GUI window size {{{
 
 if has('gui_running')
-	set lines=40
-	set columns=90
+    set lines=40
+    set columns=90
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -586,7 +583,7 @@ nnoremap <silent> <leader>B :%!$HOME/.vim/bin/bookmarklet_build.pl<cr>
 
 " Preview a markdown file in the default browser
 if exists('s:has_darwin')
-	nnoremap <leader>M :w!<cr>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<cr><cr>
+    nnoremap <leader>M :w!<cr>:!$HOME/.vim/bin/markdownify % > /tmp/%.html && open /tmp/%.html<cr><cr>
 endif
 
 " Convert file, or selection, so each contiguous non-whitespace blob is
@@ -596,32 +593,32 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 
 if has('python') && exists('s:has_darwin')
 
-	" Reload Google Chrome on Mac from Vim.
-	" Adapted from:  https://github.com/gcollazo/BrowserRefresh-Sublime/
-	function! ChromeReload()
-		python << EOF
+    " Reload Google Chrome on Mac from Vim.
+    " Adapted from:  https://github.com/gcollazo/BrowserRefresh-Sublime/
+    function! ChromeReload()
+        python << EOF
 from subprocess import call
 browser = """
 tell app "Google Chrome" to tell the active tab of its first window
-	reload
+    reload
 end tell
 """
 call(['osascript', '-e', browser])
 EOF
-	endfunction
+    endfunction
 
-	" Reload Safari on Mac from Vim.
-	function! SafariReload()
-		python << EOF
+    " Reload Safari on Mac from Vim.
+    function! SafariReload()
+        python << EOF
 from subprocess import call
 browser = """
 tell application "Safari"
-	do JavaScript "window.location.reload()" in front document
+    do JavaScript "window.location.reload()" in front document
 end tell
 """
 call(['osascript', '-e', browser])
 EOF
-	endfunction
+    endfunction
 
 endif
 
@@ -633,8 +630,8 @@ nnoremap <silent> <leader>R :call SafariReload()<cr>
 " Fonts and colors {{{
 
 if has('gui_running')
-	set guifont=Menlo\ Regular\ for\ Powerline:h14
-	set antialias
+    set guifont=Menlo\ Regular\ for\ Powerline:h14
+    set antialias
 endif
 
 set background=dark
@@ -817,26 +814,26 @@ autocmd FileType yaml setlocal expandtab
 " a number from 1-6 to highlight the current word in a specific color.
 
 function! HiInterestingWord(n)
-	" Save our location.
-	normal! mz
+    " Save our location.
+    normal! mz
 
-	" Yank the current word into the z register.
-	normal! "zyiw
+    " Yank the current word into the z register.
+    normal! "zyiw
 
-	" Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-	let b:mid = 86750 + a:n
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let b:mid = 86750 + a:n
 
-	" Clear existing matches, but don't worry if they don't exist.
-	silent! call matchdelete(b:mid)
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(b:mid)
 
-	" Construct a literal pattern that has to match at boundaries.
-	let b:pat = '\V\<' . escape(@z, '\') . '\>'
+    " Construct a literal pattern that has to match at boundaries.
+    let b:pat = '\V\<' . escape(@z, '\') . '\>'
 
-	" Actually match the words.
-	call matchadd("InterestingWord" . a:n, b:pat, 1, b:mid)
+    " Actually match the words.
+    call matchadd("InterestingWord" . a:n, b:pat, 1, b:mid)
 
-	" Move back to our original location.
-	normal! `z
+    " Move back to our original location.
+    normal! `z
 endfunction
 
 " Mappings
@@ -860,7 +857,7 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
 " Override this file without modifying the master copy in git.
 if filereadable($HOME . '/.vimrc.local')
-	source ~/.vimrc.local
+    source ~/.vimrc.local
 endif
 
 " ------------------------------------------------------------------------ }}}

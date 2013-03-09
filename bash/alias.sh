@@ -1,11 +1,11 @@
 
 if [[ "$OS" = "Linux" ]]; then
-  alias ls="/bin/ls -F --color=auto"
-  # Linux has its own timestamp formatting. Breaks project-mgmt. Bad Linux!
-  alias projls="/bin/ls --time-style=+'%b %e %H:%M'"
+    alias ls="/bin/ls -F --color=auto"
+    # Linux has its own timestamp formatting. Breaks project-mgmt. Bad Linux!
+    alias projls="/bin/ls --time-style=+'%b %e %H:%M'"
 else
-  alias ls="/bin/ls -F"
-  alias projls="/bin/ls"
+    alias ls="/bin/ls -F"
+    alias projls="/bin/ls"
 fi
 
 alias ggraph="git log --graph --decorate --pretty=oneline --abbrev-commit"
@@ -67,7 +67,7 @@ alias jst="TZ=Asia/Tokyo date"
 
 # Solaris diff sucks, use my GNU diff instead.
 test -x /usr/local/pkg/diffutils/bin/diff &&
-  alias diff="/usr/local/pkg/diffutils/bin/diff"
+    alias diff="/usr/local/pkg/diffutils/bin/diff"
 
 # Tell me what OS this is
 alias os="/usr/bin/uname -srm"

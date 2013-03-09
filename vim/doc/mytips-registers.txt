@@ -10,5 +10,5 @@ Named registers
             "bP         paste from register b to previous line
 
   "_dd      Delete one line without overriding a buffer
-			"_ is the black hold register
+            "_ is the black hole register
 

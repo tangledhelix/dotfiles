@@ -58,24 +58,24 @@ them, and set what you like in `~/.zshrc`.
 Installation
 ------------
 
-	umask 0022
-	git clone https://github.com/tangledhelix/dotfiles.git ~/.dotfiles
+    umask 0022
+    git clone https://github.com/tangledhelix/dotfiles.git ~/.dotfiles
 
 To install my dotfiles as *your* dotfiles, you can create symlinks with
 `./install.pl`. If you do *not* run that command, everything will be isolated
 inside of the `~/.dotfiles` directory (or wherever you cloned it) and will not
 interfere with your existing environment.
 
-	cd ~/.dotfiles && ./install.pl all
+    cd ~/.dotfiles && ./install.pl all
 
 `install.pl` will ask you before overwriting any files that already exist.
 
 You can also install subsets of the environment using one of the following.
 
-	./install.pl bash
-	./install.pl zsh
-	./install.pl vim
-	./install.pl git
+    ./install.pl bash
+    ./install.pl zsh
+    ./install.pl vim
+    ./install.pl git
 
 Updating
 --------
@@ -83,9 +83,9 @@ Updating
 I periodically change the Vim bundles I use. There are two update tasks for
 Vim. The first updates the bundles from their repositories.
 
-	./install.pl vim:update
+    ./install.pl vim:update
 
 The second cleans up any bundles which are no longer known.
 
-	./install.pl vim:cleanup
+    ./install.pl vim:cleanup
 
