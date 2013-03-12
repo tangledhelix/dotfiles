@@ -32,6 +32,7 @@ my %vim_bundles = (
     'easymotion'        => 'Lokaltog/vim-easymotion',
     'endwise'           => 'tangledhelix/vim-endwise',
     'fugitive'          => 'tpope/vim-fugitive',
+    'gitgutter'         => 'airblade/vim-gitgutter',
     'gitv'              => 'gregsexton/gitv',
     'gundo'             => 'sjl/gundo.vim',
     'octopress'         => 'tangledhelix/vim-octopress',
