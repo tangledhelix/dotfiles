@@ -213,11 +213,11 @@ sub replace_file {
 
 # clone my omz repository
 sub omz_cloner {
-    my $omz_path = "$ENV{HOME}/.oh-my-zsh";
+    my $omz_path = "$basedir/oh-my-zsh";
     my $repo_url = 'https://github.com/tangledhelix/oh-my-zsh.git';
     if (-f $omz_path or -d $omz_path) {
-        print "    ~/.oh-my-zsh already exists, skipping\n";
-        print "To reinstall OMZ, rename or remove ~/.oh-my-zsh and try again.\n";
+        print "    $omz_path already exists, skipping\n";
+        print "To reinstall OMZ, rename or remove $omz_path and try again.\n";
         return;
     }
     system "git clone $repo_url $omz_path";
@@ -226,7 +226,7 @@ sub omz_cloner {
 
 # update the omz repository
 sub omz_updater {
-    my $omz_path = "$ENV{HOME}/.oh-my-zsh";
+    my $omz_path = "$basedir/oh-my-zsh";
     system "cd $omz_path && git pull && git submodule update --init --recursive";
 }
 
