@@ -17,3 +17,6 @@
 /vim/doc/tags-ja
 /vim/bundle
 
+# oh-my-zsh submodule
+/oh-my-zsh
+
