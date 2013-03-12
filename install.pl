@@ -112,9 +112,9 @@ if ($action eq 'bash') {
     foreach my $file (@files_all) {
         determine_action($file, 'dotfile');
     }
-    omz_cloner();
     scripts_installer();
     vim_bundle_installer();
+    omz_cloner();
     gitconfig_installer();
 
 } else {
