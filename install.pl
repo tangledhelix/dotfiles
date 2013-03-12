@@ -66,16 +66,16 @@ my $action = $ARGV[0];
 
 if ($action eq 'bash') {
     foreach my $file (@{$files{bash}}) {
-        determine_action($file);
+        determine_action($file, 'dotfile');
     }
 
 } elsif ($action eq 'zsh') {
     foreach my $file (@{$files{zsh}}) {
-        determine_action($file);
+        determine_action($file, 'dotfile');
     }
     omz_cloner();
 
-} elsif ($action eq 'zsh:update') {
+} elsif ($action eq 'update:zsh') {
     omz_updater();
 
 } elsif ($action eq 'omz') {
@@ -83,30 +83,39 @@ if ($action eq 'bash') {
 
 } elsif ($action eq 'vim') {
     foreach my $file (@{$files{vim}}) {
-        determine_action($file);
+        determine_action($file, 'dotfile');
     }
     vim_bundle_installer();
 
-} elsif ($action eq 'vim:update') {
+} elsif ($action eq 'update:vim') {
     vim_bundle_cleanup();
     vim_bundle_updater();
 
-} elsif ($action eq 'vim:cleanup') {
+} elsif ($action eq 'cleanup:vim') {
     vim_bundle_cleanup();
+
+} elsif ($action eq 'update') {
+    omz_updater();
+    vim_bundle_cleanup();
+    vim_bundle_updater();
 
 } elsif ($action eq 'git') {
     foreach my $file (@{$files{git}}) {
-        determine_action($file);
+        determine_action($file, 'dotfile');
     }
     gitconfig_installer();
 
+} elsif ($action eq 'scripts') {
+    scripts_installer();
+
 } elsif ($action eq 'all') {
     foreach my $file (@files_all) {
-        determine_action($file);
+        determine_action($file, 'dotfile');
     }
-    gitconfig_installer();
-    vim_bundle_installer();
     omz_cloner();
+    scripts_installer();
+    vim_bundle_installer();
+    gitconfig_installer();
 
 } else {
     print_help();
@@ -118,17 +127,18 @@ sub print_help {
 
 Usage: $0 <target>
 
-    all   - Install all dotfiles
+    all         - Install everything
 
-    bash  - Install bash files
-    git   - Install git files
-    zsh   - Install zsh files
-    vim   - Install vim files and bundles
+    bash        - Install bash files only
+    git         - Install git files only
+    zsh         - Install zsh files only
+    vim         - Install vim files and bundles only
+    scripts     - Install my motley collection of scripts
 
-    vim:update    - Update vim bundles
-    vim:cleanup   - Clean up old vim bundles
+    update:vim  - Update vim bundles
+    update:zsh  - Update oh-my-zsh and its submodules
 
-    zsh:update    - Update oh-my-zsh and its submodules
+    update      - Update both vim and zsh
 
 EOF
 
@@ -137,54 +147,68 @@ EOF
 
 sub determine_action {
     my $file = shift;
-    my $path = "$ENV{HOME}/.$file";
+    my $type = shift;
 
-    if (-l $path and (readlink($path) eq "$basedir/$file")) {
-        print "    skipping $path (already linked)\n";
+    my $src_path;
+    my $link_path;
+
+    if ($type eq 'dotfile') {
+        $src_path = "$basedir/$file";
+        $link_path = "$ENV{HOME}/.$file";
+    } elsif ($type eq 'script') {
+        $src_path = "$basedir/scripts/$file";
+        $link_path = "$ENV{HOME}/bin/$file";
+    } else {
+        die "*** determine_action(): Type is unknown!\n";
+    }
+
+    if (-l $link_path and (readlink($link_path) eq $src_path)) {
+        print "    skipping $link_path (already linked)\n";
         return;
     }
 
-    if (-d $path) {
-        warn "** $path is a directory, skipping!\n";
+    if (-d $link_path) {
+        warn "** $link_path is a directory, skipping!\n";
         return;
     }
 
-    if (-f $path or -l $path) {
+    if (-f $link_path or -l $link_path) {
         if ($replace_all) {
-            replace_file($file);
+            replace_file($src_path, $link_path);
         } else {
             print "Overwrite ~/.$file? [yNaq] ";
             chomp(my $choice = <STDIN>);
             if ($choice eq 'a') {
                 $replace_all = 1;
-                replace_file($file);
+                replace_file($src_path, $link_path);
             } elsif ($choice eq 'y') {
-                replace_file($file);
+                replace_file($src_path, $link_path);
             } elsif ($choice eq 'q') {
                 exit;
             } else {
-                print "    skipping ~/.$file\n";
+                print "    skipping $link_path\n";
             }
         }
     } else {
-        link_file($file);
+        link_file($src_path, $link_path);
     }
 }
 
 sub link_file {
-    my $file = shift;
+    my $src_path = shift;
+    my $link_path = shift;
 
-    print "    linking ~/.$file\n";
-    symlink "$basedir/$file", "$ENV{HOME}/.$file"
-        or warn "Unable to link ~/.$file\n";
+    print "    linking $link_path\n";
+    symlink $src_path, $link_path or warn "Unable to link $link_path\n";
 }
 
 sub replace_file {
-    my $file = shift;
+    my $src_path = shift;
+    my $link_path = shift;
 
-    print "    removing old ~/.$file\n";
-    unlink "$ENV{HOME}/.$file" or warn "Could not remove ~/.$file";
-    link_file($file);
+    print "    removing old $link_path\n";
+    unlink $link_path or warn "Could not remove $link_path";
+    link_file($src_path, $link_path);
 }
 
 # clone my omz repository
@@ -243,6 +267,15 @@ sub vim_bundle_cleanup {
             print "    cleaning up bundle $basename\n";
             remove_tree($dir);
         }
+    }
+}
+
+# install script symlinks
+sub scripts_installer {
+    my $install_path = "$ENV{HOME}/bin";
+    mkdir $install_path, 0700 unless -d $install_path;
+    foreach my $script (glob "$basedir/scripts/*") {
+        determine_action(basename($script), 'script');
     }
 }
 
