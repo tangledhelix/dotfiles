@@ -13,7 +13,8 @@ use YAML qw/DumpFile LoadFile/;
 my %files = (
     bash => [ 'bash', 'bash_profile', 'bashrc', 'inputrc' ],
     git  => [ 'gitignore' ],
-    misc => [ 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc', 'terminfo', 'tmux.conf' ],
+    misc => [ 'cvsrc', 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc',
+              'terminfo', 'tmux.conf' ],
     vim  => [ 'vim', 'vimrc' ],
     zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ],
 );

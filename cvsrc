@@ -1,0 +1,3 @@
+checkout -P
+diff -u
+update -P
