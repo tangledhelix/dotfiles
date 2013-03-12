@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'unwind'
+puts Unwind::RedirectFollower.resolve(ARGV[0]).final_url
+

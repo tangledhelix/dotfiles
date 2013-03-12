@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[ "$1" = "" ] && {
+	echo "Missing argument"
+	echo "Usage: $0 <string>"
+	exit 8
+}
+
+cd /Library/Receipts
+
+for i in `find . -name '*.bom' -print`; do
+	echo "    => $i"
+	lsbom $i | grep "$1"
+done
+

@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+"""This script shows the lock status of a single list."""
+
+# Additional path for Mailman
+prefix = "/usr/local/pkg/mailman"
+
+###########################################################################
+
+import sys
+import os
+
+# Set up include path so I can find Mailman modules at work
+sys.path.insert(0, prefix)
+sys.path.insert(0, os.path.join(prefix, "pythonlib"))
+
+from Mailman import MailList
+
+def main():
+
+	# Get list name from command line
+	if len(sys.argv) >= 2:
+		list_name = sys.argv[1]
+	else:
+		print "missing argument! need a list name"
+		sys.exit(2)
+
+	mlist = MailList.MailList(list_name, lock=0)
+
+	print list_name,
+	if mlist.Locked():
+		print "is locked"
+	else:
+		print "is unlocked"
+
+if __name__ == "__main__":
+	main()
+

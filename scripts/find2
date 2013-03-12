@@ -1,0 +1,21 @@
+#!/bin/csh
+# Script : ff (file find)
+# Author : Can Ugur Ayfer (cayfer@bilkent.edu.tr(
+# Date : July 1995
+# Usage :  ff myfile   or
+# ff /home/cayfer myfile   or
+# ff "my*"
+#
+if ("$#argv" == 1) then
+	find . -name "$argv[1]" -print
+endif
+
+if ("$#argv" == 2) then
+	find "$argv[1]" -name  "$argv[2]" -print
+endif
+
+if ("$#argv" < 1 || "$#argv" > 2) then
+	echo "Error..."
+	echo 'usage         ff [ path] "name*" '
+	echo 'usage         ff [ path] "*name" '
+endif

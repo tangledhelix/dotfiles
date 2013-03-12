@@ -1,0 +1,255 @@
+#!/usr/bin/env perl -w
+
+# average:  Find the average of a set of numbers.
+#
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+
+getopts('dhiIlmMqV', \%opts);
+
+if ($opts{'h'}) {
+    &help();
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif ($opts{'q'}) {
+    $verbose = 0;  # Nothing except the final answer
+} else {
+    $verbose = 1;  # Normal warnings and such.
+}
+
+my ($file, @number_array, $number, $total_numbers, @numbers, $strlen);
+my $sum_total = 0;
+
+################
+# MAIN PROGRAM #
+################
+
+# For file args
+if (@ARGV) {
+    foreach $file (@ARGV) {
+        print STDERR "Reading from file $file.\n" if ($verbose >= 2);
+        open (ARGFILE, "$file") &&
+         process_filehandle(\*ARGFILE, \@number_array) ||
+        $verbose && warn "Couldn't open file $file for reading: $!\n";
+        close (ARGFILE);
+    }
+# For STDIN
+} else {
+    print STDERR "Reading from STDIN.\n" if ($verbose >= 2);
+    process_filehandle(\*STDIN, \@number_array);
+}
+
+my $average;
+if ($opts{'m'}) {
+    $average = find_mode(\@number_array);
+} elsif ($opts{'M'}) {
+    $average = find_median(\@number_array);
+} else {   
+    $average = calculate_mean(\@number_array);
+}
+
+# post processing.
+if ($opts{'i'}) {
+    $average = int($average);
+} elsif ($opts{'I'}) {
+    if ($average == int($average)) {
+        $average = 0;
+    } else {
+        $average =~ s/^(\-?)[0-9]*\.([0-9]*)$/$1.$2/;
+    }
+}
+
+print "$average\n";
+
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+---------------------------------------------------------
+average : A program for finding the average of numbers.
+---------------------------------------------------------
+Usage:
+    average [options] file
+    | average [options]
+    average [options]
+
+Options:
+        -i      Only return the integer portion of the final sum.
+        -I      Only return the decimal portion of the final sum
+
+        -m      Find the mode (most occuring) of the list of numbers.
+        -M      Find the median (middle number) of the list of numbers.
+        -l      When finding the median and the count of numbers in the set is even,
+                use the lower middle number instead of the upper middle number.
+
+        -d      Debug. For developers only.
+        -h      Help: You're looking at it.
+        -V      Increase verbosity.
+        -q      Quiet mode, don't print any warnings.
+EOF
+}
+
+sub process_filehandle {
+    my $filehandle = shift;
+    my $number_array_ref = shift;
+
+    while (<$filehandle>) {
+        if (m/^\s*(\-?[0-9]*\.?[0-9]+)/) {
+            print STDERR "found number: $1\n" if ($verbose >= 3);
+            push(@$number_array_ref, $1);
+        }
+    }
+    return 1;
+}
+
+sub calculate_mean {
+    my $number_array_ref = shift;
+
+    my $number_of_numbers = @$number_array_ref;
+    my $runningtotal = 0;
+    foreach $number (@$number_array_ref) {
+        $runningtotal += $number;
+        print STDERR "adding number: $number  (total: $runningtotal)\n" if ($verbose >= 3);
+    }
+    $average = $runningtotal / $number_of_numbers;
+    print STDERR "averaging numbers: $runningtotal total / $number_of_numbers numbers = $average\n" if ($verbose >= 2);
+    return $average;
+}
+
+sub find_mode {
+    my $number_array_ref = shift;
+    my (%numbers_count,$highest_number,$highest_count);
+    foreach $number (@$number_array_ref) {
+        $numbers_count{$number}++;
+        if (!defined($highest_number)) {
+            $highest_number = $number;
+            $highest_count = 1;
+        } elsif ($numbers_count{$number} > $highest_count) {
+            $highest_number = $number;
+            $highest_count++;
+            print STDERR "Highest number is now: $highest_number with a count of $highest_count.\n" if ($verbose >= 2);
+        }
+    }
+    return $highest_number;
+}
+
+# This routine will find the median of a set of numbers.
+# If the set of numbers counts to be even, then it will take
+# the higher indexed number in the middle of the set.
+# If the -l option is set, it will take the lower index
+# number in the middle.
+sub find_median {
+    my $number_array_ref = shift;
+    my @number_array = sort {$a <=> $b} @$number_array_ref;
+    my $array_count = scalar(@number_array);
+    my $median_index;
+    print "The array count is: $array_count\n" if ($verbose >= 2);
+    if (($array_count % 2) == 0) {  # The index count is even.
+        if ($opts{'l'}) {
+            $median_index = int($array_count / 2);
+        } else {
+            $median_index = int(($array_count / 2) + 1);
+        }
+    } else {
+        $median_index = int(($array_count / 2) + 0.5);
+    }
+    $median_index--; # Translate the number to 0 based array set.
+    print "The median index is: " . int(($array_count / 2) - 0.5) . "\n" if ($verbose >= 2);
+    my $median = $number_array[$median_index];
+    return $median;
+}
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+average - Find the average of a set of numbers.
+
+=head1 SYNOPSIS
+
+B<average> [-dhiIlmMV] <FILE>
+
+| B<average> [-dhiIlmMV]    (Input on STDIN from pipeline.)
+
+B<average> [-dhiIlmMV]      (Input on STDIN.  Use Ctrl-D to stop.)
+
+=head1 DESCRIPTION
+
+B<average> is a program that is part of the numeric utilities package.  By default
+B<average> will determine the average from all numbers on input.  Other
+options allow you to find the mode and median.
+
+=head1 OPTIONS
+
+    -i  Only return the integer portion of the final sum.
+    -I  Only return the decimal portion of the final sum
+
+    -m  Find the mode (most occuring) of the list of numbers.
+    -M  Find the median (middle number) of the list of numbers.
+    -l  When finding the median and the count of numbers in the set is even,
+        use the lower middle number instead of the upper middle number.
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+
+
+=head1 SEE ALSO
+
+bound(1), interval(1), normalize(1), numgrep(1), numprocess(1), numsum(1), random(1), range(1), round(1)
+
+=head1 COPYRIGHT
+
+average is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on average can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

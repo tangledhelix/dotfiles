@@ -1,0 +1,389 @@
+#!/usr/bin/env perl -w
+
+# numgrep:  This program is the numeric equivilent of the grep
+# utility.  It searches for numbers, sets of numbers and so on.
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+
+$| = 1;
+
+getopts('hdVl', \%opts);
+
+if ($opts{'h'}) {
+        &help;
+            exit(0);
+}
+
+if ($opts{'d'}) {
+        $verbose = 3;
+            print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+        $verbose = 2;
+            print STDERR "Verbose mode\n";
+} elsif($opts{'q'}) {
+        $verbose = 0;  # No output except the final answer.
+} else {
+        $verbose = 1;  # Normal output.
+}
+
+my $match_expression = shift;
+$match_expression =~ s/^\/(.*)\/$/$1/;
+
+# Now read in any extra arguments as filenames to do searches in.
+my @files = @ARGV;
+print STDERR "Arg files: " . @files . "\n" if ($verbose >= 3);
+
+my @ranges;
+my $file;
+
+################
+# MAIN PROGRAM #
+################
+
+if (@ARGV) {    
+    foreach $file (@ARGV) {
+        print STDERR "Reading from file $file.\n" if ($verbose >= 2);
+        open (ARGFILE, "$file") && process_filehandle(\*ARGFILE, $match_expression)
+        || $verbose && warn "Couldn't open file $file for reading: $!\n";
+        close(ARGFILE);
+    }
+} else {
+    print STDERR "Reading from STDIN.\n" if ($verbose >= 2);
+    process_filehandle(\*STDIN, $match_expression);
+}
+
+exit(0);
+
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+-----------------------------------------------------------
+numgrep:  Search for a number using numeric expressions.
+-----------------------------------------------------------
+Usage:
+    numgrep [options] /expression/ file
+    | numgrep [options] /expression/
+    numgrep [options] /expression/
+
+Options:
+        -l   Print the matching numbers out one per line
+             instead of printing the entire line they are on.
+        -d   Debug. For developers only.
+        -h   Help: You're looking at it.
+        -V   Increase verbosity.
+
+Expressions:
+        ..  Range.  Use to specify a range of numbers such
+            as 1..10, 1.. or ..10.  Which mean between 1 and 10, greater than
+            1, and less than 10 respectively
+
+        ,   Expression seperator.  The comma seperates expressions within
+            the forward slashes.   ie. /1..10,20..30,50,60,127/
+
+        m   Multiple operator.  Using the m followed by an integer will match
+            any multiple of that integer.  So /m3/ would match 3, 6, 9, 12, etc.
+
+        f   Factor operator.  Using the f followed by an integer will match
+            any factor of that integer.  So /m20/ would match 1, 2, 4, 5 and 10.
+
+EOF
+}
+
+sub process_filehandle {
+    my $filehandle = shift;
+    my $returnvalue;
+
+    # The below array holds individual expressions that
+    # will be looped through to find matching values.
+
+    while (<$filehandle>) {
+        my $line = $_;
+        if ($line =~ /[0-9]/) {  # This expression will determine whether we
+                                 # should even try to match.  Maybe it's wrong
+                                 # to do this, but it will speed things up.
+            num_match($line);
+        } else {
+            next;
+        }
+    }
+    return 1;
+}
+
+# This subroutine determines what to do with matched lines.
+sub num_match {
+    my $line = shift;
+
+    my $returnvalue = 0;
+    my $expression;
+    my $number;
+
+    my @expression_array = split(/,/, $match_expression);
+
+    my @numbers = ();
+
+    my $strlen = length($line);
+    my $n = 0;
+    while ($n < $strlen) {
+        my $char = substr($line, $n, 1);
+        if ($char =~ /[0-9\.-]/) {
+            ($n, $number) = parse_number(substr($line, $n, ($strlen - $n)), $n);
+            unless ($number eq "") {
+                push (@numbers, $number);
+            }
+        } else {
+            $n++;
+        }
+    }
+    
+    if ($opts{'l'}) {  # Follow this branch if the user just wants the numbers and not the context.
+        
+        foreach $number (@numbers) {  # SET represents the numbers found on one line.
+            chomp($number);
+        EXP: foreach $expression (@expression_array) {
+                print "Expression: $expression\n" if ($verbose >= 3);
+                
+                my $exp = make_expression($expression, $number);
+                
+                # Now if the $exp is true then go on.
+                if (eval($exp)) {
+                    print "$number\n";
+                    last EXP;
+                }
+            }
+        }
+    } else {  # Else we'll just print out lines that match one of the expressions.
+     NUM: foreach $number (@numbers) {
+            foreach $expression (@expression_array) {
+                my $exp = make_expression($expression, $number);
+                if (eval($exp)) {
+                    print "$line";
+                    last NUM;
+                }
+            }
+        }
+    }
+    return $returnvalue;
+}
+
+sub make_expression {
+    my $expression = shift;
+    my $number = shift;
+    my $exp;
+
+    if ($expression =~ /^(-?[0-9\.]+)\.\.(-?[0-9\.]+)$/) {  # normal range between two numbers.
+        $exp = "$1 <= $number && $number <= $2";
+    } elsif ($expression =~ /^\.\.(-?[0-9\.]+)$/) { # Anything lower than X
+        $exp = "$number <= $1";
+    } elsif ($expression =~ /^(-?[0-9\.]+)\.\.$/) {  # Anything higher than X
+        $exp = "$number >= $1";
+    } elsif ($expression =~ /^(-?[0-9\.]+)$/) {
+        $exp = "$number == $1";
+    } elsif ($expression =~ /^m(-?[0-9\.]+)$/) {  # Multiples.
+        if ($1 =~ /\./) {
+            die "Please use only integer values for m.\n";
+            $exp = "$number =~ /$expression/";
+        } else {
+            $exp = "!($number % $1)";
+        }
+    } elsif ($expression =~ /^f(-?[0-9\.]+)$/) {  # Factors.
+        if ($1 =~ /\./) {
+            die "Please use only integer values for f.\n";
+            $exp = "$number =~ /$expression/";
+        } else {
+            $exp = "!($1 % $number)";
+        }
+    } else {
+        $exp = "$number =~ /$expression/";
+    }
+    print "Exp: '$exp'\n" if ($verbose >= 3);
+
+    return $exp
+}
+
+sub parse_number {
+    my $substring = shift;
+    my $placeholder = shift;
+    
+    $substring =~ /^(-?[0-9]*\.?[0-9]*)[^0-9]/;
+    my $number = $1;
+
+    my $strlen;
+
+    if ($number =~ /^[\.-]*$/) {
+        $strlen = length($number);
+        $number = "";
+    } else {
+        $strlen = length($number);
+    }
+
+    # Fix the number somewhat.
+    #$number =~ s/^\./0./;
+    #$number =~ s/^-\./-0./;
+    #$number =~ s/-0+/0/;
+    #$number =~ s/\.$//;
+
+    chomp($number);
+
+    return ($placeholder + $strlen, $number);
+}
+
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+numgrep -  This program is the numeric equivilent of the grep utility.
+
+
+=head1 SYNOPSIS
+
+B<numgrep> [-dhlV] <FILE>
+
+| B<numgrep> [-dhlV]   (Input on STDIN from pipeline.)
+
+B<numgrep> [-dhlV]     (Input on STDIN.  Use Ctrl-D to stop.)
+
+=head1 DESCRIPTION
+
+B<numgrep> searches for different occurances of numbers through the use
+of numeric expressions.
+
+=head1 OPTIONS
+
+    -l  Print the matching numbers out one per line
+        instead of printing the entire line they are on.
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+
+=head1 EXPRESSIONS
+
+B<numgrep> uses a special numeric expression matching system.  Basically,
+it searches for ranges, factors and sequences of numbers.  Here is a list
+of the syntax characters and some sample expressions that will get you
+going:
+
+
+    /<expression>/
+         Put your expression or set of expressions between these
+         two forward slashes.
+
+    ..   Range expression.  A number must be used on the left
+         and/or right of this expression to specify that numbers
+         between, greater than or less than the numbers specified
+         should be matched.
+
+    ,    Expression sepeartor.  The comma sepearates one complete
+         expression from another in a set enclosed by //.
+
+    m<n> Multiples of <n>.  This operator, followed by a number
+          <n> will match any number <x> that is an integer
+          multiple of <n>.  Meaning that <x> = <n> times <y>,
+          where <y> is any integer.
+
+    f<n> Factors of <n>.  This operator, followed by a number <n>
+         will match any number <x> that is an integer factor of
+         <n>.  Meaning that <x> = <n> divided by <y>, where <y>
+         is any integer.
+
+B<     NOTE:> Checking for factors and multiples is very fast because it
+         is checked by doing a single modulus operation on two numbers.
+
+B<Examples:>
+
+    /2..10/  Match any number between 2 and 10.
+
+    /2..10,20..30/  Match any number between 2 and 10 or between 20 and 30.
+
+    /56,34,512,45,67/  Match any of the numbers 56, 34, 512, 45 or 67.
+
+    /m3/  Match any integer that is a multiple of 3.
+
+    /f1024/  Match any integer that is a factor of 1024.
+
+
+    $ range -N /1..1000/ | numgrep /f1024/
+    1
+    2
+    4
+    8
+    16
+    32
+    64
+    128
+    256
+    512
+    $
+
+
+=head1 BUGS
+
+B<numgrep> can't handle certain situations properly.  Such as if
+it encounters a number with leading zeros, it will treat it as an
+octal number and thus might not match the way you would expect.
+
+B<numgrep> does not yet allow you to mix numbers and text in the
+matching expression.  So you can not do something like
+'numgrep /port=0..1023/ firewall.log'. But this will be changed in the
+future.
+
+=head1 SEE ALSO
+
+average(1), bound(1), interval(1), normalize(1), numprocess(1), numsum(1), random(1), range(1), round(1)
+
+=head1 COPYRIGHT
+
+numgrep is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 BUGS
+
+ numgrep will round decimal numbers with more than 15 digits of accuracy.  This is
+mostly due to limit's in the way programming languages deal directly with numbers.
+
+=head1 MORE INFO
+
+More info on numgrep can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

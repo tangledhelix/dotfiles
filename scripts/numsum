@@ -1,0 +1,384 @@
+#!/usr/bin/env perl -w
+
+# numsum:  This program adds up all numbers it encounters and prints out
+#          the total at the end on STDOUT. 
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+#use strict;
+use vars qw/ %opts /;
+
+my ($file, $finalsum, @number_array, @columns_to_print, @column_output, $output_line, $string_seperator, $verbose);
+
+getopts('123456789cdhiIqrs:Vx:y:', \%opts);
+
+
+if ($opts{'h'}) {
+    &help;
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif($opts{'q'}) {
+    $verbose = 0;  # No output except the final answer.
+} else {
+    $verbose = 1;  # Normal output.
+}
+
+# I'm not sure whether this should stay in or not.  It's mainly just for convience.
+# It's a bad hack because you can only specify 1 through 9.  Maybe sometime I'll figure
+# out how to bypass getopts to specify extra options.
+for ($n = 1 ; $n < 10; $n++) {
+    if ($opts{$n}) {
+        $opts{'c'} = 1;
+        $opts{'x'} = $n;
+    }
+}
+
+if ($opts{'x'}) {
+    @columns_to_print = split(/,/, $opts{'x'});
+}
+
+if ($opts{'y'}) {
+    @rows_to_print = split(/,/, $opts{'y'});
+}
+
+if ($opts{'s'}) {
+    $string_seperator = $opts{'s'};
+} else {
+    $string_seperator = "\\s+";
+}
+
+
+################
+# MAIN PROGRAM #
+################
+
+if (@ARGV) {
+    foreach $file (@ARGV) {
+        print STDERR "Reading from file $file.\n" if ($verbose >= 2);
+        open (ARGFILE, "$file") && process_filehandle(\*ARGFILE, \@number_array)
+        || $verbose && warn "Couldn't open file $file for reading: $!\n";
+        close(ARGFILE);
+    }
+} else {
+    print STDERR "Reading from STDIN.\n" if ($verbose >= 2);
+    process_filehandle(\*STDIN, \@number_array);
+}
+
+my $number_array_length = @number_array;
+
+if ($opts{'c'}) { # Handle column sum output.
+  
+    my @column_output = ();
+    my $i;
+    for ($i = 0; $i < $number_array_length; $i++) {
+        my @add_this_array = split(/$string_seperator/, $number_array[$i]);
+        sum_columns(\@column_output, \@add_this_array);
+    }
+
+    # Now print out the columular output.
+    if ($opts{'x'}) {
+        my @final_output = ();
+        foreach $column_number (@columns_to_print) {
+            push (@final_output, $column_output[$column_number-1]);
+        }
+        $output_line = join(" ", @final_output);
+    } else {
+        $output_line = join(" ", @column_output);
+    }
+
+    print "$output_line\n";
+
+} elsif ($opts{'r'}) { # Handle row sum output.
+
+    my $i;
+    if ($opts{'y'}) {
+        foreach $row_number (@rows_to_print) {
+            my @add_this_array = split(/ /, $number_array[$row_number-1]);
+            my $row_sum = 0;
+            foreach $row_value (@add_this_array) {
+                $row_sum += $row_value;
+            }
+            print "$row_sum\n";
+        }
+    } else {
+        for ($i = 0; $i < $number_array_length; $i++) {
+            my @add_this_array = split(/ /, $number_array[$i]);
+            my $row_sum = 0;
+            foreach $row_value (@add_this_array) {
+                next if ($row_value !~ m/^[0-9]+$/);
+                $row_sum += $row_value;
+            }
+            print "$row_sum\n";
+        }
+    }
+
+} else {
+    $finalsum = add_array(\@number_array);
+
+    if ($opts{'i'}) {
+        $finalsum = int($finalsum);
+    } elsif ($opts{'I'}) {
+        if ($finalsum == int($finalsum)) {
+            $finalsum = 0;
+        } else {
+            $finalsum =~ s/^(\-?)[0-9]*\.([0-9]*)$/$1.$2/;
+        }
+    }
+
+    print "$finalsum\n";
+}
+
+exit(0);
+
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+---------------------------------------------------------------------------
+numsum :  A program that adds up all numbers of input and returns the sum.
+---------------------------------------------------------------------------
+Usage:
+        numsum [options] <file>   (Input from a file.)
+        | numsum [options]        (Input from command pipeline.)
+        numsum [options]          (Input on STDIN.  Use Ctrl-D to stop.)
+
+Options:
+        -i      Only return the integer portion of the final sum.
+        -I      Only return the decimal portion of the final sum
+
+        -c      Print out the sum of each column.
+        -r      Print out the sum of each row.
+
+        -x <n>  Specify a comma seperated list of columns to print.
+        -y <n>  Specify a comma seperated list of rows to print.
+
+        -s <string> Specify a seperator string for spliting columns.
+                    This defaults to consecutive whitespace.
+
+        -d      Debug. For developers only.
+        -h      Help: You're looking at it.
+        -V      Increase verbosity.
+        -q      Quiet mode, don't print any warnings.
+EOF
+}
+
+# This function is used so that we can genericize what filehandle
+# we are getting our information from.
+sub process_filehandle {
+    my $filehandle = shift;
+    my $number_array_ref = shift;
+
+    while (<$filehandle>) {
+        my $line = $_;
+        chomp($line);
+        if ($opts{'c'} || $opts{'r'}) {   # Process columns or rows
+
+            # Make each line column friendly by changing all non-numeric words into 0.
+
+
+            # Some ideas from the #perl channel on irc.freenode.org.  Thanks to v, dkr, Khisanth and dudeman
+
+            #$input = join ' ', map { /\D/ ? 0 : $_ } split / +/, $input;
+            #s!(\S+)!$1=~/\D/?0:$1!ge;
+          
+            # This one works best. 
+            $line =~ s!(\S+)!$1=~/\D/?0:$1!ge;
+
+            push(@$number_array_ref, $line);
+
+        } else {   # Normal processing.
+            if ($line =~ /^\s*(\-?[0-9]*\.?[0-9]+)/) {
+                print STDERR "number: $1\n" if ($verbose >= 3);
+                push(@$number_array_ref, $1);
+            }
+        }
+    }
+    return 1;
+}
+
+
+# Function for adding up numbers
+sub add_array {
+    my $arrayref = shift;
+    my $runningtotal = 0;
+    my $number;
+
+    foreach $number (@$arrayref) {
+        print STDERR "$number\n" if ($verbose >= 2);
+        $runningtotal += $number;
+    }
+    return $runningtotal;
+}
+
+# Function for summing up the columns.
+sub sum_columns {
+    my $sum_array_ref = shift;
+    my $input_array_ref = shift;
+
+
+    my $input_array_length = @$input_array_ref;
+    my $x;
+    for ($x = 0; $x < $input_array_length; $x++) {
+        if (${$sum_array_ref}[$x]) {
+            ${$sum_array_ref}[$x] += ${$input_array_ref}[$x];
+        } else {
+            ${$sum_array_ref}[$x] = ${$input_array_ref}[$x];
+        }
+    }
+    return 1;
+}
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+numsum - numsum program file
+
+=head1 SYNOPSIS
+
+B<numsum> [-iIcdhrsvxy] <FILE>
+
+| B<numsum> [-iIcdhrsvxy]   (Input on STDIN from pipeline.)
+
+B<numsum> [-iIcdhrsvxy]     (Input on STDIN.  Use Ctrl-D to stop.)
+
+
+=head1 DESCRIPTION
+
+B<numsum> is a program that is part of the numeric utilities package.  B<numsum>
+will take all the numbers on stdin and return the sum of those numbers.  Currently
+it only processes the first number on each line.  Besides positive numbers, it also
+handles negative numbers and numbers with decimals.
+
+=head1 OPTIONS
+
+    -i  Only return the integer portion of the final sum.
+    -I  Only return the decimal portion of the final sum.
+
+    -c      Print out the sum of each column.
+    -r      Print out the sum of each row.
+
+    -x <n>  Specify a comma seperated list of columns to print.
+    -y <n>  Specify a comma seperated list of rows to print.
+
+    -s <string> Specify a string to use as a seperator for columns.
+                This defaults to be consecutive whitespace (\s+).
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+    -q  Quiet mode, don't print any warnings.
+
+=head1 EXAMPLES
+
+Simply add up the numbers in a file.
+    $ numsum numbers.txt
+    4315
+
+Enter your own numbers on STDIN. The last number is the answer.
+    $ numsum
+    4
+    21
+    98
+    100
+    223
+
+Use it in a command pipeline.
+    $ ls -1s | grep .mp3 | numsum -c -x 5
+    72288
+
+Add up the total byte count in a http log file.
+    $ cat access_log | awk {'print $10'} numsum
+
+    or 
+
+    numsum -c -x 10 access_log
+
+Add up the columns of numbers of a file.
+
+    $ cat columns
+    1 6 11 16 21
+    2 7 12 17 22
+    3 8 13 18 23
+    4 9 14 19 24
+    5 10 15 20 25
+    $ numsum -c columns
+    15 40 65 90 115
+
+Add up the 1st, 2nd and 5th columns only.
+
+    $ numsum -c -x 1,2,5 columns
+    15 40 115    
+
+Add up the rows of numbers of a file.
+
+     $ numsum -r columns
+     55
+     60
+     65
+     70
+     75
+
+Add up the 2nd and 4th rows.
+
+     $ numsum -r -y 2,4 columns
+     60
+     70
+
+=head1 SEE ALSO
+
+average(1), bound(1), interval(1), normalize(1), numgrep(1), numprocess(1), random(1), range(1), round(1)
+
+=head1 COPYRIGHT
+
+numsum is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on numsum can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

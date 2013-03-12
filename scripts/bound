@@ -1,0 +1,206 @@
+#!/usr/bin/env perl -w
+
+# bound: Find boundary numbers in files or STDIN.
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+
+my ($file, @number_array);
+
+getopts('dhlV', \%opts);
+
+if ($opts{'h'}) {
+    &help();
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif ($opts{'q'}) {
+    $verbose = 0;  # Nothing except the final answer
+} else {
+    $verbose = 1;  # Normal warnings and such.
+}
+
+
+################
+# MAIN PROGRAM #
+################
+
+# For file args
+if (@ARGV) {
+    foreach $file (@ARGV) {
+        print STDERR "Reading from file $file.\n" if ($verbose >= 2);
+        open (ARGFILE, "$file") &&
+         process_filehandle(\*ARGFILE, \@number_array) ||
+        $verbose && warn "Couldn't open file $file for reading: $!\n";
+        close (ARGFILE);
+    }
+# For STDIN
+} else {
+    print STDERR "Reading from STDIN.\n" if ($verbose >= 2);
+    process_filehandle(\*STDIN, \@number_array);
+}
+
+my $final_number;
+if ($opts{'l'}) {
+    $final_number = find_lower_bound(\@number_array);
+} else {
+    $final_number = find_upper_bound(\@number_array);
+}
+
+print "$final_number\n";
+
+exit(0);
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+-------------------------------------------------------------------------------
+bound : Find boundary numbers in files or STDIN.  By default, find the maximum.
+-------------------------------------------------------------------------------
+Usage:
+
+    bound [options] <file>
+    | bound [options]
+    bound [options]
+
+Options:
+        -l  -- Return the lower bound number in the set  (the minimum number)
+
+        -d      Debug. For developers only.
+        -h      Help: You're looking at it.
+        -V      Increase verbosity.
+EOF
+}
+
+sub process_filehandle {
+    my $filehandle = shift;
+    my $number_array_ref = shift;
+
+    while (<$filehandle>) {
+        if (m/^\s*(\-?[0-9]*\.?[0-9]+)/) {
+            print STDERR "found number: $1\n" if ($verbose >= 3);
+            push(@$number_array_ref, $1);
+        }
+    }
+    return 1;
+}
+
+sub find_upper_bound {
+    my $number_array_ref = shift;
+    my $highest_number = @$number_array_ref[0];
+    my $number;
+
+    foreach $number (@$number_array_ref) {
+        if ($number > $highest_number) {
+            $highest_number = $number;
+        }
+    }
+    return $highest_number;
+}
+
+sub find_lower_bound {
+    my $number_array_ref = shift;
+    my $lowest_number = @$number_array_ref[0];
+    my $number;
+
+    foreach $number (@$number_array_ref) {
+        if ($number < $lowest_number) {
+            $lowest_number = $number;
+        }
+    }
+    return $lowest_number;
+}
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+bound - Find boundary numbers in files or STDIN.
+
+=head1 SYNOPSIS
+
+B<bound> [-dhlV] <FILE>
+
+| B<bound> [-dhlV]     (Input on STDIN from pipeline.)
+
+B<bound> [-dhlV]       (Input on STDIN.  Use Ctrl-D to stop.)
+
+=head1 DESCRIPTION
+
+B<bound> is a program that is part of the numeric utilities package.  B<bound>
+will find boundary numbers (minimum and maximum) in files or STDIN.  By default
+it will find the upper bound in the set of numbers (the maximum number) in the
+files or on STDIN.  You can use the -l option for finding the lower bound (minumum
+number).
+
+=head1 OPTIONS
+
+    -l  -- Return the lower bound number in the set  (the minimum number)
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+
+=head1 BUGS
+
+B<bound> currently will only gather the first number on each line instead of
+all the numbers on the lines.
+
+=head1 SEE ALSO
+
+average(1), interval(1), normalize(1), numgrep(1), numprocess(1), numsum(1), random(1), range(1), round(1)
+
+=head1 COPYRIGHT
+
+bound is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on bound can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

@@ -1,0 +1,32 @@
+#!/usr/bin/env perl
+
+# randpin: Generates random numeric strings of 4 characters,
+# to be used as a PIN.
+
+use strict;
+use warnings;
+
+use Getopt::Std;
+
+my $chars = "0123456789";
+
+# If you use -c, the string will be copied into the pasteboard
+getopts "c", \my %opt;
+
+srand(time() ^ ($$ + ($$ << 15)));
+
+my $i;
+my $pin;
+
+for ($i = 0; $i <= 3; $i++) {
+	$pin .= substr($chars, rand(length($chars)), 1);
+}
+
+if ($opt{"c"}) {
+	open my $fh, "| /usr/bin/pbcopy -pboard general"
+		or die "Unable to open pbcopy pipe";
+	print $fh $pin;
+}
+
+print $pin, "\n";
+

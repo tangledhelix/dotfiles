@@ -1,0 +1,225 @@
+#!/usr/bin/env perl -w
+
+# round: A program that rounds off numbers it encounters.
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+use POSIX;  # for rounding functions.
+
+getopts('cfn:hdV', \%opts);
+
+my ($file, @number_array, $verbose);
+
+if ($opts{'h'}) {
+    &help();
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif ($opts{'q'}) {
+    $verbose = 0;  # Nothing except the final answer
+} else {
+    $verbose = 1;  # Normal warnings and such.
+}
+
+# If the -n option is set, use the factor from that, otherwise use a factor
+# of 1 for standard rounding.
+my $factor = $opts{'n'} || 1;
+
+################
+# MAIN PROGRAM #
+################
+
+# For file args
+if (@ARGV) {
+    foreach $file (@ARGV) {
+        print STDERR "Reading from file $file.\n" if ($verbose >= 2);
+        open (ARGFILE, "$file") &&
+         process_filehandle(\*ARGFILE, \@number_array) ||
+        $verbose && warn "Couldn't open file $file for reading: $!\n";
+        close (ARGFILE);
+    }
+# For STDIN
+} else {
+    print STDERR "Reading from STDIN.\n" if ($verbose >= 2);
+    process_filehandle(\*STDIN, \@number_array);
+}
+
+#process_numbers(\@number_array);
+
+exit(0);
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+---------------------------------------------------------
+round : A program that rounds off numbers it encounters.
+---------------------------------------------------------
+Usage:
+
+    round [options] <file>
+    | round [options]
+    round [options]
+
+Options:
+        -c      Force the number to be rounded up. Ceiling.
+        -f      Force the number to be rounded down. Floor.
+        -n <n>  Round numbers to the nearest factor of <n>.
+
+        -d      Debug. For developers only.
+        -h      Help: You're looking at it.
+        -V      Increase verbosity.
+EOF
+}
+
+sub process_filehandle {
+    my $filehandle = shift;
+    my $number_array_ref = shift;
+
+    while (<$filehandle>) {
+        if (m/^\s*(\-?[0-9]*\.?[0-9]+)/) {
+            my $number = $1;
+            print STDERR "found number: $1\n" if ($verbose >= 3);
+            my $newnumber;
+            print STDERR "original number: $number\n" if ($verbose >= 2);
+            if ($opts{'c'}) {
+                $newnumber = ceiling_number($number);
+            } elsif ($opts{'f'}) {
+                $newnumber = floor_number($number);
+            } else {
+                $newnumber = round_number($factor, $number);
+            }
+            print "$newnumber\n";
+        }
+    }
+    return 1;
+}
+
+# The simple rounding function.  In the next version, this function
+# will be able to round to arbitrary factors of any number.
+# The algorithm for this subroutine was inspired by the nearest subroutine
+# in Geoffrey Rommel's Math::Round perl module.  Thanks Geoffrey.
+sub round_number {
+    my $factor = shift;
+    my $number = shift;
+    my $rounded_number;
+    $factor = abs($factor);
+
+    if ($number >= 0) {
+        $rounded_number = $factor * floor(($number + 0.5 * $factor) / $factor);
+    } else {
+        $rounded_number = $factor * ceil(($number - 0.5 * $factor) / $factor);
+    }
+    return $rounded_number;
+}
+
+
+sub ceiling_number {
+    my $number = shift;
+    my $ceiling_number = ceil($number);
+    return $ceiling_number;
+}
+
+sub floor_number {
+    my $number = shift;
+    my $floor_number = floor($number);
+    return $floor_number;
+}
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+round - A program that rounds off numbers it encounters.
+
+=head1 SYNOPSIS
+
+B<round> [-cdfhV] <FILE>
+
+| B<round> [-cdfhV]   (Input on STDIN from pipeline.)
+
+B<round> [-cdfhV]     (Input on STDIN.  Use Ctrl-D to stop.)
+
+=head1 DESCRIPTION
+
+B<round> is a program that is part of the numeric utilities package.  B<round>
+will simply round decimal numbers to the nearest integer or to a factor of any
+number using the -n option.  You can also force it to round up (ceiling) or
+round down(floor) using the -c and -f options.
+
+=head1 OPTIONS
+
+    -c      Force the number to be rounded up. Ceiling.
+    -f      Force the number to be rounded down. Floor.
+    -n <n>  Round numbers to the nearest factor of <n>.
+
+    -h      Print out some helpful information about round.
+    -V      Increase verbosity.  This will print out numbers as it finds them.
+    -d      Debug mode.  For developers only.
+
+
+=head1 BUGS
+
+B<round> currently only rounds the first number on each line.  Eventually this
+will be changed as all the numeric utilities are developed.
+
+B<round> will drop off the decimal places in decimal numbers.  This may cause
+some calculations to be in error, depending on how you are using the data.
+
+=head1 SEE ALSO
+
+average(1), bound(1), interval(1), normalize(1), numgrep(1), numprocess(1), numsum(1), random(1), range(1)
+
+=head1 COPYRIGHT
+
+round is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on round can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

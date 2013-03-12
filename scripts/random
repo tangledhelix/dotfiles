@@ -1,0 +1,246 @@
+#!/usr/bin/env perl -w
+
+# random: Print out a random number.
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+
+my ($expression, @random_array, $number);
+
+getopts('hdV', \%opts);
+
+if ($opts{'h'}) {
+    &help();
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif ($opts{'q'}) {
+    $verbose = 0;  # Nothing except the final answer
+} else {
+    $verbose = 1;  # Normal warnings and such.
+}
+
+my $range_expression = shift || "/1..100/";  # Give a default expression
+                                             # if none are specified.
+$range_expression =~ s/^\///;
+$range_expression =~ s/\/$//;
+my @range_expressions = split(/,/, $range_expression);
+
+
+################
+# MAIN PROGRAM #
+################
+
+# This part is almost exactly the same as the range program, except
+# for the last part of course.
+
+my $number_exp = "-?[0-9]*\\.?[0-9]+";
+
+foreach $expression (@range_expressions) {
+    print "expression: $expression\n" if ($verbose >= 3);
+    if ($expression =~ /^($number_exp)$/) {
+        push @random_array, $expression;
+    } elsif ($expression =~ /^($number_exp)\.\.($number_exp)$/) {
+        print "1: $1\n2: $2\n" if ($verbose >= 3);
+        if ($1 > $2) {
+            my $number = $1;
+            while ($number >= $2) {
+                push (@random_array, $number);
+                $number--;
+            }
+        } else {
+            my $number;
+            foreach $number ($1..$2) {
+                push (@random_array, $number);
+            }
+        }
+    } elsif ($expression =~ /^($number_exp)\.\.($number_exp)i($number_exp)$/) {
+        print "1: $1\n2: $2\n3: $3\n" if ($verbose >= 3);
+        if ($1 > $2) {
+            my $number = $1;
+            while ($number >= $2) {
+                $number = eval($number);  # This fixes a stupid computer math problem.
+                push (@random_array, $number);
+                $number = $number - $3;
+            }
+        } else {
+            my $number = $1;
+            while ($number <= $2) {
+                $number = eval($number);  # This fixes a stupid computer math problem.
+                push (@random_array, $number);
+                $number = $number + $3;
+            }
+        }
+    } else {
+        print STDERR "Invalid expression: $expression\n" if ($verbose >= 1);
+    }
+}
+
+my $random_array_max = @random_array;
+my $rand_value = int(rand($random_array_max));
+my $random_number = $random_array[$rand_value];
+
+print "$random_number\n";
+
+exit(0);
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+-------------------------------------
+random : Print out a random number.
+-------------------------------------
+Usage:
+
+    random [options] /[expression]/
+
+Options:
+        -d      Debug. For developers only.
+        -h      Help: You're looking at it.
+        -V      Increase verbosity.
+
+Expressions:
+
+   /1..100/        Random number from 1 to 100.
+   /1..50,60..75/  Random number from multiple ranges.
+   /0..100i2/      Random even number from 0 to 100.
+   /1..100i2/      Odd number from 1 to 100.
+   /0..100i3/      Random factor of 3 from 0 to 100.
+   /1.1..4.5i0.1/  Decimal range.
+
+EOF
+}
+
+sub process_filehandle {
+    my $filehandle = shift;
+    my $number_array_ref = shift;
+
+    while (<$filehandle>) {
+        if (m/^\s*(\-?[0-9]*\.?[0-9]+)/) {
+            print STDERR "found number: $1\n" if ($verbose >= 3);
+            push(@$number_array_ref, $1);
+        }
+    }
+    return 1;
+}
+
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+random - Print out a random number.
+
+=head1 SYNOPSIS
+
+B<random> [-dhV] /[expression]/
+
+=head1 DESCRIPTION
+
+B<random> is a program that is part of the numeric utilities package.  B<random>
+will print out a random number determined by the expression that you give.  The
+syntax and program is nearly identical to the B<range> program, except that B<random>
+picks a number at random from the range expression.  If no expression is specified,
+B<random> will print out a random integer between 1 and 100.
+
+=head1 OPTIONS
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+
+=head1 EXAMPLES
+
+   Random number from 1 to 10.
+    $ random /1..10/
+    7
+
+   From 1 to 10 or from 15 to 20.
+    $ random /1..10,15..20/
+    16
+
+   An even number from 0 to 10
+    $ random /0..10i2/
+    4
+
+   An odd number. Notice the starting number in the range.
+    $ random /1..10i2/
+    9
+
+   A factor of 3 between 99 and 120.
+    $ random /99..120i3/
+    111
+
+   A decimal number.
+    $ random /1.1..2.5i0.1/
+    1.8
+
+   A negative random number.
+    $ random /0.0..-2.0i0.3/
+    -0.8
+
+=head1 BUGS
+
+B<random> is slow when dealing with large ranges to randomly
+find a number from.  This is because it creates a list of all
+potential numbers before picking one.  So it can be memory intensive
+for large ranges.
+
+=head1 SEE ALSO
+
+average(1), bound(1), interval(1), normalize(1), numgrep(1), numprocess(1), numsum(1), range(1), round(1)
+
+=head1 COPYRIGHT
+
+random is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on random can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

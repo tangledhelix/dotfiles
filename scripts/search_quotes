@@ -1,0 +1,116 @@
+#!/usr/bin/env ruby
+#
+# Search the Quotes.xml file for a pattern. The pattern is case-insensitive.
+#
+# Usage: search_quotes [-h] [-q|-a|-t] [-c] <pattern>
+#
+#   -h (--help):   Print this help
+#   -q (--quote):  Search the quote text
+#   -a (--attrib): Search the attributions
+#   -t (--tags):   Search the tags
+#   -c (--case):   Use case-sensitive search
+#
+# The default behavior is to search both quote and attribution.
+#
+
+quote_file = "/Users/dan/Documents/Quotes.xml"
+
+require "getoptlong"
+require "rdoc/usage"
+require "rexml/document"
+include REXML
+
+opts = GetoptLong.new(
+	["--help",   "-h", GetoptLong::NO_ARGUMENT],
+	["--quote",  "-q", GetoptLong::NO_ARGUMENT],
+	["--attrib", "-a", GetoptLong::NO_ARGUMENT],
+	["--tags",   "-t", GetoptLong::NO_ARGUMENT],
+	["--case",   "-c", GetoptLong::NO_ARGUMENT]
+)
+
+# By default, we want to search case-insensitive
+ignoreCase = true
+
+# What to search for (start out false, set true conditionally later)
+searchQuote  = false
+searchAttrib = false
+searchTags   = false
+
+opts.each do |opt, arg|
+	case opt
+	when "--help"
+		RDoc::usage
+	when "--quote"
+		searchQuote = true
+	when "--attrib"
+		searchAttrib = true
+	when "--tags"
+		searchTags = true
+	when "--case"
+		ignoreCase = false
+	end
+end
+
+# if none of -q, -a, -t were specified, search quotes and attribs.
+unless (searchQuote or searchAttrib or searchTags)
+	searchQuote  = true
+	searchAttrib = true
+end
+
+if ARGV.length != 1
+	puts "ERROR: Missing search pattern"
+	RDoc::usage
+	Process.exit
+end
+
+searchPattern = Regexp.new(ARGV[0], ignoreCase)
+
+file = File.new(quoteFile)
+doc = Document.new(file)
+
+# Turn it into an array
+allElements = doc.root.elements.to_a
+
+# A little routine to wrap text for display.
+# Thanks to Allan Odgaard, author of TextMate, got this from his blog.
+def wrap_text(txt, col = 78)
+	txt.gsub(/(.{1,#{col}})( +|$\n?)|(.{1,#{col}})/, "\\1\\3\n")
+end
+
+puts ""
+
+# Iterate over XML tree
+allElements.each do |element|
+	found = false
+
+	if searchQuote and element.elements["quote"].text.index(searchPattern)
+		found = true
+	end
+
+	if searchAttrib and element.elements["attrib"]
+		if element.elements["attrib"].text.index(searchPattern)
+			found = true
+		end
+	end
+
+	if searchTags and element.elements["tags"]
+		if element.elements["tags"].text.index(searchPattern)
+			found = true
+		end
+	end
+
+	# print a result only if found flag was set to true
+	if found
+		puts wrapText(element.elements["quote"].text)
+		if element.elements["attrib"]
+			puts "\t\t-#{element.elements['attrib'].text}"
+		end
+		# only print tags if we asked to search them
+		if element.elements["tags"] and search_tags
+			puts "tags: #{element.elements["tags"].text}"
+		end
+		puts ""
+	end
+
+end
+

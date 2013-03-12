@@ -1,0 +1,180 @@
+#!/usr/bin/env perl -w
+
+# interval: This program calculates and displays the intervals between the
+# first line and the second, between the second line and the third on
+# through the end of the file.
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+
+getopts('hdVq', \%opts);
+
+my ($file, @number_array,$interval, $number);
+
+if ($opts{'h'}) {
+    &help();
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif ($opts{'q'}) {
+    $verbose = 0;  # Nothing except the final answer
+} else {
+    $verbose = 1;  # Normal warnings and such.
+}
+
+
+################
+# MAIN PROGRAM #
+################
+
+# For file args
+if (@ARGV) {
+    foreach $file (@ARGV) {
+        print STDERR "Reading from file $file.\n" if ($verbose >= 2);
+        open (ARGFILE, "$file") &&
+         process_filehandle(\*ARGFILE, \@number_array) ||
+        $verbose && warn "Couldn't open file $file for reading: $!\n";
+        close (ARGFILE);
+    }
+# For STDIN
+} else {
+    print STDERR "Reading from STDIN.\n" if ($verbose >= 2);
+    process_filehandle(\*STDIN, \@number_array);
+}
+
+my $lastnumber;
+foreach $number (@number_array) {
+    if ($lastnumber) {
+        $interval = $number - $lastnumber;
+        print "$interval\n"; 
+    }        
+    $lastnumber = $number;
+}
+
+exit(0);
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+-----------------------------------------------------------------------
+interval : Calculate the numeric intervals between lines in input.
+-----------------------------------------------------------------------
+Usage:
+
+    template [options] <file>
+    | template [options]
+    template [options]
+
+Options:
+        -q      Don't print any warnings.
+        -d      Debug. For developers only.
+        -V      Increase verbosity.
+        -h      Help: You're looking at it.
+EOF
+}
+
+sub process_filehandle {
+    my $filehandle = shift;
+    my $number_array_ref = shift;
+
+    while (<$filehandle>) {
+        if (m/^\s*(\-?[0-9]*\.?[0-9]+)/) {
+            print STDERR "found number: $1\n" if ($verbose >= 3);
+            push(@$number_array_ref, $1);
+        }
+    }
+    return 1;
+}
+
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+interval - Show the numeric intervals between each line in a file.
+
+=head1 SYNOPSIS
+
+B<interval> [-dhV] <FILE>
+
+| B<interval> [-dhV]    (Input on STDIN from pipeline.)
+
+B<interval> [-dhV]      (Input on STDIN.  Use Ctrl-D to stop.)
+
+=head1 DESCRIPTION
+
+B<inter> is a program that is part of the numeric utilities package.  B<interval>
+will calculate and display the numeric interval between one number and the
+next on an input stream.
+
+This can be quite useful for showing quantities of increase or decrease 
+of data when the numbers themselves aren't providing you with what you want.
+For instance, I wrote this program after wanting to see the rate of change
+in box office ticket sales for movies on imdb.com. ;-)
+
+=head1 OPTIONS
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+    -q  Don't print any warnings.  Quiet mode.
+
+
+=head1 SEE ALSO
+
+average(1), bound(1), normalize(1), numgrep(1), numprocess(1), numsum(1), random(1), range(1), round(1)
+
+=head1 COPYRIGHT
+
+interval is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on template can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

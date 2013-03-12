@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby
+
+# Unicode glyphs for output
+# 25b8 ▸ 25b9 ▹ 26a1 ⚡ 2301 ⌁ 2713 ✓ 2714 ✔
+glyphs = {
+  :cell_filled => "\u25b8",
+  :cell_empty  => "\u25b9",
+  :charging    => "\u26a1",
+  :charged     => "\u2301",
+}
+
+# Colors - these are customized for Solarized Light
+colors = {
+  :green  => '%F{cyan}',
+  :yellow => '%F{yellow}',
+  :red    => '%F{red}',
+  :reset  => '%F{black}',
+}
+
+# where to start using the 'green' color (x/10)
+threshold_green = 7
+
+# where to start using the 'yellow' color (x/10)
+threshold_yellow = 4
+
+# (when less than threshold_yellow, we use the 'red' color)
+
+batt = {}
+
+IO.popen('ioreg -rc AppleSmartBattery').each do |line|
+  case line
+
+  when /"MaxCapacity" = (\S+)/
+    batt[:max] = $1
+
+  when /"CurrentCapacity" = (\S+)/
+    batt[:current] = $1
+
+  when /"IsCharging" = (\S+)/
+    batt[:charging] = $1
+
+  when /"FullyCharged" = (\S+)/
+    batt[:charged] = $1
+
+  end
+end
+
+meter_size = 10
+charge = ((batt[:current].to_f / batt[:max].to_f) * 10).round
+
+if batt[:charged] == 'Yes'
+  puts glyphs[:charged]
+else
+
+  case
+  when charge >= threshold_green
+    print colors[:green]
+  when charge >= threshold_yellow
+    print colors[:yellow]
+  else
+    print colors[:red]
+  end
+
+  charge.times do
+    print glyphs[:cell_filled]
+  end
+  (meter_size - charge).times do
+    print glyphs[:cell_empty]
+  end
+
+  if batt[:charging] == 'Yes'
+    print ' ' + glyphs[:charging]
+  end
+
+  puts colors[:reset]
+
+end
+

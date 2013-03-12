@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+abort "Missing argument" unless ARGV[0]
+puts Time.at(ARGV[0].to_i).utc

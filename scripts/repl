@@ -1,0 +1,106 @@
+#!/usr/bin/env ruby
+
+# repl(1) -- sometimes you need a repl
+#
+# repl is an interactive program which tenderly wraps another,
+# non-interactive program.
+#
+# For example:
+#
+#   $ repl redis-cli
+#   >> set name chris
+#   OK
+#   >> get name
+#   chris
+#
+# If you have rlwrap(1) installed you'll get the full benefits of
+# readline: history, reverse searches, etc.
+
+def show_help
+  puts <<-help
+Usage: repl [options] command ...
+
+Options:
+  --help    Display this message
+  --stdin   Pipe input to command's STDIN
+  --debug   Display each command executed
+  --man     Display the man page
+
+Bug reports, suggestions, updates:
+http://http://github.com/defunkt/repl/issues
+help
+  exit
+end
+
+if ARGV.empty? || ARGV.any? { |arg| %w( -h --help -help help ).include?(arg) }
+  show_help
+end
+
+if ARGV.include? '--man'
+  dir = File.dirname(__FILE__)
+  exec "man #{dir}/../man/repl.1"
+end
+
+completion_dir = ENV['REPL_COMPLETION_DIR'] || "~/.repl"
+if File.exists?(cdir = File.expand_path(completion_dir))
+  script = ARGV.detect { |a| a !~ /^-/ }
+  if script
+    cfile = Dir[cdir + '/' + File.basename(script)].first
+    cfile = nil if cfile && !File.exists?(cfile)
+  end
+end
+
+history_dir = ENV['REPL_HISTORY_DIR'] || "~/"
+if File.exists?(hdir = File.expand_path(history_dir))
+  if script = ARGV.detect { |a| a !~ /^-/ }
+    script = File.basename(script)
+    hfile = "#{hdir}/.#{script}_history"
+  end
+end
+
+if !ENV['__REPL_WRAPPED'] && system("which rlwrap > /dev/null 2> /dev/null")
+  ENV['__REPL_WRAPPED'] = '0'
+
+  rlargs = ""
+  rlargs << " -f #{cfile}" if cfile
+  rlargs << " -H #{hfile}" if hfile
+
+  exec "rlwrap #{rlargs} #$0 #{ARGV.join(' ')}"
+end
+
+if ARGV[0] == '--debug'
+  debug = ARGV.delete('--debug')
+end
+
+if ARGV.include? '--stdin'
+  from_stdin = ARGV.delete('--stdin')
+end
+
+command = ARGV.join(' ')
+show_help if command.empty?
+
+if debug
+  print 'rlwrap ' if ENV['__REPL_WRAPPED']
+  print "-f #{cfile} " if cfile
+  print "-H #{hfile} " if hfile
+  puts command.inspect
+end
+
+loop do
+  print ENV['REPL_PROMPT'] || "#{ARGV[0]}>> "
+
+  begin
+    line = $stdin.gets.chomp
+  rescue NoMethodError, Interrupt
+    exit
+  end
+
+  if from_stdin
+    run = "echo \"%s\" | #{command}" % [ line, nil ]
+  else
+    run = "#{command} %s" % [ line, nil ]
+  end
+  puts "$ #{run}" if debug
+  system run
+  warn "Use Ctrl-D (i.e. EOF) to exit" if line =~ /^(exit|quit)$/
+end

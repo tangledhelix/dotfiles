@@ -1,0 +1,197 @@
+#!/usr/bin/env perl -w
+
+# normalize:  Normalize a set of numbers. By default between 0 and 1.
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+
+my ($file, @number_array, @output_array, $number);
+
+getopts('hdR:V', \%opts);
+
+if ($opts{'h'}) {
+    &help();
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif ($opts{'q'}) {
+    $verbose = 0;  # Nothing except the final answer
+} else {
+    $verbose = 1;  # Normal warnings and such.
+}
+
+
+################
+# MAIN PROGRAM #
+################
+
+# For file args
+if (@ARGV) {
+    foreach $file (@ARGV) {
+        print STDERR "Reading from file $file.\n" if ($verbose >= 2);
+        open (ARGFILE, "$file") &&
+         process_filehandle(\*ARGFILE, \@number_array) ||
+        $verbose && warn "Couldn't open file $file for reading: $!\n";
+        close (ARGFILE);
+    }
+# For STDIN
+} else {
+    print STDERR "Reading from STDIN.\n" if ($verbose >= 2);
+    process_filehandle(\*STDIN, \@number_array);
+}
+
+@output_array = normalize(\@number_array);
+
+foreach $number (@output_array) {
+    print "$number\n";
+}
+
+exit(0);
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+----------------------------------------------
+normalize : Normalize a set of numbers.
+----------------------------------------------
+Usage:
+
+    normalize [options] <file>
+    | normalize [options]
+    normalize [options]
+
+Options:
+        -d      Debug. For developers only.
+        -h      Help: You're looking at it.
+        -V      Increase verbosity.
+
+        -R <range>   This allows you to specify a different
+                   normalized range instead of from 0 to 1.
+                   For example:  -R 0..5
+EOF
+}
+
+sub process_filehandle {
+    my $filehandle = shift;
+    my $number_array_ref = shift;
+
+    while (<$filehandle>) {
+        if (m/^\s*(\-?[0-9]*\.?[0-9]+)/) {
+            print STDERR "found number: $1\n" if ($verbose >= 3);
+            push(@$number_array_ref, $1);
+        }
+    }
+    return 1;
+}
+
+sub normalize {
+    my $number_array_ref = shift;
+    my ($sum, @normalized_array);
+    my ($top_range, $bottom_range);
+    if ($opts{'R'}) {
+        ($bottom_range,$top_range) = split(/\.\./, $opts{'R'});
+        print "R: $opts{'R'}\nbottom: $bottom_range\ntop: $top_range\n" if ($verbose >= 2);
+    } else {
+        $bottom_range = 0;
+        $top_range = 1;
+    }
+
+    foreach $number (@$number_array_ref) {
+        $sum += $number;
+    }
+    foreach $number (@$number_array_ref) {
+        my $normalized_number = ($number / $sum) * ($top_range - $bottom_range) + $bottom_range;
+        push(@normalized_array, $normalized_number);
+    }
+    return @normalized_array;
+}
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+normalize - Normalize a set of numbers. By default between 0 and 1.
+
+=head1 SYNOPSIS
+
+B<normalize> [-dhRV] <FILE>
+
+| B<normalize> [-dhRV]    (Input on STDIN from pipeline.)
+
+B<normalize> [-dhRV]      (Input on STDIN.  Use Ctrl-D to stop.)
+
+=head1 DESCRIPTION
+
+B<normalize> is a program that is part of the numeric utilities package.  B<normalize>
+will take a set of numbers on input and return that set as a normalized set of numbers
+between 0 and 1 by default.  Or you can use the -R option to specify a different normalized
+range.
+
+=head1 OPTIONS
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+
+    -R <range>   This allows you to specify a different normalized range instead of from 0 to 1.
+               For example -R 0..5
+
+
+=head1 SEE ALSO
+
+average(1), bound(1), interval(1), numgrep(1), numprocess(1), numsum(1), random(1), range(1), round(1)
+
+=head1 COPYRIGHT
+
+normalize is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on normalize can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

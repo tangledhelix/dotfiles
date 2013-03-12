@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/osascript -e "say \"$1\""

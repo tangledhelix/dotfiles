@@ -1,0 +1,889 @@
+#!/usr/bin/env perl
+#
+#
+# A faster install patch script than the one Sun has given us.
+#
+# Objectives: make a (non-saving) installpatch script that leaves the
+# system in a state like the standard installpatch procedure does.
+# But does it much quicker (about 6 times)
+# New patches can be saved so that they can be backed out.
+#
+# Since this script is based on reverse engineered patch procedures
+# it may break in future.  Unexpected new patch formats can cause this
+# script to malfunction in ways that can damage your system.
+#
+# This script does not check patch incompatibilties nor does it verify
+# file checksums, local changes to files may be overwritten.
+#
+# This script should only be used on initial install and only on systems
+# that can easily be reinstalled using Jumpstart.  (I.e., on Field
+# Replacable Units; not on your production servers)
+#
+# THIS IS NOT A SUPPORTED SUN PRODUCT.  USE AT YOUR OWN RISK
+#
+# Explanation of options:
+#
+#	-d 	debug (show what you would do).
+#	-s	Try to save the files being patches; i.e.,
+#		don't use the "-d" option for installpatch and for
+#		for new patches, this means fastpatch will save backup files.
+#	-r	remove patch information from the system that was outdated
+#		before fastpatch started to install new patches
+#		Typically, fastpatch will only remove patches/patch information
+#		for patches that are obsoleted by the current invocation
+#		of fastpatch.  Fastpatch is not smart in picking the
+#		right order in which to back out patches.
+#	-R dir  As with installpatch, apply patches on the system rooted in
+#		<dir>, e.g, for use w/ jumpstart -R /a
+#	-c	Don't use "chroot()", instead try passing "-R rootdir" [default]
+#	-C	Implement -R using chroot(<dir>); chdir(<dir>); all patch data 
+#		must be reachable from the new root, the directory args are
+#		interpreted relative to the new root.
+#	-D dir	Use patch info from dir (directory *must* end in valid
+#		patchid), used to obsolete old patches before new ones
+#		are installed, see also -O.
+#	-p dir	Look for patch.tar.{Z,gz} files or unpacked patches in dir.
+#	-o	Don't install patches, only remove obsoleted patches,
+#		patches on the command line are used to determine whether
+#		installed patches will become obsolete if the patches
+#		specified on the commandline where to be installed.
+#	-i	Install patches w/ installpatch.
+#		Useful if you want to use fastpatch as a patch installation
+#		driver that backs put patches when needed, but don't trust it
+#		enough to do the dirty work by itself or want save files.
+#		Note that fastpatch cane create undo.Z files for new patches.
+#	-n	If there are no applicable pkgs *don't* use installpatch.
+#		(by default, if no matching packages are found, installpatch
+#		is called; installpatch may then fail with no packages
+#		are installed on this system; so perhaps this is not
+#		a very sensible default.)
+#	-I	Ignore backoutpatch failures (error 4 is always ignored)
+#	-b	Don't use backoutpatch when patches need backing out;
+#		just remove the save files and update the pkginfo files.
+#		Note that new patches will be backed out w/o calling
+#		backoutpatch, unless -B is specified.
+#	-B	Don't use the fastbackoutpatch mechanism
+#	-O	The patch arguments on the command line are forcibly obsoleted,
+#		traces of their installation are removed from the system.
+#		This allows the installation of older revisions of patches,
+#		but note that if these older revisions install fewer files,
+#		the extra files will stick around.  DANGEROUS
+#		If the old files have been saved, those will be restored,
+#		either through backoutpatch or, for new patches, by fastpatch.
+#
+# Casper Dik (Casper.Dik@Holland.Sun.COM)
+#
+#
+# ******************************************************
+# *                                                    *
+# *                    DISCLAIMER                      *
+# *                                                    *
+# ******************************************************
+#
+# The contents of this file  are intended to  be read as
+# an example.  This  is not  a  supported product of Sun
+# Microsystems  and  no hotline calls  will  be accepted
+# which directly relate to this information.
+#
+# NO LIABILITY WILL BE  ACCEPTED BY SUN MICROSYSTEMS FOR
+# ANY LOSS (DIRECT OR CONSEQUENTIAL) INCURRED IN ANY WAY
+# BY ANY PARTY THROUGH THE USE OF THIS INFORMATION.
+#
+# NO WARRANTY  OF  ANY SORT  IS IMPLIED OR GIVEN FOR ANY
+# CODE DERIVED FROM THIS INFORMATION.
+#
+
+#
+# Site specific constants.
+#
+# Where to get patches, "/`uname -r`" is appended.
+umask(022);
+($patchdir = $0) =~ s:[^/]*$:./patches:;
+$patchdir = "." if (! -d $patchdir);
+chop($patchdir=`cd $patchdir;pwd`);
+
+$tmpdir = "/tmp/fastpatch.$$";
+&cleanup;
+$adminfile = "$tmpdir/admin";
+$paramsfile = "$tmpdir/ParamsFile";
+$responsefile = "$tmpdir/response";
+
+$0 =~ s:.*/::;
+
+
+# We want to be able to have just perl in a bootstrapping env.
+# no perl lib dir.
+#require 'getopts.pl'; 
+#
+#if (!&Getopts('dr')) {
+#    print STDERR "Usage: $0 [-d] [-r] [ patch ... ]\n";
+#    exit 1;
+#}
+
+$opt_r = 0;
+$errors = 0;
+@extradirs = ();
+#
+# Determine where to get patches from.
+#
+chop($osrev=`uname -r`);
+$patchdir .= "/" . $osrev;
+@patchdirs = ("/tmp", "/var/tmp", $patchdir, "$patchdir/unpacked",
+		"$patchdir/alt");
+
+while ($#ARGV > -1 && ($_ = $ARGV[0]) =~ /^-/) {
+    if ($ARGV[0] =~ s/^-([dsrcCoinIbBO])/-/) {
+	eval "\$opt_$1 = 1";
+    } elsif (/^-R/) {
+	$rootdir = &arg_opt('R');
+    } elsif (/^-p/) {
+	push(@patchdirs,&arg_opt('p'));
+    } elsif (/^-D/) {
+	push(@extradirs,&arg_opt('D'));
+    } else {
+	die "Usage: $0 [-dsrcoCinIbBO] [-D dir] [-R root] [-p dir] [patch ..]\n";
+    }
+    shift if ($ARGV[0] =~ /^-$/);
+}
+
+#$opt_d = 1;
+$save_opt = defined($opt_s) ? "" : "-d ";
+
+# For .pre and .post scripts.
+$ENV{'pdir'}=$patchdir;
+$ENV{'PATH'}="/usr/sbin:/usr/bin:/etc:/sbin:/usr/local/bin:$ENV{'PATH'}";
+
+select(STDERR); $| = 1;
+select(STDOUT); $| = 1;
+
+#
+# Use -R, keep old chroot code for compatibility.
+#
+$nochroot = !defined($opt_C);
+$root = $rarg = "";
+if (defined($rootdir)) {
+    if ($nochroot) {
+	# Change of previous default, -C negates this.
+	warn "$0: WARNING: -c (-R root, not chroot()) option enabled\n"
+		if (!defined $opt_c);
+	$rarg = "-R $rootdir";
+	$root = $rootdir;
+	# This should catch all missing -R options.
+	$ENV{'PKG_INSTALL_ROOT'} = $rootdir;
+    } else {
+	chdir($rootdir) || die "$0: can't chdir to \"$rootdir\": $!\n";
+	chroot($rootdir) || die "$0: can't chroot to \"$rootdir\": $!\n";
+	grep($_ =~ s:^$rootdir::,@patchdirs);
+	$patchdir =~ s:^$rootdir::;
+    }
+}
+
+$sadm = "$root/var/sadm";
+$pkgadd = "pkgadd $rarg -S -a $adminfile -n";
+$pkgrm = "pkgrm $rarg -a $adminfile -n";
+
+mkdir($tmpdir, 0755) || die "$0: can't make $tmpdir\n";
+
+#
+# Don't remove already outdated files unless -r is specfied.
+# First update internal patch database.
+#
+&find_and_make_obsolete("$sadm/pkg", !$opt_r);
+
+# Reset for remove_new_junk
+$opt_r = 0;
+
+foreach $d (@extradirs) {
+    ($current_patch = $d) =~ s:^.*/::;
+    &find_and_make_obsolete($d, 0);
+}
+
+mkdir ("$sadm/patch", 0755)
+    if (! -d "$sadm/patch" && !defined($opt_d));
+
+for (@ARGV) {
+
+    ($base,$rev) = split('-',$_);
+
+    $base =~ s/^T//;
+
+    # Force obsoletion.
+    if ($opt_O) {
+	&obsolete($_,0);
+	next;
+    }
+
+    # Patch older than one installed, or installed already.
+    if (defined($revs{$base}) && $rev <= $revs{$base}) {
+	warn "$0: $_ (or newer) already installed\n";
+	next;
+    }
+
+    # Patch obsoleted
+    if (defined($obs{$base})) {
+	warn "$0: $_ is obsolete\n";
+	next;
+    }
+
+    undef $pdir;
+
+    foreach $d (@patchdirs) {
+	if (-d "$d/$_") {
+	    $pdir = "$d/$_";
+	    last;
+	}
+    }
+
+    if (!defined $pdir) {
+	local($zcat) = "zcat";
+	undef $ptar;
+	foreach $d (@patchdirs) {
+	    $f = "$d/$_.tar.Z";
+	    if (-f "$f") {
+		$ptar=$f;
+		last;
+	    }
+	    $f = "$d/$_.tar.gz";
+	    if (-f "$f") {
+		$ptar=$f;
+		$zcat = "gunzip -c";
+		last;
+	    }
+	}
+	warn ("$0: cannot find patch $_\n"),next unless defined($ptar);
+	$pdir="$tmpdir/$_";
+	system("$zcat $ptar | (cd $tmpdir; tar xfB -) 2> /dev/null");
+	warn ("$0: cannot find patch $_\n"), next unless -d $pdir;
+	$rmit=$pdir;
+    }
+
+    print "Processing patch $_\n";
+    #
+    # Remove the patches obsoleted by the new patch.
+    #
+    $pname = $current_patch = $_;
+    &find_and_make_obsolete($pdir, 0);
+
+    # Skip patch installation, if asked.  When removing obsoleted patches.
+    next if ($opt_o);
+
+    # If it is a new patch type, use different algorithm
+    if ($newpatch{$current_patch}) {
+	&setup_pkgadd_env();
+	&make_params_file();
+	$resp = "-r $responsefile ";
+    } else {
+	$resp = "";
+    }
+
+    #
+    # Install the new patch.
+    #
+    @patch_packages = ();
+    @new_instances = ();
+    @from_patch = split('\s+',$pkg{$current_patch});
+
+    foreach $p (@from_patch) {
+	if (&basedir($current_patch,$p)) {
+	    push(@patch_packages,$p);
+	    push(@new_instances,&instance($current_patch,$p));
+	}
+    }
+
+    $ptarget = "$sadm/patch/$current_patch";
+    #
+    # If we can't find the packages, use installpatch.
+    #
+    if ($#patch_packages == -1 || defined($opt_i)) {
+	if (defined($opt_n) && !defined($opt_i)) {
+	    warn "$0: $current_patch: no applicable packages, skipped\n";
+	    next;
+	}
+	warn "$0: $current_patch: no applicable packages found, trying installpatch\n"
+	    unless defined($opt_i);
+	if (defined($opt_d)) {
+	    print "$pdir/installpatch ${save_opt}-u $rarg $pdir\n";
+	} else {
+	    $exit = system "$pdir/installpatch ${save_opt}-u $rarg $pdir";
+	    # No applicable patches (exit 8), success or client system.
+	    if ($exit/256 == 8) {
+		warn "$0: installpatch found no applicable packages\n";
+	    } elsif ($exit != 0) {
+		warn "$0: installpatch failed for $current_patch ($exit)\n";
+		$errors++;
+	    }
+	}
+	next;
+    }
+
+    #
+    # Using pkgadd.
+    #
+    if (defined($opt_d)) {
+	print "#Would add patch with following commands:\n";
+    } else {
+	mkdir($ptarget, 0755);
+	system("cp $pdir/README.$current_patch $ptarget");
+	if ($opt_s && $newpatch{$current_patch}) {
+	    # Even though fastpatch can do this for new patches.
+	    system "cp $pdir/backoutpatch $ptarget";
+	} else {
+	    open(BOP,">$ptarget/backoutpatch");
+	    print BOP "#!/bin/sh\n";
+	    print BOP "echo Patch $current_patch was installed by fastpatch.\n";
+	    print BOP "echo It cannot be backed out.\nexit 4\n";
+	    close(BOP);
+	    chmod 0755, "$ptarget/backoutpatch";
+	}
+	system "sh -c '. $patchdir/$pname.pre'"
+	    if (-f "$patchdir/$pname.pre");
+    }
+
+    print "Patching packages: @patch_packages\n";
+
+    $log = "$ptarget/log";
+    unlink($log);
+
+    print "Pkgadd output on: $log\n";
+
+    foreach $p (@patch_packages) {
+	if (!defined($opt_d)) {
+	    &make_pkgadd_adminfile(&basedir($current_patch,$p));
+	    if (defined($newpatch{$current_patch})) {
+		&make_response_file();
+	    } else {
+		mkdir("$ptarget/$p", 0755);
+		system("cp $pdir/$p/pkginfo $pdir/$p/pkgmap $ptarget/$p");
+	    }
+	    if (system("$pkgadd $resp -d $pdir $p >> $log 2>&1")) {
+		warn "$0: pkgadd failure for pkg $p of $current_patch\n";
+		$errors ++;
+		last;
+	    }
+	} else {
+	    print "$p has basedir ", &basedir($current_patch,$p), "\n";
+	    print "$pkgadd $resp -d $pdir $p >> $log 2>&1\n";
+	}
+    }
+    $pkg{$current_patch} = "@new_instances";
+
+    print "Patched packages: @new_instances\n";
+
+    if (!defined($opt_d)) {
+	system "sh -c '. $patchdir/$pname.post'"
+	    if (-f "$patchdir/$pname.post");
+    }
+} continue {
+    system("rm -rf $rmit")
+	if (defined($rmit));
+    undef $rmit;
+}
+
+&cleanup;
+exit($errors != 0);
+
+#
+# Subroutines.
+#
+
+sub find_and_make_obsolete {
+    local($patch);
+    &find_obsolete($_[0]);
+
+    for $patch (keys(%pkg)) {
+	($base, $rev) = split('-', $patch);
+	&obsolete($patch, $_[1])
+	    if ($rev < $revs{$base} || defined($obs{$base}));
+    }
+}
+
+sub obsolete {
+    local($patch, $dont) = @_;
+    local($pdir) = "$sadm/patch/$patch";
+    local($exit);
+
+    if (!defined($obsolete{$patch})) {
+	print("obsolete: $patch\n");
+	$obsolete{$patch} = 1;
+
+	if (!defined($pkg{$patch})) {
+	    warn "$0: $patch: not installed\n";
+	    return;
+	}
+	return if ($dont);
+
+	if (!defined($opt_d)) {
+	    print "Removing: $patch\n";
+	    
+	    if (! &fast_backout_newpatch($patch, $pdir) &&
+		!defined($opt_b) && -f "$pdir/backoutpatch") {
+		$exit = system("$pdir/backoutpatch $rarg $patch");
+		# Exit code 4 == no files saved.
+		if ($exit/256 == 4) {
+		    warn "backoutpatch: no old files saved\n";
+		} elsif ($exit != 0 && !defined($opt_I)) {
+		    &cleanup;
+		    die "$0: backoutpatch failure for $patch\n";
+		}
+	    }
+	    if (-d "$pdir") {
+		if ($newpatch{$patch}) {
+		    &remove_new_junk($patch);
+		} else {
+		    for (split(/\s+/,$pkg{$patch})) {
+			if (defined($basepkg{$_})) {
+			    &cleanup;
+			    die "fatal: can't remove base package: $_\n";
+			}
+		    }
+		    &make_pkgrm_adminfile;
+		    if (system "$pkgrm $pkg{$patch}") {
+			&cleanup;
+			die "$0: cleanup failure for $patch\n";
+		    }
+		}
+		system "rm -rf $pdir";
+	    }
+	} else {
+	    local($fbn_res);
+	    print "#$patch would be removed with the following commands:\n";
+	    if (! ($fbn_res = &fast_backout_newpatch($patch, $pdir)) &&
+		!defined($opt_b) && -f "$pdir/backoutpatch") {
+		print "$pdir/backoutpatch $rarg $patch\n";
+	    } else {
+		if ($newpatch{$patch}) {
+		    print "# editing pkginfo files\n" unless ($fbn_res == 1);
+		} else {
+		    for (split(/\s+/,$pkg{$patch})) {
+			warn "fatal: can't remove base package: $_\n"
+			    if (defined($basepkg{$_}));
+		    }
+		    print "$pkgrm $pkg{$patch}\n";
+		}
+		print "rm -rf $pdir\n" unless ($fbn_res == 1);
+	    }
+	}
+    }
+}
+
+sub find_obsolete {
+    local($pkgdir) = @_;
+    local($basedir, $dir, $t, $f, $pkg, $base, $rev, $thisbase, $patch, $index);
+    local($sunw_obsoletes, $patchpkg);
+
+    $requires = "";
+    $current_patch =~ s/^T// # Test patch
+	if (defined($current_patch));
+
+    $prefix = defined($current_patch) ? $current_patch : "none";
+    $dir = $pkgdir . "/*/pkginfo";
+    for $f (<${dir}>) {
+
+	undef $patch;
+	undef $sunw_obsoletes;
+
+	open(PKG,"<$f") || die "$f: $!\n";
+	($pkg = $f) =~ s:^$pkgdir/(.*)/pkginfo$:$1:;
+	$index = $prefix.$pkg;
+	while (<PKG>) {
+	    chop;
+	    s/[\t	]*=[\t ]*/=/;
+	    if (/^SUNW_PATCHID=(.+)/) {
+		$patch = $1;
+		if (defined($current_patch) && $current_patch ne $patch) {
+		    &cleanup;
+		    die "$0: Patch id $patch isn't expected: $current_patch\n";
+		}
+		$thisbase = &addpatch($patch,$pkg);
+	    } elsif (/^PATCH_OBSOLETES=/) {
+		for $p (split(/\s+/,$')) {
+		    $p =~ s/-.*//;
+		    $obs{$p} = "";
+		}
+	    } elsif (/^SUNW_OBSOLETES=/) {
+		$sunw_obsoletes = $';
+	    } elsif (/^SUNW_REQUIRES=/) {
+		for $p (split(/,|\s+/,$')) {
+		    ($base,$rev) = split('-', $p);
+		    if (defined($current_patch)) {
+			if (!defined($revs{$base}) || $revs{$base} < $rev) {
+			    &cleanup;
+			    die "$0: ERROR: $current_patch requires $p\n";
+			}
+			$requires .= " $p";
+		    }
+		}
+	    } elsif (/^PATCH_INFO_([^=]*)=/) {
+		    $newpatch{$1} = 1;
+	    } elsif (/^PATCHLIST=/) {
+		$patchlist{$pkg} = $' if ($' ne "" && $prefix eq "none");
+		local(@plist) = split(/\s+/,$');
+		local($p);
+		foreach $p (@plist) {
+		    &addpatch($p, $pkg);
+		}
+	    } elsif (/^VERSION=/) {
+		$t = $';
+		# The new patches use a different installation scheme.
+		# patch packages are not recorded in $inst and $basedir.
+		$patchpkg = ($t =~ s/,PATCH=.*$//);
+		$newpatch{$prefix} = 1
+		    if ($prefix ne "none" && !$patchpkg);
+		$version{$index} = $t;
+	    } elsif (/^ARCH=/) {
+		$arch{$index} = $';
+	    } elsif (/^PKG=/) {
+		$realpkg{$index} = $';
+	    } elsif (/^BASEDIR=/) {
+		$basedir = $';
+	    }
+	}
+	if (defined($sunw_obsoletes)) {
+	    for $p (split(/,|\s+/,$sunw_obsoletes)) {
+		($base,$rev) = split('-', $p);
+		# Some patches have themselves in the obsolete
+		# bit.  That isn't right but there you are.
+		# This check depends on SUNW_PATCHID to come before
+		# SUNW_OBSOLETES
+		if ($base eq $thisbase) {
+		    warn "$thisbase wants to obsolete self: $p\n"; 
+		} else {
+		    $obs{$base} = "";
+		}
+	    }
+	}
+	$thisbase = "";
+
+	if (!defined($current_patch) && !$patchpkg) {
+		#
+		# Map pkgname to installed instance.
+		#
+		$inst{$realpkg{$index},$arch{$index},$version{$index}} = $pkg;
+		#
+		# Basedir from the installed package instance.
+		#
+		$basedir{$realpkg{$index},$arch{$index},$version{$index}} =
+			$basedir;
+		#
+		# These are the lowest instances with a unique version,arch pair
+		# You can install SUNWcar.u and SUWNcar.m on servers and
+		# have both SUNWcar and SUNWcar.2 recognised as basepackages
+		# Recorded for safety (old patches are backed out using
+		# pkgrm; but pkgrm may remove files)
+		#
+		$basepkg{$pkg} = 1;
+	}
+	close(PKG);
+    }
+}
+
+sub make_pkgadd_adminfile {
+open(PATCHADMIN,">$adminfile");
+
+print PATCHADMIN <<EOF ;
+mail=
+instance=unique
+partial=nocheck
+runlevel=nocheck
+idepend=nocheck
+rdepend=nocheck
+space=quit
+setuid=nocheck
+conflict=nocheck
+action=nocheck
+basedir=$_[0]
+EOF
+
+close(PATCHADMIN);
+}
+
+sub make_pkgrm_adminfile {
+open(PATCHADMIN,">$adminfile");
+
+print PATCHADMIN <<EOF ;
+mail=
+instance=unique
+partial=nocheck
+runlevel=nocheck
+idepend=quit
+rdepend=quit
+space=quit
+setuid=nocheck
+conflict=nocheck
+action=nocheck
+basedir=default
+EOF
+
+close(PATCHADMIN);
+}
+
+sub make_params_file {
+    local($saveold) = $opt_s ? "yes" : "no";
+
+    open(PATCHPARAMS,">$paramsfile");
+
+    print PATCHPARAMS <<EOF ;
+saveold=$saveold
+validate=no
+patchdir=$pdir
+patchnum=$base-$rev
+patchbase=$base
+patchrev=$rev
+ROOTDIR=$root
+PATCHDB=$sadm/patch
+PKGDB=$sadm/pkg
+PKGDBARG=$rarg
+PATCHMETHOD=PatchMethod
+UNINST_REQS="$requires"
+PATCH_UNDO_ARCHIVE=none
+PATCH_BUILD_DIR=none
+INTERRUPTION=no
+EOF
+
+close(PATCHPARAMS);
+}
+
+sub setup_pkgadd_env {
+    $ENV{'PARAMS_FILE'} = $paramsfile;
+    $ENV{'PATCHDB'} = "$sadm/patch";
+    $ENV{'PKGDB'} = "$sadm/pkg";
+    $ENV{'PKGDBARG'} = $rarg;
+    $ENV{'PatchNum'} = "$base-$rev";
+    $ENV{'PatchBase'} = $base;
+    $ENV{'PatchVers'} = $rev;
+    $ENV{'ROOTDIR'} = $root;
+    $ENV{'patchdir'} = $pdir;
+    $ENV{'saveold'} = $opt_s ? "yes" : "no";
+    $ENV{'validate'} = "no";
+}
+
+sub clear_env {
+    local($k);
+    foreach $k ('PARAMS_FILE','PATCHDB', 'PKGDB', 'PKGDBARG', 'PatchNum',
+		'PatchBase', 'PatchVers', 'ROOTDIR', 'patchdir', 'saveold',
+		'validate', 'PatchedPkgs') {
+
+	delete($ENV{$k});
+    }
+}
+
+sub make_response_file {
+    local($noundo) = $opt_s ? "false" : "true";
+
+open(RESPONSE,">$responsefile");
+
+print RESPONSE <<EOF;
+PATCH_PROGRESSIVE=false
+PATCH_UNCONDITIONAL=true
+PATCH_NO_UNDO=$noundo
+PATCH_BUILD_DIR=none
+PATCH_UNDO_ARCHIVE=none
+INTERRUPTION=no
+EOF
+
+close(RESPONSE);
+}
+
+sub arg_opt {
+    $ARGV[0] =~ s/-$_[0]//;
+    shift @ARGV if (length($') == 0);
+    defined($ARGV[0]) || die "$0: -$_[0] requires argument\n";
+    shift @ARGV;
+}
+
+sub instance {
+	local($patch, $pkg) = @_;
+	local ($index) = $patch.$pkg;
+
+	$inst{$realpkg{$index}, $arch{$index}, $version{$index}};
+}
+
+sub basedir {
+	local($patch, $pkg) = @_;
+	local ($index) = $patch.$pkg;
+
+	$basedir{$realpkg{$index}, $arch{$index}, $version{$index}};
+}
+
+sub addpatch {
+    local($patch,$pkg) = @_;
+    local($base,$rev) =  split(/-/,$patch);
+
+    ($base,$rev) = split('-', $patch);
+    $revs{$base} = $rev
+	if (!defined($revs{$base}) || $revs{$base} < $rev);
+
+    # A pkg can have multiple references to a single patchid; we only
+    # want one in $pkg{$patch}.
+    if (!defined($patchpkg{$patch,$pkg})) {
+	if (defined($pkg{$patch})) {
+	    $pkg{$patch} .= " " . $pkg;
+	} else {
+	    $pkg{$patch} = $pkg;
+	}
+	$patchpkg{$patch,$pkg} = 1;
+    }
+    $base;
+}
+
+#
+# Edit pkginfo file for the patch pkgs to remove all traces of this patch.
+#
+sub remove_new_junk {
+    local($p) = @_;
+    local($pkg,@pinfo,$incompat,$expr,);
+
+    foreach $pkg (split(/\s+/,$pkg{$p})) {
+	local($pkgdir) = "$sadm/pkg/$pkg";
+	local($pinfo) = "$pkgdir/pkginfo";
+	open(PINFO,"<$pinfo") || warn "$pinfo $!";
+	@stdin = <PINFO>;
+	close(PINFO);
+	for (@stdin) {
+	    if (/^PATCH_INFO_$p=.*Obsoletes:\s*/) {
+		$incompat = $';
+		($expr = $') =~ s/\s*Requires:.*//i;
+		$expr = join('|',split(/\s+/,$expr))
+		    if ($expr ne "");
+		if ($incompat =~ s/.*Incompatibles:\s*//) {
+		    $incompat =~ s/\s+$//g;
+		} else {
+		    $incompat = "";
+		}
+	    }
+	}
+	open(PINFO,">$pinfo.new");
+
+	for (@stdin) {
+	    if (/^ACTIVE_PATCH=/) {
+		print PINFO "$&$p\n";
+	    } elsif (/^(ACTIVE|SUNW)_(OBSOLETES|PATCHID)=/) {
+		print PINFO "$&\n";
+	    } elsif (/^PATCHLIST=/) {
+		print PINFO "OLDLIST=$'";
+		($pl = $') =~ s/$p *//;
+		print PINFO "PATCHLIST=$pl";
+		chop($pl);
+		$patchlist{$pkg} = $pl;
+	    } elsif (/^PATCH_INFO_$p=/) {
+		print PINFO "$&backed out\n";
+	    } elsif (/^PATCH_OBSOLETES=/) {
+		s/($expr)\@1 *//g
+		    if (!$opt_r && $expr ne "");
+		print PINFO $_;
+	    } elsif (/^SUNW_INCOMPAT=/) {
+		print PINFO "$&$incompat\n";
+	    } elsif (/^OLDLIST=/) {
+	    } else {
+		print PINFO $_;
+	    }
+	}
+	close(PINFO);
+	#rename($pinfo,"$pinfo.bak");
+	rename("$pinfo.new",$pinfo);
+	system("rm -fr $pkgdir/save/$p")
+	    if (-d "$pkgdir/save/$p");
+    }
+}
+
+#
+# Code to back out new style patches.
+# This code is currently unused as it doesn't work too well when we're
+# also removing patches by editing pkginfo files (remove_new_junk)
+#
+#
+sub fast_backout_newpatch {
+    local($p,$pdir) = @_;
+    local(@pkgs) = split(/\s+/,$pkg{$p});
+    local($pkg);
+    local($err) = 0;
+
+    return 0 if (defined($opt_B));
+
+    if ($newpatch{$p}) {
+
+	foreach $pkg (@pkgs) {
+	    local($save) = "$sadm/pkg/$pkg/save/$p";
+	    local($undo) = "$save/undo";
+
+	    # Obsoleted patch, can't back it out - remove_new_junk will be
+	    # called.
+	    return 0 if (-f "$save/obsolete.Z");
+
+	    if (! -f $undo && ! -f "$undo.Z") {
+		warn "can't find $undo\n" if ($opt_d);
+		$err++;
+		next;
+	    }
+	}
+
+	return 0 if ($err);
+
+	&clear_env;
+	$ENV{'ROOTDIR'} = $root;
+	$ENV{'PatchNum'} = $p;
+	$ENV{'PatchedPkgs'} = $pkg{$p};
+
+	foreach $pkg (@pkgs) {
+	    local($undo) = "$sadm/pkg/$pkg/save/$p/undo";
+	    local($op);
+	    
+	    if (!$opt_d) {
+		system ("uncompress $undo.Z") if (-f "$undo.Z");
+		open(RESP,">$tmpdir/r.oldlist");
+		print RESP "OLDLIST='$patchlist{$pkg}'\n";
+		close(RESP);
+	    } else {
+		print "uncompress $undo.Z\n" if (-f "$undo.Z");
+		print "# responsefile: OLDLIST='$patchlist{$pkg}'\n";
+	    }
+
+	    $patchlist{$pkg} =~ s/$p *//;
+
+	    if (!$opt_d) {
+		&make_pkgrm_adminfile;
+		system("$pkgadd -r $tmpdir/r.oldlist $rarg -d $undo all");
+	    } else {
+		print "$pkgadd -r <responsefile> $rarg -d $undo all\n";
+	    }
+	    foreach $op (split(/\s+/,$patchlist{$pkg})) {
+		local($ob) = "$sadm/pkg/$pkg/save/$op";
+		if (-f "$ob/obsoleted_by") {
+		    local(@ob);
+		    open(OB,"<${ob}/obsoleted_by");
+		    @ob = <OB>;
+		    @ob = grep(!/$p/,@ob);
+		    if (!$opt_d) {
+			open(OB,">${ob}/obsoleted_by");
+			print OB @ob;
+			close(OB);
+		    }
+		    if ($#ob == -1) {
+			if (!$opt_d) {
+			    rename("$ob/obsolete.Z","$ob/undo.Z")
+				if (-f "$ob/obsolete.Z");
+			    rename("$ob/obsolete","$ob/undo")
+				if (-f "$ob/obsolete");
+			    unlink("$ob/obsoleted_by");
+			} else {
+			    print "# Patch $op no longer obsolete\n";
+			}
+		    }
+		}
+	    }
+	}
+	&clear_env;
+	if ($opt_d) {
+	    print "rm -rf $pdir\n"
+	} else {
+	    system "rm -rf $pdir"
+	}
+	return 1;
+    } else {
+	return 0;
+    }
+}
+
+sub cleanup { 
+    system "rm -rf $tmpdir";
+}

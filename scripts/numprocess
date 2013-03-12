@@ -1,0 +1,268 @@
+#!/usr/bin/env perl -w
+
+# numprocess: This program mutates numbers as it encounters them.
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+
+my ($file);
+
+getopts('hdV', \%opts);
+
+if ($opts{'h'}) {
+    &help();
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif ($opts{'q'}) {
+    $verbose = 0;  # Nothing except the final answer
+} else {
+    $verbose = 1;  # Normal warnings and such.
+}
+
+my $expression = shift;
+$expression =~ s/^\/(.*)\/$/$1/;
+
+
+################
+# MAIN PROGRAM #
+################
+
+# For file args
+if (@ARGV) {
+    foreach $file (@ARGV) {
+        print STDERR "Reading from file $file.\n" if ($verbose >= 2);
+        open (ARGFILE, "$file") && process_filehandle(\*ARGFILE) ||
+        $verbose && warn "Couldn't open file $file for reading: $!\n";
+        close (ARGFILE);
+    }
+# For STDIN
+} else {
+    print STDERR "Reading from STDIN.\n" if ($verbose >= 2);
+    process_filehandle(\*STDIN);
+}
+
+
+exit(0);
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+-----------------------------------------------------------------
+numprocess: This program mutates numbers as it encounters them.
+-----------------------------------------------------------------
+Usage:
+
+    numprocess [options] /<expression>/ <file>
+    | numprocess [options] /<expression>/
+    numprocess [options] /<expression>/
+
+Options:
+        -d      Debug. For developers only.
+        -h      Help: You're looking at it.
+        -V      Increase verbosity.
+
+Expressions:
+  Put a list of operations to do on each number in the expression area.
+  Possible expressions:
+
+   +     Addition
+   -     Subtraction
+   *     Multiplication
+   %     Division
+   ^     Power function
+   sqrt  Square Root
+   sin   Sine function
+   cos   Cosine function
+
+   Constants and keywords that can be used
+
+    pi    3.141592654
+    e     2.718281828
+
+  See the man page for more details.
+
+EOF
+}
+
+sub process_filehandle {
+    my $filehandle = shift;
+
+    while (<$filehandle>) {
+        if (m/^\s*(\-?[0-9]*\.?[0-9]+)/) {
+            print STDERR "found number: $1\n" if ($verbose >= 3);
+            print process_number($1) . "\n";
+        }
+    }
+    return 1;
+}
+
+sub process_number {
+    my $number = shift;
+    my $new_number = $number;
+    my $operation;
+    my $match_expression = "-?[0-9]*\.?[0-9]*";
+
+    foreach $operation (split(/,/, $expression)) {
+        $operation =~ s/pi$/3.141592654/i;
+        $operation =~ s/e$/2.718281828/i;
+
+        if ($operation =~ /^\+($match_expression)$/) {
+            $new_number = $new_number + $1;
+        } elsif ($operation =~ /^\-($match_expression)$/) {
+            $new_number = $new_number - $1;
+        } elsif ($operation =~ /^\*($match_expression)$/) {
+            $new_number = $new_number * $1;
+        } elsif ($operation =~ /^\%($match_expression)$/) {
+            $new_number = $new_number / $1;
+        } elsif ($operation =~ /^\^($match_expression)$/) {
+            $new_number = $new_number^$1;
+        } elsif ($operation =~ /^sqrt$/) {
+            if ($new_number < 0) { # let's do something nice for negative sqrts.
+                $new_number *= -1;
+                $new_number = sqrt($new_number);
+                $new_number .= "i"; # for imaginary. Just like in High School Algebra.
+            } else {
+                $new_number = sqrt($new_number);
+            }
+        } else {
+            print "Encountered invalid expression $operation in $expression.\n" if ($verbose >= 2);
+            return $number;
+        }
+    }
+    return $new_number;
+}
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+numprocess - This program mutates numbers as it encounters them.
+
+=head1 SYNOPSIS
+
+B<numprocess> [-dhV] /<expression>/ [FILE or STDIN]
+
+| B<numprocess> [-dhV] /<expression>/  (Input on STDIN from pipeline.)
+
+B<numprocess> [-dhV] /<expression>/    (Input on STDIN.  Use Ctrl-D to stop.)
+
+=head1 DESCRIPTION
+
+B<numprocess> is a program that is part of the numeric utilities package.  B<numprocess>
+will take as one argument, a list of operations to be performed on numbers that it
+encounters.  It will perform those operations on each number and return the result in place
+of the original number.
+
+=head1 USAGE EXAMPLES
+
+  Add 1 to all numbers.
+
+   $ numprocess /+1/ file1
+
+  Convert all numbers from miles to kilometers.  Multiply by 8 and divide by 5.
+
+   $ cat file1 | numprocess /*8,%5/
+
+  Convert from celcius to fahreheit degrees.  Multiply by 9, divide by 5 and add 32.
+
+   $ numprocess /*9,%5,+32/ temperatures
+
+  Find the area of each circle from the given radius.
+
+   $ numprocess /^2,*pi/ radii
+
+=head1 KEYWORDS AND OPERATORS
+
+   For operators, the modifying number goes directly after the operator, with
+   the exception of functions like sqrt, sin, cos, etc.
+
+   +     Addition
+   -     Subtraction
+   *     Multiplication
+   %     Division
+   ^     Power function
+   sqrt  Square Root  (*)
+   sin   Sine function
+   cos   Cosine function
+
+   Constants and keywords that can be used
+
+    pi    3.141592654
+    e     2.718281828
+
+  (*) When using the sqrt operation on negative numbers, it will take the
+     absolute value of the number, sqrt it and then tack an i on the end
+     of the result to signify that the resulting number is imaginary.
+
+=head1 OPTIONS
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+
+
+=head1 SEE ALSO
+
+average(1), bound(1), interval(1), normalize(1), numgrep(1), numsum(1), random(1), range(1), round(1)
+
+=head1 BUGS
+
+There is currently no way to take the number found in the text stream and
+use it as the numerator instead of the denominator of a division operation.
+
+
+=head1 COPYRIGHT
+
+numprocess is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on numprocess can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

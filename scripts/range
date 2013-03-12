@@ -1,0 +1,295 @@
+#!/usr/bin/env perl -w
+
+# range: Print out a range of numbers for use in for loops and such.
+#   
+# Copyright (C) 2002-2004 Suso Banderas
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# You may contact the author at <suso@suso.org>.
+
+#######################
+# VARIABLES AND SETUP #
+#######################
+
+use Getopt::Std;
+use strict;
+use vars qw/ %opts $verbose /;
+
+my ($expression, @output_array, $number);
+
+getopts('e:n:Np:s:hdV', \%opts);
+
+my $prefix = "";
+my $suffix = "";
+
+if ($opts{'h'}) {
+    &help();
+    exit(0);
+}
+
+if ($opts{'d'}) {
+    $verbose = 3;
+    print STDERR "Debug mode\n";
+} elsif ($opts{'V'}) {
+    $verbose = 2;
+    print STDERR "Verbose mode\n";
+} elsif ($opts{'q'}) {
+    $verbose = 0;  # Nothing except the final answer
+} else {
+    $verbose = 1;  # Normal warnings and such.
+}
+
+my $range_expression = shift || die "You must specify a range expression\n";
+
+# A shortcut for specifying a prefix and suffix.
+$range_expression =~ m/^([^\/]+)\//;
+$prefix = $1;
+$range_expression =~ s/^[^\/]+\//\//;
+$range_expression =~ m/\/([^\/]+)$/;
+$suffix = $1;
+$range_expression =~ s/\/[^\/]+$/\//;
+
+$range_expression =~ s/^\///;
+$range_expression =~ s/\/$//;
+my @range_expressions = split(/,/, $range_expression);
+
+my $separator = $opts{'n'} || " ";
+$separator =~ s/\\n/\n/g;
+$separator = "\n" if ($opts{'N'});
+
+if ($opts{'p'}) {
+    $prefix = $opts{'p'};
+}
+if ($opts{'s'}) {
+    $suffix = $opts{'s'};
+}
+
+# Make the array of excluded numbers
+my @excludes;
+if ($opts{'e'}) {
+    @excludes = split(/,/, $opts{'e'});
+}
+
+################
+# MAIN PROGRAM #
+################
+
+my $number_exp = "-?[0-9]*\\.?[0-9]+";
+
+foreach $expression (@range_expressions) {
+    print "expression: $expression\n" if ($verbose >= 3);
+    if ($expression =~ /^($number_exp)$/) {
+        push @output_array, $expression;
+    } elsif ($expression =~ /^($number_exp)\.\.($number_exp)$/) {
+        print "1: $1\n2: $2\n" if ($verbose >= 3);
+        if ($1 > $2) {
+            my $number = $1;
+            while ($number >= $2) {
+                next if grep(/^$number$/, @excludes);
+                push (@output_array, $number);
+                $number--;
+            }
+        } else {
+            my $number;
+            foreach $number ($1..$2) {
+                next if grep(/^$number$/, @excludes);
+                push (@output_array, $number);
+            }
+        }
+    } elsif ($expression =~ /^($number_exp)\.\.($number_exp)i($number_exp)$/) {
+        print "1: $1\n2: $2\n3: $3\n" if ($verbose >= 3);
+        if ($1 > $2) {
+            my $number = $1;
+            while ($number >= $2) {
+                next if grep(/^$number$/, @excludes);
+                $number = eval($number);  # This fixes a stupid computer math problem.
+                push (@output_array, $number);
+                $number = $number - $3;
+            }
+        } else {
+            my $number = $1;
+            while ($number <= $2) {
+                next if grep(/^$number$/, @excludes);
+                $number = eval($number);  # This fixes a stupid computer math problem.
+                push (@output_array, $number);
+                $number = $number + $3;
+            }
+        }
+    } else {
+        print STDERR "Invalid expression: $expression\n" if ($verbose >= 1);
+    }
+}
+
+my $i = 0;
+my $max = @output_array;
+while ($i < $max) {
+    if ($i == ($max - 1)) {
+        print $prefix . $output_array[$i] . $suffix;  # No need to put a separator for the last element.
+    } else {
+        print $prefix . $output_array[$i] . $suffix . $separator;
+    }
+    $i++;
+}
+
+print "\n";
+
+exit(0);
+
+###############
+# SUBROUTINES #
+###############
+
+sub help {
+	print <<"EOF";
+--------------------------------------------------------------------
+range : Print out a range of numbers for use in for loops and such.
+--------------------------------------------------------------------
+Usage:
+
+    range [options] /<expression>/
+
+Options:
+        -e <set> Exclude the <set> of numbers from the range output.  <set>
+                is a set of numbers separated by commas.
+        -n <n>  Use <n> as a separator between numbers.  By default, it
+                is a space, use '\n' or \\n for newline or the -N option.
+        -N      Just a quick option for using a newline as the separator.
+
+        -p <string>  Specify a prefix to use for every number output.
+        -s <string>  Specify a suffix to use for every number output.
+
+        -d      Debug. For developers only.
+        -h      Help: You're looking at it.
+        -V      Increase verbosity.
+
+Expressions:
+
+   /1..100/        All numbers from 1 to 100.
+   /1..50,60..75/  Multiple ranges.
+   /0..100i2/      All even numbers from 0 to 100.
+   /1..100i2/      All odd numbers from 1 to 100.
+   /3..100i3/      Factors of 3.
+   /1.1..4.5i0.1/  Decimal ranges.
+
+EOF
+}
+
+
+
+# Lay down some of that perl pod action.
+=pod
+
+=head1 NAME
+
+range - Print out a range of numbers for use in for loops and such.
+
+=head1 SYNOPSIS
+
+B<range> [-dhV] /<expression>/
+
+=head1 DESCRIPTION
+
+B<range> is a program that is part of the numeric utilities package.  B<range>
+will print out a list of numbers based on an expression that you specify.  This
+is useful for making a list of numbers for use in for loops and so on.  Ranges of
+numbers are specified using the .. operator, like this /20..50/, which means all
+integers from 20 and 50.  More complex expressions can be generated using the commas
+and the 'i' increment operator.
+
+=head1 OPTIONS
+
+    -e <set> Exclude the <set> of numbers from the range output.  <set>
+       is a set of numbers separated by commas.
+    -n <n> Use <n> as the separator between numbers.  By default, it
+       will use a space.  Use '\n' or \\n for a newline character or
+       use the -N option.
+    -N  Just a quick option for using a newline as the separator.
+
+    -h  Help: You're looking at it.
+    -V  Increase verbosity.
+    -d  Debug mode.  For developers
+
+=head1 EXAMPLES
+
+   All numbers from 1 to 10.
+    $ range /1..10/
+    1 2 3 4 5 6 7 8 9 10
+
+   From 10 to 1. Counting down.
+    $ range /10..1/
+    10 9 8 7 6 5 4 3 2 1
+
+   From 1 to 10 and from 15 to 20.
+    $ range /1..10,15..20/
+    1 2 3 4 5 6 7 8 9 10 15 16 17 18 19 20
+
+   Even numbers from 0 to 10
+    $ range /0..10i2/
+    0 2 4 6 8 10
+
+   Odd numbers.  Notice the starting number in the range expression.
+    $ range /1..10i2/
+    1 3 5 7 9
+
+   Factors of 3 between 99 and 120.
+    $ range /99..120i3/
+    99 102 105 108 111 114 117 120
+
+   Decimal numbers
+    $ range /1.1..2.5i0.1/
+    1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2 2.1 2.2 2.3 2.4 2.5
+
+   And negative numbers too.
+    $ range /1.0..-2.0i0.3/
+    1 0.7 0.4 0.1 -0.2 -0.5 -0.8 -1.1 -1.4 -1.7 -2
+
+   You can also pad numbers when you are counting up.  This is
+   a trick of how the Perl programming language deals with ranges:
+   
+    $ range /01..15/
+    01 02 03 04 05 06 07 08 09 10 11 12 13 14 15
+
+=head1 BUGS
+
+Even though you can do zero padding on simple ranges, like 001..100,
+it will not pad zeros on complex ranges like 001..100i2, or for counting
+downwards.
+
+=head1 SEE ALSO
+
+seq(1), average(1), bound(1), interval(1), normalize(1), numgrep(1), numprocess(1), numsum(1), random(1), round(1)
+
+=head1 COPYRIGHT
+
+range is part of the num-utils package, which is copyrighted by
+Suso Banderas and released under the GPL license.  Please read
+the COPYING and LICENSE files that came with the num-utils package
+
+  Developers can read the GOALS file and contact me about providing
+submitions or help for the project.
+
+=head1 MORE INFO
+
+More info on range can be found at:
+
+=over 1
+
+=item B<http://suso.suso.org/programs/num-utils/>
+
+=back
+
+=cut
+

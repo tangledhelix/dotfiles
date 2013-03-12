@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+batt = {}
+
+IO.popen('ioreg -rc AppleSmartBattery').each do |line|
+  case line
+
+  when /"MaxCapacity" = (\S+)/
+    batt[:max] = $1
+
+  when /"CurrentCapacity" = (\S+)/
+    batt[:current] = $1
+
+  when /"IsCharging" = (\S+)/
+    batt[:charging] = $1
+
+  when /"FullyCharged" = (\S+)/
+    batt[:charged] = $1
+
+  end
+end
+
+charge = batt[:current].to_f / batt[:max].to_f
+percent = sprintf('%.1f%%', (charge * 100).to_s)
+
+if batt[:charged] == 'Yes'
+  puts 'fully charged'
+else
+
+  if batt[:charging] == 'Yes'
+    print 'charging: '
+  end
+
+  puts percent
+
+end
+
