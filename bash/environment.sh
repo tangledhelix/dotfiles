@@ -3,9 +3,9 @@
 test -n "$INPUTRC" || export INPUTRC="~/.inputrc"
 
 # Collect some info about the local system
-export HOST="$(/usr/bin/uname -n)"
-export OS="$(/usr/bin/uname -s)"
-test -n "$UNAME" || export UNAME="$(/usr/bin/uname)"
+export HOST="$($uname -n)"
+export OS="$($uname -s)"
+test -n "$UNAME" || export UNAME="$($uname)"
 
 # Tunnel CVS via SSH
 export CVS_RSH="ssh"

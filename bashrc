@@ -5,6 +5,12 @@ case "$-" in
     *) unset INTERACTIVE ;;
 esac
 
+if [ -f /bin/uname ]; then
+    uname="/bin/uname"
+else
+    uname="/usr/bin/uname"
+fi
+
 source ~/.bash/environment.sh
 source ~/.bash/function.sh
 source ~/.bash/config.sh
