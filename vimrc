@@ -631,8 +631,8 @@ if has('gui_running')
     set antialias
 endif
 
-colorscheme hemisu
 set background=dark
+colorscheme jellybeans
 
 " Mark trailing whitespace with red to make it stand out.
 " Mark Git-style conflict markers.
