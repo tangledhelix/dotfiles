@@ -65,7 +65,7 @@ chdir $basedir;
 print_help() unless defined($ARGV[0]);
 my $action = $ARGV[0];
 
-$ENV{PATH} = qw( /usr/local/bin /usr/bin /bin );
+$ENV{PATH} = '/usr/local/bin:/usr/bin:/bin';
 
 if ($action eq 'bash') {
     foreach my $file (@{$files{bash}}) {
