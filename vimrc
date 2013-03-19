@@ -304,7 +304,7 @@ set nolinebreak
 " Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
 
-function ToggleShowBreak()
+function! ToggleShowBreak()
     if &showbreak == ''
         if has('multi_byte')
             execute('set showbreak=↪')
