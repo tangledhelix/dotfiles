@@ -46,7 +46,6 @@ my %vim_bundles = (
     'repeat'            => 'tpope/vim-repeat',
     'snipmate'          => 'msanders/snipmate.vim',
     'snipmate-snippets' => 'tangledhelix/snipmate-snippets',
-    'sparkup'           => 'kogakure/vim-sparkup',
     'surround'          => 'tpope/vim-surround',
     'syntastic'         => 'scrooloose/syntastic',
     'tabular'           => 'godlygeek/tabular',
