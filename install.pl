@@ -8,7 +8,6 @@ use lib 'lib';
 use Cwd 'abs_path';
 use File::Basename;
 use File::Path 'remove_tree';
-use YAML qw/DumpFile LoadFile/;
 
 my %files = (
     bash => [ 'bash', 'bash_profile', 'bashrc', 'inputrc' ],
