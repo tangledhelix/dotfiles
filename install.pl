@@ -12,7 +12,7 @@ use YAML qw/DumpFile LoadFile/;
 
 my %files = (
     bash => [ 'bash', 'bash_profile', 'bashrc', 'inputrc' ],
-    git  => [ 'gitignore' ],
+    git  => [ 'gitconfig', 'gitignore' ],
     misc => [ 'cvsrc', 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc',
               'terminfo', 'tmux.conf' ],
     vim  => [ 'vim', 'vimrc' ],
@@ -105,7 +105,6 @@ if ($action eq 'bash') {
     foreach my $file (@{$files{git}}) {
         determine_action($file, 'dotfile');
     }
-    gitconfig_installer();
 
 } elsif ($action eq 'scripts') {
     scripts_installer();
@@ -117,7 +116,6 @@ if ($action eq 'bash') {
     scripts_installer();
     vim_bundle_installer();
     omz_cloner();
-    gitconfig_installer();
 
 } else {
     print_help();
@@ -280,72 +278,3 @@ sub scripts_installer {
         determine_action(basename($script), 'script');
     }
 }
-
-# The ~/.gitconfig file is generated dynamically so that I can have my
-# GitHub API token configured in it without putting my token into my GitHub
-# dotfiles repo, which is publicly visible.
-
-sub gitconfig_installer {
-    my $template_file = 'gitconfig.tmpl';
-    my $output_file = "$ENV{HOME}/.gitconfig";
-    my $cache_file = "$output_file.cache";
-    my $gitconfig_params = {};
-
-    # If we find an older install with the symlink in place,
-    # clean that up first
-    if (-l $output_file) {
-        if (unlink $output_file) {
-            print "    deleted symlink $output_file\n";
-        } else {
-            warn "Unable to unlink $output_file";
-        }
-    }
-
-    unless (-f $cache_file) {
-
-        print "    creating ~/.gitconfig.cache\n\n";
-        print "Enter .gitconfig data\n";
-        print "(press enter to leave a value blank.)\n\n";
-
-        my $input;
-
-        print 'Name: ';
-        chomp($gitconfig_params->{git_name} = <STDIN>);
-
-        print 'Email address: ';
-        chomp($gitconfig_params->{git_email} = <STDIN>);
-
-        print 'GitHub username: ';
-        chomp($gitconfig_params->{github_username} = <STDIN>);
-
-        print 'GitHub API token: ';
-        chomp($gitconfig_params->{github_api_token} = <STDIN>);
-
-        DumpFile($cache_file, $gitconfig_params);
-
-        if ((chmod 0600, $cache_file) != 1) {
-            warn "chmod of $cache_file failed!";
-        }
-    }
-
-    print "    generating ~/.gitconfig\n";
-
-    my $template_vars = LoadFile($cache_file);
-
-    open my $template, $template_file or die "Can't read .gitconfig template";
-    open my $out, ">$output_file" or die "Can't write ~/.gitconfig";
-
-    while (<$template>) {
-        s/__GIT_NAME__/name = $template_vars->{git_name}/;
-        s/__GIT_EMAIL__/email = $template_vars->{git_email}/;
-        s/__GITHUB_USERNAME__/user = $template_vars->{github_username}/;
-        s/__GITHUB_API_TOKEN__/token = $template_vars->{github_api_token}/;
-        print $out $_;
-    }
-
-    if (chmod(0600, $output_file) != 1) {
-        warn "Unable to chmod $output_file";
-    }
-
-}
-

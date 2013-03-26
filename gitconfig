@@ -1,6 +1,6 @@
 [user]
-    __GIT_NAME__
-    __GIT_EMAIL__
+    name = Dan Lowe
+    email = dan@tangledhelix.com
 
 [alias]
     co = checkout
@@ -39,8 +39,7 @@
     ui = auto
 
 [github]
-    __GITHUB_USERNAME__
-    __GITHUB_API_TOKEN__
+    user = tangledhelix
 
 [diff]
     # For Github-style word diffs
