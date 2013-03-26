@@ -6,6 +6,6 @@
 lines = STDIN.read.split("\n")
 
 for line in lines do
-	puts line.gsub(/^(\s*\S+)\s{2,}(\S+.*)$/, "\\1 \\2")
+  puts line.gsub(/^(\s*\S+)\s{2,}(\S+.*)$/, "\\1 \\2")
 end
 

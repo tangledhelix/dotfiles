@@ -25,26 +25,26 @@ my $output;
 
 while (<>) {
 
-	# This loop nibbles the line down looking for URLs, should be able
-	# to handle multiple URLs per line.
+    # This loop nibbles the line down looking for URLs, should be able
+    # to handle multiple URLs per line.
 
-	while ($_) {
+    while ($_) {
 
-		# If this line has no URL at all just end this loop,
-		# then we'll end up going to the next line (in the outer loop)
-		last unless m/(http(s)?|mailto):/i;
+        # If this line has no URL at all just end this loop,
+        # then we'll end up going to the next line (in the outer loop)
+        last unless m/(http(s)?|mailto):/i;
 
-		# Nibble off the next URL and anything preceding it
-		# That leading .* has to be nongreedy (.*?)
-		s!^.*?((http(s)?://|mailto:)[^">\s\)\]]+)!!;
+        # Nibble off the next URL and anything preceding it
+        # That leading .* has to be nongreedy (.*?)
+        s!^.*?((http(s)?://|mailto:)[^">\s\)\]]+)!!;
 
-		# Snag URL match from above regex replace
-		$output .= "$1\n\n";
+        # Snag URL match from above regex replace
+        $output .= "$1\n\n";
 
-		# Count it
-		++$counter;
+        # Count it
+        ++$counter;
 
-	}
+    }
 }
 
 # Output results

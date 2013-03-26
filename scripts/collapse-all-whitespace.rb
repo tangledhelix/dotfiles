@@ -3,6 +3,6 @@
 lines = STDIN.read.split("\n")
 
 for line in lines do
-	puts line.strip.gsub(/\s+/, " ")
+  puts line.strip.gsub(/\s+/, ' ')
 end
 

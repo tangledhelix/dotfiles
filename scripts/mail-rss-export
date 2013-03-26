@@ -6,5 +6,5 @@ IFS=$'\n';
 
 for i in $(find ~/Library/Mail/RSS/ -name "Info.plist");
 do
-	grep "<string>http://" $i | sed "s/.*\(http[^<]*\).*/\1/"
+    grep "<string>http://" $i | sed "s/.*\(http[^<]*\).*/\1/"
 done

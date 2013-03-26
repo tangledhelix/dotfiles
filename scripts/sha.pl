@@ -6,7 +6,7 @@ use warnings;
 use SHA;
 use MIME::Base64;
 
-print "Enter pass: ";
+print 'Enter pass: ';
 chomp($pass = <STDIN>);
 
 my $sha = new SHA;

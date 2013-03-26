@@ -16,10 +16,10 @@ use warnings;
 
 # Usage message in case you forgot to pass me at least two arguments
 unless (defined($ARGV[1])) {
-	print "Usage: $0 <startnum> <endnum>\n";
-	print "   ex: $0 5 7     (will print \"5 6 7\")\n";
-	print "   ex: $0 7 5     (will print \"7 6 5\")\n";
-	exit;
+    print "Usage: $0 <startnum> <endnum>\n";
+    print "   ex: $0 5 7     (will print \"5 6 7\")\n";
+    print "   ex: $0 7 5     (will print \"7 6 5\")\n";
+    exit;
 }
 
 my $start = $ARGV[0];

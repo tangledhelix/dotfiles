@@ -15,32 +15,35 @@ use warnings;
 
 use Getopt::Std;
 
+sub print_help {
 
-sub print_help() {
-    print "Usage: $0 [-h] [-c] [-s]\n";
-    print "\n";
-    print "    -h : print this help\n";
-    print "    -c : copy to Mac clipboard\n";
-    print "    -e : also print encrypted hash\n";
-    print "    -s : limit to 8 characters instead of 12\n";
-    print "\n";
-    print "If using -e and -c, the plaintext is what's copied.\n";
+    print <<_EOF_;
+Usage: $0 [-h] [-c] [-s]
+
+    -h : print this help
+    -c : copy to Mac clipboard
+    -e : also print encrypted hash
+    -s : limit to 8 characters instead of 12
+
+If using -e and -c, the plaintext is what's copied.
+_EOF_
+
     exit 0;
 }
 
-my $chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!^#()*";
+my $chars = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!^#()*';
 
 # If you use -c, the string will be copied into the pasteboard.
 # Using -s limits to 8 chars instead of 12.
-getopts "cehs", \my %opt;
+getopts 'cehs', \my %opt;
 
-if ($opt{"h"}) {
+if ($opt{h}) {
     print_help();
 }
 
 my $pwLength = 12;
-if ($opt{"s"}) {
-	$pwLength = 8;
+if ($opt{s}) {
+    $pwLength = 8;
 }
 
 srand(time() ^ ($$ + ($$ << 15)));
@@ -49,19 +52,19 @@ my $i;
 my $pword;
 
 for ($i = 0; $i <= ($pwLength - 1); $i++) {
-	$pword .= substr($chars, rand(length($chars)), 1);
+    $pword .= substr($chars, rand(length($chars)), 1);
 }
 
-if ($opt{"c"}) {
-	open my $fh, "| /usr/bin/pbcopy -pboard general"
-		or die "Unable to open pbcopy pipe";
-	print $fh $pword;
+if ($opt{c}) {
+    open my $fh, '| /usr/bin/pbcopy -pboard general'
+        or die 'Unable to open pbcopy pipe';
+    print $fh $pword;
 }
 
 print $pword, "\n";
 
-if ($opt{"e"}) {
+if ($opt{e}) {
     my $salt = chr(rand(23) + 65) . chr(rand(23) + 65);
-    print "{crypt}", crypt($pword, $salt), "\n";
+    print '{crypt}', crypt($pword, $salt), "\n";
 }
 

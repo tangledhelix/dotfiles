@@ -3,7 +3,7 @@
 
 import math, subprocess
 
-p = subprocess.Popen(["ioreg", "-rc", "AppleSmartBattery"], stdout=subprocess.PIPE)
+p = subprocess.Popen(['ioreg', '-rc', 'AppleSmartBattery'], stdout=subprocess.PIPE)
 output = p.communicate()[0]
 
 o_max = [l for l in output.splitlines() if 'MaxCapacity' in l][0]

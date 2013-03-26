@@ -3,8 +3,8 @@
 use MIME::Base64;
 
 while (<>) {
-	chomp;
-	$x .= $_;
+    chomp;
+    $x .= $_;
 }
 
 $y = decode_base64($x);

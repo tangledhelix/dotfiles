@@ -3,8 +3,8 @@
 lines = STDIN.read.split("\n")
 
 for line in lines do
-	line.chomp!
+  line.chomp!
 end
 
-puts lines.join(",")
+puts lines.join(',')
 

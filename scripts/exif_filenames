@@ -19,11 +19,11 @@ use strict;
 use warnings;
 
 use Getopt::Std;
-getopts "hnq", \my %opt;
+getopts 'hnq', \my %opt;
 
 # must be a filename, unless -h was used.
-if ((not $ARGV[0]) or ($opt{"h"})) {
-	print <<_EOF_;
+if ((not $ARGV[0]) or ($opt{h})) {
+    print <<_EOF_;
 
 Usage: $0 [ -n | -q ] <file> [ <file> [ ... ] ]
 
@@ -32,51 +32,51 @@ Usage: $0 [ -n | -q ] <file> [ <file> [ ... ] ]
 
 _EOF_
 
-	exit 8;
+    exit 8;
 }
 
-use lib "/Users/dan/local/lib/perl5/site_perl";
+use lib '/Users/dan/local/lib/perl5/site_perl';
 use Image::ExifTool;
 
 my $exifTool = new Image::ExifTool;
 
 for my $file (@ARGV) {
-	$exifTool->ExtractInfo($file);
+    $exifTool->ExtractInfo($file);
 
-	my $createDate = $exifTool->GetValue("CreateDate");
-	my $fNumber = $exifTool->GetValue("FileNumber");
-	my $model = $exifTool->GetValue("Model");
+    my $createDate = $exifTool->GetValue('CreateDate');
+    my $fNumber = $exifTool->GetValue('FileNumber');
+    my $model = $exifTool->GetValue('Model');
 
-	unless ($createDate and $model and $fNumber) {
-		print STDERR "** ERROR: missing parameters: $file (Skipping)\n";
-		next;
-	}
+    unless ($createDate and $model and $fNumber) {
+        print STDERR "** ERROR: missing parameters: $file (Skipping)\n";
+        next;
+    }
 
-	# Get just the YYYY/MM/DD and get rid of the :'s
-	$createDate = (split(/ /, $createdate))[0];
-	$createDate =~ s/:/-/g;
+    # Get just the YYYY/MM/DD and get rid of the :'s
+    $createDate = (split(/ /, $createdate))[0];
+    $createDate =~ s/:/-/g;
 
-	# Get rid of spaces in model name
-	$model =~ s/ /-/g;
+    # Get rid of spaces in model name
+    $model =~ s/ /-/g;
 
-	# Isolate original file extension for later use
-	my $ext = $file;
-	$ext =~ s/\.([^.]+)$//;
-	$ext = $1;
+    # Isolate original file extension for later use
+    my $ext = $file;
+    $ext =~ s/\.([^.]+)$//;
+    $ext = $1;
 
-	my $newFile = lc "${createDate}_${model}_${fNumber}.$ext";
+    my $newFile = lc "${createDate}_${model}_${fNumber}.$ext";
 
-	# -n means show me what you are going to do, but don't do it.
-	if ($opt{"n"}) {
-		print "$file -> $newFile\n";
-		next;
-	}
+    # -n means show me what you are going to do, but don't do it.
+    if ($opt{n}) {
+        print "$file -> $newFile\n";
+        next;
+    }
 
-	if (rename $file, $newFile) {
-		# -q means quiet; only output errors
-		print "$file -> $newFile\n" unless $opt{"q"};
-	} else {
-		print STDERR "ERROR: rename failed: $file";
-	}
+    if (rename $file, $newFile) {
+        # -q means quiet; only output errors
+        print "$file -> $newFile\n" unless $opt{q};
+    } else {
+        print STDERR "ERROR: rename failed: $file\n";
+    }
 }
 

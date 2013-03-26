@@ -62,7 +62,7 @@ Installation
     git clone https://github.com/tangledhelix/dotfiles.git ~/.dotfiles
 
 To install my dotfiles as *your* dotfiles, you can create symlinks with
-`./install.pl`. If you do *not* run that command, everything will be isolated
+`./install.pl all`. If you do *not* run that command, everything will be isolated
 inside of the `~/.dotfiles` directory (or wherever you cloned it) and will not
 interfere with your existing environment.
 
@@ -83,9 +83,13 @@ Updating
 I periodically change the Vim bundles I use. There are two update tasks for
 Vim. The first updates the bundles from their repositories.
 
-    ./install.pl vim:update
+    ./install.pl update:vim
 
-The second cleans up any bundles which are no longer known.
+The second cleans up any bundles which are no longer known. (Note that
+`update:vim` will run the cleanup before doing the update step.)
 
-    ./install.pl vim:cleanup
+    ./install.pl cleanup:vim
 
+You can refresh the zsh environment with
+
+    ./install.pl update:zsh

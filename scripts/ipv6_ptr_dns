@@ -3,22 +3,22 @@
 # Take in an IPv6 address, return the 'ip6.arpa' long form used
 # in PTR DNS records.
 
-abort "Missing argument" if ARGV.length == 0
+abort 'Missing argument' if ARGV.length == 0
 
 # Throw away netmask data - it's irrelevant to DNS
-address = ARGV[0].gsub(/\/(\d+)$/, "")
+address = ARGV[0].gsub(/\/(\d+)$/, '')
 
 # Error if there is more than one occurrence of a double-colon
-abort "Only one pair of double-colons is allowed" if address =~ /::.*::/
+abort 'Only one pair of double-colons is allowed' if address =~ /::.*::/
 
 # Routine to pad a chunk to 4 positions with leading zeroes
 def pad(chunk)
-	str = chunk.to_s
-	abort "Broken chunk length" if str.length > 4
-	while str.length != 4
-		str = "0" + str
-	end
-	return str
+  str = chunk.to_s
+  abort 'Broken chunk length' if str.length > 4
+  while str.length != 4
+    str = '0' + str
+  end
+  return str
 end
 
 # Put all the chunks together in an array
@@ -26,38 +26,39 @@ chunks = Array.new
 
 if address =~ /(.*)::(.*)/
 
-	# Split in two parts if there's a double colon present
-	before = $1
-	after = $2
+  # Split in two parts if there's a double colon present
+  before = $1
+  after = $2
 
-	# Figure out how many chunks were before and after the double colon,
-	# and how many chunks we need to fill that gap
-	beforeSize = before.split(/:/).length
-	afterSize = after.split(/:/).length
-	chunksNeeded = 8 - (beforeSize + afterSize)
+  # Figure out how many chunks were before and after the double colon,
+  # and how many chunks we need to fill that gap
+  beforeSize = before.split(/:/).length
+  afterSize = after.split(/:/).length
+  chunksNeeded = 8 - (beforeSize + afterSize)
 
-	before.split(/:/).each { |part| chunks << pad(part) }
+  before.split(/:/).each { |part| chunks << pad(part) }
 
-	while chunksNeeded > 0
-		chunks << "0000"
-		chunksNeeded -= 1
-	end
+  while chunksNeeded > 0
+    chunks << '0000'
+    chunksNeeded -= 1
+  end
 
-	after.split(/:/).each { |part| chunks << pad(part) }
+  after.split(/:/).each { |part| chunks << pad(part) }
 
 else
 
-	# No double-colons, so we're just doing a plain split string here.
-	address.split(/:/).each do |part|
-		chunks << pad(part)
-	end
+  # No double-colons, so we're just doing a plain split string here.
+  address.split(/:/).each do |part|
+    chunks << pad(part)
+  end
 
-	if chunks.length < 8
-		abort "Incorrect number of address atoms (should be 8)"
-	end
+  if chunks.length < 8
+    abort 'Incorrect number of address atoms (should be 8)'
+  end
 
 end
 
 # Join chunks, reverse the whole thing, insert dots and domain suffix.
-puts chunks.join("").downcase.reverse.split("").join(".") + ".ip6.arpa."
+puts chunks.join('').downcase.reverse.split('').join('.') + '.ip6.arpa.'
+
 

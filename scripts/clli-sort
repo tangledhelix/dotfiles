@@ -5,18 +5,18 @@
 data = Hash.new
 
 ARGF.each do |line|
-	chunks = line.split(".")
-	clli = chunks[1]
+  chunks = line.split('.')
+  clli = chunks[1]
 
-	if clli =~ /^[a-z]{6}\d{2}$/
-		data[clli] = Array.new unless data[clli]
-		data[clli] << line
-	end
+  if clli =~ /^[a-z]{6}\d{2}$/
+    data[clli] = Array.new unless data[clli]
+    data[clli] << line
+  end
 end
 
 data.keys.sort.each do |clli|
-	data[clli].sort.each do |item|
-		puts item
-	end
+  data[clli].sort.each do |item|
+    puts item
+  end
 end
 

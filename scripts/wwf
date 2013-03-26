@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
 def usage
-	puts 'Usage: wwf <includes> [ <excludes> ]'
-	puts 'Example: wwf gvd yomn'
-	puts 'Meaning: Words with [ g, v, d ] but without [ y, o, m, n ]'
-	exit
+  puts 'Usage: wwf <includes> [ <excludes> ]'
+  puts 'Example: wwf gvd yomn'
+  puts 'Meaning: Words with [ g, v, d ] but without [ y, o, m, n ]'
+  exit
 end
 
 ARGV[0] ? inclChars = ARGV[0].split('') : usage()
@@ -14,9 +14,9 @@ ARGV[1] ? exclChars = ARGV[1].split('') : exclChars = []
 # are not normally allowed in Scrabble-like games.
 
 File.foreach('/usr/share/dict/words') do |line|
-	skip = false
-	inclChars.each { |char| skip = true unless line.downcase.index(char) }
-	exclChars.each { |char| skip = true if line.downcase.index(char) }
-	puts line unless skip
+  skip = false
+  inclChars.each { |char| skip = true unless line.downcase.index(char) }
+  exclChars.each { |char| skip = true if line.downcase.index(char) }
+  puts line unless skip
 end
 

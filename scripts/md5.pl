@@ -2,7 +2,7 @@
 
 use Digest::MD5;
 
-print "Enter string: ";
+print 'Enter string: ';
 chomp($data = <STDIN>);
 
 $dhex = Digest::MD5::md5_hex($data);

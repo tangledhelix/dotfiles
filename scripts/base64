@@ -6,49 +6,49 @@ use warnings;
 use Getopt::Std;
 use MIME::Base64;
 
-getopts "def:hs:", \my %opt;
+getopts 'def:hs:', \my %opt;
 
-usage() if $opt{"h"};
+usage() if $opt{h};
 
 # Need an operation to execute (-d or -e)
 die "Unknown operation (use either -d or -e)\n"
-	unless $opt{"d"} or $opt{"e"};
+    unless $opt{d} or $opt{e};
 
 die "Can't both decode and encode! (use either -d or -e, not both)\n"
-	if $opt{"d"} and $opt{"e"};
+    if $opt{d} and $opt{e};
 
 die "Can't encode to a file (don't use -f if you use -e)\n"
-	if $opt{"e"} and $opt{"f"};
+    if $opt{e} and $opt{f};
 
 die "Can't operate without a source (use either -s or -f)\n"
-	unless $opt{"s"} or $opt{"f"};
+    unless $opt{s} or $opt{f};
 
 die "Can only use one source (use either -s or -f, not both)\n"
-	if $opt{"s"} and $opt{"f"};
+    if $opt{s} and $opt{f};
 
 my $string;
-if ($opt{"s"}) {
-	$string = $opt{"s"};
-} elsif ($opt{"f"}) {
-	if (-r $opt{"f"}) {
-		open my $fh, $opt{"f"};
-		while (<$fh>) {
-			# chomp;
-			$string .= $_;
-		}
-	} else {
-		die "Unable to read file $opt{'f'}\n";
-	}
+if ($opt{s}) {
+    $string = $opt{s};
+} elsif ($opt{f}) {
+    if (-r $opt{f}) {
+        open my $fh, $opt{f};
+        while (<$fh>) {
+            # chomp;
+            $string .= $_;
+        }
+    } else {
+        die "Unable to read file $opt{f}\n";
+    }
 }
 
-if ($opt{"e"}) {
-	print encode_base64($string), "\n";
-} elsif ($opt{"d"}) {
-	print decode_base64($string), "\n";
+if ($opt{e}) {
+    print encode_base64($string), "\n";
+} elsif ($opt{d}) {
+    print decode_base64($string), "\n";
 }
 
 sub usage {
-	print <<EOF;
+    print <<EOF;
 $0 [ -h ] [ -d | -e ] [ -s <string> | -f <file> ]
     -h : this help screen
     -d : decode base64 -> ASCII
@@ -57,5 +57,5 @@ $0 [ -h ] [ -d | -e ] [ -s <string> | -f <file> ]
     -f : file containing base64 content (decode only)
 EOF
 
-	exit;
+    exit;
 }
