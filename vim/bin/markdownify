@@ -9,24 +9,24 @@ fi
 cat <<EOF
 <html>
 <head>
-<title>$FILE</title>
+    <title>$FILE</title>
 
-<style type="text/css">
-body { margin: 3em 5em; font-size: 16px; font-family: Helvetica, sans-serif; }
-code { font-family: Menlo, Monaco, "Courier New", monospace; font-size: 14px; }
-p code, li code, pre { border: 1px solid #bbbbbb; background-color: #eeeeee; }
-p code, li code { margin: 0px 2px; padding: 0px 2px; }
-pre { margin: 0px 0px; padding: 2px 5px; }
-a, a:visited { text-decoration: underline; color: blue; }
-a:hover, a:active { color: red; }
-#main { width: 40em; }
-</style>
+    <style type="text/css">
+        body { margin: 3em 5em; font-size: 16px; font-family: Helvetica, sans-serif; }
+        code { font-family: Menlo, Monaco, "Courier New", monospace; font-size: 14px; }
+        p code, li code, pre { border: 1px solid #bbbbbb; background-color: #eeeeee; }
+        p code, li code { margin: 0px 2px; padding: 0px 2px; }
+        pre { margin: 0px 0px; padding: 2px 5px; }
+        a, a:visited { text-decoration: underline; color: blue; }
+        a:hover, a:active { color: red; }
+        #main { width: 40em; }
+    </style>
 
 </head>
 
 <body>
 
-<div id="main">
+    <div id="main">
 
 EOF
 
@@ -35,7 +35,7 @@ cat $FILE | $HERE/Markdown.pl | $HERE/SmartyPants.pl
 
 cat <<EOF
 
-</div>
+    </div>
 
 </body>
 </html>
