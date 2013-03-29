@@ -58,6 +58,7 @@ path_candidates=(
     ~/.rbenv/bin
     ~/.gems/bin
     /admin/bin
+    /usr/local/share/npm/bin
     /usr/local/{bin,sbin}
     /usr/{bin,sbin}
     /{bin,sbin}
