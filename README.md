@@ -3,9 +3,9 @@ About
 -----
 
 This repository contains my personal dotfiles, which I use on unix systems of
-varying flavors. They are published here because I occasionally want to share
-them or use them as examples, and this is an easy way to do so. Feel free to
-use anything you find here.
+varying flavors, and on my Macs. They are published here because I
+occasionally want to share them or use them as examples, and this is an easy
+way to do so. Feel free to use anything you find here.
 
 Note however, that I do not make any particular effort to make this easy for
 others to use. I randomly move things around, add and remove Vim bundles,
@@ -17,18 +17,17 @@ Compatibility
 -------------
 
 I am a Zsh user. This repo goes in conjunction with my
-[fork of oh-my-zsh][zfork]. If you want to use zsh, I suggest cloning that
-repo into `~/.oh-my-zsh` and installing the `.z*` files from this repo.
+[fork of oh-my-zsh][zfork]. If you want to use my zsh setup, run
+`./install.pl zsh`.
 
 [zfork]: https://github.com/tangledhelix/oh-my-zsh
-
-You can use `./install.pl zsh` to install my Zsh setup.
 
 Using Bash does not need any external repos. Use `./install.pl bash` to
 install my Bash setup. I used Bash for many years, and those files are fairly
 mature, but I am no longer paying a lot of attention to them.
 
-I regularly use this setup with Mac OS X, Solaris, Linux and FreeBSD systems.
+I regularly use this setup with Mac OS X, Solaris, and Linux systems. I have
+used it with FreeBSD in the past.
 
 Some parts of the Bash, Zsh, and Vim configs may assume you have 256 color
 support in your terminal. If you are using Apple Terminal before OS X Lion,
@@ -36,8 +35,8 @@ you don't. Try [iTerm2][] instead.
 
 [iterm2]: http://sites.google.com/site/iterm2home/
 
-I have written two blog posts on the subject of iTerm and iTerm2. Give them
-a read; color support is only one of several good reasons to switch.
+I have written two blog posts on the subject of iTerm and iTerm2. Give them a
+read; color support is only one of several good reasons to switch.
 
 [iTerm > Terminal](http://tangledhelix.com/blog/2010/11/20/iterm-terminal/)
 
@@ -47,7 +46,7 @@ Shell colors
 ------------
 
 The colors in the shell prompts for both Bash and Zsh are currently set up
-assuming the terminal is using [Solarized][] (dark) as a color scheme. They
+assuming the terminal is using [Solarized][] Dark as a color scheme. They
 may not look very good in other terminal setups.
 
 [solarized]: http://ethanschoonover.com/solarized
@@ -62,9 +61,9 @@ Installation
     git clone https://github.com/tangledhelix/dotfiles.git ~/.dotfiles
 
 To install my dotfiles as *your* dotfiles, you can create symlinks with
-`./install.pl all`. If you do *not* run that command, everything will be isolated
-inside of the `~/.dotfiles` directory (or wherever you cloned it) and will not
-interfere with your existing environment.
+`./install.pl all`. If you do *not* run that command, everything will be
+isolated inside of the `~/.dotfiles` directory (or wherever you cloned it)
+and will not interfere with your existing environment.
 
     cd ~/.dotfiles && ./install.pl all
 
@@ -93,3 +92,4 @@ The second cleans up any bundles which are no longer known. (Note that
 You can refresh the zsh environment with
 
     ./install.pl update:zsh
+
