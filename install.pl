@@ -40,6 +40,7 @@ my %vim_bundles = (
     'pathogen'          => 'tpope/vim-pathogen',
     'perl'              => 'vim-perl/vim-perl',
     'powerline'         => 'Lokaltog/vim-powerline',
+    'puppet'            => 'puppetlabs/puppet-syntax-vim',
     'quickrun'          => 'thinca/vim-quickrun',
     'repeat'            => 'tpope/vim-repeat',
     'snipmate'          => 'msanders/snipmate.vim',
