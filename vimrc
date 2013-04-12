@@ -508,10 +508,11 @@ set splitbelow
 nnoremap <silent> <leader>w :wincmd v<cr>:wincmd l<cr>
 
 " Easier window nav keys (ctrl-<direction>)
-nnoremap <silent> <c-h> :wincmd h<cr>
-nnoremap <silent> <c-j> :wincmd j<cr>
-nnoremap <silent> <c-k> :wincmd k<cr>
-nnoremap <silent> <c-l> :wincmd l<cr>
+" Look in plugin/tmux_navigator.vim now
+"nnoremap <silent> <c-h> :wincmd h<cr>
+"nnoremap <silent> <c-j> :wincmd j<cr>
+"nnoremap <silent> <c-k> :wincmd k<cr>
+"nnoremap <silent> <c-l> :wincmd l<cr>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
