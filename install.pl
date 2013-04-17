@@ -48,6 +48,7 @@ my %vim_bundles = (
     'surround'          => 'tpope/vim-surround',
     'syntastic'         => 'scrooloose/syntastic',
     'tabular'           => 'godlygeek/tabular',
+    'tbone'             => 'tpope/vim-tbone',
     'tcomment'          => 'tomtom/tcomment_vim',
     'textobj-rubyblock' => 'nelstrom/vim-textobj-rubyblock',
     'textobj-user'      => 'kana/vim-textobj-user',
