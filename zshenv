@@ -52,6 +52,12 @@ unset path_file
 path=()
 
 path_candidates=(
+    /opt/gums/bin
+    /home/eng/config/tools/bin
+    /home/eng/bin
+    ~/config/tools/mpls
+    ~/config/tools/scripts
+    /opt/gums/sbin
     ~/local/bin
     ~/bin
     ~/.scripts
@@ -142,6 +148,8 @@ fi
 export ACK_PAGER='less'
 
 export CVS_RSH='ssh'
+
+[[ -d /home/eng/.CVS ]] && export CVSROOT="/home/eng/.CVS"
 
 # Avoid an RCS checkin log headache
 [[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
