@@ -495,8 +495,9 @@ nnoremap <leader>s :set spell!<cr>
 " ------------------------------------------------------------------------ }}}
 " Windows and tabpages {{{
 
-" Create new windows below current one, if no direction was specified.
+" Create new windows below/at right of current one, if no direction was specified.
 set splitbelow
+set splitright
 
 " Create a new vertical window to the right, and switch to it.
 nnoremap <silent> <leader>w :wincmd v<cr>:wincmd l<cr>
