@@ -302,6 +302,40 @@ else
 
 fi
 
+# Mac-specific things
+if [[ "$(uname -s)" = "Darwin" ]]; then
+
+    #battery_charge_meter() { $HOME/.scripts/laptop_battery_charge }
+    #export RPROMPT='$(battery_charge_meter)'
+
+    alias ql='qlmanage -p "$@" >& /dev/null'
+    alias telnet='/usr/bin/telnet -K'
+    alias ldd='otool -L'
+
+    # This shows which processes are using the network right now.
+    alias netusers='lsof -P -i -n | cut -f 1 -d " " | uniq'
+
+    # Amazon EC2 API (tools via homebrew)
+    #export JAVA_HOME="$(/usr/libexec/java_home)"
+    #export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem | /usr/bin/head -1)"
+    #export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem | /usr/bin/head -1)"
+    #export EC2_HOME='/usr/local/Library/LinkedKegs/ec2-api-tools/jars'
+    #export EC2_AMITOOL_HOME='/usr/local/Library/LinkedKegs/ec2-ami-tools/jars'
+
+    # homebrew
+    local _pgdir='/usr/local/var/postgres'
+    alias postgres-start="pg_ctl -D $_pgdir -l $_pgdir/server.log start"
+    alias postgres-stop="pg_ctl -D $_pgdir stop -s -m fast"
+
+    # mysql from homebrew
+    alias mysql-start='mysql.server start'
+    alias mysql-stop='mysql.server stop'
+
+    # to use rmate
+    #alias rmate-tunnel='ssh -R 52698:localhost:52698'
+
+fi
+
 # local settings override global ones
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
 
