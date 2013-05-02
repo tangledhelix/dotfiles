@@ -146,28 +146,34 @@ set ruler
 " numbering if we're on an old vim.
 " Map <leader>n to toggle the number column between relative (if supported),
 " absolute, and off.
+"
+" It turns out relativenumber is still not usually available (at least not
+" on RHEL/CentOS), just sticking with regular line numbers for now.
+"
+"if exists('+relativenumber')
+"    set relativenumber
+"    set numberwidth=3
+"
+"    " cycles between relative / absolute / no numbering
+"    function! RelativeNumberToggle()
+"        if (&relativenumber == 1)
+"            set number number?
+"        elseif (&number == 1)
+"            set nonumber number?
+"        else
+"            set relativenumber relativenumber?
+"        endif
+"    endfunc
+"
+"    nnoremap <silent> <leader>n :call RelativeNumberToggle()<cr>
+"
+"else
+"    set number
+"    nnoremap <silent> <leader>n :set number! number?<cr>
+"endif
 
-if exists('+relativenumber')
-    set relativenumber
-    set numberwidth=3
-
-    " cycles between relative / absolute / no numbering
-    function! RelativeNumberToggle()
-        if (&relativenumber == 1)
-            set number number?
-        elseif (&number == 1)
-            set nonumber number?
-        else
-            set relativenumber relativenumber?
-        endif
-    endfunc
-
-    nnoremap <silent> <leader>n :call RelativeNumberToggle()<cr>
-
-else
-    set number
-    nnoremap <silent> <leader>n :set number! number?<cr>
-endif
+set number
+nnoremap <silent> <leader>n :set number! number?<cr>:call ToggleShowBreak()<cr>
 
 " Restore cursor position from our last session, if known.
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute 'normal! g`"zvzz' | endif
@@ -314,7 +320,7 @@ function! ToggleShowBreak()
     endif
 endfunction
 
-nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
+"nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Folding {{{
@@ -503,10 +509,11 @@ set splitright
 nnoremap <silent> <leader>w :wincmd v<cr>:wincmd l<cr>
 
 " Easier window nav keys (ctrl-<direction>)
-nnoremap <silent> <c-h> :wincmd h<cr>
-nnoremap <silent> <c-j> :wincmd j<cr>
-nnoremap <silent> <c-k> :wincmd k<cr>
-nnoremap <silent> <c-l> :wincmd l<cr>
+" Look in plugin/tmux_navigator.vim now
+"nnoremap <silent> <c-h> :wincmd h<cr>
+"nnoremap <silent> <c-j> :wincmd j<cr>
+"nnoremap <silent> <c-k> :wincmd k<cr>
+"nnoremap <silent> <c-l> :wincmd l<cr>
 
 " Use default split window height (0 disables special help height).
 set helpheight=0
