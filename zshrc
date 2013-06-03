@@ -113,11 +113,9 @@ hw() {
 astr() { echo "$1" | tr '[A-J0-9]' '[0-9A-J]' }
 
 # show me installed version of a perl module
-pmver() {
-    local __module="$1"
-    [[ -n "$__module" ]] || { echo 'missing argument'; return; }
-    perl -M$__module -e "print \$$__module::VERSION,\"\\n\";"
-}
+alias pmver="perl -le '\$m = shift; eval qq(require \$m) \
+    or die qq(module \"\$m\" is not installed\\n); \
+    print \$m->VERSION'"
 
 # tell me if a perl module has a method
 pmhas() {
