@@ -3,4 +3,6 @@
 *~
 doc/tags
 doc/tags-ja
+*.sublime-workspace
+*.sublime-project
 
