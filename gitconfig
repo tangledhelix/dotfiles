@@ -24,6 +24,7 @@
     remotes = remote -v
     filechanges = diff --summary
     changes = diff --name-status
+    wdiff = diff --word-diff
 
 [core]
     pager = less
