@@ -35,4 +35,10 @@ if $TMUX != ''
     nnoremap <silent> <c-l> :call <SID>TmuxWinCmd('l')<cr>
     nnoremap <silent> <c-\> :call <SID>TmuxWinCmd('p')<cr>
 
+else
+    " Use the standard maps when outside of tmux
+    nnoremap <silent> <c-h> :wincmd h<cr>
+    nnoremap <silent> <c-j> :wincmd j<cr>
+    nnoremap <silent> <c-k> :wincmd k<cr>
+    nnoremap <silent> <c-l> :wincmd l<cr>
 end
