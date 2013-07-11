@@ -18,8 +18,9 @@ my %files = (
     zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ],
 );
 
+# note: bash is not installed by default!
 my @files_all;
-foreach my $list (keys %files) {
+foreach my $list qw(zsh vim git misc) {
     foreach my $item (@{$files{$list}}) {
         push @files_all, $item;
     }
