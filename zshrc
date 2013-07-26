@@ -221,8 +221,6 @@ alias tt='set-tab-title'
 # mmv *.c.orig orig/*.c
 alias mmv='noglob zmv -W'
 
-alias subl='open -a "Sublime Text 2" .'
-
 # globbing cheat sheet
 globcheat() {
 
