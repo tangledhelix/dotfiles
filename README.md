@@ -24,7 +24,9 @@ I am a Zsh user. This repo goes in conjunction with my
 
 Using Bash does not need any external repos. Use `./install.pl bash` to
 install my Bash setup. I used Bash for many years, and those files are fairly
-mature, but I am no longer paying a lot of attention to them.
+mature, but I am no longer paying a lot of attention to them. Note that the
+default installer does not install the bash symlinks anymore, you have
+to install 'bash' specifically!
 
 I regularly use this setup with Mac OS X, Solaris, and Linux systems. I have
 used it with FreeBSD in the past.
