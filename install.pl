@@ -20,7 +20,7 @@ my %files = (
 
 # note: bash is not installed by default!
 my @files_all;
-foreach my $list qw(zsh vim git misc) {
+foreach my $list ('zsh', 'vim', 'git', 'misc') {
     foreach my $item (@{$files{$list}}) {
         push @files_all, $item;
     }
