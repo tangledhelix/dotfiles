@@ -1,0 +1,29 @@
+
+-i=4            # indent level
+-ci=2           # indent of continuation lines
+-l=100          # max line length (0 means no limit)
+-nsfs           # remove extra spaces around semicolons in for loops
+-asc            # add missing terminal semicolon at end of a block
+-ce             # "cuddled else", i.e.    } else {
+-nbl            # opening brace does not go on new line
+-nasbl          # opening brace on same line for anonymous subs
+-blbs=1         # number of blank lines before a sub
+
+## bracket tightness options.
+## 0 means space around all brackets
+## 1 means space around brackets which contain > 1 item
+## 2 means no space around any brackets
+## -act is an abbreviation for all of the below in one shot.
+
+-pt=1           # paren tightness
+-sbt=1          # square brackets
+-bt=1           # braces that are NOT code blocks
+-bbt=0          # braces that ARE code blocks
+
+#-sot            # stack opening tokens
+#-sct            # stack closing tokens
+#-dsm            # delete extra semicolons (empty statements) - risky?
+#-se             # output errors to stderr instead of ${file}.ERR
+#-vmll           # variable line length (ignore leading whitespace in count)
+#-syn            # run a syntax check
+#-io             # indent only, do not format or adjust linebreaks
