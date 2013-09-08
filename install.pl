@@ -27,9 +27,6 @@ foreach my $list ('zsh', 'vim', 'git', 'misc') {
 }
 
 my %vim_bundles = (
-    'abolish'           => 'tpope/vim-abolish',
-    'clam'              => 'sjl/clam.vim',
-    'ctrlp'             => 'kien/ctrlp.vim',
     'easymotion'        => 'Lokaltog/vim-easymotion',
     'endwise'           => 'tpope/vim-endwise',
     'fugitive'          => 'tpope/vim-fugitive',
@@ -41,19 +38,12 @@ my %vim_bundles = (
     'pathogen'          => 'tpope/vim-pathogen',
     'perl'              => 'vim-perl/vim-perl',
     'powerline'         => 'Lokaltog/vim-powerline',
-    'puppet'            => 'puppetlabs/puppet-syntax-vim',
     'quickrun'          => 'thinca/vim-quickrun',
     'repeat'            => 'tpope/vim-repeat',
-    'snipmate'          => 'msanders/snipmate.vim',
-    'snipmate-snippets' => 'tangledhelix/snipmate-snippets',
     'surround'          => 'tpope/vim-surround',
     'syntastic'         => 'scrooloose/syntastic',
     'tabular'           => 'godlygeek/tabular',
-    'tbone'             => 'tpope/vim-tbone',
-    'tcomment'          => 'tomtom/tcomment_vim',
-    'textobj-rubyblock' => 'nelstrom/vim-textobj-rubyblock',
-    'textobj-user'      => 'kana/vim-textobj-user',
-    'unimpaired'        => 'tpope/vim-unimpaired',
+    'unimpaired'        => 'tpope/vim-unimpaired'
 );
 
 my $replace_all = 0;
