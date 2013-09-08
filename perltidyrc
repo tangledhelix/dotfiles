@@ -2,7 +2,7 @@
 -i=4            # indent level
 -ci=2           # indent of continuation lines
 -l=100          # max line length (0 means no limit)
--nsfs           # remove extra spaces around semicolons in for loops
+-sfs            # spaces around separating semicolons in for loops
 -asc            # add missing terminal semicolon at end of a block
 -ce             # "cuddled else", i.e.    } else {
 -nbl            # opening brace does not go on new line
