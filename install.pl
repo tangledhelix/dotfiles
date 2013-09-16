@@ -30,7 +30,6 @@ my %vim_bundles = (
     'easymotion'        => 'Lokaltog/vim-easymotion',
     'endwise'           => 'tpope/vim-endwise',
     'fugitive'          => 'tpope/vim-fugitive',
-    'gitgutter'         => 'airblade/vim-gitgutter',
     'gitv'              => 'gregsexton/gitv',
     'gundo'             => 'sjl/gundo.vim',
     'jellybeans'        => 'nanotech/jellybeans.vim',
