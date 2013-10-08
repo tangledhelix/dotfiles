@@ -114,8 +114,7 @@ set showmode
 " Show current uncompleted command.
 set showcmd
 
-" Use fancy symbols in powerline. Requires a patched font.
-let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'unicode'
 
 " Set the title bar if running as GUI, but never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
