@@ -10,10 +10,10 @@ use File::Basename;
 use File::Path 'remove_tree';
 
 my %files = (
-    bash => [ 'bash', 'bash_profile', 'bashrc', 'inputrc' ],
+    bash => [ 'bash', 'bash_profile', 'bashrc' ],
     git  => [ 'gitconfig', 'gitignore' ],
     misc => [ 'cvsrc', 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc',
-              'terminfo', 'tmux.conf', 'perltidyrc' ],
+              'terminfo', 'tmux.conf', 'perltidyrc', 'inputrc' ],
     vim  => [ 'vim', 'vimrc' ],
     zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ],
 );
