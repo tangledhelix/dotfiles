@@ -27,7 +27,6 @@ foreach my $list ('zsh', 'vim', 'git', 'misc') {
 }
 
 my %vim_bundles = (
-    'easymotion'        => 'Lokaltog/vim-easymotion',
     'endwise'           => 'tpope/vim-endwise',
     'fugitive'          => 'tpope/vim-fugitive',
     'gitv'              => 'gregsexton/gitv',
@@ -40,7 +39,6 @@ my %vim_bundles = (
     'quickrun'          => 'thinca/vim-quickrun',
     'repeat'            => 'tpope/vim-repeat',
     'surround'          => 'tpope/vim-surround',
-    'syntastic'         => 'scrooloose/syntastic',
     'tabular'           => 'godlygeek/tabular',
     'unimpaired'        => 'tpope/vim-unimpaired'
 );
