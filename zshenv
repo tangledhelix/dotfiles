@@ -83,6 +83,7 @@ path_candidates=(
     /usr/local/pkg/openldap/{bin,sbin}
     /opt/openldap/{bin,sbin}
     /usr/sfw/bin
+    /opt/X11/bin
     /usr/X11R6/bin
     ~/tools
     ~/.cabal/bin
