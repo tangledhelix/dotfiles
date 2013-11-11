@@ -49,64 +49,72 @@ my $vim_do_updates = 0;
 my $basedir = dirname(abs_path($0));
 chdir $basedir;
 
-print_help() unless defined($ARGV[0]);
-my $action = $ARGV[0];
-
 $ENV{PATH} = '/usr/local/bin:/usr/bin:/bin';
 
-if ($action eq 'bash') {
-    foreach my $file (@{$files{bash}}) {
-        determine_action($file, 'dotfile');
+print_help() unless defined($ARGV[0]);
+
+foreach my $action (@ARGV) {
+
+    if ($action eq 'bash') {
+        foreach my $file (@{$files{bash}}) {
+            determine_action($file, 'dotfile');
+        }
+
+    } elsif ($action eq 'zsh') {
+        foreach my $file (@{$files{zsh}}) {
+            determine_action($file, 'dotfile');
+        }
+        omz_cloner();
+
+    } elsif ($action eq 'update:zsh') {
+        omz_updater();
+
+    } elsif ($action eq 'omz') {
+        omz_cloner();
+
+    } elsif ($action eq 'vim') {
+        foreach my $file (@{$files{vim}}) {
+            determine_action($file, 'dotfile');
+        }
+        vim_bundle_installer();
+
+    } elsif ($action eq 'update:vim') {
+        vim_bundle_cleanup();
+        vim_bundle_updater();
+
+    } elsif ($action eq 'cleanup:vim') {
+        vim_bundle_cleanup();
+
+    } elsif ($action eq 'update:all') {
+        foreach my $file (@files_all) {
+            determine_action($file, 'dotfile');
+        }
+        scripts_installer();
+        omz_updater();
+        vim_bundle_cleanup();
+        vim_bundle_updater();
+
+    } elsif ($action eq 'git') {
+        foreach my $file (@{$files{git}}) {
+            determine_action($file, 'dotfile');
+        }
+
+    } elsif ($action eq 'scripts') {
+        scripts_installer();
+
+    } elsif ($action eq 'all') {
+        foreach my $file (@files_all) {
+            determine_action($file, 'dotfile');
+        }
+        scripts_installer();
+        vim_bundle_installer();
+        omz_cloner();
+
+    } else {
+        print "*** ERROR: Unknown action $action\n";
+        print_help();
     }
 
-} elsif ($action eq 'zsh') {
-    foreach my $file (@{$files{zsh}}) {
-        determine_action($file, 'dotfile');
-    }
-    omz_cloner();
-
-} elsif ($action eq 'update:zsh') {
-    omz_updater();
-
-} elsif ($action eq 'omz') {
-    omz_cloner();
-
-} elsif ($action eq 'vim') {
-    foreach my $file (@{$files{vim}}) {
-        determine_action($file, 'dotfile');
-    }
-    vim_bundle_installer();
-
-} elsif ($action eq 'update:vim') {
-    vim_bundle_cleanup();
-    vim_bundle_updater();
-
-} elsif ($action eq 'cleanup:vim') {
-    vim_bundle_cleanup();
-
-} elsif ($action eq 'update') {
-    omz_updater();
-    vim_bundle_cleanup();
-    vim_bundle_updater();
-
-} elsif ($action eq 'git') {
-    foreach my $file (@{$files{git}}) {
-        determine_action($file, 'dotfile');
-    }
-
-} elsif ($action eq 'scripts') {
-    scripts_installer();
-
-} elsif ($action eq 'all') {
-    foreach my $file (@files_all) {
-        determine_action($file, 'dotfile');
-    }
-    scripts_installer();
-    vim_bundle_installer();
-    omz_cloner();
-
-} else {
-    print_help();
 }
 
 sub print_help {
@@ -127,6 +135,8 @@ Usage: $0 <target>
     update:zsh  - Update oh-my-zsh and its submodules
 
     update      - Update both vim and zsh
+
+    update:all  - Install everything, update both vim and zsh
 
 EOF
 
