@@ -6,7 +6,7 @@
 #
 
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':omz:module:editor' keymap 'vi'
+zstyle ':omz:module:editor' keymap 'emacs'
 
 # Auto convert .... to ../..
 zstyle ':omz:module:editor' dot-expansion 'yes'

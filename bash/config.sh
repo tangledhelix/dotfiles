@@ -117,7 +117,7 @@ test -n "$INTERACTIVE" && {
     stty erase "^?" -parenb -istrip echo echoe echoctl echoke tabs cs8
 
     # Keybindings for commandline edits (emacs or vi)
-    set -o vi
+    set -o emacs
 
     # notify of bg job completion immediately
     set -o notify
