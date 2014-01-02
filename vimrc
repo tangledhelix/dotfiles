@@ -50,7 +50,7 @@ set hidden
 set diffopt=iwhite
 
 " Make the mouse and scrolling awesome in iTerm2 windows
-set mouse=a
+"set mouse=a
 
 " ------------------------------------------------------------------------ }}}
 " General keymaps {{{
