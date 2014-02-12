@@ -634,7 +634,7 @@ nnoremap <silent> <leader>R :call SafariReload()<cr>
 " Fonts and colors {{{
 
 if has('gui_running')
-    set guifont=Menlo\ Regular\ for\ Powerline:h14
+    set guifont=Menlo\ Regular:h14
     set antialias
 endif
 
