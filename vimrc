@@ -49,6 +49,9 @@ set hidden
 " Ignore whitespace-only changes in diff mode
 set diffopt=iwhite
 
+" Make the mouse and scrolling awesome in iTerm2 windows
+"set mouse=a
+
 " ------------------------------------------------------------------------ }}}
 " General keymaps {{{
 
