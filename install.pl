@@ -27,6 +27,11 @@ foreach my $list ('zsh', 'vim', 'git', 'misc') {
 }
 
 my %vim_bundles = (
+    'abolish'           => 'tpope/vim-abolish',
+    'ack'               => 'mileszs/ack.vim',
+    'clam'              => 'sjl/clam.vim',
+    'ctrlp'             => 'kien/ctrlp.vim',
+    'easymotion'        => 'Lokaltog/vim-easymotion',
     'endwise'           => 'tpope/vim-endwise',
     'fugitive'          => 'tpope/vim-fugitive',
     'gitv'              => 'gregsexton/gitv',
@@ -38,9 +43,16 @@ my %vim_bundles = (
     'puppet'            => 'puppetlabs/puppet-syntax-vim',
     'quickrun'          => 'thinca/vim-quickrun',
     'repeat'            => 'tpope/vim-repeat',
+    'signify'           => 'mhinz/vim-signify',
+    'snipmate'          => 'msanders/snipmate.vim',
+    'snipmate-snippets' => 'tangledhelix/snipmate-snippets',
     'solarized'         => 'altercation/vim-colors-solarized',
     'surround'          => 'tpope/vim-surround',
+    'syntastic'         => 'scrooloose/syntastic',
     'tabular'           => 'godlygeek/tabular',
+    'tcomment'          => 'tomtom/tcomment_vim',
+    'textobj-rubyblock' => 'nelstrom/vim-textobj-rubyblock',
+    'textobj-user'      => 'kana/vim-textobj-user',
     'unimpaired'        => 'tpope/vim-unimpaired'
 );
 

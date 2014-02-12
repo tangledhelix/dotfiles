@@ -13,12 +13,17 @@ Current leader key map:                                            *leadermap*
   ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight and clear InterestingWord matches
   ,1 - ,6       Highlight current InterestingWord in 1 of 6 colors
+  ,a            Search file tree (plugin: |ack|)
   ,B            Build Javascript bookmarklet from current buffer
   ,c            Copy line or selection to Mac clipboard
   ,d            Toggle diff state of current buffer
   ,e            Open the file browser
   ,E            Toggle completion from system dictionary
   ,Ft           Fold current tag in HTML (should also work in XML)
+  ,gh           Toggle highlight changed lines in this buffer (plugin: |signify|)
+  ,gj           Jump to next changed hunk (plugin: |signify|)
+  ,gk           Jump to previous changed hunk (plugin: |signify|)
+  ,gt           Toggle signify gutter for this buffer (plugin: |signify|)
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
@@ -30,7 +35,7 @@ Current leader key map:                                            *leadermap*
   ,ow           Open filename under cursor in a new window
   ,O            Convert file or selection to one string per line
   ,p            Toggle paste mode
-  ,q            Open quickfix window
+  ,q            Open quickfix window if not already open
   ,r            QuickRun the current buffer (plugin: |quickrun|)
   ,R            Reload frontmost tab in Google Chrome (OS X only)
   ,s            Toggle spell-check mode

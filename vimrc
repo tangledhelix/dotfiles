@@ -52,6 +52,9 @@ set diffopt=iwhite
 " Make the mouse and scrolling awesome in iTerm2 windows
 "set mouse=a
 
+" Which VCS Signify should care about
+let g:signify_vcs_list = [ 'git', 'svn' ]
+
 " ------------------------------------------------------------------------ }}}
 " General keymaps {{{
 
@@ -409,6 +412,9 @@ nnoremap \ ,
 
 " Open a Quickfix window for the last search.
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
+
+" Start a search with the ack plugin
+nnoremap <leader>a :Ack --smart-case<space>
 
 " ------------------------------------------------------------------------ }}}
 " Diff {{{
