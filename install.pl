@@ -39,6 +39,7 @@ my %vim_bundles = (
     'octopress'         => 'tangledhelix/vim-octopress',
     'pathogen'          => 'tpope/vim-pathogen',
     'perl'              => 'vim-perl/vim-perl',
+    'plsql'             => 'vim-scripts/plsql.vim',
     'powerline'         => 'Lokaltog/vim-powerline',
     'puppet'            => 'puppetlabs/puppet-syntax-vim',
     'quickrun'          => 'thinca/vim-quickrun',

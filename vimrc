@@ -654,8 +654,8 @@ colorscheme solarized
 " Mark Git-style conflict markers.
 " match ErrorMsg '\(\s\+$\|^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)'
 
-" Mark Git-style conflict markers.
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+" Mark Git-style conflict markers, and trailing whitespace.
+match ErrorMsg '\(\s\+$\|\(^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)\)'
 
 " ------------------------------------------------------------------------ }}}
 " Syntax {{{
@@ -790,7 +790,7 @@ autocmd BufNewFile,BufRead *.taskpapertheme setfiletype xml
 " ------------------------------------------------------------------------ }}}
 " Syntax: Template Toolkit {{{
 
-autocmd BufNewFile,BufRead *.tt2 setfiletype tt2
+autocmd BufNewFile,BufRead *.tt2 setfiletype tt2html
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Text {{{
