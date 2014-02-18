@@ -40,7 +40,6 @@ my %vim_bundles = (
     'pathogen'          => 'tpope/vim-pathogen',
     'perl'              => 'vim-perl/vim-perl',
     'plsql'             => 'vim-scripts/plsql.vim',
-    'powerline'         => 'Lokaltog/vim-powerline',
     'puppet'            => 'puppetlabs/puppet-syntax-vim',
     'quickrun'          => 'thinca/vim-quickrun',
     'repeat'            => 'tpope/vim-repeat',
@@ -48,6 +47,7 @@ my %vim_bundles = (
     'snipmate'          => 'msanders/snipmate.vim',
     'snipmate-snippets' => 'tangledhelix/snipmate-snippets',
     'solarized'         => 'altercation/vim-colors-solarized',
+    'statline'          => 'millermedeiros/vim-statline',
     'surround'          => 'tpope/vim-surround',
     'syntastic'         => 'scrooloose/syntastic',
     'tabular'           => 'godlygeek/tabular',
@@ -132,7 +132,7 @@ foreach my $action (@ARGV) {
 }
 
 sub print_help {
-    
+
     print <<EOF;
 
 Usage: $0 <target>
@@ -262,7 +262,7 @@ sub vim_bundle_installer {
             system "git clone https://github.com/$repo.git $this_bundle_path";
         }
     }
-    
+
 }
 
 sub vim_bundle_updater {

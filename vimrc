@@ -120,20 +120,23 @@ set showmode
 " Show current uncompleted command.
 set showcmd
 
-let g:Powerline_symbols = 'unicode'
+"let g:Powerline_symbols = 'unicode'
 
 " Set the title bar if running as GUI, but never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
+" Disable the toolbar in GUI mode
 if has('gui_running')
     set title
+    set guioptions=-t
 else
     set notitle
 endif
 
-" Disable the toolbar in GUI mode
-if has('gui_running')
-    set guioptions=-t
-endif
+" Activate Fugitive in statline
+let g:statline_fugitive = 1
+
+" Activate rbenv in statline
+let g:statline_rbenv = 1
 
 " ------------------------------------------------------------------------ }}}
 " Cursor and position indicators {{{
@@ -369,7 +372,7 @@ else
     nnoremap <leader>u :echoerr 'Gundo requires Python support'<cr>
 endif
 
-let g:Powerline_cache_file = $HOME . '/.vim/tmp/Powerline.cache'
+"let g:Powerline_cache_file = $HOME . '/.vim/tmp/Powerline.cache'
 
 " ------------------------------------------------------------------------ }}}
 " Search and replace {{{
