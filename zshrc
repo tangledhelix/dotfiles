@@ -269,7 +269,7 @@ else
         alias tmux='tmux -u'
 
         tmux_ls() {
-            echo "\n\x1b[1;37m-- tmux sessions --\n$(tmux ls 2>/dev/null)\x1b[0m"
+            echo "\n-- tmux sessions --\n$(tmux ls 2>/dev/null)"
         }
 
         # List tmux sessions
