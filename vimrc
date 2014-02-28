@@ -812,7 +812,7 @@ autocmd FileType snippet setlocal noexpandtab
 " Syntax: YAML {{{
 
 " YAML requires spaces, not tabs
-autocmd FileType yaml setlocal expandtab
+autocmd FileType yaml setlocal expandtab ts=2 sts=2 sw=2
 
 " ------------------------------------------------------------------------ }}}
 
