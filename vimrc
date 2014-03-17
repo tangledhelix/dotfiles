@@ -188,13 +188,13 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute '
 
 " iTerm2-specific: Use a bar cursor in insert mode, block in other modes.
 " https://gist.github.com/1195581
-"if exists('$TMUX')
-"    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-"else
-"    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-"endif
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " Only show the 'margin' column in insert mode
 if exists('&colorcolumn')
