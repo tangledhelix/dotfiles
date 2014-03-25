@@ -26,6 +26,9 @@ foreach my $list ('zsh', 'vim', 'git', 'misc') {
     }
 }
 
+# For github repos, use shorthand "user/repo-name".
+# For non-github repos, use a full URL.
+# Only git repos are supported currently.
 my %vim_bundles = (
     'abolish'           => 'tpope/vim-abolish',
     'ack'               => 'mileszs/ack.vim',
@@ -55,7 +58,8 @@ my %vim_bundles = (
     'tcomment'          => 'tomtom/tcomment_vim',
     'textobj-rubyblock' => 'nelstrom/vim-textobj-rubyblock',
     'textobj-user'      => 'kana/vim-textobj-user',
-    'unimpaired'        => 'tpope/vim-unimpaired'
+    'unimpaired'        => 'tpope/vim-unimpaired',
+    'vcscommand'        => 'git://repo.or.cz/vcscommand'
 );
 
 my $replace_all = 0;
@@ -250,6 +254,9 @@ sub vim_bundle_installer {
 
     foreach my $bundle (keys %vim_bundles) {
         my $repo = $vim_bundles{$bundle};
+        unless ($repo =~ m{^(https?|git)://}) {
+            $repo = "https://github.com/$repo.git";
+        }
         my $this_bundle_path = "$bundle_path/$bundle";
         if (-d $this_bundle_path) {
             if ($vim_do_updates) {
@@ -260,7 +267,7 @@ sub vim_bundle_installer {
             }
         } else {
             print "    cloning vim bundle $bundle\n";
-            system "git clone https://github.com/$repo.git $this_bundle_path";
+            system "git clone $repo $this_bundle_path";
         }
     }
 
