@@ -58,8 +58,7 @@ my %vim_bundles = (
     'tcomment'          => 'tomtom/tcomment_vim',
     'textobj-rubyblock' => 'nelstrom/vim-textobj-rubyblock',
     'textobj-user'      => 'kana/vim-textobj-user',
-    'unimpaired'        => 'tpope/vim-unimpaired',
-    'vcscommand'        => 'git://repo.or.cz/vcscommand'
+    'unimpaired'        => 'tpope/vim-unimpaired'
 );
 
 my $replace_all = 0;
