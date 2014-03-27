@@ -283,8 +283,10 @@ nnoremap <silent> <leader>' :call Preserve("normal cs\"'")<cr>
 nnoremap <silent> <leader>" :call Preserve("normal cs'\"")<cr>
 
 " Bubble a selection up or down
-vmap K [egv
-vmap J ]egv
+nmap <C-u> [e
+nmap <C-d> ]e
+vmap <C-u> [egv
+vmap <C-d> ]egv
 
 " Remap ~ to cycle through uppercase, lowercase, title-case.
 vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
