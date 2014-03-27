@@ -49,8 +49,8 @@ set hidden
 " Ignore whitespace-only changes in diff mode
 set diffopt=iwhite
 
-" Make the mouse and scrolling awesome in iTerm2 windows
-"set mouse=a
+" Turn on mouse support
+set mouse=a
 
 " Which VCS Signify should care about
 let g:signify_vcs_list = [ 'git', 'svn' ]
