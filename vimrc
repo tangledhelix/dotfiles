@@ -534,7 +534,7 @@ nnoremap <silent> <leader>t :tabnew<cr>
 
 " Tab navigation
 "nnoremap <c-h> :tabprevious<cr>
-"nnoremap <c-l> :tabnext<cr>
+nnoremap <c-t> :tabnext<cr>
 
 " Resize splits when the window is resized.
 autocmd VimResized * :wincmd =
@@ -717,6 +717,12 @@ au BufReadCmd *.epub call zip#Browse(expand('<amatch>'))
 " Syntax: Erlang {{{
 
 autocmd BufNewFile,BufRead ejabberd.cfg setfiletype erlang
+
+" ------------------------------------------------------------------------ }}}
+" Syntax: help {{{
+
+autocmd Filetype help nnoremap <space> <PageDown>
+autocmd Filetype help nnoremap  <PageUp>
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: M4 {{{
