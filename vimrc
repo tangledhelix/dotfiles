@@ -55,6 +55,9 @@ set mouse=a
 " Which VCS Signify should care about
 let g:signify_vcs_list = [ 'git', 'svn' ]
 
+" Prefer postgres SQL
+let g:sql_type_default = 'pgsql'
+
 " ------------------------------------------------------------------------ }}}
 " General keymaps {{{
 
@@ -791,6 +794,12 @@ autocmd BufNewFile,BufRead distfile.common setfiletype rdist
 " Syntax: Shell {{{
 
 autocmd BufNewFile,BufRead .bash/*,bash/* setfiletype sh
+
+" ------------------------------------------------------------------------ }}}
+" Syntax: SQL {{{
+
+" Prefer pgsql syntax for *.sql files
+autocmd BufNewFile,BufRead *.sql setfiletype pgsql
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Taskpaper {{{
