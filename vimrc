@@ -796,12 +796,6 @@ autocmd BufNewFile,BufRead distfile.common setfiletype rdist
 autocmd BufNewFile,BufRead .bash/*,bash/* setfiletype sh
 
 " ------------------------------------------------------------------------ }}}
-" Syntax: SQL {{{
-
-" Prefer pgsql syntax for *.sql files
-autocmd BufNewFile,BufRead *.sql setfiletype pgsql
-
-" ------------------------------------------------------------------------ }}}
 " Syntax: Taskpaper {{{
 
 autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
