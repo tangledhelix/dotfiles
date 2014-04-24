@@ -580,6 +580,9 @@ vnoremap <leader>ot :wincmd gf
 " Open a file browser
 nnoremap <leader>e :edit .<cr>
 
+" NERDTree window
+nnoremap <leader>f :NERDTreeToggle<CR>
+
 " ------------------------------------------------------------------------ }}}
 " Shell and external commands {{{
 

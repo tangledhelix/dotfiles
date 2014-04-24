@@ -4,7 +4,6 @@
 
 Current leader key map:                                            *leadermap*
 
-  ,,<motion>    Easy Motions (plugin: |easymotion|)
   ,"            Change surrounding ' to " (plugin: |surround|)
   ,'            Change surrounding " to ' (plugin: |surround|)
   ,*            Fuzzy search for files/buffers/MRU (plugin: |ctrlp|)
@@ -19,6 +18,7 @@ Current leader key map:                                            *leadermap*
   ,d            Toggle diff state of current buffer
   ,e            Open the file browser
   ,E            Toggle completion from system dictionary
+  ,f            Toggle the NERDTree window (plugin: |nerdtree|)
   ,Ft           Fold current tag in HTML (should also work in XML)
   ,gh           Toggle highlight changed lines in this buffer (plugin: |signify|)
   ,gj           Jump to next changed hunk (plugin: |signify|)
