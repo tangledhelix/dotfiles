@@ -144,10 +144,8 @@ let g:statline_rbenv = 1
 " ------------------------------------------------------------------------ }}}
 " Cursor and position indicators {{{
 
-" Show current cursor line position, but only in the current window
+" Show current cursor line position
 set cursorline
-autocmd WinLeave * set nocursorline
-autocmd WinEnter * set cursorline
 
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
@@ -377,8 +375,6 @@ else
     nnoremap <leader>u :echoerr 'Gundo requires Python support'<cr>
 endif
 
-"let g:Powerline_cache_file = $HOME . '/.vim/tmp/Powerline.cache'
-
 " ------------------------------------------------------------------------ }}}
 " Search and replace {{{
 
@@ -411,8 +407,8 @@ set magic
 set gdefault
 
 " Keep search matches positioned in the middle of the window.
-" nnoremap n nzzzv
-" nnoremap N Nzzzv
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " Since we borrowed , for the mapleader, replicate its purpose in \
 " (the mapleader we displaced).
@@ -647,8 +643,8 @@ EOF
 endif
 
 " Map one or the other depending which browser I'm mostly using right now.
-nnoremap <silent> <leader>R :call SafariReload()<cr>
-" nnoremap <silent> <leader>R :call ChromeReload()<cr>
+" nnoremap <silent> <leader>R :call SafariReload()<cr>
+nnoremap <silent> <leader>R :call ChromeReload()<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
@@ -660,10 +656,6 @@ endif
 
 set background=light
 colorscheme solarized
-
-" Mark trailing whitespace with red to make it stand out.
-" Mark Git-style conflict markers.
-" match ErrorMsg '\(\s\+$\|^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)'
 
 " Mark Git-style conflict markers, and trailing whitespace.
 match ErrorMsg '\(\s\+$\|\(^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)\)'
@@ -729,8 +721,8 @@ autocmd BufNewFile,BufRead ejabberd.cfg setfiletype erlang
 " ------------------------------------------------------------------------ }}}
 " Syntax: help {{{
 
-autocmd Filetype help nnoremap <space> <PageDown>
-autocmd Filetype help nnoremap  <PageUp>
+autocmd Filetype help nnoremap <buffer> <space> <PageDown>
+autocmd Filetype help nnoremap <buffer>  <PageUp>
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: M4 {{{
