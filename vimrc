@@ -73,13 +73,15 @@ nnoremap k gk
 
 " Open quickfix window
 nnoremap <leader>q :cwindow<cr>
+" Open location list window
+nnoremap <leader>l :lwindow<cr>
 
 " Source the current line
 nnoremap <leader>S ^vg_y:execute @@<cr>
 vnoremap <leader>S y:execute @@<cr>
 
 " Redraw the screen
-nnoremap <leader>l :syntax sync fromstart<cr>:redraw!<cr>
+nnoremap <leader>L :syntax sync fromstart<cr>:redraw!<cr>
 
 " Define 'del' char to be the same backspace (saves a LOT of trouble!)
 " As the angle notation cannot be use with the LeftHandSide
