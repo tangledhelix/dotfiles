@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ $1 = "light" ]]; then
+    NEW_PROFILE="Solarized Light"
+elif [[ $1 = "dark" ]]; then
+    NEW_PROFILE="Solarized Dark"
+else
+    echo "Unknown profile name"
+    exit 1
+fi
+
+echo -e "\033]50;SetProfile=$NEW_PROFILE\a"
+
