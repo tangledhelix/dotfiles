@@ -409,8 +409,8 @@ set magic
 set gdefault
 
 " Keep search matches positioned in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
 
 " Since we borrowed , for the mapleader, replicate its purpose in \
 " (the mapleader we displaced).
