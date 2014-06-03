@@ -27,6 +27,7 @@ Current leader key map:                                            *leadermap*
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
+  ,J            Format JSON (entire file, or selection) (requires json_xs)
   ,l            Open location list window (used by |ack|, among other things)
   ,L            Redraw the editor window
   ,M            Preview Markdown file in default browser (incl. SmartyPants)

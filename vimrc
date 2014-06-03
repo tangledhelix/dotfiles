@@ -727,6 +727,12 @@ autocmd Filetype help nnoremap <buffer> <space> <PageDown>
 autocmd Filetype help nnoremap <buffer>  <PageUp>
 
 " ------------------------------------------------------------------------ }}}
+" Syntax: Javascript {{{
+
+autocmd BufNewFile,BufRead *.json setfiletype javascript
+autocmd Filetype javascript nnoremap <leader>J <esc>:%!json_xs -f json -t json-pretty<cr>
+
+" ------------------------------------------------------------------------ }}}
 " Syntax: M4 {{{
 
 autocmd BufNewFile,BufRead *.global setfiletype m4
