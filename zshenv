@@ -155,6 +155,9 @@ export CVS_RSH='ssh'
 # Avoid an RCS checkin log headache
 [[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
 
+# pkgsrc headache
+export UNAME=$(which uname)
+
 # http://perlbrew.pl
 if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
     source ~/perl5/perlbrew/etc/bashrc
