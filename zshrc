@@ -287,7 +287,6 @@ else
         }
 
         # Fix ssh socket for tmux happiness
-        # this has a way of pissing me off and I don't use tmux that much anymore
         if [[ -z "$TMUX" && -n "$SSH_TTY" ]]; then
             if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "$HOME/.wrap_auth_sock" ]]; then
                 ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
