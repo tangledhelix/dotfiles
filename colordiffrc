@@ -23,4 +23,4 @@ plain=normal
 newtext=darkblue
 oldtext=darkred
 diffstuff=darkgreen
-cvsstuff=darkwhite
+cvsstuff=darkcyan
