@@ -696,7 +696,7 @@ nnoremap <leader>? :call SynStack()<cr>
 " ------------------------------------------------------------------------ }}}
 " Syntax: BIND {{{
 
-autocmd BufNewFile,BufRead *.com setfiletype bindzone
+autocmd BufNewFile,BufRead *.com set filetype=bindzone
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: C {{{
@@ -706,8 +706,8 @@ autocmd FileType c setlocal foldmethod=syntax
 " ------------------------------------------------------------------------ }}}
 " Syntax: Email and Exim {{{
 
-autocmd BufNewFile,BufRead aliases.* setfiletype mailaliases
-autocmd BufNewFile,BufRead exim.cf* setfiletype exim
+autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
+autocmd BufNewFile,BufRead exim.cf* set filetype=exim
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Epub {{{
@@ -718,7 +718,7 @@ au BufReadCmd *.epub call zip#Browse(expand('<amatch>'))
 " ------------------------------------------------------------------------ }}}
 " Syntax: Erlang {{{
 
-autocmd BufNewFile,BufRead ejabberd.cfg setfiletype erlang
+autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: help {{{
@@ -729,19 +729,19 @@ autocmd Filetype help nnoremap <buffer>  <PageUp>
 " ------------------------------------------------------------------------ }}}
 " Syntax: Javascript {{{
 
-autocmd BufNewFile,BufRead *.json setfiletype javascript
+autocmd BufNewFile,BufRead *.json set filetype=javascript
 autocmd Filetype javascript nnoremap <leader>J <esc>:%!json_xs -f json -t json-pretty<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: M4 {{{
 
-autocmd BufNewFile,BufRead *.global setfiletype m4
+autocmd BufNewFile,BufRead *.global set filetype=m4
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Make {{{
 
 " Makefile requires real tabs, not spaces, enforce that
-autocmd BufNewFile,BufRead [Mm]akefile* setfiletype make
+autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
 autocmd Filetype make setlocal noexpandtab
 
 " ------------------------------------------------------------------------ }}}
@@ -749,7 +749,7 @@ autocmd Filetype make setlocal noexpandtab
 
 " Octopress is a superset of Markdown so just use it everywhere.
 " Set line wrapping for convenience.
-autocmd BufNewFile,BufRead *.md,*.markdown setfiletype octopress
+autocmd BufNewFile,BufRead *.md,*.markdown set filetype=octopress
 autocmd FileType markdown,octopress setlocal tw=78 wrap lbr ts=4 sw=4 sts=4
 
 " Bold/italic for Markdown/Octopress (plugin 'surround')
@@ -759,7 +759,7 @@ autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
 " ------------------------------------------------------------------------ }}}
 " Syntax: Mediawiki {{{
 
-autocmd BufNewFile,BufRead *.wiki,*ISSwiki* setfiletype mediawiki
+autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
 
 " smarter wrapping
 autocmd FileType mediawiki setlocal tw=78 wrap lbr ts=4 sw=4 sts=4
@@ -776,17 +776,17 @@ autocmd FileType mediawiki let b:surround_{char2nr('4')} = "====\r===="
 " ------------------------------------------------------------------------ }}}
 " Syntax: Perl {{{
 
-autocmd BufNewFile,BufRead *.t setfiletype perl
+autocmd BufNewFile,BufRead *.t set filetype=perl
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: PHP {{{
 
-autocmd BufNewFile,BufRead *.inc setfiletype php
+autocmd BufNewFile,BufRead *.inc set filetype=php
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Rdist {{{
 
-autocmd BufNewFile,BufRead distfile.common setfiletype rdist
+autocmd BufNewFile,BufRead distfile.common set filetype=rdist
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Ruby {{{
@@ -796,23 +796,23 @@ autocmd BufNewFile,BufRead distfile.common setfiletype rdist
 " ------------------------------------------------------------------------ }}}
 " Syntax: Shell {{{
 
-autocmd BufNewFile,BufRead .bash/*,bash/* setfiletype sh
+autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Taskpaper {{{
 
 autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
-autocmd BufNewFile,BufRead *.taskpapertheme setfiletype xml
+autocmd BufNewFile,BufRead *.taskpapertheme set filetype=xml
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Template Toolkit {{{
 
-autocmd BufNewFile,BufRead *.tt2 setfiletype tt2html
+autocmd BufNewFile,BufRead *.tt2 set filetype=tt2html
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Text {{{
 
-autocmd BufNewFile,BufRead *.txt setfiletype text
+autocmd BufNewFile,BufRead *.txt set filetype=text
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Vim {{{
