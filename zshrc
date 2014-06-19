@@ -244,6 +244,14 @@ globcheat() {
 
 alias -g L='| less'
 
+svndiff() {
+    if [[ -x $(which colordiff) ]]; then
+        svn diff "${@}" | colordiff
+    else
+        svn diff "${@}"
+    fi
+}
+
 if [[ $UID -eq 0 ]]; then
 
     ### Things to do only if I am root
