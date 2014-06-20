@@ -49,9 +49,6 @@ set hidden
 " Ignore whitespace-only changes in diff mode
 set diffopt=iwhite
 
-" Turn on mouse support
-set mouse=a
-
 " Which VCS Signify should care about
 let g:signify_vcs_list = [ 'git', 'svn' ]
 
