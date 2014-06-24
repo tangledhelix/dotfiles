@@ -288,7 +288,7 @@ else
         # tmux magic alias to list, show, or attach
         t() {
             [[ -z "$1" ]] && { tmux_ls; return }
-            export STY="tmux:$1"
+            export STY="[$1] $(uname -n)"
             set-tab-title $STY
             tmux -u new -s "$1" || tmux -u att -t "$1"
             set-tab-title $(uname -n)
