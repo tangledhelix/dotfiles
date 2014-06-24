@@ -1,1 +1,1 @@
-Pry.config.theme = 'railscasts'
+Pry.config.theme = 'solarized'
