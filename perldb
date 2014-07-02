@@ -1,0 +1,8 @@
+$DB::deep = 500;
+
+# For ddd which is too stupid to get a TTY by itself
+#sub DB::get_fork_TTY {
+#    open XT, q[3>&1 xterm -title 'Forked Perl debugger' -e sh -c 'tty 1>&3; sleep 10000000' |];
+#    $DB::fork_TTY = <XT>;
+#    chomp $DB::fork_TTY;
+#}

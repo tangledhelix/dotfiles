@@ -12,7 +12,7 @@ use File::Path 'remove_tree';
 my %files = (
     bash => [ 'bash', 'bash_profile', 'bashrc' ],
     git  => [ 'gitconfig', 'gitignore' ],
-    misc => [ 'cvsrc', 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc',
+    misc => [ 'cvsrc', 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc', 'perldb',
               'terminfo', 'tmux.conf', 'perltidyrc', 'inputrc', 'psqlrc', 'colordiffrc' ],
     vim  => [ 'vim', 'vimrc' ],
     zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ],
