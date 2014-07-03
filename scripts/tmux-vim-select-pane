@@ -5,10 +5,19 @@ set -e
 
 cmd="$(tmux display -p '#{pane_current_command}')"
 
+# direction map for weechat
+declare -A wcdirection
+wcdirection['U']='up'
+wcdirection['D']='down'
+wcdirection['L']='left'
+wcdirection['R']='right'
+
 if [ "${cmd,,*}" = "vim" ]; then
     direction="$(echo "${1#-}" | tr 'lLDUR' '\\hjkl')"
     # forward the keystroke to Vim
     tmux send-keys "C-$direction"
+elif [ "${cmd// [0-9.]*/}" = "weechat" ]; then
+    tmux send-keys "/window ${wcdirection[${1#-}]}" C-m
 else
     tmux select-pane "$@"
 fi
