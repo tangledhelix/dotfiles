@@ -180,8 +180,9 @@ set ruler
 "    nnoremap <silent> <leader>n :set number! number?<cr>
 "endif
 
-set number
-nnoremap <silent> <leader>n :set number! number?<cr>:call ToggleShowBreak()<cr>
+set nonumber
+"nnoremap <silent> <leader>n :set number! number?<cr>:call ToggleShowBreak()<cr>
+nnoremap <silent> <leader>n :set number! number?<cr>
 
 " Restore cursor position from our last session, if known.
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute 'normal! g`"zvzz' | endif
@@ -321,15 +322,15 @@ set nolinebreak
 " Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
 
-function! ToggleShowBreak()
-    if &showbreak == ''
-        if has('multi_byte')
-            execute('set showbreak=↪')
-        endif
-    else
-        execute('set showbreak=')
-    endif
-endfunction
+"function! ToggleShowBreak()
+"    if &showbreak == ''
+"        if has('multi_byte')
+"            execute('set showbreak=↪')
+"        endif
+"    else
+"        execute('set showbreak=')
+"    endif
+"endfunction
 
 "nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
 
@@ -445,7 +446,7 @@ nnoremap <silent> <leader>i :set list!<cr>
 " How to display tabs, EOL, and other invisibles.
 if has('multi_byte')
     set encoding=utf-8
-    set showbreak=↪
+    "set showbreak=↪
     set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 else
     set listchars=tab:>-,eol:$,extends:>,precedes:<
