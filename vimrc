@@ -43,6 +43,9 @@ filetype plugin indent on
 let mapleader = ','
 let maplocalleader = '\'
 
+" Turn on mouse support
+set mouse=a
+
 " Allow 'hidden' buffers. :help hidden
 set hidden
 
