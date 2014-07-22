@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby
+#!/usr/bin/env ruby
 #
 # Sort a list of CLLI-based hostnames, using the CLLI code as a sort key.
 
