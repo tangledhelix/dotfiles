@@ -4,6 +4,8 @@ if [[ $1 = "light" ]]; then
     NEW_PROFILE="Solarized Light"
 elif [[ $1 = "dark" ]]; then
     NEW_PROFILE="Solarized Dark"
+elif [[ $1 = "darkd" ]]; then
+    NEW_PROFILE="Default (dark)"
 else
     echo "Unknown profile name"
     exit 1
