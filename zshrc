@@ -246,9 +246,9 @@ alias -g L='| less'
 
 svndiff() {
     if [[ -x $(which colordiff) ]]; then
-        svn diff "${@}" | colordiff
+        svn diff "${@}" | colordiff | less
     else
-        svn diff "${@}"
+        svn diff "${@}" | less
     fi
 }
 
