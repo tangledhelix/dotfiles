@@ -243,6 +243,7 @@ globcheat() {
 }
 
 alias -g L='| less'
+alias cless='colordiff | less'
 
 svndiff() {
     if [[ -x $(which colordiff) ]]; then
