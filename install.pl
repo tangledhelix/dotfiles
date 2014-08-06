@@ -33,7 +33,6 @@ my %vim_bundles = (
     'abolish'           => 'tpope/vim-abolish',
     'ack'               => 'mileszs/ack.vim',
     'clam'              => 'sjl/clam.vim',
-    'ctrlp'             => 'kien/ctrlp.vim',
     'fugitive'          => 'tpope/vim-fugitive',
     'gitv'              => 'gregsexton/gitv',
     'gundo'             => 'sjl/gundo.vim',
