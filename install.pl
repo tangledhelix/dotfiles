@@ -30,7 +30,6 @@ foreach my $list ('zsh', 'vim', 'git', 'misc') {
 # For non-github repos, use a full URL.
 # Only git repos are supported currently.
 my %vim_bundles = (
-    'abolish'           => 'tpope/vim-abolish',
     'ack'               => 'mileszs/ack.vim',
     'clam'              => 'sjl/clam.vim',
     'fugitive'          => 'tpope/vim-fugitive',
@@ -43,7 +42,6 @@ my %vim_bundles = (
     'pathogen'          => 'tpope/vim-pathogen',
     'perl'              => 'vim-perl/vim-perl',
     'pgsql'             => 'exu/pgsql.vim',
-    'puppet'            => 'puppetlabs/puppet-syntax-vim',
     'quickrun'          => 'thinca/vim-quickrun',
     'repeat'            => 'tpope/vim-repeat',
     'signify'           => 'mhinz/vim-signify',
@@ -55,8 +53,6 @@ my %vim_bundles = (
     'syntastic'         => 'scrooloose/syntastic',
     'tabular'           => 'godlygeek/tabular',
     'tcomment'          => 'tomtom/tcomment_vim',
-    'textobj-rubyblock' => 'nelstrom/vim-textobj-rubyblock',
-    'textobj-user'      => 'kana/vim-textobj-user',
     'unimpaired'        => 'tpope/vim-unimpaired'
 );
 
