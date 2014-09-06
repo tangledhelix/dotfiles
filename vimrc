@@ -28,7 +28,6 @@ let g:pathogen_disabled = []
 
 if !has('python')
     let g:pathogen_disabled += ['gundo']
-    let g:pathogen_disabled += ['sparkup']
 endif
 
 filetype off
@@ -125,8 +124,6 @@ set showmode
 " Show current uncompleted command.
 set showcmd
 
-"let g:Powerline_symbols = 'unicode'
-
 " Set the title bar if running as GUI, but never in terminals. If set in
 " a terminal, it will wipe away my title and not reset it on exit.
 " Disable the toolbar in GUI mode
@@ -152,54 +149,11 @@ set cursorline
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
 
-" Show line numbers as relative to current, not as absolute. This makes it
-" easy to use count-based commands, e.g. 5dd or 10j. Fall back to regular
-" numbering if we're on an old vim.
-" Map <leader>n to toggle the number column between relative (if supported),
-" absolute, and off.
-"
-" It turns out relativenumber is still not usually available (at least not
-" on RHEL/CentOS), just sticking with regular line numbers for now.
-"
-"if exists('+relativenumber')
-"    set relativenumber
-"    set numberwidth=3
-"
-"    " cycles between relative / absolute / no numbering
-"    function! RelativeNumberToggle()
-"        if (&relativenumber == 1)
-"            set number number?
-"        elseif (&number == 1)
-"            set nonumber number?
-"        else
-"            set relativenumber relativenumber?
-"        endif
-"    endfunc
-"
-"    nnoremap <silent> <leader>n :call RelativeNumberToggle()<cr>
-"
-"else
-"    set number
-"    nnoremap <silent> <leader>n :set number! number?<cr>
-"endif
-
 set nonumber
-"nnoremap <silent> <leader>n :set number! number?<cr>:call ToggleShowBreak()<cr>
 nnoremap <silent> <leader>n :set number! number?<cr>
 
 " Restore cursor position from our last session, if known.
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute 'normal! g`"zvzz' | endif
-
-" iTerm2-specific: Use a bar cursor in insert mode, block in other modes.
-" https://gist.github.com/1195581
-" This is really aggravating / slow to update in tmux, disabling
-"if exists('$TMUX')
-"    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-"else
-"    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-"endif
 
 " Only show the 'margin' column in insert mode
 if exists('&colorcolumn')
@@ -234,7 +188,7 @@ vnoremap < <gv
 
 " Reselect what was just pasted so I can so something with it.
 " (To reslect last selection even if it is not the last paste, use gv.)
-nnoremap <leader>V `[v`]
+nnoremap <leader>v `[v`]
 
 " Select current line, excluding leading and trailing whitespace
 nnoremap vv ^vg_
@@ -248,23 +202,6 @@ set pastetoggle=,p
 " Duplicate current selection (best used for lines, but can be used
 " with any selection). Pastes duplicate at end of select region.
 vnoremap D y`>p
-
-" Key combos to copy/paste using Mac clipboard
-if exists('s:has_darwin')
-    nnoremap <leader>c "*yy
-    vnoremap <leader>c "*y
-    nnoremap <leader>v "*p
-    vnoremap <leader>v "*p
-    " Variants that set paste first. How to preserve paste if it's
-    " already set, though?
-    " nnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
-    " vnoremap <leader>v :set paste<cr>"*p:set nopaste<cr>
-else
-    nnoremap <leader>c :echoerr 'Only supported on Mac'<cr>
-    vnoremap <leader>c :echoerr 'Only supported on Mac'<cr>
-    nnoremap <leader>v :echoerr 'Only supported on Mac'<cr>
-    vnoremap <leader>v :echoerr 'Only supported on Mac'<cr>
-endif
 
 " ------------------------------------------------------------------------ }}}
 " Formatting {{{
@@ -296,9 +233,6 @@ vmap <C-d> ]egv
 " Remap ~ to cycle through uppercase, lowercase, title-case.
 vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
 
-" Retain cursor position on line join
-" nnoremap J mzJ`z
-
 " Split line at cursor position
 nnoremap S mzi<cr><esc>`zj0
 
@@ -324,18 +258,6 @@ set nolinebreak
 
 " Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
-
-"function! ToggleShowBreak()
-"    if &showbreak == ''
-"        if has('multi_byte')
-"            execute('set showbreak=↪')
-"        endif
-"    else
-"        execute('set showbreak=')
-"    endif
-"endfunction
-
-"nnoremap <silent> <leader>N :call ToggleShowBreak()<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Folding {{{
@@ -410,19 +332,12 @@ set magic
 " Assume /g at the end of any :s command. I usually want that anyway.
 set gdefault
 
-" Keep search matches positioned in the middle of the window.
-" nnoremap n nzzzv
-" nnoremap N Nzzzv
-
 " Since we borrowed , for the mapleader, replicate its purpose in \
 " (the mapleader we displaced).
 nnoremap \ ,
 
 " Open a Quickfix window for the last search.
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
-
-" Start a search with the ack plugin
-nnoremap <leader>a :Ack --smart-case<space>
 
 " ------------------------------------------------------------------------ }}}
 " Diff {{{
@@ -449,7 +364,6 @@ nnoremap <silent> <leader>i :set list!<cr>
 " How to display tabs, EOL, and other invisibles.
 if has('multi_byte')
     set encoding=utf-8
-    "set showbreak=↪
     set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 else
     set listchars=tab:>-,eol:$,extends:>,precedes:<
@@ -538,7 +452,6 @@ set helpheight=0
 nnoremap <silent> <leader>t :tabnew<cr>
 
 " Tab navigation
-"nnoremap <c-h> :tabprevious<cr>
 nnoremap <c-t> :tabnext<cr>
 
 " Resize splits when the window is resized.
@@ -565,9 +478,6 @@ set path=.
 " Ignore filename with any of these suffixes when using the
 " ":edit" command. Most of these are files created by LaTeX.
 set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.tgz,.sit,.dmg,.hqx
-
-" Search for files with CtrlP
-nnoremap <leader>* :CtrlP<cr>
 
 " Open filename under cursor (optionally in new tab or window)
 nnoremap <leader>of gf
@@ -615,41 +525,6 @@ endif
 nnoremap <leader>O :%!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 
-if has('python') && exists('s:has_darwin')
-
-    " Reload Google Chrome on Mac from Vim.
-    " Adapted from:  https://github.com/gcollazo/BrowserRefresh-Sublime/
-    function! ChromeReload()
-        python << EOF
-from subprocess import call
-browser = """
-tell app "Google Chrome" to tell the active tab of its first window
-    reload
-end tell
-"""
-call(['osascript', '-e', browser])
-EOF
-    endfunction
-
-    " Reload Safari on Mac from Vim.
-    function! SafariReload()
-        python << EOF
-from subprocess import call
-browser = """
-tell application "Safari"
-    do JavaScript "window.location.reload()" in front document
-end tell
-"""
-call(['osascript', '-e', browser])
-EOF
-    endfunction
-
-endif
-
-" Map one or the other depending which browser I'm mostly using right now.
-" nnoremap <silent> <leader>R :call SafariReload()<cr>
-nnoremap <silent> <leader>R :call ChromeReload()<cr>
-
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
 
@@ -686,9 +561,6 @@ set showmatch
 set nomodeline
 set modelines=0
 
-" Re-indent entire file, preserving cursor location
-"nnoremap <leader>= :call Preserve('normal! gg=G')<cr>
-
 " Create an HTML version of our syntax highlighting for display or printing.
 nnoremap <leader>H :TOhtml<cr>
 
@@ -699,11 +571,6 @@ nnoremap <leader>? :call SynStack()<cr>
 " Syntax: BIND {{{
 
 autocmd BufNewFile,BufRead *.com set filetype=bindzone
-
-" ------------------------------------------------------------------------ }}}
-" Syntax: C {{{
-
-autocmd FileType c setlocal foldmethod=syntax
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Email and Exim {{{
@@ -718,26 +585,15 @@ autocmd BufNewFile,BufRead exim.cf* set filetype=exim
 au BufReadCmd *.epub call zip#Browse(expand('<amatch>'))
 
 " ------------------------------------------------------------------------ }}}
-" Syntax: Erlang {{{
-
-autocmd BufNewFile,BufRead ejabberd.cfg set filetype=erlang
-
-" ------------------------------------------------------------------------ }}}
 " Syntax: help {{{
 
 autocmd Filetype help nnoremap <buffer> <space> <PageDown>
 autocmd Filetype help nnoremap <buffer>  <PageUp>
 
 " ------------------------------------------------------------------------ }}}
-" Syntax: Javascript {{{
+" Syntax: JSON {{{
 
-autocmd BufNewFile,BufRead *.json set filetype=javascript
-autocmd Filetype javascript nnoremap <leader>J <esc>:%!json_xs -f json -t json-pretty<cr>
-
-" ------------------------------------------------------------------------ }}}
-" Syntax: M4 {{{
-
-autocmd BufNewFile,BufRead *.global set filetype=m4
+autocmd Filetype json nnoremap <leader>J <esc>:%!json_xs -f json -t json-pretty<cr>
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Make {{{
@@ -759,23 +615,6 @@ autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"
 autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
 
 " ------------------------------------------------------------------------ }}}
-" Syntax: Mediawiki {{{
-
-autocmd BufNewFile,BufRead *.wiki,*ISSwiki* set filetype=mediawiki
-
-" smarter wrapping
-autocmd FileType mediawiki setlocal tw=78 wrap lbr ts=4 sw=4 sts=4
-
-" Italic, bold surrounds for Mediawiki (plugin 'surround')
-autocmd FileType mediawiki let b:surround_{char2nr('i')} = "''\r''"
-autocmd FileType mediawiki let b:surround_{char2nr('b')} = "'''\r'''"
-
-" Header levels 2, 3, 4
-autocmd FileType mediawiki let b:surround_{char2nr('2')} = "==\r=="
-autocmd FileType mediawiki let b:surround_{char2nr('3')} = "===\r==="
-autocmd FileType mediawiki let b:surround_{char2nr('4')} = "====\r===="
-
-" ------------------------------------------------------------------------ }}}
 " Syntax: Perl {{{
 
 autocmd BufNewFile,BufRead *.t set filetype=perl
@@ -786,25 +625,9 @@ autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.inc set filetype=php
 
 " ------------------------------------------------------------------------ }}}
-" Syntax: Rdist {{{
-
-autocmd BufNewFile,BufRead distfile.common set filetype=rdist
-
-" ------------------------------------------------------------------------ }}}
-" Syntax: Ruby {{{
-
-" autocmd FileType ruby setlocal foldmethod=syntax
-
-" ------------------------------------------------------------------------ }}}
 " Syntax: Shell {{{
 
 autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
-
-" ------------------------------------------------------------------------ }}}
-" Syntax: Taskpaper {{{
-
-autocmd BufNewFile,BufRead *.taskpaper setlocal foldmethod=indent noexpandtab
-autocmd BufNewFile,BufRead *.taskpapertheme set filetype=xml
 
 " ------------------------------------------------------------------------ }}}
 " Syntax: Template Toolkit {{{

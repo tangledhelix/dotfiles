@@ -35,6 +35,7 @@ my %vim_bundles = (
     'fugitive'          => 'tpope/vim-fugitive',
     'gitv'              => 'gregsexton/gitv',
     'gundo'             => 'sjl/gundo.vim',
+    'json'              => 'elzr/vim-json',
     'my-ackmore'        => 'tangledhelix/vim-ackmore',
     'my-endwise'        => 'tangledhelix/vim-endwise',
     'nerdtree'          => 'scrooloose/nerdtree',
