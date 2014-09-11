@@ -533,7 +533,7 @@ if has('gui_running')
     set antialias
 endif
 
-set background=light
+set background=dark
 colorscheme solarized
 
 " Mark Git-style conflict markers, and trailing whitespace.
