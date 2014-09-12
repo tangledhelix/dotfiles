@@ -25,8 +25,6 @@ External commands               |mytips-extcommands|
 
 Tips about plugin functionality
 
-Using |:Subvert|                  |mytips-subvert|    plugin: |abolish|
-Case coercion (cr)              |mytips-coerce|     plugin: |abolish|
 Using surround                  |mytips-surround|   plugin: |surround|
 Using Fugitive                  |mytips-fugitive|   plugin: |fugitive|
 
