@@ -33,7 +33,6 @@ my %vim_bundles = (
     'ack'               => 'mileszs/ack.vim',
     'clam'              => 'sjl/clam.vim',
     'fugitive'          => 'tpope/vim-fugitive',
-    'gitv'              => 'gregsexton/gitv',
     'gundo'             => 'sjl/gundo.vim',
     'json'              => 'elzr/vim-json',
     'my-ackmore'        => 'tangledhelix/vim-ackmore',
