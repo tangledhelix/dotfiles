@@ -324,6 +324,8 @@ nnoremap <leader>h :set hlsearch!<cr>
 " and underscore are *not* quoted with backslash. See ':help magic'.
 nnoremap / /\v
 vnoremap / /\v
+nnoremap ? ?\v
+vnoremap ? ?\v
 
 " Use 'magic' patterns (extended regex) in search patterns. ('\s\+').
 " This isn't used by the / search due to the / remaps. For :s and :g.
