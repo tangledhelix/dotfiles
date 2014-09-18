@@ -78,17 +78,17 @@ alias view='vim -R'
 alias vimdiff='vimdiff -O'
 
 alias c='clear'
-alias ppv='puppet parser validate'
+#alias ppv='puppet parser validate'
 
-cdpm() {
-    [[ -n "$1" ]] || { echo 'Missing argument'; return }
-    cd /etc/puppet/modules/$1/manifests
-}
-
-erbck() {
-    [[ -n "$1" ]] || { echo 'Missing argument'; return }
-    erb -P -x -T '-' $1 | ruby -c
-}
+#cdpm() {
+#    [[ -n "$1" ]] || { echo 'Missing argument'; return }
+#    cd /etc/puppet/modules/$1/manifests
+#}
+#
+#erbck() {
+#    [[ -n "$1" ]] || { echo 'Missing argument'; return }
+#    erb -P -x -T '-' $1 | ruby -c
+#}
 
 # print the directory structure from the current directory in tree format
 alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
@@ -102,12 +102,12 @@ alias jst='TZ=Asia/Tokyo date'
 # show me platform info
 alias os='uname -srm'
 
-hw() {
-    [[ "$(uname -s)" != 'SunOS' ]] && { echo 'This is not Solaris...'; return }
-    /usr/platform/$(uname -m)/sbin/prtdiag | /usr/bin/head -1 | \
-        sed 's/^System Configuration: *Sun Microsystems *//' | \
-        sed 's/^$(uname -m) *//'
-}
+#hw() {
+#    [[ "$(uname -s)" != 'SunOS' ]] && { echo 'This is not Solaris...'; return }
+#    /usr/platform/$(uname -m)/sbin/prtdiag | /usr/bin/head -1 | \
+#        sed 's/^System Configuration: *Sun Microsystems *//' | \
+#        sed 's/^$(uname -m) *//'
+#}
 
 # translate AS/RR numbers
 astr() { echo "$1" | tr '[A-J0-9]' '[0-9A-J]' }
@@ -139,12 +139,12 @@ beep() {
 }
 
 # fabricate a puppet module directory set
-mkpuppetmodule() {
-    [[ -d "$1" ]] && { echo "'$1' already exists"; return }
-    mkdir -p $1/{files,templates,manifests}
-    cd $1/manifests
-    printf "\nclass $1 {\n\n}\n\n" > init.pp
-}
+#mkpuppetmodule() {
+#    [[ -d "$1" ]] && { echo "'$1' already exists"; return }
+#    mkdir -p $1/{files,templates,manifests}
+#    cd $1/manifests
+#    printf "\nclass $1 {\n\n}\n\n" > init.pp
+#}
 
 # make a project directory
 mkproj() {
@@ -203,10 +203,10 @@ alias ack='ack --smart-case'
 alias rpmgroups='cat /usr/share/doc/rpm-*/GROUPS'
 
 # Puppet logs
-alias greppa='grep puppet-agent /var/log/daemon/debug'
-alias greppm='grep puppet-master /var/log/daemon/debug'
-alias tailpa='tail -F /var/log/daemon/debug | grep puppet-agent'
-alias tailpm='tail -F /var/log/daemon/debug | grep puppet-master'
+#alias greppa='grep puppet-agent /var/log/daemon/debug'
+#alias greppm='grep puppet-master /var/log/daemon/debug'
+#alias tailpa='tail -F /var/log/daemon/debug | grep puppet-agent'
+#alias tailpm='tail -F /var/log/daemon/debug | grep puppet-master'
 
 # Get my current public IP
 alias get-ip='curl --silent http://icanhazip.com'
@@ -242,22 +242,20 @@ globcheat() {
 
 }
 
-alias -g L='| less'
+#alias -g L='| less'
 alias cless='colordiff | less'
 
-svndiff() {
-    if [[ -x $(which colordiff) ]]; then
-        svn diff "${@}" | colordiff | less
-    else
-        svn diff "${@}" | less
-    fi
+# 6core.net pasteboard
+6p() {
+    curl -s -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
+        -o /dev/null https://p.6core.net/
 }
 
 if [[ $UID -eq 0 ]]; then
 
     ### Things to do only if I am root
 
-    # Messes with rdist
+    # Messes with rdist and probably other stuff
     unset SSH_AUTH_SOCK
 
 else
@@ -269,7 +267,7 @@ else
     [[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
 
     # Check for broken services on SMF-based systems
-    [[ -x /bin/svcs ]] && svcs -xv
+    #[[ -x /bin/svcs ]] && svcs -xv
 
     mkdir -p ~/.vim/tmp/{backup,swap,undo}
 
@@ -296,12 +294,14 @@ else
         }
 
         # Fix ssh socket for tmux happiness
-        if [[ -z "$TMUX" && -n "$SSH_TTY" ]]; then
-            if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "$HOME/.wrap_auth_sock" ]]; then
-                ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
-                export SSH_AUTH_SOCK="$HOME/.wrap_auth_sock"
-            fi
-        fi
+        # this has side effects with > 1 session on a host
+        # see fixssh() instead
+        #if [[ -z "$TMUX" && -n "$SSH_TTY" ]]; then
+        #    if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "$HOME/.wrap_auth_sock" ]]; then
+        #        ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
+        #        export SSH_AUTH_SOCK="$HOME/.wrap_auth_sock"
+        #    fi
+        #fi
 
     fi
 
@@ -328,13 +328,13 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
     #export EC2_AMITOOL_HOME='/usr/local/Library/LinkedKegs/ec2-ami-tools/jars'
 
     # homebrew
-    local _pgdir='/usr/local/var/postgres'
-    alias postgres-start="pg_ctl -D $_pgdir -l $_pgdir/server.log start"
-    alias postgres-stop="pg_ctl -D $_pgdir stop -s -m fast"
+    #local _pgdir='/usr/local/var/postgres'
+    #alias postgres-start="pg_ctl -D $_pgdir -l $_pgdir/server.log start"
+    #alias postgres-stop="pg_ctl -D $_pgdir stop -s -m fast"
 
     # mysql from homebrew
-    alias mysql-start='mysql.server start'
-    alias mysql-stop='mysql.server stop'
+    #alias mysql-start='mysql.server start'
+    #alias mysql-stop='mysql.server stop'
 
     # to use rmate
     #alias rmate-tunnel='ssh -R 52698:localhost:52698'
