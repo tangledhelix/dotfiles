@@ -251,6 +251,16 @@ alias cless='colordiff | less'
         -o /dev/null https://p.6core.net/
 }
 
+# fix ssh setup in a reattached tmux environment
+fixssh() {
+    for key in SSH_AUTH_SOCK SSH_CONNECTION SSH_CLIENT; do
+        if (tmux show-environment | grep "^${key}" > /dev/null); then
+            value=`tmux show-environment | grep "^${key}" | sed -e "s/^[A-Z_]*=//"`
+            export ${key}="${value}"
+        fi
+    done
+}
+
 if [[ $UID -eq 0 ]]; then
 
     ### Things to do only if I am root
