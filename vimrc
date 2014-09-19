@@ -533,10 +533,12 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 if has('gui_running')
     set guifont=Menlo\ Regular:h14
     set antialias
+    set background=light
+    colorscheme solarized
+else
+    set background=dark
+    colorscheme solarized
 endif
-
-set background=dark
-colorscheme solarized
 
 " Mark Git-style conflict markers, and trailing whitespace.
 match ErrorMsg '\(\s\+$\|\(^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)\)'
