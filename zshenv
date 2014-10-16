@@ -139,7 +139,8 @@ fi
 #
 # Removed -S, don't want no-wrap by default (use less-nowrap for that)
 # Added -x 4, to get 4-position as tab stop
-export LESS='-F -g -i -M -R -w -X -x 4 -z-4'
+# Removed -F, it doesn't play well in a loop where you less, then vim...
+export LESS='-g -i -M -R -w -X -x 4 -z-4'
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then
