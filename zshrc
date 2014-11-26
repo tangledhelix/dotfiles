@@ -247,7 +247,7 @@ alias cless='colordiff | less'
 
 # 6core.net pasteboard
 6p() {
-    curl -s -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
+    curl -k -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
         -o /dev/null https://p.6core.net/
 }
 
