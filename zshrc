@@ -297,9 +297,14 @@ else
         # tmux magic alias to list, show, or attach
         t() {
             [[ -z "$1" ]] && { tmux_ls; return }
+            local _detach_flag
+            if [[ "$1" = "-d" ]]; then
+                _detach_flag="-d"
+                shift
+            fi
             export STY="[$1] $(uname -n)"
             set-tab-title $STY
-            tmux -u new -s "$1" || tmux -u att -t "$1"
+            tmux -u new -s "$1" || tmux -u att $_detach_flag -t "$1"
             set-tab-title $(uname -n)
         }
 
