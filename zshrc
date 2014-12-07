@@ -98,6 +98,8 @@ alias utc='TZ=UTC date'
 alias gmt='TZ=GMT date'
 # Time in Tokyo
 alias jst='TZ=Asia/Tokyo date'
+# Time in Central Europe (e.g. Amsterdam)
+alias cet='TZ=Europe/Amsterdam date'
 
 # show me platform info
 alias os='uname -srm'
