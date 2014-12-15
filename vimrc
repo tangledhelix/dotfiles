@@ -614,6 +614,10 @@ autocmd Filetype make setlocal noexpandtab
 autocmd BufNewFile,BufRead *.md,*.markdown set filetype=octopress
 autocmd FileType markdown,octopress setlocal tw=78 wrap lbr ts=4 sw=4 sts=4
 
+" With the markdown-extras repo treat *.mmd files as "markdown" but trust
+" that there are MultiMarkdown smarts in there too.
+autocmd BufNewFile,BufRead *.mmd set filetype=markdown
+
 " Bold/italic for Markdown/Octopress (plugin 'surround')
 autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"
 autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
