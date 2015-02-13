@@ -18,10 +18,6 @@ Current leader key map:                                            *leadermap*
   ,E            Toggle completion from system dictionary
   ,f            Toggle the NERDTree window (plugin: |nerdtree|)
   ,Ft           Fold current tag in HTML (should also work in XML)
-  ,gh           Toggle highlight changed lines in this buffer (plugin: |signify|)
-  ,gj           Jump to next changed hunk (plugin: |signify|)
-  ,gk           Jump to previous changed hunk (plugin: |signify|)
-  ,gt           Toggle signify gutter for this buffer (plugin: |signify|)
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
   ,i            Toggle viewing of invisible characters
@@ -41,7 +37,6 @@ Current leader key map:                                            *leadermap*
   ,S            :execute current line
   ,t            Open a new tab in current view
   ,T            View or change tab width setting
-  ,u            Toggle Gundo window (plugin: |gundo|)
   ,v            Reselect what was just pasted (use gv for last selection)
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file
