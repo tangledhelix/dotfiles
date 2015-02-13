@@ -26,10 +26,6 @@ endif
 
 let g:pathogen_disabled = []
 
-if !has('python')
-    let g:pathogen_disabled += ['gundo']
-endif
-
 filetype off
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
@@ -292,13 +288,6 @@ set backup                        " enable backups
 " set noswapfile                    " It's 2012, Vim.
 if has('persistent_undo')
     set undodir=~/.vim/tmp/undo//   " undo files
-endif
-
-" Toggle Gundo window
-if has('python')
-    nnoremap <leader>u :GundoToggle<cr>
-else
-    nnoremap <leader>u :echoerr 'Gundo requires Python support'<cr>
 endif
 
 " ------------------------------------------------------------------------ }}}
