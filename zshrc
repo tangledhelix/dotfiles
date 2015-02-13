@@ -98,6 +98,8 @@ alias utc='TZ=UTC date'
 alias gmt='TZ=GMT date'
 # Time in Tokyo
 alias jst='TZ=Asia/Tokyo date'
+# Time in Central Europe (e.g. Amsterdam)
+alias cet='TZ=Europe/Amsterdam date'
 
 # show me platform info
 alias os='uname -srm'
@@ -247,7 +249,7 @@ alias cless='colordiff | less'
 
 # 6core.net pasteboard
 6p() {
-    curl -s -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
+    curl -k -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
         -o /dev/null https://p.6core.net/
 }
 
