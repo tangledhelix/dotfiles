@@ -66,6 +66,10 @@ inoremap jk <esc>
 nnoremap j gj
 nnoremap k gk
 
+" But give me a way to do the default behavior when I want it
+nnoremap gj j
+nnoremap gk k
+
 " Open quickfix window
 nnoremap <leader>q :cwindow<cr>
 " Open location list window
