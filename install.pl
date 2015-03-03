@@ -34,6 +34,8 @@ my %vim_bundles = (
     'clam'              => 'sjl/clam.vim',
     'fugitive'          => 'tpope/vim-fugitive',
     'json'              => 'elzr/vim-json',
+    # this shouldn't be necessary, but rhel/centos vim are so old that it is.
+    'markdown'          => 'tpope/vim-markdown',
     'my-ackmore'        => 'tangledhelix/vim-ackmore',
     'my-endwise'        => 'tangledhelix/vim-endwise',
     'nerdtree'          => 'scrooloose/nerdtree',
