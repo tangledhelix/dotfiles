@@ -523,7 +523,7 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
 
-"let g:solarized_contrast = 'high'
+let g:solarized_contrast = 'high'
 
 if has('gui_running')
     set guifont=Menlo\ Regular:h14
@@ -532,8 +532,7 @@ if has('gui_running')
     colorscheme solarized
 else
     set background=dark
-    "colorscheme solarized
-    colorscheme PervOrange
+    colorscheme solarized
 endif
 
 " Mark Git-style conflict markers, and trailing whitespace.
