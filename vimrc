@@ -526,7 +526,7 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 let g:solarized_contrast = 'high'
 
 if has('gui_running')
-    set guifont=Monofur:h24
+    set guifont=Mensch:h14
     set antialias
     set background=light
     colorscheme solarized
