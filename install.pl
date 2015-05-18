@@ -66,9 +66,15 @@ $ENV{PATH} = '/usr/local/bin:/usr/bin:/bin';
 
 print_help() unless defined($ARGV[0]);
 
+my $use_ssh = 0;
+
 foreach my $action (@ARGV) {
 
-    if ($action eq 'bash') {
+    if ($action eq '--use-ssh') {
+        # https is broken here; use ssh URLs for github
+        $use_ssh = 1;
+
+    } elsif ($action eq 'bash') {
         foreach my $file (@{$files{bash}}) {
             determine_action($file, 'dotfile');
         }
@@ -151,6 +157,8 @@ Usage: $0 <target>
 
     update:all  - Install everything, update both vim and zsh
 
+    --use-ssh   - Sub SSH urls instead of https for github
+
 EOF
 
     exit;
@@ -226,6 +234,9 @@ sub replace_file {
 sub omz_cloner {
     my $omz_path = "$basedir/oh-my-zsh";
     my $repo_url = 'https://github.com/tangledhelix/oh-my-zsh.git';
+    if ($use_ssh) {
+        $repo_url = 'git@github.com:tangledhelix/oh-my-zsh.git';
+    }
     if (-f $omz_path or -d $omz_path) {
         print "    $omz_path already exists, skipping\n";
         print "To reinstall OMZ, rename or remove $omz_path and try again.\n";
@@ -250,6 +261,9 @@ sub vim_bundle_installer {
         my $repo = $vim_bundles{$bundle};
         unless ($repo =~ m{^(https?|git)://}) {
             $repo = "https://github.com/$repo.git";
+            if ($use_ssh) {
+                $repo = "git\@github.com:$repo.git";
+            }
         }
         my $this_bundle_path = "$bundle_path/$bundle";
         if (-d $this_bundle_path) {
