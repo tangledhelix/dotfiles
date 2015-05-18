@@ -29,7 +29,7 @@
 [core]
     pager = less
     editor = vim
-    quotepath = false
+	quotepath = false
     excludesfile = ~/.gitignore
 
 [color]

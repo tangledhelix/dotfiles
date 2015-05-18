@@ -26,10 +26,6 @@ endif
 
 let g:pathogen_disabled = []
 
-if !has('python')
-    let g:pathogen_disabled += ['gundo']
-endif
-
 filetype off
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
@@ -69,6 +65,10 @@ inoremap jk <esc>
 " Use more natural key movement on wrapped lines.
 nnoremap j gj
 nnoremap k gk
+
+" But give me a way to do the default behavior when I want it
+nnoremap gj j
+nnoremap gk k
 
 " Open quickfix window
 nnoremap <leader>q :cwindow<cr>
@@ -292,13 +292,6 @@ set backup                        " enable backups
 " set noswapfile                    " It's 2012, Vim.
 if has('persistent_undo')
     set undodir=~/.vim/tmp/undo//   " undo files
-endif
-
-" Toggle Gundo window
-if has('python')
-    nnoremap <leader>u :GundoToggle<cr>
-else
-    nnoremap <leader>u :echoerr 'Gundo requires Python support'<cr>
 endif
 
 " ------------------------------------------------------------------------ }}}
@@ -530,13 +523,17 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
 
-if has('gui_running')
-    set guifont=Menlo\ Regular:h14
-    set antialias
-endif
+let g:solarized_contrast = 'high'
 
-set background=dark
-colorscheme solarized
+if has('gui_running')
+    set guifont=Mensch:h14
+    set antialias
+    set background=light
+    colorscheme solarized
+else
+    set background=dark
+    colorscheme solarized
+endif
 
 " Mark Git-style conflict markers, and trailing whitespace.
 match ErrorMsg '\(\s\+$\|\(^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)\)'
@@ -611,6 +608,10 @@ autocmd Filetype make setlocal noexpandtab
 " Set line wrapping for convenience.
 autocmd BufNewFile,BufRead *.md,*.markdown set filetype=octopress
 autocmd FileType markdown,octopress setlocal tw=78 wrap lbr ts=4 sw=4 sts=4
+
+" With the markdown-extras repo treat *.mmd files as "markdown" but trust
+" that there are MultiMarkdown smarts in there too.
+autocmd BufNewFile,BufRead *.mmd set filetype=markdown
 
 " Bold/italic for Markdown/Octopress (plugin 'surround')
 autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"

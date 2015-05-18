@@ -13,7 +13,8 @@ my %files = (
     bash => [ 'bash', 'bash_profile', 'bashrc' ],
     git  => [ 'gitconfig', 'gitignore' ],
     misc => [ 'cvsrc', 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc', 'perldb',
-              'terminfo', 'tmux.conf', 'perltidyrc', 'inputrc', 'psqlrc', 'colordiffrc' ],
+              'terminfo', 'tmux.conf', 'perltidyrc', 'inputrc', 'psqlrc', 'colordiffrc',
+              'pgclirc' ],
     vim  => [ 'vim', 'vimrc' ],
     zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ],
 );
@@ -33,8 +34,9 @@ my %vim_bundles = (
     'ack'               => 'mileszs/ack.vim',
     'clam'              => 'sjl/clam.vim',
     'fugitive'          => 'tpope/vim-fugitive',
-    'gundo'             => 'sjl/gundo.vim',
     'json'              => 'elzr/vim-json',
+    # this shouldn't be necessary, but rhel/centos vim are so old that it is.
+    'markdown'          => 'tpope/vim-markdown',
     'my-ackmore'        => 'tangledhelix/vim-ackmore',
     'my-endwise'        => 'tangledhelix/vim-endwise',
     'nerdtree'          => 'scrooloose/nerdtree',
@@ -50,7 +52,6 @@ my %vim_bundles = (
     'solarized'         => 'altercation/vim-colors-solarized',
     'statline'          => 'millermedeiros/vim-statline',
     'surround'          => 'tpope/vim-surround',
-    'syntastic'         => 'scrooloose/syntastic',
     'tabular'           => 'godlygeek/tabular',
     'tcomment'          => 'tomtom/tcomment_vim',
     'unimpaired'        => 'tpope/vim-unimpaired'

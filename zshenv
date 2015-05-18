@@ -94,12 +94,12 @@ for path_candidate in $path_candidates; do
 done
 
 # homebrew
-if [[ -d /usr/local/Cellar/ruby ]]; then
-    for i in $(echo /usr/local/Cellar/ruby/*/bin)
-    do
-        path+=$i
-    done
-fi
+#if [[ -d /usr/local/Cellar/ruby ]]; then
+#    for i in $(echo /usr/local/Cellar/ruby/*/bin)
+#    do
+#        path+=$i
+#    done
+#fi
 
 for path_file in /etc/paths.d/*(.N); do
     path+=($(<$path_file))
@@ -127,9 +127,9 @@ if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
     export NODE_PATH='/usr/local/lib/node_modules'
 fi
 
-[[ -d /apps/oracle/product/9.2.0 ]]  && ORACLE_HOME='/apps/oracle/product/9.2.0'
-[[ -d /apps/oracle/product/10.2.0 ]] && ORACLE_HOME='/apps/oracle/product/10.2.0'
-[[ -n "$ORACLE_HOME" ]] && export ORACLE_HOME
+#[[ -d /apps/oracle/product/9.2.0 ]]  && ORACLE_HOME='/apps/oracle/product/9.2.0'
+#[[ -d /apps/oracle/product/10.2.0 ]] && ORACLE_HOME='/apps/oracle/product/10.2.0'
+#[[ -n "$ORACLE_HOME" ]] && export ORACLE_HOME
 
 # Less
 
@@ -139,7 +139,9 @@ fi
 #
 # Removed -S, don't want no-wrap by default (use less-nowrap for that)
 # Added -x 4, to get 4-position as tab stop
-export LESS='-F -g -i -M -R -w -X -x 4 -z-4'
+# Removed -F, it doesn't play well in a loop where you less, then vim...
+# Changed -R to -r because european accented letters were coming in as bracketed
+export LESS='-g -i -M -r -w -X -x 4 -z-4'
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then
@@ -154,9 +156,6 @@ export CVS_RSH='ssh'
 
 # Avoid an RCS checkin log headache
 [[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
-
-# pkgsrc headache
-export UNAME=$(which uname)
 
 # http://perlbrew.pl
 if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
