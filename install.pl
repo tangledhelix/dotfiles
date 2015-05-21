@@ -244,10 +244,11 @@ sub omz_cloner {
         return;
     }
     system "git clone $repo_url $omz_path";
+    system "cd $omz_path && git submodule init";
     if ($use_ssh) {
         omz_remotes_set_ssh();
     }
-    system "cd $omz_path && git submodule update --init --recursive";
+    system "cd $omz_path && git submodule update --recursive";
 }
 
 # update the omz repository
