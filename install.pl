@@ -261,9 +261,10 @@ sub vim_bundle_installer {
     foreach my $bundle (keys %vim_bundles) {
         my $repo = $vim_bundles{$bundle};
         unless ($repo =~ m{^(https?|git)://}) {
-            $repo = "https://github.com/$repo.git";
             if ($use_ssh) {
                 $repo = "git\@github.com:$repo.git";
+            } else {
+                $repo = "https://github.com/$repo.git";
             }
         }
         my $this_bundle_path = "$bundle_path/$bundle";
