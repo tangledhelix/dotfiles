@@ -29,6 +29,7 @@ infopath=(
 
 # Set the list of directories that man searches for manuals.
 manpath=(
+    /opt/gums/man
     /usr/local/man
     /usr/man
     /usr/local/share/man
