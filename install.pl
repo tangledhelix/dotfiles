@@ -244,6 +244,9 @@ sub omz_cloner {
         return;
     }
     system "git clone $repo_url $omz_path";
+    if ($use_ssh) {
+        omz_remotes_set_ssh();
+    }
     system "cd $omz_path && git submodule update --init --recursive";
 }
 
@@ -306,5 +309,32 @@ sub scripts_installer {
     mkdir $install_path, 0700 unless -d $install_path;
     foreach my $script (glob "$basedir/scripts/*") {
         determine_action(basename($script), 'script');
+    }
+}
+
+# stupid hack to get around ACLs; update submodules in omz to use ssh.
+sub omz_remotes_set_ssh {
+    chdir "$basedir/oh-my-zsh";
+    $ENV{PATH} = '/usr/local/bin:' . $ENV{PATH};
+
+    # iterate over submodules
+    open my $fh, '-|', 'git submodule';
+    while (<$fh>) {
+        my @parts = split;
+        my $module_path = $parts[1];
+        chdir "$basedir/oh-my-zsh/$module_path";
+
+        # iterate over remotes. should only be one though.
+        open my $fh2, '-|', 'git remote -v';
+        while (<$fh2>) {
+            my @parts = split;
+            my $url = $parts[1];
+            if ($url =~ /^https:/) {
+                $url =~ s{^https://}{git\@};
+                $url =~ s{/}{:};
+                system "git remote set-url origin $url";
+                last; # setting one should set everything we need, so quit
+            }
+        }
     }
 }
