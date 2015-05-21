@@ -318,24 +318,17 @@ sub omz_remotes_set_ssh {
     chdir "$basedir/oh-my-zsh";
     $ENV{PATH} = '/usr/local/bin:' . $ENV{PATH};
 
-    # iterate over submodules
     open my $fh, '-|', 'git submodule';
     while (<$fh>) {
         my @parts = split;
         my $module_path = $parts[1];
-        chdir "$basedir/oh-my-zsh/$module_path";
 
-        # iterate over remotes. should only be one though.
-        open my $fh2, '-|', 'git remote -v';
-        while (<$fh2>) {
-            my @parts = split;
-            my $url = $parts[1];
-            if ($url =~ /^https:/) {
-                $url =~ s{^https://}{git\@};
-                $url =~ s{/}{:};
-                system "git remote set-url origin $url";
-                last; # setting one should set everything we need, so quit
-            }
+        open my $fh2, '-|', "git config --get submodule.${module_path}.url";
+        chomp(my $url = <$fh2>);
+        if ($url =~ /^https:/) {
+            $url =~ s{^https://}git\@};
+            $url =~ s{/}{:};
+            system "git config submodule.${module_path}.url $url";
         }
     }
 }
