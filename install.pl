@@ -326,7 +326,7 @@ sub omz_remotes_set_ssh {
         open my $fh2, '-|', "git config --get submodule.${module_path}.url";
         chomp(my $url = <$fh2>);
         if ($url =~ /^https:/) {
-            $url =~ s{^https://}git\@};
+            $url =~ s{^https://}{git\@};
             $url =~ s{/}{:};
             system "git config submodule.${module_path}.url $url";
         }
