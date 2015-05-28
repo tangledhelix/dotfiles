@@ -10,6 +10,8 @@
     lol = log --pretty=oneline --abbrev-commit --graph --decorate
     # also use "lg -p"
     lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lgv = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --name-status
+    logv = log --name-status
     unstage = reset HEAD
     aa = add .
     # Not yet added - doesn't include ignored files
