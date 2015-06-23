@@ -23,6 +23,7 @@
     pullsubs = submodule foreach git pull origin master
     tags = tag -l
     branches = branch -a
+    branchesbydate = !git for-each-ref --sort='-committerdate' --format='%(committerdate)  %(refname)' refs/heads | sed -e 's,refs/heads/,,'
     remotes = remote -v
     filechanges = diff --summary
     changes = diff --name-status
