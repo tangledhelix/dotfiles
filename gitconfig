@@ -22,6 +22,7 @@
     ff = merge --ff-only
     pullsubs = submodule foreach git pull origin master
     tags = tag -l
+    whichtag = describe --exact-match HEAD
     branches = branch -a
     branchesbydate = !git for-each-ref --sort='-committerdate' --format='%(committerdate)  %(refname)' refs/heads | sed -e 's,refs/heads/,,'
     remotes = remote -v
