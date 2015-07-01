@@ -96,10 +96,11 @@ alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
 # Show me time in GMT / UTC
 alias utc='TZ=UTC date'
 alias gmt='TZ=GMT date'
-# Time in Tokyo
-alias jst='TZ=Asia/Tokyo date'
-# Time in Central Europe (e.g. Amsterdam)
-alias cet='TZ=Europe/Amsterdam date'
+
+# Time in different places
+alias jpdate='TZ=Asia/Tokyo date'
+alias nldate='TZ=Europe/Amsterdam date'
+alias fidate='TZ=Europe/Finland date'
 
 # show me platform info
 alias os='uname -srm'
