@@ -29,6 +29,7 @@
     filechanges = diff --summary
     changes = diff --name-status
     wdiff = diff --word-diff
+    showbranch = branch -a --contains
 
 [core]
     pager = less
