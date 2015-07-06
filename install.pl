@@ -31,30 +31,31 @@ foreach my $list ('zsh', 'vim', 'git', 'misc') {
 # For non-github repos, use a full URL.
 # Only git repos are supported currently.
 my %vim_bundles = (
-    'ack'               => 'mileszs/ack.vim',
-    'clam'              => 'sjl/clam.vim',
-    'fugitive'          => 'tpope/vim-fugitive',
-    'json'              => 'elzr/vim-json',
+    'ack' => 'mileszs/ack.vim',
+    'clam' => 'sjl/clam.vim',
+    'fugitive' => 'tpope/vim-fugitive',
+    'json' => 'elzr/vim-json',
     # this shouldn't be necessary, but rhel/centos vim are so old that it is.
-    'markdown'          => 'tpope/vim-markdown',
-    'my-ackmore'        => 'tangledhelix/vim-ackmore',
-    'my-endwise'        => 'tangledhelix/vim-endwise',
-    'pathogen'          => 'tpope/vim-pathogen',
-    'perl'              => 'vim-perl/vim-perl',
-    'pgsql'             => 'exu/pgsql.vim',
-    'quickrun'          => 'thinca/vim-quickrun',
-    'repeat'            => 'tpope/vim-repeat',
-    'signify'           => 'mhinz/vim-signify',
-    'solarized'         => 'altercation/vim-colors-solarized',
-    'statline'          => 'millermedeiros/vim-statline',
-    'surround'          => 'tpope/vim-surround',
-    'tabular'           => 'godlygeek/tabular',
-    'tcomment'          => 'tomtom/tcomment_vim',
-    'unimpaired'        => 'tpope/vim-unimpaired'
+    'markdown' => 'tpope/vim-markdown',
+    'my-ackmore' => 'tangledhelix/vim-ackmore',
+    'my-endwise' => 'tangledhelix/vim-endwise',
+    'pathogen' => 'tpope/vim-pathogen',
+    'perl' => 'vim-perl/vim-perl',
+    'pgsql' => 'exu/pgsql.vim',
+    'quickrun' => 'thinca/vim-quickrun',
+    'repeat' => 'tpope/vim-repeat',
+    'signify' => 'mhinz/vim-signify',
+    'solarized' => 'altercation/vim-colors-solarized',
+    'statline' => 'millermedeiros/vim-statline',
+    'surround' => 'tpope/vim-surround',
+    'tabular' => 'godlygeek/tabular',
+    'tcomment' => 'tomtom/tcomment_vim',
+    'unimpaired' => 'tpope/vim-unimpaired'
 );
 
 my $replace_all = 0;
 my $vim_do_updates = 0;
+my $vim_newmods_only = 0;
 
 my $basedir = dirname(abs_path($0));
 chdir $basedir;
@@ -97,6 +98,9 @@ foreach my $action (@ARGV) {
     } elsif ($action eq 'update:vim') {
         vim_bundle_cleanup();
         vim_bundle_updater();
+
+    } elsif ($action eq 'new:vim') {
+        vim_newmods_installer();
 
     } elsif ($action eq 'cleanup:vim') {
         vim_bundle_cleanup();
@@ -153,6 +157,8 @@ Usage: $0 <target>
     update      - Update both vim and zsh
 
     update:all  - Install everything, update both vim and zsh
+
+    new:vim     - Install vim modules that aren't currently installed
 
     --use-ssh   - Sub SSH urls instead of https for github
 
@@ -269,6 +275,7 @@ sub vim_bundle_installer {
         }
         my $this_bundle_path = "$bundle_path/$bundle";
         if (-d $this_bundle_path) {
+            next if $vim_newmods_only;
             if ($vim_do_updates) {
                 print "    updating vim bundle $bundle\n";
                 system "cd $this_bundle_path && git pull";
@@ -281,6 +288,11 @@ sub vim_bundle_installer {
         }
     }
 
+}
+
+sub vim_newmods_installer {
+    $vim_newmods_only = 1;
+    vim_bundle_installer();
 }
 
 sub vim_bundle_updater {
