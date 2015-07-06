@@ -30,6 +30,8 @@
     changes = diff --name-status
     wdiff = diff --word-diff
     showbranch = branch -a --contains
+    id = log --pretty=format:'%H' -n 1
+    hash = log --pretty=format:'%H' -n 1
 
 [core]
     pager = less
