@@ -144,6 +144,9 @@ export CVS_RSH='ssh'
 # Avoid an RCS checkin log headache
 [[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
 
+# Don't show me venv bits twice
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 # http://perlbrew.pl
 if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
     source ~/perl5/perlbrew/etc/bashrc
