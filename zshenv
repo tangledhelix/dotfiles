@@ -6,7 +6,7 @@
 #
 
 # fix terminal foo on Solaris
-export TERMINFO="$HOME/.terminfo"
+[[ $(uname -s) = "SunOS" ]] && export TERMINFO="$HOME/.terminfo"
 
 # Set the path to Oh My Zsh.
 export OMZ="$HOME/.dotfiles/oh-my-zsh"
@@ -94,14 +94,6 @@ for path_candidate in $path_candidates; do
     [[ -d $path_candidate ]] && path+=$path_candidate
 done
 
-# homebrew
-#if [[ -d /usr/local/Cellar/ruby ]]; then
-#    for i in $(echo /usr/local/Cellar/ruby/*/bin)
-#    do
-#        path+=$i
-#    done
-#fi
-
 for path_file in /etc/paths.d/*(.N); do
     path+=($(<$path_file))
 done
@@ -127,12 +119,6 @@ fi
 if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
     export NODE_PATH='/usr/local/lib/node_modules'
 fi
-
-#[[ -d /apps/oracle/product/9.2.0 ]]  && ORACLE_HOME='/apps/oracle/product/9.2.0'
-#[[ -d /apps/oracle/product/10.2.0 ]] && ORACLE_HOME='/apps/oracle/product/10.2.0'
-#[[ -n "$ORACLE_HOME" ]] && export ORACLE_HOME
-
-# Less
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).

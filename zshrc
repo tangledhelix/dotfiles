@@ -51,7 +51,7 @@ zstyle ':omz:load' omodule \
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':omz:module:prompt' theme 'tangledhelix'
+zstyle ':omz:module:prompt' theme 'steeef'
 
 # This will make you shout: OH MY ZSHELL!
 source "$OMZ/init.zsh"
@@ -78,17 +78,6 @@ alias view='vim -R'
 alias vimdiff='vimdiff -O'
 
 alias c='clear'
-#alias ppv='puppet parser validate'
-
-#cdpm() {
-#    [[ -n "$1" ]] || { echo 'Missing argument'; return }
-#    cd /etc/puppet/modules/$1/manifests
-#}
-#
-#erbck() {
-#    [[ -n "$1" ]] || { echo 'Missing argument'; return }
-#    erb -P -x -T '-' $1 | ruby -c
-#}
 
 # print the directory structure from the current directory in tree format
 alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
@@ -104,13 +93,6 @@ alias fidate='TZ=Europe/Finland date'
 
 # show me platform info
 alias os='uname -srm'
-
-#hw() {
-#    [[ "$(uname -s)" != 'SunOS' ]] && { echo 'This is not Solaris...'; return }
-#    /usr/platform/$(uname -m)/sbin/prtdiag | /usr/bin/head -1 | \
-#        sed 's/^System Configuration: *Sun Microsystems *//' | \
-#        sed 's/^$(uname -m) *//'
-#}
 
 # translate AS/RR numbers
 astr() { echo "$1" | tr '[A-J0-9]' '[0-9A-J]' }
@@ -140,14 +122,6 @@ beep() {
     done
     echo '- BEEP! -    \a\r'
 }
-
-# fabricate a puppet module directory set
-#mkpuppetmodule() {
-#    [[ -d "$1" ]] && { echo "'$1' already exists"; return }
-#    mkdir -p $1/{files,templates,manifests}
-#    cd $1/manifests
-#    printf "\nclass $1 {\n\n}\n\n" > init.pp
-#}
 
 # make a project directory
 mkproj() {
@@ -205,12 +179,6 @@ alias ack='ack --smart-case'
 # Give me a list of the RPM package groups
 alias rpmgroups='cat /usr/share/doc/rpm-*/GROUPS'
 
-# Puppet logs
-#alias greppa='grep puppet-agent /var/log/daemon/debug'
-#alias greppm='grep puppet-master /var/log/daemon/debug'
-#alias tailpa='tail -F /var/log/daemon/debug | grep puppet-agent'
-#alias tailpm='tail -F /var/log/daemon/debug | grep puppet-master'
-
 # Get my current public IP
 alias get-ip='curl --silent http://icanhazip.com'
 
@@ -245,7 +213,6 @@ globcheat() {
 
 }
 
-#alias -g L='| less'
 alias cless='colordiff | less'
 
 # 6core.net pasteboard
@@ -279,9 +246,6 @@ else
 
     [[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
 
-    # Check for broken services on SMF-based systems
-    #[[ -x /bin/svcs ]] && svcs -xv
-
     mkdir -p ~/.vim/tmp/{backup,swap,undo}
 
     if [[ -n "$(command -v tmux)" ]]; then
@@ -311,16 +275,6 @@ else
             set-tab-title $(uname -n)
         }
 
-        # Fix ssh socket for tmux happiness
-        # this has side effects with > 1 session on a host
-        # see fixssh() instead
-        #if [[ -z "$TMUX" && -n "$SSH_TTY" ]]; then
-        #    if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "$HOME/.wrap_auth_sock" ]]; then
-        #        ln -sf "$SSH_AUTH_SOCK" "$HOME/.wrap_auth_sock"
-        #        export SSH_AUTH_SOCK="$HOME/.wrap_auth_sock"
-        #    fi
-        #fi
-
     fi
 
 fi
@@ -337,25 +291,6 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
 
     # This shows which processes are using the network right now.
     alias netusers='lsof -P -i -n | cut -f 1 -d " " | uniq'
-
-    # Amazon EC2 API (tools via homebrew)
-    #export JAVA_HOME="$(/usr/libexec/java_home)"
-    #export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem | /usr/bin/head -1)"
-    #export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem | /usr/bin/head -1)"
-    #export EC2_HOME='/usr/local/Library/LinkedKegs/ec2-api-tools/jars'
-    #export EC2_AMITOOL_HOME='/usr/local/Library/LinkedKegs/ec2-ami-tools/jars'
-
-    # homebrew
-    #local _pgdir='/usr/local/var/postgres'
-    #alias postgres-start="pg_ctl -D $_pgdir -l $_pgdir/server.log start"
-    #alias postgres-stop="pg_ctl -D $_pgdir stop -s -m fast"
-
-    # mysql from homebrew
-    #alias mysql-start='mysql.server start'
-    #alias mysql-stop='mysql.server stop'
-
-    # to use rmate
-    #alias rmate-tunnel='ssh -R 52698:localhost:52698'
 
 fi
 
