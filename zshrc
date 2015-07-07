@@ -215,6 +215,9 @@ globcheat() {
 
 alias cless='colordiff | less'
 
+# freaking svn repo version conflicts!!!
+[[ -x /opt/gums/bin/svn ]] && alias svn='/usr/bin/svn'
+
 # 6core.net pasteboard
 6p() {
     curl -k -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
