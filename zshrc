@@ -26,6 +26,12 @@ zstyle ':omz:module:terminal' auto-title 'no'
 # Set the Zsh functions to load (man zshcontrib).
 zstyle ':omz:load' zfunction 'zargs' 'zmv'
 
+# freaking svn repo version conflicts...
+if [[ -x /opt/gums/bin/svn ]]; then
+    zstyle ':vcs_info:svn:*:-all-' command /usr/bin/svn
+    alias svn='/usr/bin/svn'
+fi
+
 # Set the Oh My Zsh modules to load (browse modules).
 # The order matters.
 #   * 'environment' should be first.
@@ -214,9 +220,6 @@ globcheat() {
 }
 
 alias cless='colordiff | less'
-
-# freaking svn repo version conflicts!!!
-[[ -x /opt/gums/bin/svn ]] && alias svn='/usr/bin/svn'
 
 # 6core.net pasteboard
 6p() {
