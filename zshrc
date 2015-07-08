@@ -221,6 +221,8 @@ globcheat() {
 
 alias cless='colordiff | less'
 
+alias pywebserver='python -m SimpleHTTPServer'
+
 # 6core.net pasteboard
 6p() {
     curl -k -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
