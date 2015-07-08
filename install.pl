@@ -16,7 +16,7 @@ my %files = (
               'terminfo', 'tmux.conf', 'perltidyrc', 'inputrc', 'psqlrc', 'colordiffrc',
               'pgclirc' ],
     vim  => [ 'vim', 'vimrc' ],
-    zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ],
+    zsh  => [ 'zshrc' ],
 );
 
 # note: bash is not installed by default!
@@ -140,9 +140,12 @@ foreach my $action (@ARGV) {
 sub print_help {
 
     print <<EOF;
+Usage: $0 [args] <target>
 
-Usage: $0 <target>
+args:
+    --use-ssh   - Sub SSH urls instead of https for github
 
+targets:
     all         - Install everything
 
     bash        - Install bash files only
@@ -151,17 +154,11 @@ Usage: $0 <target>
     vim         - Install vim files and bundles only
     scripts     - Install my motley collection of scripts
 
-    update:vim  - Update vim bundles
-    update:zsh  - Update oh-my-zsh and its submodules
-
     update      - Update both vim and zsh
-
     update:all  - Install everything, update both vim and zsh
-
+    update:vim  - Update vim bundles
+    update:zsh  - Update oh-my-zsh
     new:vim     - Install vim modules that aren't currently installed
-
-    --use-ssh   - Sub SSH urls instead of https for github
-
 EOF
 
     exit;
@@ -236,9 +233,9 @@ sub replace_file {
 # clone my omz repository
 sub omz_cloner {
     my $omz_path = "$basedir/oh-my-zsh";
-    my $repo_url = 'https://github.com/tangledhelix/oh-my-zsh.git';
+    my $repo_url = 'https://github.com/robbyrussell/oh-my-zsh.git';
     if ($use_ssh) {
-        $repo_url = 'git@github.com:tangledhelix/oh-my-zsh.git';
+        $repo_url = 'git@github.com:robbyrussell/oh-my-zsh.git';
     }
     if (-f $omz_path or -d $omz_path) {
         print "    $omz_path already exists, skipping\n";
@@ -246,17 +243,18 @@ sub omz_cloner {
         return;
     }
     system "git clone $repo_url $omz_path";
-    system "cd $omz_path && git submodule init";
-    if ($use_ssh) {
-        omz_remotes_set_ssh();
-    }
-    system "cd $omz_path && git submodule update --recursive";
+    #system "cd $omz_path && git submodule init";
+    #if ($use_ssh) {
+    #    omz_remotes_set_ssh();
+    #}
+    #system "cd $omz_path && git submodule update --recursive";
 }
 
 # update the omz repository
 sub omz_updater {
     my $omz_path = "$basedir/oh-my-zsh";
-    system "cd $omz_path && git pull && git submodule update --init --recursive";
+    #system "cd $omz_path && git pull && git submodule update --init --recursive";
+    system "cd $omz_path && git pull";
 }
 
 # install or update vim bundles
@@ -322,21 +320,21 @@ sub scripts_installer {
 }
 
 # stupid hack to get around ACLs; update submodules in omz to use ssh.
-sub omz_remotes_set_ssh {
-    chdir "$basedir/oh-my-zsh";
-    $ENV{PATH} = '/usr/local/bin:' . $ENV{PATH};
+# sub omz_remotes_set_ssh {
+#     chdir "$basedir/oh-my-zsh";
+#     $ENV{PATH} = '/usr/local/bin:' . $ENV{PATH};
 
-    open my $fh, '-|', 'git submodule';
-    while (<$fh>) {
-        my @parts = split;
-        my $module_path = $parts[1];
+#     open my $fh, '-|', 'git submodule';
+#     while (<$fh>) {
+#         my @parts = split;
+#         my $module_path = $parts[1];
 
-        open my $fh2, '-|', "git config --get submodule.${module_path}.url";
-        chomp(my $url = <$fh2>);
-        if ($url =~ /^https:/) {
-            $url =~ s{^https://}{git\@};
-            $url =~ s{/}{:};
-            system "git config submodule.${module_path}.url $url";
-        }
-    }
-}
+#         open my $fh2, '-|', "git config --get submodule.${module_path}.url";
+#         chomp(my $url = <$fh2>);
+#         if ($url =~ /^https:/) {
+#             $url =~ s{^https://}{git\@};
+#             $url =~ s{/}{:};
+#             system "git config submodule.${module_path}.url $url";
+#         }
+#     }
+# }

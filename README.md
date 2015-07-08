@@ -16,11 +16,10 @@ you see fit. YMMV.
 Compatibility
 -------------
 
-I am a Zsh user. This repo goes in conjunction with my
-[fork of oh-my-zsh][zfork]. If you want to use my zsh setup, run
-`./install.pl zsh`.
+I am a Zsh user. This repo goes in conjunction with Robby Russell's
+'oh-my-zsh'. If you want to use my zsh setup, run `./install.pl zsh`.
 
-[zfork]: https://github.com/tangledhelix/oh-my-zsh
+https://github.com/robbyrussell/oh-my-zsh
 
 Using Bash does not need any external repos. Use `./install.pl bash` to
 install my Bash setup. I used Bash for many years, and those files are fairly
@@ -47,14 +46,7 @@ read; color support is only one of several good reasons to switch.
 Shell colors
 ------------
 
-The colors in the shell prompts for both Bash and Zsh are currently set up
-assuming the terminal is using [Solarized][] Dark as a color scheme. They
-may not look very good in other terminal setups.
-
-[solarized]: http://ethanschoonover.com/solarized
-
-The Zsh setup lets you pick from multiple prompts. Run `prompt -l` to see
-them, and set what you like in `~/.zshrc`.
+The colors in the shell prompts for zsh assume a dark background.
 
 Installation
 ------------

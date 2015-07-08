@@ -1,30 +1,189 @@
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.dotfiles/oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="steeef"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git virtualenv history-substring-search)
+# colored-man
+# common-aliases (this includes rm -i ...)
+# dircycle
+# git-extras
+# history (alias 'h' etc)
+# jsontools
+# ssh-agent
+# sublime
+# tmux
+# virtualenvwrapper
+
+# User configuration
+
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# Set the list of directories that man searches for manuals.
+manpath=(
+    /opt/gums/man
+    /usr/local/man
+    /usr/man
+    /usr/local/share/man
+    /usr/share/man
+    /usr/local/pkg/perl/man
+    /usr/dt/man
+    /usr/openwin/man
+    /usr/sfw/man
+    ~/local/man
+    ~/local/share/man
+    ~/.cabal/share/man
+    $manpath
+)
+
+for path_file in /etc/manpaths.d/*(.N); do
+    manpath+=($(<$path_file))
+done
+unset path_file
+
+# Set the list of directories that Zsh searches for programs.
+path=()
+
+path_candidates=(
+    /opt/gums/bin
+    /home/eng/config/tools/bin
+    /home/eng/bin
+    ~/config/tools/mpls
+    ~/config/tools/scripts
+    /opt/gums/sbin
+    ~/local/bin
+    ~/bin
+    ~/.scripts
+    ~/.rbenv/bin
+    ~/.gems/bin
+    /admin/bin
+    /usr/local/share/npm/bin
+    /usr/local/{bin,sbin}
+    /usr/{bin,sbin}
+    /{bin,sbin}
+    /usr/ccs/bin
+    /usr/proc/bin
+    /usr/{openwin,dt}/bin
+    /admin/tools/system/
+    /admin/tools/mail/{bin,sbin}
+    /admin/config/auth/bin
+    /usr/local/pkg/perl/bin
+    /usr/local/pkg/ruby/bin
+    /usr/local/pkg/mailman/bin
+    /usr/lib/mailman/bin
+    /usr/local/pkg/mysql/bin
+    /usr/local/pkg/pgsql/bin
+    /usr/local/pkg/openldap/{bin,sbin}
+    /opt/openldap/{bin,sbin}
+    /usr/sfw/bin
+    /opt/X11/bin
+    /usr/X11R6/bin
+    ~/tools
+    ~/.cabal/bin
+)
+
+for path_candidate in $path_candidates; do
+    [[ -d $path_candidate ]] && path+=$path_candidate
+done
+
+for path_file in /etc/paths.d/*(.N); do
+    path+=($(<$path_file))
+done
+unset path_file
+
+umask 022
+
+source $ZSH/oh-my-zsh.sh
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
 #
-# Sets Oh My Zsh options.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':omz:module:editor' keymap 'emacs'
+# fix terminal foo on Solaris
+[[ $(uname -s) = "SunOS" ]] && export TERMINFO="$HOME/.terminfo"
 
-# Auto convert .... to ../..
-zstyle ':omz:module:editor' dot-expansion 'yes'
+if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
+    export NODE_PATH='/usr/local/lib/node_modules'
+fi
 
-# Set case-sensitivity for completion, history lookup, etc.
-zstyle ':omz:*:*' case-sensitive 'no'
+export PAGER='less'
+export LESS='-g -i -M -r -w -X -x 4 -z-4'
+export ACK_PAGER='less'
 
-# Color output (auto set to 'no' on dumb terminals).
-zstyle ':omz:*:*' color 'yes'
+export CVS_RSH='ssh'
 
-# Auto set the tab and window titles.
-zstyle ':omz:module:terminal' auto-title 'no'
+[[ -d /home/eng/.CVS ]] && export CVSROOT="/home/eng/.CVS"
 
-# Set the Zsh modules to load (man zshmodules).
-# zstyle ':omz:load' zmodule 'attr' 'stat'
-
-# Set the Zsh functions to load (man zshcontrib).
-zstyle ':omz:load' zfunction 'zargs' 'zmv'
+# Avoid an RCS checkin log headache
+[[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
 
 # freaking svn repo version conflicts...
 if [[ -x /opt/gums/bin/svn ]]; then
@@ -32,61 +191,8 @@ if [[ -x /opt/gums/bin/svn ]]; then
     alias svn='/usr/bin/svn'
 fi
 
-# Set the Oh My Zsh modules to load (browse modules).
-# The order matters.
-#   * 'environment' should be first.
-#   * 'completion' must be after 'utility'.
-#   * 'syntax-highlighting' should be next to last, but, it must be
-#      before 'history-substring-search'.
-#   * 'prompt' should be last
-zstyle ':omz:load' omodule \
-    'environment' \
-    'terminal' \
-    'editor' \
-    'history' \
-    'directory' \
-    'spectrum' \
-    'utility' \
-    'completion' \
-    'git' \
-    'osx' \
-    'syntax-highlighting' \
-    'history-substring-search' \
-    'prompt'
-
-# Set the prompt theme to load.
-# Setting it to 'random' loads a random theme.
-# Auto set to 'off' on dumb terminals.
-zstyle ':omz:module:prompt' theme 'steeef'
-
-# This will make you shout: OH MY ZSHELL!
-source "$OMZ/init.zsh"
-
-# Customize to your needs...
-
-umask 022
-
 # no shared history, keep history per session
 setopt no_share_history
-
-# after ssh, set the title back to local host's name
-ssh() {
-    if [[ -x /usr/local/bin/ssh ]]; then
-        /usr/local/bin/ssh $@
-    else
-        /usr/bin/ssh $@
-    fi
-    set-tab-title $(uname -n)
-}
-
-alias vi='vim'
-alias view='vim -R'
-alias vimdiff='vimdiff -O'
-
-alias c='clear'
-
-# print the directory structure from the current directory in tree format
-alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
 
 # Show me time in GMT / UTC
 alias utc='TZ=UTC date'
@@ -96,9 +202,6 @@ alias gmt='TZ=GMT date'
 alias jpdate='TZ=Asia/Tokyo date'
 alias nldate='TZ=Europe/Amsterdam date'
 alias fidate='TZ=Europe/Finland date'
-
-# show me platform info
-alias os='uname -srm'
 
 # translate AS/RR numbers
 astr() { echo "$1" | tr '[A-J0-9]' '[0-9A-J]' }
@@ -191,13 +294,6 @@ alias get-ip='curl --silent http://icanhazip.com'
 # less with no-wrap (oh-my-zsh default, could be useful sometimes)
 alias less-nowrap='less -S'
 
-# set tab titles
-alias tt='set-tab-title'
-
-# magic mv
-# mmv *.c.orig orig/*.c
-alias mmv='noglob zmv -W'
-
 # globbing cheat sheet
 globcheat() {
 
@@ -239,18 +335,7 @@ fixssh() {
     done
 }
 
-if [[ $UID -eq 0 ]]; then
-
-    ### Things to do only if I am root
-
-    # Messes with rdist and probably other stuff
-    unset SSH_AUTH_SOCK
-
-else
-
-    ### Things to do only if I am not root
-
-    set-tab-title $(uname -n)
+if [[ $UID -ne 0 ]]; then
 
     [[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
 
@@ -284,7 +369,6 @@ else
         }
 
     fi
-
 fi
 
 # Mac-specific things
@@ -305,6 +389,25 @@ fi
 # local settings override global ones
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
 
-# Make the prompt happy so I don't have $? true on every load
-__zsh_load_complete=1
+# Execute code that does not affect the current session in the background.
+{
+    # Compile the completion dump to increase startup speed.
+    dump_file="$HOME/.zcompdump"
+    if [[ "$dump_file" -nt "${dump_file}.zwc" || ! -s "${dump_file}.zwc" ]]; then
+        zcompile "$dump_file"
+    fi
 
+    # Set environment variables for launchd processes.
+    if [[ "$OSTYPE" == darwin* ]]; then
+        for env_var in PATH MANPATH; do
+            if [ -x /usr/local/bin/reattach-to-user-namespace ]; then
+                /usr/local/bin/reattach-to-user-namespace launchctl setenv "$env_var" "${(P)env_var}"
+            else
+                launchctl setenv "$env_var" "${(P)env_var}"
+            fi
+        done
+    fi
+} &!
+
+# Make the prompt happy so I don't have $? true on every load
+#__zsh_load_complete=1
