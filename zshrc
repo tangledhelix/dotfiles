@@ -49,16 +49,14 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git virtualenv history-substring-search)
+plugins=(git virtualenv history-substring-search common-aliases tmux)
 # colored-man
-# common-aliases (this includes rm -i ...)
 # dircycle
 # git-extras
 # history (alias 'h' etc)
 # jsontools
 # ssh-agent
 # sublime
-# tmux
 # virtualenvwrapper
 
 # User configuration
@@ -146,11 +144,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
+if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+else
+  export EDITOR='subl -w -n'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -409,5 +407,3 @@ fi
     fi
 } &!
 
-# Make the prompt happy so I don't have $? true on every load
-#__zsh_load_complete=1
