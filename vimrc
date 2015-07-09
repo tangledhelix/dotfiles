@@ -532,7 +532,7 @@ if has('gui_running')
     colorscheme solarized
 else
     set background=dark
-    colorscheme spacegray
+    colorscheme cobalt2
 endif
 
 " Mark Git-style conflict markers, and trailing whitespace.
