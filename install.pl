@@ -16,7 +16,7 @@ my %files = (
               'terminfo', 'tmux.conf', 'perltidyrc', 'inputrc', 'psqlrc', 'colordiffrc',
               'pgclirc' ],
     vim  => [ 'vim', 'vimrc' ],
-    zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ],
+    zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ]
 );
 
 # note: bash is not installed by default!
@@ -32,11 +32,8 @@ foreach my $list ('zsh', 'vim', 'git', 'misc') {
 # Only git repos are supported currently.
 my %vim_bundles = (
     'ack' => 'mileszs/ack.vim',
-    'clam' => 'sjl/clam.vim',
     'fugitive' => 'tpope/vim-fugitive',
     'json' => 'elzr/vim-json',
-    # this shouldn't be necessary, but rhel/centos vim are so old that it is.
-    'markdown' => 'tpope/vim-markdown',
     'my-ackmore' => 'tangledhelix/vim-ackmore',
     'my-endwise' => 'tangledhelix/vim-endwise',
     'pathogen' => 'tpope/vim-pathogen',
@@ -45,12 +42,9 @@ my %vim_bundles = (
     'quickrun' => 'thinca/vim-quickrun',
     'repeat' => 'tpope/vim-repeat',
     'signify' => 'mhinz/vim-signify',
-    'solarized' => 'altercation/vim-colors-solarized',
     'statline' => 'millermedeiros/vim-statline',
     'surround' => 'tpope/vim-surround',
-    'tabular' => 'godlygeek/tabular',
     'tcomment' => 'tomtom/tcomment_vim',
-    'unimpaired' => 'tpope/vim-unimpaired'
 );
 
 my $replace_all = 0;

@@ -137,9 +137,6 @@ endif
 " Activate Fugitive in statline
 let g:statline_fugitive = 1
 
-" Activate rbenv in statline
-let g:statline_rbenv = 1
-
 " ------------------------------------------------------------------------ }}}
 " Cursor and position indicators {{{
 
@@ -224,21 +221,8 @@ nnoremap <leader>W :call Preserve('%s/\s\+$//e')<cr>
 nnoremap <silent> <leader>' :call Preserve("normal cs\"'")<cr>
 nnoremap <silent> <leader>" :call Preserve("normal cs'\"")<cr>
 
-" Bubble a selection up or down
-nmap <C-u> [e
-nmap <C-d> ]e
-vmap <C-u> [egv
-vmap <C-d> ]egv
-
 " Remap ~ to cycle through uppercase, lowercase, title-case.
 vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
-
-" Split line at cursor position
-nnoremap S mzi<cr><esc>`zj0
-
-" Invoke Tabular
-nnoremap <leader>= :Tabularize /
-vnoremap <leader>= :Tabularize /
 
 " ------------------------------------------------------------------------ }}}
 " Wrapping {{{
@@ -335,19 +319,6 @@ nnoremap \ ,
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
 
 " ------------------------------------------------------------------------ }}}
-" Diff {{{
-
-nnoremap <silent> <leader>d :call DiffToggle()<cr>
-
-function! DiffToggle()
-    if &diff
-        diffoff
-    else
-        diffthis
-    endif
-endfunction
-
-" ------------------------------------------------------------------------ }}}
 " Invisibles {{{
 
 " Do not show invisibles by default.
@@ -363,12 +334,6 @@ if has('multi_byte')
 else
     set listchars=tab:>-,eol:$,extends:>,precedes:<
 endif
-
-" ------------------------------------------------------------------------ }}}
-" Abbreviations {{{
-
-" Lorem ipsum text
-abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ornare metus. In justo metus, auctor nec semper in, laoreet porttitor augue. Maecenas tortor libero, dignissim vel placerat sit amet, malesuada ut quam. Curabitur vitae velit lacus, sed imperdiet sapien. Sed posuere, odio nec pharetra adipiscing
 
 " ------------------------------------------------------------------------ }}}
 " Expansion and completion {{{
@@ -485,9 +450,6 @@ vnoremap <leader>ot :wincmd gf
 " Open a file browser
 nnoremap <leader>e :edit .<cr>
 
-" NERDTree window
-nnoremap <leader>f :NERDTreeToggle<CR>
-
 " ------------------------------------------------------------------------ }}}
 " Shell and external commands {{{
 
@@ -523,9 +485,8 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 " ------------------------------------------------------------------------ }}}
 " Fonts and colors {{{
 
-let g:solarized_contrast = 'high'
-
 if has('gui_running')
+    let g:solarized_contrast = 'high'
     set guifont=Mensch:h14
     set antialias
     set background=light

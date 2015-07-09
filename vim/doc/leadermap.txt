@@ -7,7 +7,6 @@ Current leader key map:                                            *leadermap*
   ,"            Change surrounding ' to " (plugin: |surround|)
   ,'            Change surrounding " to ' (plugin: |surround|)
   ,/            Open a quickfix window for the last search
-  ,=            Invoke Tabular for alignment (plugin: |tabular|)
   ,?            Query Vim syntax type at cursor position
   ,<space>      Hide current search highlight and clear InterestingWord matches
   ,1 - ,6       Highlight current InterestingWord in 1 of 6 colors
@@ -16,7 +15,6 @@ Current leader key map:                                            *leadermap*
   ,d            Toggle diff state of current buffer
   ,e            Open the file browser
   ,E            Toggle completion from system dictionary
-  ,f            Toggle the NERDTree window (plugin: |nerdtree|)
   ,Ft           Fold current tag in HTML (should also work in XML)
   ,h            Toggle search highlighting
   ,H            Create an html version of this buffer w/ syntax coloring
