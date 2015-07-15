@@ -152,3 +152,8 @@ if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
     source ~/perl5/perlbrew/etc/bashrc
 fi
 
+# local settings override global ones
+[[ -s $HOME/.zshenv.local ]] && source $HOME/.zshenv.local
+
+__zshenv_load_complete=1
+
