@@ -39,6 +39,7 @@ my %vim_bundles = (
     'pathogen' => 'tpope/vim-pathogen',
     'perl' => 'vim-perl/vim-perl',
     'pgsql' => 'exu/pgsql.vim',
+    'puppet' => 'puppetlabs/puppet-syntax-vim',
     'quickrun' => 'thinca/vim-quickrun',
     'repeat' => 'tpope/vim-repeat',
     'signify' => 'mhinz/vim-signify',
