@@ -1,5 +1,7 @@
-# A simple prompt
-set prompt = "%n@%M:%c{%?}%# "
+# A prompt that knows about git branches
+
+alias __git_current_branch 'git rev-parse --abbrev-ref HEAD >& /dev/null && echo "[git:`git rev-parse --abbrev-ref HEAD`]\n"'
+alias precmd 'set prompt="\n`__git_current_branch`%n@%M:%c2%# "'
 
 ######################################################################
 # Hostname tab completion for multiple commands
