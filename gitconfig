@@ -36,7 +36,7 @@
 [core]
     pager = less
     editor = vim
-	quotepath = false
+    quotepath = false
     excludesfile = ~/.gitignore
 
 [color]
@@ -52,6 +52,7 @@
 [diff]
     # For Github-style word diffs
     wordRegex = [^[:space:]]
+    tool = Kaleidoscope
 
 [help]
     autocorrect = 1
@@ -61,6 +62,23 @@
     default = current
 
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+    clean = git-lfs clean %f
+    smudge = git-lfs smudge %f
+    required = true
+
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+    trustexitcode = true
+
+[merge]
+    tool = Kaleidoscope
+
+[difftool "Kaleidoscope"]
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[difftool]
+    prompt = false
+
+[mergetool]
+    prompt = false
+
