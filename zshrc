@@ -222,6 +222,8 @@ globcheat() {
 alias cless='colordiff | less'
 
 alias pywebserver='python -m SimpleHTTPServer'
+# python 3 version:
+# python3 -m http.server 8000
 
 # 6core.net pasteboard
 6p() {
