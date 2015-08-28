@@ -1,9 +1,3 @@
-#
-# Defines environment variables.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
 # fix terminal foo on Solaris
 [[ $(uname -s) = "SunOS" ]] && export TERMINFO="$HOME/.terminfo"
