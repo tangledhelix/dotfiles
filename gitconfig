@@ -32,6 +32,7 @@
     showbranch = branch -a --contains
     id = log --pretty=format:'%H' -n 1
     hash = log --pretty=format:'%H' -n 1
+    undo-commit = reset --soft HEAD^
 
 [core]
     pager = less
