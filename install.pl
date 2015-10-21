@@ -32,6 +32,7 @@ foreach my $list ('zsh', 'vim', 'git', 'misc') {
 # Only git repos are supported currently.
 my %vim_bundles = (
     'ack' => 'mileszs/ack.vim',
+    'docker' => 'honza/dockerfile.vim',
     'fugitive' => 'tpope/vim-fugitive',
     'json' => 'elzr/vim-json',
     'my-ackmore' => 'tangledhelix/vim-ackmore',
