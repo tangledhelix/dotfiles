@@ -511,6 +511,11 @@ match ErrorMsg '\(\s\+$\|\(^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)\)'
 " whenever I want.
 syntax on
 
+" Another way to do things would be
+"if !exists("g:syntax_on")
+"    syntax enable
+"endif
+
 " When positioned on a bracket, highlight its partner.
 set showmatch
 
