@@ -47,9 +47,10 @@ read; color support is only one of several good reasons to switch.
 Shell colors
 ------------
 
-The colors in the shell prompts for both Bash and Zsh are currently set up
-assuming the terminal is using [Solarized][] Dark as a color scheme. They
-may not look very good in other terminal setups.
+The colors in the Zsh shell prompts currently assume the terminal is using
+a Cobalt color scheme. They may look odd otherwise.
+
+In Bash, the prompts assume [Solarized][] Dark.
 
 [solarized]: http://ethanschoonover.com/solarized
 
