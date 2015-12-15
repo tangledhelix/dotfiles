@@ -216,7 +216,7 @@ sub link_file {
     my $src_path = shift;
     my $link_path = shift;
 
-    print "    linking $link_path\n";
+    print " +  linking $link_path\n";
     symlink $src_path, $link_path or warn "Unable to link $link_path\n";
 }
 
