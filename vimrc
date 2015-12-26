@@ -91,6 +91,7 @@ inoremap  <c-h>
 cnoremap  <c-h>
 " the same for Linux Debian which uses
 inoremap <esc>[3~ <c-h>
+cnoremap <esc>[3~ <c-h>
 
 " go to location of last change
 nnoremap gl `.
@@ -303,6 +304,11 @@ nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
+" But if I want no magic (default regex), just tap the search character twice
+nnoremap // /
+vnoremap // /
+nnoremap ?? ?
+vnoremap ?? ?
 
 " Use 'magic' patterns (extended regex) in search patterns. ('\s\+').
 " This isn't used by the / search due to the / remaps. For :s and :g.
@@ -486,11 +492,8 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 " Fonts and colors {{{
 
 if has('gui_running')
-    let g:solarized_contrast = 'high'
     set guifont=Mensch:h14
     set antialias
-    set background=light
-    colorscheme solarized
 else
     set background=dark
     colorscheme cobalt2
