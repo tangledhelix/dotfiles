@@ -5,7 +5,7 @@ use warnings;
 
 use lib 'lib';
 
-use Cwd 'abs_path';
+use Cwd ('abs_path', 'getcwd');
 use File::Basename;
 use File::Path 'remove_tree';
 
@@ -241,18 +241,26 @@ sub omz_cloner {
         print "To reinstall OMZ, rename or remove $omz_path and try again.\n";
         return;
     }
-    system "git clone $repo_url $omz_path";
-    system "cd $omz_path && git submodule init";
+    system 'git', 'clone', $repo_url, $omz_path;
+    my $old_cwd = getcwd;
+    chdir $omz_path;
+    system 'git', 'submodule', 'init';
     if ($use_ssh) {
         omz_remotes_set_ssh();
     }
-    system "cd $omz_path && git submodule update --recursive";
+    chdir $omz_path;
+    system 'git', 'submodule', 'update', '--recursive';
+    chdir $old_cwd;
 }
 
 # update the omz repository
 sub omz_updater {
     my $omz_path = "$basedir/oh-my-zsh";
-    system "cd $omz_path && git pull && git submodule update --init --recursive";
+    my $old_cwd = getcwd;
+    chdir $omz_path;
+    system 'git', 'pull';
+    system 'git', 'submodule', 'update', '--init', '--recursive';
+    chdir $old_cwd;
 }
 
 # install or update vim bundles
@@ -274,13 +282,16 @@ sub vim_bundle_installer {
             next if $vim_newmods_only;
             if ($vim_do_updates) {
                 print "    updating vim bundle $bundle\n";
-                system "cd $this_bundle_path && git pull";
+                my $old_cwd = getcwd;
+                chdir $this_bundle_path;
+                system 'git', 'pull';
+                chdir $old_cwd;
             } else {
                 print "    skipping vim bundle $bundle (already exists)\n";
             }
         } else {
             print "    cloning vim bundle $bundle\n";
-            system "git clone $repo $this_bundle_path";
+            system 'git', 'clone', $repo, $this_bundle_path;
         }
     }
 
@@ -332,7 +343,7 @@ sub omz_remotes_set_ssh {
         if ($url =~ /^https:/) {
             $url =~ s{^https://}{git\@};
             $url =~ s{/}{:};
-            system "git config submodule.${module_path}.url $url";
+            system 'git', 'config', "submodule.${module_path}.url", $url;
         }
     }
 }
