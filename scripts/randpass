@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
 
-# randpass: Generates random strings of 12 characters, to be used as
+# randpass: Generates random strings of 16 characters, to be used as
 # user's initial password.
 #
 # -c    Copy to Mac clipboard
 # -e    Also print encrypted hash
 # -h    Print this help
-# -s    Limit password to 8 characters (instead of 12)
+# -s    Limit password to 8 characters (instead of 16)
 #
 # Ported to Perl from original C
 
@@ -41,7 +41,7 @@ if ($opt{h}) {
     print_help();
 }
 
-my $pwLength = 12;
+my $pwLength = 16;
 if ($opt{s}) {
     $pwLength = 8;
 }
