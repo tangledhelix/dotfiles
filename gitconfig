@@ -7,10 +7,10 @@
     ci = commit
     cm = commit -m
     st = status -s
-    lol = log --pretty=oneline --abbrev-commit --graph --decorate
+    lol = log --pretty=oneline --abbrev-commit --graph --decorate=full
     # also use "lg -p"
-    lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    lgv = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --name-status
+    lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full
+    lgv = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full --name-status
     logv = log --name-status
     unstage = reset HEAD
     aa = add .
