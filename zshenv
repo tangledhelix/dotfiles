@@ -115,6 +115,14 @@ if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
 fi
 
 # Set the default Less options.
+#
+# For now just turn this off. It screws up git log. That annoys the heck
+# out of me. Can add options back as needed, but any time adding one,
+# need to check that it does not screw up git log. Symptom: in a git log
+# where the first page has a line longer than the terminal width, the line
+# will wrap, but that causes the first line to go off the top of the screen.
+# It works fine if $LESS is not defined at all.
+#
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 #
@@ -122,7 +130,8 @@ fi
 # Added -x 4, to get 4-position as tab stop
 # Removed -F, it doesn't play well in a loop where you less, then vim...
 # Changed -R to -r because european accented letters were coming in as bracketed
-export LESS='-g -i -M -r -w -X -x 4 -z-4'
+#
+#export LESS='-g -i -M -r -w -X -x 4 -z-4'
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then
