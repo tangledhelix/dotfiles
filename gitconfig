@@ -5,16 +5,11 @@
 [alias]
     co = checkout
     ci = commit
-    cm = commit -m
     st = status -s
-    #ll = log --all --graph --decorate --oneline --simplify-by-decoration
-    #lol = log --pretty=oneline --abbrev-commit --graph --decorate=full
     # also use "lg -p"
     lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full
     lgv = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full --name-status
     logv = log --name-status
-    unstage = reset HEAD
-    aa = add .
     # Not yet added - doesn't include ignored files
     new = ls-files --others --exclude-standard
     # Files that are in the staging area
@@ -22,13 +17,9 @@
     today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
     ff = merge --ff-only
     pullsubs = submodule foreach git pull origin master
-    tags = tag -l
     whichtag = !git name-rev --tags --name-only $(git rev-parse HEAD)
-    branches = branch -a
     branchesbydate = !git for-each-ref --sort='-committerdate' --format='%(committerdate)  %(refname)' refs/heads | sed -e 's,refs/heads/,,'
-    remotes = remote -v
     filechanges = diff --summary
-    changes = diff --name-status
     wdiff = diff --word-diff
     showbranch = branch -a --contains
     id = log --pretty=format:'%H' -n 1
@@ -83,4 +74,3 @@
 
 [mergetool]
     prompt = false
-
