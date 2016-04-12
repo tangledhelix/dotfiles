@@ -132,6 +132,7 @@ fi
 # Changed -R to -r because european accented letters were coming in as bracketed
 #
 #export LESS='-g -i -M -r -w -X -x 4 -z-4'
+export LESS="-R"
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then
