@@ -150,13 +150,13 @@ export CVS_RSH='ssh'
 
 # Auto-activate virtualenv when entering directory
 _virtualenv_auto_activate() {
-    if [ -e ".venv" ]; then
+    if [ -d "venv" ]; then
         # Check to see if already activated to avoid redundant activating
-        if [ "$VIRTUAL_ENV" != "$(pwd -P)/.venv" ]; then
-            _VENV_NAME=$(basename `pwd`)
+        if [ "$VIRTUAL_ENV" != "$(pwd -P)/venv" ]; then
+            export _VENV_NAME=$(basename `pwd`)
             echo Activating virtualenv \"$_VENV_NAME\"...
             export VIRTUAL_ENV_DISABLE_PROMPT=1
-            source .venv/bin/activate
+            source venv/bin/activate
         fi
     fi
 }
