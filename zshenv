@@ -153,7 +153,7 @@ _virtualenv_auto_activate() {
     if [ -d "venv" ]; then
         # Check to see if already activated to avoid redundant activating
         if [ "$VIRTUAL_ENV" != "$(pwd -P)/venv" ]; then
-            export _VENV_NAME=$(basename `pwd`)
+            export _VENV_NAME=${$(pwd):t}
             echo Activating virtualenv \"$_VENV_NAME\"...
             export VIRTUAL_ENV_DISABLE_PROMPT=1
             source venv/bin/activate
@@ -178,4 +178,3 @@ fi
 [[ -s $HOME/.zshenv.local ]] && source $HOME/.zshenv.local
 
 __zshenv_load_complete=1
-
