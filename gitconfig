@@ -3,28 +3,78 @@
     email = dan@tangledhelix.com
 
 [alias]
+
+    # Short status output, just give me the good stuff.
+    st = status -s
+
+    # Hard-coded into my fingers from RCS days...
     co = checkout
     ci = commit
-    st = status -s
-    # also use "lg -p"
+
+    # Smooth over git's dumb command names.
+    branches = branch -a
+    tags = tag -l
+    stashes = stash list
+
+    # Unstage anything staged right now.
+    unstage = reset -q HEAD --
+
+    # Throw out any modifications to tracked files.
+    discard = checkout --
+
+    # Pretend that last commit was never committed.
+    uncommit = reset --mixed HEAD~
+
+    # Update commit message on current commit.
+    amend = commit --amend
+
+    # Show me a graph or what's been going on recently; last 10 commits
+    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+
+    # To run before a commit, see what is about to be committed.
+    precommit = diff --cached --diff-algorithm=minimal -w
+
+    # Pretty log output with lot of info
+    # also use "lg -p" to see it with patches for each commit.
     lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full
+
+    # See the pretty log output but include the name/status of changed paths.
     lgv = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full --name-status
+
+    # Another variant showing default log output, but with file info.
     logv = log --name-status
+
     # Not yet added - doesn't include ignored files
     new = ls-files --others --exclude-standard
+
     # Files that are in the staging area
     added = diff --cached --name-only
+
+    # Git log of last 24 hours
     today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+
+    # Fast-forward; does nothing if fast-forward not possible.
     ff = merge --ff-only
+
+    # Pull all submodules (not recursive!)
     pullsubs = submodule foreach git pull origin master
+
+    # Which tag am I on, or the nearest ancestor?
+    # `git describe` might also be an option here.
     whichtag = !git name-rev --tags --name-only $(git rev-parse HEAD)
+
+    # List (local) branches sorted by date of last commit
     branchesbydate = !git for-each-ref --sort='-committerdate' --format='%(committerdate)  %(refname)' refs/heads | sed -e 's,refs/heads/,,'
+
+    # Show file create/remove changes in the diff
     filechanges = diff --summary
+
+    # Diff with word-diff
     wdiff = diff --word-diff
-    showbranch = branch -a --contains
-    id = log --pretty=format:'%H' -n 1
+
+    # Show SHA of HEAD, or of passed ref
+    id   = log --pretty=format:'%H' -n 1
     hash = log --pretty=format:'%H' -n 1
-    undo-commit = reset --soft HEAD^
 
 [core]
     pager = less
