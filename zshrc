@@ -21,10 +21,13 @@ zstyle ':omz:module:terminal' auto-title 'no'
 zstyle ':omz:load' zfunction 'zargs' 'zmv'
 
 # freaking svn repo version conflicts...
-if [[ -x /opt/gums/bin/svn ]]; then
-    zstyle ':vcs_info:svn:*:-all-' command /usr/bin/svn
-    alias svn='/usr/bin/svn'
-fi
+# disabling this for now, causing headaches
+# if need a certain svn, just stick an alias in ~/.zshrc.local
+#
+# if [[ -x /opt/gums/bin/svn ]]; then
+#     zstyle ':vcs_info:svn:*:-all-' command /usr/bin/svn
+#     alias svn='/usr/bin/svn'
+# fi
 
 # Set the Oh My Zsh modules to load (browse modules).
 # The order matters.
