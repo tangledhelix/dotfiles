@@ -34,6 +34,10 @@
     # To run before a commit, see what is about to be committed.
     precommit = diff --cached --diff-algorithm=minimal -w
 
+    # NOTE: can use -M to detect moves, so you don't get an entire
+    # file of `-` and then a file of `+`.
+    # git diff --staged -M
+
     # Pretty log output with lot of info
     # also use "lg -p" to see it with patches for each commit.
     lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full
