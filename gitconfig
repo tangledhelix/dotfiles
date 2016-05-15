@@ -15,6 +15,7 @@
     branches = branch -a
     tags = tag -l
     stashes = stash list
+    remotes = remote -v
 
     # Unstage anything staged right now.
     unstage = reset -q HEAD --
