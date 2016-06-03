@@ -73,6 +73,14 @@ ssh() {
     else
         /usr/bin/ssh $@
     fi
+    set-window-title $(uname -n)
+    set-tab-title $(uname -n)
+}
+
+# after mosh, set the title back to local host's name
+mosh() {
+    /usr/local/bin/mosh $@
+    set-window-title $(uname -n)
     set-tab-title $(uname -n)
 }
 
@@ -188,9 +196,6 @@ alias get-ip='curl --silent http://icanhazip.com'
 # less with no-wrap (oh-my-zsh default, could be useful sometimes)
 alias less-nowrap='less -S'
 
-# set tab titles
-alias tt='set-tab-title'
-
 # magic mv
 # mmv *.c.orig orig/*.c
 alias mmv='noglob zmv -W'
@@ -249,6 +254,7 @@ else
 
     ### Things to do only if I am not root
 
+    set-window-title $(uname -n)
     set-tab-title $(uname -n)
 
     [[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
@@ -277,8 +283,10 @@ else
                 shift
             fi
             export STY="[$1] $(uname -n)"
+            set-window-title $STY
             set-tab-title $STY
             tmux -u new -s "$1" || tmux -u att $_detach_flag -t "$1"
+            set-window-title $(uname -n)
             set-tab-title $(uname -n)
         }
 
@@ -305,4 +313,3 @@ fi
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
 
 __zshrc_load_complete=1
-
