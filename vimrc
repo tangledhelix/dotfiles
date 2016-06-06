@@ -578,7 +578,7 @@ autocmd Filetype make setlocal noexpandtab
 "autocmd BufNewFile,BufRead *.md,*.markdown set filetype=octopress
 "autocmd FileType markdown,octopress setlocal tw=78 wrap lbr ts=4 sw=4 sts=4
 
-autocmd BufNewFile,BufRead *.md,*.mmd set filetype=markdown
+autocmd BufNewFile,BufRead *.md,*.mmd set filetype=ghmarkdown
 
 " Bold/italic for Markdown/Octopress (plugin 'surround')
 autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"

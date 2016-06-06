@@ -34,6 +34,7 @@ my %vim_bundles = (
     'ack' => 'mileszs/ack.vim',
     'docker' => 'honza/dockerfile.vim',
     'fugitive' => 'tpope/vim-fugitive',
+    'ghmarkdown' => 'jtratner/vim-flavored-markdown',
     'json' => 'elzr/vim-json',
     'my-ackmore' => 'tangledhelix/vim-ackmore',
     'my-endwise' => 'tangledhelix/vim-endwise',
