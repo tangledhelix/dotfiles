@@ -44,7 +44,6 @@ my %vim_bundles = (
     'puppet' => 'puppetlabs/puppet-syntax-vim',
     'quickrun' => 'thinca/vim-quickrun',
     'repeat' => 'tpope/vim-repeat',
-    'signify' => 'mhinz/vim-signify',
     'statline' => 'millermedeiros/vim-statline',
     'surround' => 'tpope/vim-surround',
     'tcomment' => 'tomtom/tcomment_vim',
