@@ -1,6 +1,9 @@
 
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':omz:module:editor' keymap 'emacs'
+zstyle ':omz:module:editor' keymap 'vi'
+# bind 'jj' to escape insert mode
+# Note, you can only have one such binding. Cannot also bind 'jk'.
+bindkey -M viins 'jj' vi-cmd-mode
 
 # Auto convert .... to ../..
 zstyle ':omz:module:editor' dot-expansion 'yes'
