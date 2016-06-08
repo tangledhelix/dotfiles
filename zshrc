@@ -77,11 +77,19 @@ ssh() {
     set-tab-title $(uname -n)
 }
 
-# after mosh, set the title back to local host's name
+# After mosh, set the title back to local host's name.
+# If mosh does not connect, fall back to ssh.
 mosh() {
     /usr/local/bin/mosh $@
-    set-window-title $(uname -n)
-    set-tab-title $(uname -n)
+    if [[ $? = 0 ]]; then
+        set-window-title $(uname -n)
+        set-tab-title $(uname -n)
+    else
+        echo "***"
+        echo "*** Unable to connect to mosh server, fall back to ssh."
+        echo "***"
+        ssh $@
+    fi
 }
 
 alias vi='vim'
