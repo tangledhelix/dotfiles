@@ -48,7 +48,7 @@ set hidden
 set diffopt=iwhite
 
 " Which VCS Signify should care about
-let g:signify_vcs_list = [ 'git', 'svn' ]
+"let g:signify_vcs_list = [ 'git', 'svn' ]
 
 " Prefer postgres SQL
 let g:sql_type_default = 'pgsql'
@@ -270,14 +270,14 @@ set viminfo=%,'50,\"100,:100,n~/.viminfo
 set history=100
 
 " Some cache / backup locations
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap//   " swap files
-set backup                        " enable backups
+"set backupdir=~/.vim/tmp/backup// " backups
+"set directory=~/.vim/tmp/swap//   " swap files
+"set backup                        " enable backups
 
 " set noswapfile                    " It's 2012, Vim.
-if has('persistent_undo')
-    set undodir=~/.vim/tmp/undo//   " undo files
-endif
+"if has('persistent_undo')
+"    set undodir=~/.vim/tmp/undo//   " undo files
+"endif
 
 " ------------------------------------------------------------------------ }}}
 " Search and replace {{{
