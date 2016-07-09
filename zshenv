@@ -169,11 +169,6 @@ prompt_steeef_precmd_plus_venv() {
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd prompt_steeef_precmd_plus_venv
 
-# http://perlbrew.pl
-if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
-    source ~/perl5/perlbrew/etc/bashrc
-fi
-
 # local settings override global ones
 [[ -s $HOME/.zshenv.local ]] && source $HOME/.zshenv.local
 
