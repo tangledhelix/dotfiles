@@ -1,0 +1,157 @@
+#!/usr/bin/perl -w
+use strict;
+use English;
+
+use IPC::Open3;
+
+my $FORCE_NETCAT = $ENV{'FORCE_NETCAT'} || 0;
+my $SSH_BIN = $ENV{'SSH_BIN'} || 'ssh';
+my $DEBUG   = $ENV{'DEBUG'}   || 0;
+my $SSH_OPTS = ssh_cli_opts();
+
+################
+###          ###
+###   Main   ###
+###          ###
+################
+
+# TODO: robust error handling
+# Attempt to detect if we were called by SSH
+my $PPID = getppid; # Get parent process id
+if ($PPID > 0 && open(my $fh, '<', "/proc/$PPID/cmdline")) {
+  my @cmdline = split(/\0/, join("\n", <$fh>));
+  close($fh);
+  # If not invoked by ssh, operate as a wrapper
+  if ($cmdline[0] !~ /(?:\A|\/)ssh\z/) {
+    unless (grep { /Hostname=/i } @cmdline) {
+      my @SSH_ARGS = @ARGV;
+      # Remove all options leaving the hostname
+      while (scalar(@SSH_ARGS) && $SSH_ARGS[0] =~ /\A-[^-]*([^-])\Z/) {
+        shift(@SSH_ARGS);
+        # If an argument was required for the option, remove that too
+        shift(@SSH_ARGS) if ($SSH_OPTS->{args}->{$1});
+      }
+      my $hostname = $SSH_ARGS[0]; # hostname should be left
+      @SSH_ARGS = @ARGV;           # Repopulate argument
+      if ($hostname) {
+        $hostname =~ s/.*[\@\+]//;   # Remove username
+        # Since we're overriding the hostname, the Host *^* in the ssh config
+        # file will no longer match, so we need to set the ProxyCommand here
+        unshift(@SSH_ARGS, '-o', "ProxyCommand=$0 $hostname \%p");
+        $hostname =~ s/\^.*//;       # Remove caretpath
+        $hostname =~ s/_.*//;        # Remove port spec
+        # Prevent an unknown host key warning for the final host
+        unshift(@SSH_ARGS, '-o', "Hostname=$hostname");
+      }
+      print STDERR join(' ', $SSH_BIN, @SSH_ARGS) . "\n" if ($DEBUG);
+      exec($SSH_BIN, @SSH_ARGS); # Script stops here
+    }
+  }
+}
+
+# If we get to here, we're acting as a ProxyCommand
+
+my $host_arg = $ARGV[0] || die "No host passed!";
+my $port_arg = $ARGV[1] || die "No port passed!";
+
+my ($dest_host, $bounce_host);
+if ($host_arg =~ /\A([^\^]+)\^([^\^].*)/) {
+  ($dest_host, $bounce_host) = ($1, $2);
+} else {
+  die "Invalid arguments!";
+}
+
+# Deal with usernames
+$bounce_host =~ s/\A([^\^\+]+)\+/$1\@/;
+# Strip username+ syntax from the dest host
+$dest_host =~ s/\A.*\+//;
+
+if ($dest_host =~ /\A([^\^]+)_(\d+)\z/) {
+  $dest_host = $1;
+  $port_arg  = $2;
+}
+
+print STDERR "Connecting to $dest_host:$port_arg via $bounce_host\n" if ($DEBUG);
+
+# See if the local version of ssh supports -W ('netcat mode')
+if ($SSH_OPTS->{args}->{W}) {
+  ssh_bounce_native($dest_host, $port_arg, $bounce_host);
+} else {
+  ssh_bounce_netcat($dest_host, $port_arg, $bounce_host);
+}
+
+# Shouldn't make it this far
+exit 1;
+
+#####################
+###               ###
+###   Functions   ###
+###               ###
+#####################
+
+# Parse supported SSH command line options
+sub ssh_cli_opts {
+  my $data = {};
+  my @tmp;
+  # 
+  my $pid = open3(undef, undef, \*FH, $SSH_BIN);
+  while(my $line = <FH>) {
+    $line =~ s/\A[^\[]+\[(.*)\]\Z/$1/; # Trim beginning and end of line
+    my @chunks = split(/\]\s+\[/, $line);
+    foreach my $chunk (@chunks) {
+      # If SSH adds long options this will need to be updated 
+      if ($chunk =~ /\A-([^-]\S+)\z/) {
+        foreach my $flag (split(//, $1)) { $data->{flags}->{$flag}++; }
+      } elsif ($chunk =~ /\A-(\S)\s+/) {
+        $data->{args}->{$1}++;
+      } 
+    }
+  }
+  close(FH);
+  waitpid($pid, 0);
+  return $data;
+}
+
+sub ssh_bounce_native {
+  my $dest_host   = shift;
+  my $port_arg    = shift;
+  my $bounce_host = shift;
+
+  print STDERR "Using ssh -W\n" if ($DEBUG);
+  ssh_bounce_generic($dest_host, $port_arg, $bounce_host, [$SSH_BIN, '-W', "$dest_host:$port_arg"]);
+}
+
+sub ssh_bounce_netcat {
+  my $dest_host   = shift;
+  my $port_arg    = shift;
+  my $bounce_host = shift;
+
+  print STDERR "Using ssh exec netcat\n" if ($DEBUG);
+  ssh_bounce_generic($dest_host, $port_arg, $bounce_host, [$SSH_BIN], ['exec', 'nc', $dest_host, $port_arg]);
+}
+
+sub ssh_bounce_generic {
+  my $dest_host   = shift;
+  my $port_arg    = shift;
+  my $bounce_host = shift;
+  my $local_cmd   = shift || []; # needs an arrayref
+  my $remote_cmd  = shift || []; # needs an arrayref
+
+  my @SSH_CMD = @$local_cmd; # dereference
+  if ($bounce_host =~ /\A([^\^]+)_(\d+)\z/) {
+    $bounce_host = $1;
+    push(@SSH_CMD, '-p', $2);
+  }
+  # reduce key warnings and known_hosts pollution by correcting ssh's idea of
+  # what target host should be used when matching known fingerprints. This does
+  # not prevent the whole initial caretpath from being logged/checked, though
+  # that can be prevented by specifying -o Hostname=... yourself
+  if ($bounce_host =~ /\A(?:[^\+\@]+[\@\+])?([A-Za-z0-9_\-\.]+)(?:_\d+)?\^/) {
+    push(@SSH_CMD, '-o', "Hostname=$1");
+  }
+  push(@SSH_CMD, $bounce_host);
+  push(@SSH_CMD, @$remote_cmd);
+  print STDERR join(' ', @SSH_CMD) . "\n" if ($DEBUG);
+  exec(@SSH_CMD); # Script stops here
+}
+# vim: ts=2 sw=2 et ai si
