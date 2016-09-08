@@ -1,8 +1,8 @@
 -- Mostly copied and pasted from
 -- http://robots.thoughtbot.com/improving-the-command-line-postgres-experience/
+-- Dropped the color codes because they caused terminal rendering problems.
 
-\set PROMPT1 '%[%033[1m%]%M %n@%/%R%[%033[0m%]%# '
-
+\set PROMPT1 '%M %n@%/%R%# '
 \set PROMPT2 '[more] %R > '
 
 -- By default, NULL displays as an empty space. Is it actually an empty
