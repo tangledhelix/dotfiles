@@ -62,6 +62,11 @@ inoremap jj <esc>
 " map this too to be uniform with oh-my-zsh
 inoremap jk <esc>
 
+" Going to try to standardize on kj because Apple is taking away my Esc key
+" I AM NOT ANGRY, REALLY, NO SERIOUSLY WHY WOULD THAT MAKE ME ANGRY?
+inoremap kj <esc>
+"inoremap <esc> <nop>
+
 " Use more natural key movement on wrapped lines.
 nnoremap j gj
 nnoremap k gk
