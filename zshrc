@@ -29,6 +29,9 @@ zstyle ':omz:load' zfunction 'zargs' 'zmv'
 #     alias svn='/usr/bin/svn'
 # fi
 
+# Exclude svn from prompt lookups entirely
+zstyle ':vcs_info:*' enable git
+
 # Set the Oh My Zsh modules to load (browse modules).
 # The order matters.
 #   * 'environment' should be first.
