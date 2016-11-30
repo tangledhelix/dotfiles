@@ -3,4 +3,5 @@
 *~
 *.sublime-workspace
 *.sublime-project
+.python_history
 
