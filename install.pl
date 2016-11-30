@@ -48,6 +48,7 @@ my %vim_bundles = (
     'statline' => 'millermedeiros/vim-statline',
     'surround' => 'tpope/vim-surround',
     'tcomment' => 'tomtom/tcomment_vim',
+    'autopairs' => 'jiangmiao/auto-pairs',
 );
 
 my $replace_all = 0;
