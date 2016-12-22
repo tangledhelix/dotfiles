@@ -102,9 +102,6 @@
     wordRegex = [^[:space:]]
     tool = Kaleidoscope
 
-[help]
-    autocorrect = 1
-
 [push]
     # Push current branch even if you've never pushed it before
     default = current
