@@ -154,8 +154,13 @@ set cursorline
 " Show row/col of cursor position, and percentage into the file we are.
 set ruler
 
-set nonumber
-nnoremap <silent> <leader>n :set number! number?<cr>
+set number
+if v:version >= 704
+    set relativenumber
+    nnoremap <silent> <leader>n :set number! number?<cr>:set relativenumber! relativenumber?<cr>
+else
+    nnoremap <silent> <leader>n :set number! number?<cr>
+endif
 
 " Restore cursor position from our last session, if known.
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute 'normal! g`"zvzz' | endif
