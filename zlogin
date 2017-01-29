@@ -14,15 +14,15 @@
     fi
 
     # Set environment variables for launchd processes.
-    if [[ "$OSTYPE" == darwin* ]]; then
-        for env_var in PATH MANPATH; do
-            if [ -x /usr/local/bin/reattach-to-user-namespace ]; then
-                /usr/local/bin/reattach-to-user-namespace launchctl setenv "$env_var" "${(P)env_var}"
-            else
-                launchctl setenv "$env_var" "${(P)env_var}"
-            fi
-        done
-    fi
+    # if [[ "$OSTYPE" == darwin* ]]; then
+    #     for env_var in PATH MANPATH; do
+    #         if [ -x /usr/local/bin/reattach-to-user-namespace ]; then
+    #             /usr/local/bin/reattach-to-user-namespace launchctl setenv "$env_var" "${(P)env_var}"
+    #         else
+    #             launchctl setenv "$env_var" "${(P)env_var}"
+    #         fi
+    #     done
+    # fi
 } &!
 
 # Print a random, hopefully interesting, adage.
