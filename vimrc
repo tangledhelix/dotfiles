@@ -58,13 +58,13 @@ let g:sql_type_default = 'pgsql'
 
 " Use jj to get back to command mode instead of Esc, which is out of the
 " way and on some keyboards hard to reach. Esc still works too.
-inoremap jj <esc>
+"inoremap jj <esc>
 " map this too to be uniform with oh-my-zsh
-inoremap jk <esc>
+"inoremap jk <esc>
 
 " Going to try to standardize on kj because Apple is taking away my Esc key
 " I AM NOT ANGRY, REALLY, NO SERIOUSLY WHY WOULD THAT MAKE ME ANGRY?
-inoremap kj <esc>
+"inoremap kj <esc>
 "inoremap <esc> <nop>
 
 " Use more natural key movement on wrapped lines.
