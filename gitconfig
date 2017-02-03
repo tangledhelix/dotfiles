@@ -80,6 +80,7 @@
     # Show SHA of HEAD, or of passed ref
     id   = log --pretty=format:'%H' -n 1
     hash = log --pretty=format:'%H' -n 1
+    undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
 
 [core]
     pager = less
