@@ -20,18 +20,6 @@ zstyle ':omz:module:terminal' auto-title 'no'
 # Set the Zsh functions to load (man zshcontrib).
 zstyle ':omz:load' zfunction 'zargs' 'zmv'
 
-# freaking svn repo version conflicts...
-# disabling this for now, causing headaches
-# if need a certain svn, just stick an alias in ~/.zshrc.local
-#
-# if [[ -x /opt/gums/bin/svn ]]; then
-#     zstyle ':vcs_info:svn:*:-all-' command /usr/bin/svn
-#     alias svn='/usr/bin/svn'
-# fi
-
-# Exclude svn from prompt lookups entirely
-zstyle ':vcs_info:*' enable git
-
 # Set the Oh My Zsh modules to load (browse modules).
 # The order matters.
 #   * 'environment' should be first.
@@ -61,6 +49,9 @@ zstyle ':omz:module:prompt' theme 'steeef'
 
 # This will make you shout: OH MY ZSHELL!
 source "$OMZ/init.zsh"
+
+# Exclude svn from prompt lookups entirely
+zstyle ':vcs_info:*' enable git
 
 # Customize to your needs...
 
