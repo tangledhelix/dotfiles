@@ -35,7 +35,6 @@ Current leader key map:                                            *leadermap*
   ,s            Toggle spell-check mode
   ,S            :execute current line
   ,t            Open a new tab in current view
-  ,T            View or change tab width setting
   ,v            Reselect what was just pasted (use gv for last selection)
   ,w            Create new vertical window and switch to it
   ,W            Strip all trailing whitespace in this file

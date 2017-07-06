@@ -176,15 +176,12 @@ endif
 
 set expandtab
 
-set tabstop=4
+set tabstop=8
 set softtabstop=4
 
 " Number of columns to use for (auto)indent. Generally this should be the
 " same as the tabstop.
 set shiftwidth=4
-
-" Set or show tab width info
-nnoremap <leader>T :Stab<cr>
 
 " When changing indent with <, >, >>, <<, use a multiple of shiftwidth.
 set shiftround
