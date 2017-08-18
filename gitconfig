@@ -128,3 +128,5 @@
 
 [mergetool]
     prompt = false
+[fetch]
+	prune = true
