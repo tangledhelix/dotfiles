@@ -188,7 +188,9 @@ sub determine_action {
     }
 
     if (-d $link_path) {
-        warn "** $link_path is a directory, skipping!\n";
+        warn "** $link_path is a directory!\n";
+        warn "** press any key to continue **";
+        my $foo = <STDIN>;
         return;
     }
 
