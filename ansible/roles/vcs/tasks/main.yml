@@ -1,0 +1,10 @@
+- name: "Install version-control configurations"
+  copy:
+    src: "{{ dotfiles }}/{{ item }}"
+    dest: "{{ ansible_user_dir }}/.{{ item }}"
+    mode: 0644
+  with_items:
+    - gitconfig
+    - gitignore
+    - hgrc
+    - cvsrc

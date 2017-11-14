@@ -1,0 +1,5 @@
+- name: "Install scripts"
+  synchronize:
+    src: "{{ dotfiles }}/scripts/"
+    dest: "{{ ansible_user_dir }}/bin"
+    delete: no

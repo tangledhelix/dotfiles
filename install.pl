@@ -235,7 +235,7 @@ sub replace_file {
 
 # clone my omz repository
 sub omz_cloner {
-    my $omz_path = "$basedir/oh-my-zsh";
+    my $omz_path = "$ENV{HOME}/.oh-my-zsh";
     my $repo_url = 'https://github.com/tangledhelix/oh-my-zsh.git';
     if ($use_ssh) {
         $repo_url = 'git@github.com:tangledhelix/oh-my-zsh.git';
@@ -259,7 +259,7 @@ sub omz_cloner {
 
 # update the omz repository
 sub omz_updater {
-    my $omz_path = "$basedir/oh-my-zsh";
+    my $omz_path = "$ENV{HOME}/.oh-my-zsh";
     my $old_cwd = getcwd;
     chdir $omz_path;
     system 'git', 'pull';
@@ -334,7 +334,7 @@ sub scripts_installer {
 
 # stupid hack to get around ACLs; update submodules in omz to use ssh.
 sub omz_remotes_set_ssh {
-    chdir "$basedir/oh-my-zsh";
+    chdir "$ENV{HOME}/.oh-my-zsh";
     $ENV{PATH} = '/usr/local/bin:' . $ENV{PATH};
 
     open my $fh, '-|', 'git submodule';

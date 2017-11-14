@@ -1,0 +1,10 @@
+- hosts: all
+  vars:
+    dotfiles: "{{ playbook_dir }}/.."
+  roles:
+    - { role: zsh }
+    - { role: vcs }
+    - { role: misc }
+    - { role: vim }
+    - { role: bash }
+    - { role: scripts }

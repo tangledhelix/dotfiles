@@ -3,7 +3,7 @@
 [[ $(uname -s) = "SunOS" ]] && export TERMINFO="$HOME/.terminfo"
 
 # Set the path to Oh My Zsh.
-export OMZ="$HOME/.dotfiles/oh-my-zsh"
+export OMZ="$HOME/.oh-my-zsh"
 
 # Paths
 typeset -gU cdpath fpath mailpath manpath path

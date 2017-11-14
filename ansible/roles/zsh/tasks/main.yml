@@ -1,0 +1,16 @@
+- name: "Install zsh files"
+  copy:
+    src: "{{ dotfiles }}/{{ item }}"
+    dest: "{{ ansible_user_dir }}/.{{ item }}"
+    mode: 0644
+  with_items:
+    - zlogin
+    - zlogout
+    - zshenv
+    - zshrc
+
+- name: Git checkout of oh-my-zsh
+  git:
+    repo: "https://github.com/tangledhelix/oh-my-zsh.git"
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh"
+    executable: "/usr/bin/git"

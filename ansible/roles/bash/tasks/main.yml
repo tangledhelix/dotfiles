@@ -1,0 +1,15 @@
+- name: "Install bash files"
+  copy:
+    src: "{{ dotfiles }}/{{ item }}"
+    dest: "{{ ansible_user_dir }}/.{{ item }}"
+    mode: 0644
+  with_items:
+    - bash_profile
+    - bashrc
+    - inputrc
+
+- name: "Install bash directory"
+  synchronize:
+    src: "{{ dotfiles }}/bash/"
+    dest: "{{ ansible_user_dir }}/.bash"
+    delete: yes
