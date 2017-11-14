@@ -14,5 +14,4 @@
     - psqlrc
     - screenrc
     - tcshrc
-    - terminfo
     - tmux.conf
