@@ -20,3 +20,4 @@
 # Ansible files
 /ansible/site.retry
 /ansible/hosts
+/ansible/hosts.yml
