@@ -148,22 +148,23 @@ export CVS_RSH='ssh'
 # Avoid an RCS checkin log headache
 [[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 # Auto-activate virtualenv when entering directory
-_virtualenv_auto_activate() {
-    if [ -d "venv" ]; then
-        # Check to see if already activated to avoid redundant activating
-        if [ "$VIRTUAL_ENV" != "$(pwd -P)/venv" ]; then
-            export _VENV_NAME=${$(pwd):t}
-            echo Activating virtualenv \"$_VENV_NAME\"...
-            export VIRTUAL_ENV_DISABLE_PROMPT=1
-            source venv/bin/activate
-        fi
-    fi
-}
+#_virtualenv_auto_activate() {
+#    if [ -d "venv" ]; then
+#        # Check to see if already activated to avoid redundant activating
+#        if [ "$VIRTUAL_ENV" != "$(pwd -P)/venv" ]; then
+#            export _VENV_NAME=${$(pwd):t}
+#            echo Activating virtualenv \"$_VENV_NAME\"...
+#            export VIRTUAL_ENV_DISABLE_PROMPT=1
+#            source venv/bin/activate
+#        fi
+#    fi
+#}
 
 prompt_steeef_precmd_plus_venv() {
     prompt_steeef_precmd
-    _virtualenv_auto_activate
+    #_virtualenv_auto_activate
 }
 
 autoload -Uz add-zsh-hook
