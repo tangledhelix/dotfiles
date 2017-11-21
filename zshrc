@@ -269,7 +269,8 @@ else
 
     [[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
 
-    mkdir -p ~/.vim/tmp/{backup,swap,undo}
+    # No longer using these
+    #mkdir -p ~/.vim/tmp/{backup,swap,undo}
 
     if [[ -n "$(command -v tmux)" ]]; then
 
