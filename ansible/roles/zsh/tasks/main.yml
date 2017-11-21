@@ -13,4 +13,4 @@
   git:
     repo: "https://github.com/tangledhelix/oh-my-zsh.git"
     dest: "{{ ansible_user_dir }}/.oh-my-zsh"
-    executable: "/usr/bin/git"
+    executable: "{{ git_path }}"
