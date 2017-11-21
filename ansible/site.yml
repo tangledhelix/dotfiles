@@ -1,7 +1,6 @@
 - hosts: all
   vars:
     dotfiles: "{{ playbook_dir }}/.."
-    git_path: "/usr/bin/git"
   roles:
     - { role: zsh }
     - { role: vcs }
