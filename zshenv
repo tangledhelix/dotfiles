@@ -1,6 +1,6 @@
 
 # fix terminal foo on Solaris
-#[[ $(uname -s) = "SunOS" ]] && export TERMINFO="$HOME/.terminfo"
+[[ $(uname -s) = "SunOS" ]] && export TERMINFO="$HOME/.terminfo"
 
 # Set the path to Oh My Zsh.
 export OMZ="$HOME/.oh-my-zsh"

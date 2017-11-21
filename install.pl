@@ -13,7 +13,7 @@ my %files = (
     bash => [ 'bash', 'bash_profile', 'bashrc' ],
     git  => [ 'gitconfig', 'gitignore' ],
     misc => [ 'cvsrc', 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc', 'perldb',
-              'tmux.conf', 'perltidyrc', 'inputrc', 'psqlrc', 'colordiffrc',
+              'terminfo', 'tmux.conf', 'perltidyrc', 'inputrc', 'psqlrc', 'colordiffrc',
               'pgclirc' ],
     vim  => [ 'vim', 'vimrc' ],
     zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ]
