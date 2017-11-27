@@ -35,7 +35,7 @@ filetype plugin indent on
 " ------------------------------------------------------------------------ }}}
 " General settings {{{
 
-let mapleader = ','
+let mapleader = '<Space>'
 let maplocalleader = '\'
 
 " Turn on mouse support
@@ -260,10 +260,10 @@ set backspace=indent,eol,start
 set foldmethod=marker
 
 " Use space to toggle folds.
-nnoremap <space> za
+"nnoremap <space> za
 
 " Focus on the current fold
-nnoremap <leader>z zMzvzz
+"nnoremap <leader>z zMzvzz
 
 " Fold current HTML tag.
 nnoremap <leader>Ft Vatzf
@@ -301,7 +301,7 @@ set ignorecase
 set smartcase
 
 " Clear the highlighted words from an hlsearch (can be visual clutter).
-nnoremap <silent> <leader><space> :nohlsearch<cr>:call clearmatches()<cr>
+"nnoremap <silent> <leader><space> :nohlsearch<cr>:call clearmatches()<cr>
 
 " Turn hlsearch on or off.
 nnoremap <leader>h :set hlsearch!<cr>
