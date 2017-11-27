@@ -312,7 +312,8 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
     #export RPROMPT='$(battery_charge_meter)'
 
     alias ql='qlmanage -p "$@" >& /dev/null'
-    alias telnet='/usr/bin/telnet -K'
+    # telnet is no longer shipped with macOS
+    #alias telnet='/usr/bin/telnet -K'
     alias ldd='otool -L'
 
     # This shows which processes are using the network right now.
