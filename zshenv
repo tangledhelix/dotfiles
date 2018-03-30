@@ -80,6 +80,7 @@ path_candidates=(
     /usr/sfw/bin
     /opt/X11/bin
     /usr/X11R6/bin
+    /opt/puppetlabs/bin
     ~/tools
     ~/.cabal/bin
 )
