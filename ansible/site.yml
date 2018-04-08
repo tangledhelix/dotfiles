@@ -8,3 +8,7 @@
     - { role: vim }
     - { role: bash }
     - { role: scripts }
+
+- hosts: macos
+  roles:
+    - { role: homebrew }

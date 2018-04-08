@@ -1,0 +1,95 @@
+- name: "Update homebrew"
+  homebrew:
+    update_homebrew: yes
+
+- name: "Install homebrew packages"
+  homebrew:
+    update_homebrew: no
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - abook
+    - ansible
+    - aspell
+    - bash
+    - bookloupe
+    - colordiff
+    - composer
+    - coreutils
+    - cpanminus
+    - cscope
+    - ctags
+    - ctop
+    - cvs
+    - euler-py
+    - exercism
+    - exif
+    - exiftool
+    - fswatch
+    - git
+    - git-lfs
+    - gnupg
+    - gnupg2
+    - gpg-agent
+    - grip
+    - groff
+    - gron
+    - highlight
+    - htop
+    - httpd
+    - httpie
+    - hugo
+    - ipython
+    - jhead
+    - jid
+    - jq
+    - lua
+    - luajit
+    - lynx
+    - md5sha1sum
+    - mercurial
+    - micro
+    - mobile-shell
+    - mosh
+    - most
+    - mtr
+    - multimarkdown
+    - mutt
+    - nethogs
+    - nginx
+    - ngrep
+    - nmap
+    - node
+    - nvm
+    - perl
+    - php70
+    - php@7.0
+    - postgresql
+    - python
+    - python3
+    - python@2
+    - reattach-to-user-namespace
+    - ruby
+    - sipcalc
+    - slackcat
+    - sloccount
+    - socat
+    - telnet
+    - the_silver_searcher
+    - tidy-html5
+    - tig
+    - tmux
+    - tnef
+    - tree
+    - unrar
+    - vim
+    - watchman
+    - wget
+    - xz
+    - yarn
+    - youtube-dl
+
+- name: "Upgrade homebrew packages"
+  homebrew:
+    update_homebrew: no
+    upgrade_all: yes
