@@ -55,9 +55,6 @@ path_candidates=(
     /opt/gums/sbin
     ~/local/bin
     ~/bin
-    ~/.scripts
-    ~/.rbenv/bin
-    ~/.gems/bin
     /admin/bin
     /usr/local/share/npm/bin
     /usr/local/{bin,sbin}

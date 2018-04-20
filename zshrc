@@ -267,8 +267,6 @@ else
     set-window-title $(uname -n)
     set-tab-title $(uname -n)
 
-    [[ -f ~/.rbenv/bin/rbenv ]] && eval "$(rbenv init -)"
-
     # No longer using these
     #mkdir -p ~/.vim/tmp/{backup,swap,undo}
 
