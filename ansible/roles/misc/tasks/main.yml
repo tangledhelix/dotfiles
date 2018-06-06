@@ -22,3 +22,17 @@
     src: "{{ dotfiles }}/terminfo/"
     dest: "{{ ansible_user_dir }}/.terminfo"
     delete: yes
+
+- name: "Install hiera-eyaml-gpg gem"
+  when: ansible_os_family == "Darwin"
+  gem:
+    name: hiera-eyaml-gpg
+    state: present
+    executable: /usr/local/bin/gem
+
+- name: "Install gpgme gem"
+  when: ansible_os_family == "Darwin"
+  gem:
+    name: gpgme
+    state: present
+    executable: /usr/local/bin/gem
