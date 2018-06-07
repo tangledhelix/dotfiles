@@ -23,12 +23,23 @@
     dest: "{{ ansible_user_dir }}/.terminfo"
     delete: yes
 
+- name: "Install hiera-eyaml gem"
+  when: ansible_os_family == "Darwin"
+  gem:
+    name: hiera-eyaml
+    state: present
+    executable: /usr/local/bin/gem
+    user_install: no
+  tags: eyaml
+
 - name: "Install hiera-eyaml-gpg gem"
   when: ansible_os_family == "Darwin"
   gem:
     name: hiera-eyaml-gpg
     state: present
     executable: /usr/local/bin/gem
+    user_install: no
+  tags: eyaml
 
 - name: "Install gpgme gem"
   when: ansible_os_family == "Darwin"
@@ -36,3 +47,5 @@
     name: gpgme
     state: present
     executable: /usr/local/bin/gem
+    user_install: no
+  tags: eyaml
