@@ -5,3 +5,4 @@
 *.sublime-project
 .python_history
 .tern-project
+.vscode/
