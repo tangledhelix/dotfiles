@@ -317,6 +317,13 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
     # This shows which processes are using the network right now.
     alias netusers='lsof -P -i -n | cut -f 1 -d " " | uniq'
 
+    # This shows networks around you
+    # Ref: https://stackoverflow.com/questions/51136004/how-to-get-wi-fi-channels-on-mac-high-sierra
+    alias showwifi='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s'
+
+    # This lets you use the keychain for https urls in Git
+    alias gitkeychain='git config credential.helper osxkeychain'
+
 fi
 
 # local settings override global ones
