@@ -4,10 +4,15 @@
     dest: "{{ ansible_user_dir }}/.{{ item }}"
     mode: 0644
   with_items:
-    - gitconfig
     - gitignore
     - hgrc
     - cvsrc
+  tags: vcs
+
+- name: "Install .gitconfig from template"
+  template:
+    src: gitconfig.j2
+    dest: "{{ ansible_user_dir }}/.gitconfig"
   tags: vcs
 
 - name: "Install git-credential-osxkeychain"
@@ -16,9 +21,4 @@
     src: "{{ dotfiles }}/git-credential-osxkeychain"
     dest: /usr/local/bin/git-credential-osxkeychain
     mode: 0755
-  tags: vcs
-
-- name: "Set up git-credential-osxkeychain"
-  when: ansible_os_family == "Darwin"
-  command: git config --global credential.helper osxkeychain
   tags: vcs
