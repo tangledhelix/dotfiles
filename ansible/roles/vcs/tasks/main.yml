@@ -17,3 +17,8 @@
     dest: /usr/local/bin/git-credential-osxkeychain
     mode: 0755
   tags: vcs
+
+- name: "Set up git-credential-osxkeychain"
+  when: ansible_os_family == "Darwin"
+  command: git config --global credential.helper osxkeychain
+  tags: vcs
