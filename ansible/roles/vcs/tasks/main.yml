@@ -8,3 +8,12 @@
     - gitignore
     - hgrc
     - cvsrc
+  tags: vcs
+
+- name: "Install git-credential-osxkeychain"
+  when: ansible_os_family == "Darwin"
+  copy:
+    src: "{{ dotfiles }}/git-credential-osxkeychain"
+    dest: /usr/local/bin/git-credential-osxkeychain
+    mode: 0755
+  tags: vcs
