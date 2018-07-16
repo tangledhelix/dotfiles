@@ -1,2 +1,7 @@
+- name: Clean up brew
+  command: brew cleanup
+  listen: "Brew administrative tasks"
+
 - name: Restart brew services
   command: brew services restart --all
+  listen: "Brew administrative tasks"
