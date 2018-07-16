@@ -89,8 +89,10 @@
     - xz
     - yarn
     - youtube-dl
+  notify: Restart brew services
 
 - name: "Upgrade homebrew packages"
   homebrew:
     update_homebrew: no
     upgrade_all: yes
+  notify: Restart brew services

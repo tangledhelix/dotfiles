@@ -1,0 +1,2 @@
+- name: Restart brew services
+  command: brew services restart --all
