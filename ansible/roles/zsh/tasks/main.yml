@@ -9,8 +9,10 @@
     - zshenv
     - zshrc
 
-- name: Git checkout of oh-my-zsh
-  git:
-    repo: "https://github.com/tangledhelix/oh-my-zsh.git"
+- name: "Install oh-my-zsh directory"
+  synchronize:
+    src: "{{ dotfiles }}/oh-my-zsh/"
     dest: "{{ ansible_user_dir }}/.oh-my-zsh"
-    executable: "{{ git_path }}"
+    delete: yes
+    rsync_opts:
+      - "--exclude=.git"

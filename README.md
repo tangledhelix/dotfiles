@@ -17,19 +17,16 @@ Compatibility
 -------------
 
 I am a Zsh user. This repo goes in conjunction with my
-[fork of oh-my-zsh][zfork]. If you want to use my zsh setup, run
-`./install.pl zsh`.
+[fork of oh-my-zsh][zfork].
 
 [zfork]: https://github.com/tangledhelix/oh-my-zsh
 
-Using Bash does not need any external repos. Use `./install.pl bash` to
-install my Bash setup. I used Bash for many years, and those files are fairly
-mature, but I am no longer paying a lot of attention to them. Note that the
-default installer does not install the bash symlinks anymore, you have
-to install 'bash' specifically!
+Using Bash does not need any external repos. 
+I used Bash for many years, and those files are fairly
+mature, but I am no longer paying a lot of attention to them.
 
-I regularly use this setup with Mac OS X, Solaris, and Linux systems. I have
-used it with FreeBSD in the past.
+I have used this setup with macOS, Solaris, FreeBSD, and Linux systems.
+Today I primarily use macOS and Linux (Debian and Redhat families).
 
 Some parts of the Bash, Zsh, and Vim configs may assume you have 256 color
 support in your terminal. If you are using Apple Terminal before OS X Lion,
@@ -47,18 +44,19 @@ read; color support is only one of several good reasons to switch.
 Shell colors
 ------------
 
-The colors in the Zsh shell prompts currently assume the terminal is using
-a Cobalt color scheme. They may look odd otherwise.
-
-In Bash, the prompts assume [Solarized][] Dark.
-
-[solarized]: http://ethanschoonover.com/solarized
-
-The Zsh setup lets you pick from multiple prompts. Run `prompt -l` to see
-them, and set what you like in `~/.zshrc`.
+The colors in the Zsh shell prompts may assume a certain color scheme in the
+terminal; they may look odd in other schemes.
 
 Installation
 ------------
+
+I used to use the script noted below. I haven't been lately and it may be it
+no longer works properly. I've been using ansible-playbook and the code under
+the ansible directory lately. YMMV.
+
+The Ansible setup requires a `hosts` inventory file. That is not present in this
+repository as it's specific to me. See Ansible's documentation for info about the
+format of the inventory file. (There is more than one available format.)
 
     umask 0022
     git clone https://github.com/tangledhelix/dotfiles.git ~/.dotfiles
