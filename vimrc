@@ -629,6 +629,9 @@ autocmd FileType snippet setlocal noexpandtab
 " ------------------------------------------------------------------------ }}}
 " Syntax: YAML {{{
 
+" EYAML is YAML, syntactically
+autocmd BufNewFile,BufRead *.eyaml set filetype=yaml
+
 " YAML requires spaces, not tabs
 autocmd FileType yaml setlocal expandtab ts=2 sts=2 sw=2
 
