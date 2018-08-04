@@ -21,3 +21,5 @@
 /ansible/site.retry
 /ansible/hosts
 /ansible/hosts.yml
+
+/oh-my-zsh
