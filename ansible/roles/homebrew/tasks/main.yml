@@ -87,6 +87,7 @@
     - watchman
     - wget
     - xz
+    - yamllint
     - yarn
     - youtube-dl
   notify: "Brew administrative tasks"
