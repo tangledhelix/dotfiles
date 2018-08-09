@@ -63,3 +63,12 @@
     dest: "{{ ansible_user_dir }}/.gnupg/gpg.conf"
     mode: 0600
   tags: gpg
+
+- name: "Install yard gem"
+  when: ansible_os_family == "Darwin"
+  gem:
+    name: yard
+    state: present
+    executable: /usr/local/bin/gem
+    user_install: no
+
