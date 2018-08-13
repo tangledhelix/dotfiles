@@ -3,3 +3,4 @@
     src: "{{ dotfiles }}/scripts/"
     dest: "{{ ansible_user_dir }}/bin"
     delete: no
+  tags: scripts

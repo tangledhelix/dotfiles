@@ -15,6 +15,7 @@
     - screenrc
     - tcshrc
     - tmux.conf
+  tags: misc
 
 - name: "Install terminfo files"
   when: ansible_os_family == "Solaris"
@@ -22,6 +23,7 @@
     src: "{{ dotfiles }}/terminfo/"
     dest: "{{ ansible_user_dir }}/.terminfo"
     delete: yes
+  tags: misc
 
 - name: "Install hiera-eyaml gem"
   when: ansible_os_family == "Darwin"
@@ -30,7 +32,7 @@
     state: present
     executable: /usr/local/bin/gem
     user_install: no
-  tags: eyaml
+  tags: puppet
 
 - name: "Install hiera-eyaml-gpg gem"
   when: ansible_os_family == "Darwin"
@@ -39,7 +41,7 @@
     state: present
     executable: /usr/local/bin/gem
     user_install: no
-  tags: eyaml
+  tags: puppet
 
 - name: "Install gpgme gem"
   when: ansible_os_family == "Darwin"
@@ -48,7 +50,7 @@
     state: present
     executable: /usr/local/bin/gem
     user_install: no
-  tags: eyaml
+  tags: puppet
 
 - name: "Create .gnupg directory"
   file:

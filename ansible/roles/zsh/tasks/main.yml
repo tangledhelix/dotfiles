@@ -8,6 +8,7 @@
     - zlogout
     - zshenv
     - zshrc
+  tags: zsh
 
 - name: "Install oh-my-zsh directory"
   synchronize:
@@ -16,3 +17,4 @@
     delete: yes
     rsync_opts:
       - "--exclude=.git"
+  tags: zsh
