@@ -50,6 +50,7 @@
     - md5sha1sum
     - mercurial
     - micro
+    - mkcert
     - mobile-shell
     - mosh
     - most
