@@ -95,3 +95,22 @@
   tags:
     - puppet
 
+- name: "Upgrade Python pip"
+  when: ansible_os_family == "Darwin"
+  pip:
+    name: pip
+    executable: /usr/local/bin/pip3
+    extra_args: "--upgrade"
+  tags:
+    - python
+    - jupyter
+
+- name: "Install Jupyter notebook"
+  when: ansible_os_family == "Darwin"
+  pip:
+    name: jupyter
+    executable: /usr/local/bin/pip3
+  tags:
+    - python
+    - jupyter
+
