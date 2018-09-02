@@ -7,11 +7,13 @@
     - bash_profile
     - bashrc
     - inputrc
-  tags: bash
+  tags:
+    - bash
 
 - name: "Install bash directory"
   synchronize:
     src: "{{ dotfiles }}/bash/"
     dest: "{{ ansible_user_dir }}/.bash"
     delete: yes
-  tags: bash
+  tags:
+    - bash

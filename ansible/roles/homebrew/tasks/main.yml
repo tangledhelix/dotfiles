@@ -1,7 +1,8 @@
 - name: "Update homebrew"
   homebrew:
     update_homebrew: yes
-  tags: homebrew
+  tags:
+    - homebrew
 
 - name: "Install homebrew packages"
   homebrew:
@@ -94,11 +95,13 @@
     - yarn
     - youtube-dl
   notify: "Brew administrative tasks"
-  tags: homebrew
+  tags:
+    - homebrew
 
 - name: "Upgrade homebrew packages"
   homebrew:
     update_homebrew: no
     upgrade_all: yes
   notify: "Brew administrative tasks"
-  tags: homebrew
+  tags:
+    - homebrew

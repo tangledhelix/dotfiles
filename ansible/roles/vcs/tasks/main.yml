@@ -7,13 +7,16 @@
     - gitignore
     - hgrc
     - cvsrc
-  tags: vcs
+  tags:
+    - vcs
 
 - name: "Install .gitconfig from template"
   template:
     src: gitconfig.j2
     dest: "{{ ansible_user_dir }}/.gitconfig"
-  tags: vcs
+  tags:
+    - vcs
+    - git
 
 - name: "Install git-credential-osxkeychain"
   when: ansible_os_family == "Darwin"
@@ -21,4 +24,6 @@
     src: "{{ dotfiles }}/git-credential-osxkeychain"
     dest: /usr/local/bin/git-credential-osxkeychain
     mode: 0755
-  tags: vcs
+  tags:
+    - vcs
+    - git
