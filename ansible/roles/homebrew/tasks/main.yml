@@ -158,21 +158,28 @@
   tags:
     - puppet
 
-- name: "Upgrade Python pip"
+- name: "Install Jupyter Python environment"
   when: ansible_os_family == "Darwin"
   pip:
-    name: pip
-    executable: /usr/local/bin/pip3
+    name: "{{ item }}"
     extra_args: "--upgrade"
+    executable: /usr/local/bin/pip3
+  with_items:
+    - pip
+    - jupyter
+    - pyzmq
   tags:
     - python
     - jupyter
 
-- name: "Install Jupyter notebook"
+- name: "Install Jupyter JavaScript/Node.js environment"
   when: ansible_os_family == "Darwin"
-  pip:
-    name: jupyter
-    executable: /usr/local/bin/pip3
+  yarn:
+    name: ijavascript
+    global: yes
+    production: yes
+    state: latest
   tags:
-    - python
+    - nodejs
     - jupyter
+  notify: "Install jupyter nodejs"

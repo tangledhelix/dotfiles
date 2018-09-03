@@ -10,3 +10,6 @@
   command: pip3 install pylint
   listen: "Brew administrative tasks"
 
+- name: Install jupyter nodejs
+  command: ijsinstall
+  listen: "Install jupyter nodejs"
