@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+BASEDIR="$HOME/Dropbox/Apps/nbk"
+PORT="8085"
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo "This is only meant to work on my Macs. Exiting."
+    exit 1
+fi
+
+if [[ -z "$(command -v nbk)" ]]; then
+    echo "ERROR: nbk command was not found"
+    exit 1
+fi
+
+if [[ ! -d $BASEDIR ]]; then
+    mkdir -p $BASEDIR
+fi
+
+nbk --port $PORT --docker --notebooks $BASEDIR &
+open http://localhost:$PORT
+
