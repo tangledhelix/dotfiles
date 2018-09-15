@@ -17,6 +17,5 @@ if [[ ! -d $BASEDIR ]]; then
     mkdir -p $BASEDIR
 fi
 
-nbk --port $PORT --docker --notebooks $BASEDIR &
-open http://localhost:$PORT
+nbk --port $PORT --docker --notebooks $BASEDIR
 
