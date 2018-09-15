@@ -1,3 +1,14 @@
+- name: "Fix homebrew permissions"
+  file:
+    path: /usr/local/bin
+    owner: dan
+    group: staff
+    recurse: yes
+  become: true
+  tags:
+    - homebrew
+    - homebrew_perm_fix
+
 - name: "Update homebrew"
   homebrew:
     update_homebrew: yes
@@ -107,7 +118,6 @@
     - homebrew
 
 - name: "Install hiera-eyaml gem"
-  when: ansible_os_family == "Darwin"
   gem:
     name: hiera-eyaml
     state: present
@@ -117,7 +127,6 @@
     - puppet
 
 - name: "Install hiera-eyaml-gpg gem"
-  when: ansible_os_family == "Darwin"
   gem:
     name: hiera-eyaml-gpg
     state: present
@@ -127,7 +136,6 @@
     - puppet
 
 - name: "Install gpgme gem"
-  when: ansible_os_family == "Darwin"
   gem:
     name: gpgme
     state: present
@@ -137,7 +145,6 @@
     - puppet
 
 - name: "Install yard gem"
-  when: ansible_os_family == "Darwin"
   gem:
     name: yard
     state: present
@@ -148,7 +155,6 @@
     - puppet
 
 - name: "Install puppet-strings gem"
-  when: ansible_os_family == "Darwin"
   gem:
     name: puppet-strings
     state: present
@@ -159,7 +165,6 @@
     - puppet
 
 - name: "Install Jupyter Python environment"
-  when: ansible_os_family == "Darwin"
   pip:
     name: "{{ item }}"
     extra_args: "--upgrade"
@@ -173,7 +178,6 @@
     - jupyter
 
 - name: "Install Jupyter JavaScript/Node.js environment"
-  when: ansible_os_family == "Darwin"
   yarn:
     name: ijavascript
     global: yes
@@ -183,3 +187,37 @@
     - nodejs
     - jupyter
   notify: "Install jupyter nodejs"
+
+- name: "Create nodebook data directory"
+  file:
+    owner: dan
+    group: staff
+    mode: 0755
+    path: "{{ ansible_user_dir }}/Dropbox/Apps/nbk"
+    state: directory
+  tags:
+    - nodejs
+    - nodebook
+    - nbk
+
+- name: "Install nodebook"
+  yarn:
+    name: nbk
+    global: yes
+    production: yes
+    state: latest
+  tags:
+    - nodejs
+    - nodebook
+    - nbk
+
+- name: "Install nodebook service"
+  template:
+    src: com.tangledhelix.nbk.plist.j2
+    dest: "{{ ansible_user_dir }}/Library/LaunchAgents/com.tangledhelix.nbk.plist"
+  tags:
+    - nodejs
+    - nodebook
+    - nbk
+  notify: "Set up nodebook"
+

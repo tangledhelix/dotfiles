@@ -13,3 +13,8 @@
 - name: Install jupyter nodejs
   command: ijsinstall
   listen: "Install jupyter nodejs"
+
+- name: Install nodebook service definition
+  command: launchctl load /Users/dan/Library/LaunchAgents/com.tangledhelix.nbk.plist
+  listen: "Set up nodebook"
+
