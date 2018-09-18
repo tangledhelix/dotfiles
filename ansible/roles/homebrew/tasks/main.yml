@@ -1,7 +1,7 @@
 
 - name: "Fix homebrew permissions"
   file:
-    path: /usr/local/bin
+    path: /usr/local
     owner: dan
     group: staff
     recurse: yes
