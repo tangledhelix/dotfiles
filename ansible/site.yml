@@ -5,6 +5,7 @@
     - { role: zsh }
     - { role: vcs }
     - { role: misc }
+    - { role: gnupg }
     - { role: vim }
     - { role: bash }
     - { role: scripts }
