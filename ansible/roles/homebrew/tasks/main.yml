@@ -1,15 +1,4 @@
 
-- name: "Fix homebrew permissions"
-  file:
-    path: /usr/local
-    owner: dan
-    group: staff
-    recurse: yes
-  become: true
-  tags:
-    - homebrew
-    - homebrew_perm_fix
-
 - name: "Update homebrew"
   homebrew:
     update_homebrew: yes
