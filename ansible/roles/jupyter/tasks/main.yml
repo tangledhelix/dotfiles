@@ -1,0 +1,23 @@
+- name: "Install Jupyter Python environment"
+  pip:
+    name: "{{ item }}"
+    extra_args: "--upgrade"
+    executable: /usr/local/bin/pip3
+  with_items:
+    - pip
+    - jupyter
+    - pyzmq
+  tags:
+    - python
+    - jupyter
+
+- name: "Install Jupyter JavaScript/Node.js environment"
+  yarn:
+    name: ijavascript
+    global: yes
+    production: yes
+    state: latest
+  tags:
+    - nodejs
+    - jupyter
+  notify: "Install jupyter nodejs"
