@@ -1,12 +1,8 @@
 - name: "Install Jupyter Python environment"
   pip:
-    name: "{{ item }}"
+    name: ['pip', 'jupyter', 'pyzmq']
     extra_args: "--upgrade"
     executable: /usr/local/bin/pip3
-  with_items:
-    - pip
-    - jupyter
-    - pyzmq
   tags:
     - python
     - jupyter

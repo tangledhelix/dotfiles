@@ -1,24 +1,10 @@
 
-- name: "Update homebrew"
-  homebrew:
-    update_homebrew: yes
-  tags:
-    - homebrew
-
 - name: "Install homebrew packages"
   homebrew:
-    update_homebrew: no
-    name: "{{ item }}"
-    state: latest
-  with_items: "{{ homebrew_packages }}"
-  notify: "Brew administrative tasks"
-  tags:
-    - homebrew
-
-- name: "Upgrade homebrew packages"
-  homebrew:
-    update_homebrew: no
+    update_homebrew: yes
     upgrade_all: yes
+    name: "{{ homebrew_packages }}"
+    state: latest
   notify: "Brew administrative tasks"
   tags:
     - homebrew
