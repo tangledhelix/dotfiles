@@ -56,8 +56,6 @@ homebrew_packages:
   - node
   - nvm
   - perl
-  - php70
-  - php@7.0
   - postgresql
   - python
   - python3
