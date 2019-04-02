@@ -71,20 +71,31 @@ ssh() {
     set-tab-title $(uname -n)
 }
 
+# after mosh, set the title back to local host's name
+#mosh() {
+#    if [[ -x /usr/local/bin/mosh ]]; then
+#        /usr/local/bin/mosh $@
+#    else
+#        /usr/bin/mosh $@
+#    fi
+#    set-window-title $(uname -n)
+#    set-tab-title $(uname -n)
+#}
+
 # After mosh, set the title back to local host's name.
 # If mosh does not connect, fall back to ssh.
-#mosh() {
-#    /usr/local/bin/mosh $@
-#    if [[ $? = 0 ]]; then
-#        set-window-title $(uname -n)
-#        set-tab-title $(uname -n)
-#    else
-#        echo "***"
-#        echo "*** Unable to connect to mosh server, fall back to ssh."
-#        echo "***"
-#        ssh $@
-#    fi
-#}
+mosh() {
+    /usr/local/bin/mosh $@
+    if [[ $? = 0 ]]; then
+        set-window-title $(uname -n)
+        set-tab-title $(uname -n)
+    else
+        echo "***"
+        echo "*** Unable to connect to mosh server, fall back to ssh."
+        echo "***"
+        ssh $@
+    fi
+}
 
 alias vi='vim'
 alias view='vim -R'
