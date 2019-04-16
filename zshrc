@@ -256,9 +256,6 @@ fixssh() {
     done
 }
 
-alias d='docker'
-alias dc='docker-compose'
-
 # http://perlbrew.pl
 if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
     source ~/perl5/perlbrew/etc/bashrc
