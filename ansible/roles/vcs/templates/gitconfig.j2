@@ -86,6 +86,9 @@
 	editor = vim
 	quotepath = false
 	excludesfile = ~/.gitignore
+{% if ansible_os_family == 'Darwin' %}
+	ignoreCase = true
+{% endif %}
 
 [color]
 	branch = auto
