@@ -29,7 +29,6 @@ homebrew_packages:
   - gron
   - highlight
   - htop
-  - httpd
   - httpie
   - hugo
   - ipython

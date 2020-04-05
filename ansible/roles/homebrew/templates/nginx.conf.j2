@@ -3,12 +3,12 @@
 # 2914 - main site
 # 2915 - tangledhelix.com preview
 # 2916 - cfn.tangledhelix.com preview
-# 2918 - ip-dev CMS preview
+# 2918 - free
 # 2920 - dojo-core-essentials
 # 2921 - dojo-widget-essentials
 # 2922 - intern-workshop
 # 2923 - mac-support
-# 2924 - planning site
+# 2924 - free
 
 worker_processes  1;
 
@@ -61,38 +61,6 @@ http {
 
         location / {
             root   /usr/local/var/www/cfn.tangledhelix.com;
-            index  index.html index.htm;
-        }
-
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-    }
-
-    # ip-eng cms preview
-    server {
-        listen       127.0.0.1:2918;
-        server_name  localhost;
-
-        location / {
-            root   /usr/local/var/www/ipeng-site;
-            index  index.html index.htm;
-        }
-
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-    }
-
-    # planning-site preview
-    server {
-        listen       127.0.0.1:2924;
-        server_name  localhost;
-
-        location / {
-            root   /usr/local/var/www/planning-site;
             index  index.html index.htm;
         }
 
