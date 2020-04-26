@@ -81,6 +81,9 @@
 	hash = log --pretty=format:'%H' -n 1
 	undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
 
+	# Follow the history of a single file
+	follow = log --follow -p --
+
 [core]
 	pager = less
 	editor = vim
