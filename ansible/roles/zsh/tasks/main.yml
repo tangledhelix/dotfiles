@@ -13,9 +13,9 @@
   tags:
     - zsh
 
-- name: "Install zshrc"
-  copy:
-    src: "{{ dotfiles }}/zshrc"
+- name: "Install .zshrc from template"
+  template:
+    src: zshrc.j2
     dest: "~/.zshrc"
     mode: 0644
   tags:

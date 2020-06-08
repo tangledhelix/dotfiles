@@ -110,11 +110,28 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git common-aliases colored-man-pages vscode docker docker-compose)
+plugins=(
+    git
+    common-aliases
+    colored-man-pages
+{% if ansible_os_family == 'Darwin' -%}
+    vscode
+{% endif -%}
+    docker
+    docker-compose
+)
 # Possible ones to enable later:
 # ssh-agent
 # gpg-agent
 # keychain
+
+# Turn off the completion security check. This thing complains about
+# group/other-writable directories, but they're really symlinks that
+# point to non-problematic directories (stuff in homebrew).
+# Turns out it's not just homebrew. It also complains about oh-my-zsh,
+# even if those directories are completely owned by me and 0700.
+# So this check is just broken, apparently?
+ZSH_DISABLE_COMPFIX="true"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -145,23 +162,17 @@ unset path_file
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='code -n -w'
-fi
+{% if ansible_os_family == 'Darwin' -%}
+export EDITOR='code -n -w'
+{% else -%}
+export EDITOR='vim'
+{% endif -%}
 
 export VISUAL="$EDITOR"
 export PAGER="less"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# Turn off the completion security check. This thing complains about
-# group/other-writable directories, but they're really symlinks that
-# point to non-problematic directories (stuff in homebrew).
-ZSH_DISABLE_COMPFIX="true"
 
 if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
     export NODE_PATH='/usr/local/lib/node_modules'
@@ -314,18 +325,18 @@ else
 
 fi
 
+{% if ansible_os_family == 'Darwin' -%}
 # Mac-specific things
-if [[ "$(uname -s)" = "Darwin" ]]; then
 
-    alias ldd='otool -L'
+alias ldd='otool -L'
 
-    # This shows which processes are using the network right now.
-    alias netusers='lsof -P -i -n | cut -f 1 -d " " | uniq'
+# This shows which processes are using the network right now.
+alias netusers='lsof -P -i -n | cut -f 1 -d " " | uniq'
 
-    # This lets you use the keychain for https urls in Git
-    alias gitkeychain='git config credential.helper osxkeychain'
+# This lets you use the keychain for https urls in Git
+alias gitkeychain='git config credential.helper osxkeychain'
 
-fi
+{% endif -%}
 
 # local settings override global ones
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
