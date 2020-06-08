@@ -22,10 +22,6 @@ export HISTSIZE="10000"
 test -d "$HOME/local/pygments-install" && \
     export PYTHONPATH="$HOME/local/pygments-install"
 
-# Need local terminfo files for xterm-256color on some platforms.
-# Yeah, I'm looking at you, Solaris.
-test -d "$HOME/.terminfo" && export TERMINFO="$HOME/.terminfo"
-
 #######################################################################
 # Command search path
 

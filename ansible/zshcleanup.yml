@@ -1,0 +1,6 @@
+- hosts: all
+  vars:
+    dotfiles: "{{ playbook_dir }}/.."
+  roles:
+    - { role: zshcleanup }
+    - { role: zsh }

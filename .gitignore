@@ -22,6 +22,4 @@
 /ansible/hosts
 /ansible/hosts.yml
 
-/oh-my-zsh
-
 .vstags

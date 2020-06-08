@@ -17,12 +17,3 @@
     - tmux.conf
   tags:
     - misc
-
-- name: "Install terminfo files"
-  when: ansible_os_family == "Solaris"
-  synchronize:
-    src: "{{ dotfiles }}/terminfo/"
-    dest: "{{ ansible_user_dir }}/.terminfo"
-    delete: yes
-  tags:
-    - misc

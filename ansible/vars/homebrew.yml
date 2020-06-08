@@ -22,7 +22,6 @@ homebrew_packages:
   - git-lfs
   - gnupg
   - gnupg2
-  - gpg-agent
   - graphviz
   - grip
   - groff

@@ -1,0 +1,12 @@
+- name: "Remove old zsh files"
+  file:
+    path: "~/.{{ item }}"
+    state: absent
+  with_items:
+    - zshrc
+    - zshenv
+    - zlogin
+    - zlogout
+    - oh-my-zsh
+  tags:
+    - zshcleanup

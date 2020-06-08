@@ -504,9 +504,11 @@ if has('gui_running')
     "set guifont=Mensch:h14
     set guifont=Cascadia\ Code:h16
     set antialias
+    colorscheme solarized
+    set background=light
 else
-    set background=dark
-    colorscheme cobalt2
+    colorscheme one-light
+    set background=light
 endif
 
 " Mark Git-style conflict markers, and trailing whitespace.

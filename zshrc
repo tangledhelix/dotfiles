@@ -1,110 +1,226 @@
+# Set the list of directories that Zsh searches for programs.
+path=()
 
-# Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':omz:module:editor' keymap 'emacs'
+path_candidates=(
+    /opt/gums/bin
+    /home/eng/config/tools/bin
+    /home/eng/bin
+    ~/config/tools/mpls
+    ~/config/tools/scripts
+    /opt/gums/sbin
+    ~/local/bin
+    ~/bin
+    /usr/local/share/npm/bin
+    /usr/local/{bin,sbin}
+    /usr/{bin,sbin}
+    /{bin,sbin}
+    /usr/proc/bin
+    /usr/lib/mailman/bin
+    /opt/openldap/{bin,sbin}
+    /usr/sfw/bin
+    /opt/X11/bin
+    /usr/X11R6/bin
+    /opt/puppetlabs/bin
+    ~/tools
+    ~/.cabal/bin
+)
 
-# Auto convert .... to ../..
-zstyle ':omz:module:editor' dot-expansion 'yes'
+for path_candidate in $path_candidates; do
+    [[ -d $path_candidate ]] && path+=$path_candidate
+done
 
-# Set case-sensitivity for completion, history lookup, etc.
-zstyle ':omz:*:*' case-sensitive 'no'
+for path_file in /etc/paths.d/*(.N); do
+    path+=($(<$path_file))
+done
+unset path_file
 
-# Color output (auto set to 'no' on dumb terminals).
-zstyle ':omz:*:*' color 'yes'
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
-# Auto set the tab and window titles.
-zstyle ':omz:module:terminal' auto-title 'no'
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
-# Set the Zsh modules to load (man zshmodules).
-# zstyle ':omz:load' zmodule 'attr' 'stat'
+# Good multiline git prompt
+ZSH_THEME="kphoen"
 
-# Set the Zsh functions to load (man zshcontrib).
-zstyle ':omz:load' zfunction 'zargs' 'zmv'
+# This theme has a multiline prompt and git integration
+# ZSH_THEME="avit"
 
-# Set the Oh My Zsh modules to load (browse modules).
-# The order matters.
-#   * 'environment' should be first.
-#   * 'completion' must be after 'utility'.
-#   * 'syntax-highlighting' should be next to last, but, it must be
-#      before 'history-substring-search'.
-#   * 'prompt' should be last
-zstyle ':omz:load' omodule \
-    'environment' \
-    'terminal' \
-    'editor' \
-    'history' \
-    'directory' \
-    'spectrum' \
-    'utility' \
-    'completion' \
-    'git' \
-    'osx' \
-    'syntax-highlighting' \
-    'history-substring-search' \
-    'prompt'
+# This one feels homey, I'm used to it, but the colors aren't
+# all great on a light background
+# ZSH_THEME="steeef"
 
-# Set the prompt theme to load.
-# Setting it to 'random' loads a random theme.
-# Auto set to 'off' on dumb terminals.
-zstyle ':omz:module:prompt' theme 'steeef'
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# This will make you shout: OH MY ZSHELL!
-source "$OMZ/init.zsh"
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# Exclude svn from prompt lookups entirely
-zstyle ':vcs_info:*' enable git
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-# Customize to your needs...
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-umask 022
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
 
-# no shared history, keep history per session
-setopt no_share_history
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-# after ssh, set the title back to local host's name
-ssh() {
-    if [[ -x /usr/local/bin/ssh ]]; then
-        /usr/local/bin/ssh $@
-    else
-        /usr/bin/ssh $@
-    fi
-    set-window-title $(uname -n)
-    set-tab-title $(uname -n)
-}
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
-# after mosh, set the title back to local host's name
-#mosh() {
-#    if [[ -x /usr/local/bin/mosh ]]; then
-#        /usr/local/bin/mosh $@
-#    else
-#        /usr/bin/mosh $@
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git common-aliases colored-man-pages vscode docker docker-compose)
+# Possible ones to enable later:
+# ssh-agent
+# gpg-agent
+# keychain
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# Set the list of directories that man searches for manuals.
+manpath=(
+    /opt/gums/man
+    /usr/local/man
+    /usr/man
+    /usr/local/share/man
+    /usr/share/man
+    /usr/local/pkg/perl/man
+    /usr/dt/man
+    /usr/openwin/man
+    /usr/sfw/man
+    ~/local/man
+    ~/local/share/man
+    ~/.cabal/share/man
+    $manpath
+)
+
+for path_file in /etc/manpaths.d/*(.N); do
+    manpath+=($(<$path_file))
+done
+unset path_file
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='code -n -w'
+fi
+
+export VISUAL="$EDITOR"
+export PAGER="less"
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Turn off the completion security check. This thing complains about
+# group/other-writable directories, but they're really symlinks that
+# point to non-problematic directories (stuff in homebrew).
+ZSH_DISABLE_COMPFIX="true"
+
+if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
+    export NODE_PATH='/usr/local/lib/node_modules'
+fi
+
+# Set the default Less options.
+#
+# For now just turn this off. It screws up git log. That annoys the heck
+# out of me. Can add options back as needed, but any time adding one,
+# need to check that it does not screw up git log. Symptom: in a git log
+# where the first page has a line longer than the terminal width, the line
+# will wrap, but that causes the first line to go off the top of the screen.
+# It works fine if $LESS is not defined at all.
+#
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+#
+# Removed -S, don't want no-wrap by default (use less-nowrap for that)
+# Added -x 4, to get 4-position as tab stop
+# Removed -F, it doesn't play well in a loop where you less, then vim...
+# Changed -R to -r because european accented letters were coming in as bracketed
+#
+#export LESS='-g -i -M -r -w -X -x 4 -z-4'
+#export LESS="-R -i"
+export LESS="-RiFX"
+
+export ACK_PAGER="less"
+
+export CVS_RSH="ssh"
+[[ -d /home/eng/.CVS ]] && export CVSROOT="/home/eng/.CVS"
+
+# Avoid an RCS checkin log headache
+[[ -n "$SUDO_USER" ]] && export LOGNAME="$SUDO_USER"
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+# Auto-activate virtualenv when entering directory
+#_virtualenv_auto_activate() {
+#    if [ -d "venv" ]; then
+#        # Check to see if already activated to avoid redundant activating
+#        if [ "$VIRTUAL_ENV" != "$(pwd -P)/venv" ]; then
+#            export _VENV_NAME=${$(pwd):t}
+#            echo Activating virtualenv \"$_VENV_NAME\"...
+#            export VIRTUAL_ENV_DISABLE_PROMPT=1
+#            source venv/bin/activate
+#        fi
 #    fi
-#    set-window-title $(uname -n)
-#    set-tab-title $(uname -n)
 #}
 
-# After mosh, set the title back to local host's name.
-# If mosh does not connect, fall back to ssh.
-mosh() {
-    /usr/local/bin/mosh $@
-    if [[ $? = 0 ]]; then
-        set-window-title $(uname -n)
-        set-tab-title $(uname -n)
-    else
-        echo "***"
-        echo "*** Unable to connect to mosh server, fall back to ssh."
-        echo "***"
-        ssh $@
-    fi
-}
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias vi='vim'
 alias view='vim -R'
-alias vimdiff='vimdiff -O'
-
-alias c='clear'
-
-# print the directory structure from the current directory in tree format
-alias dirf="find . -type d|sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/'"
 
 # Show me time in GMT / UTC
 alias utc='TZ=UTC date'
@@ -115,103 +231,10 @@ alias jpdate='TZ=Asia/Tokyo date'
 alias nldate='TZ=Europe/Amsterdam date'
 alias fidate='TZ=Europe/Finland date'
 
-# show me platform info
-alias os='uname -srm'
-
 # translate AS/RR numbers
 astr() { echo "$1" | tr '[A-J0-9]' '[0-9A-J]' }
 
-# show me installed version of a perl module
-alias pmver="perl -le '\$m = shift; eval qq(require \$m) \
-    or die qq(module \"\$m\" is not installed\\n); \
-    print \$m->VERSION'"
-
-# tell me if a perl module has a method
-pmhas() {
-    local __module="$1"
-    local __method="$2"
-    [[ -n "__method" ]] || { echo 'Usage: pmhas <module> <method>'; return; }
-    local __result=$(perl -M$__module -e "print ${__module}->can('$__method');")
-    [[ $__result =~ 'CODE' ]] && echo "$__module has $__method"
-}
-
-# sleep this long, then beep
-beep() {
-    local __timer=0
-    [[ -n "$1" ]] && __timer=$1
-    until [[ $__timer = 0 ]]; do
-        printf "  T minus $__timer     \r"
-        __timer=$((__timer - 1))
-        sleep 1
-    done
-    echo '- BEEP! -    \a\r'
-}
-
-# make a project directory
-mkproj() {
-    local _usage='Usage: mkproj <desc> [<ticket>]'
-    [[ -z "$1" || "$1" =~ '^(-h|--help)' ]] && { echo $_usage; return }
-    local _dir
-    local _date=$(date +'%Y%m%d')
-    local _name="$1"
-    local _suffix
-    [[ -n "$2" ]] && _suffix="-${2}"
-    _dir="${_date}-${_name}${_suffix}"
-    [[ -d ~/$_dir ]] && { echo 'already exists!'; return }
-    mkdir ~/$_dir && cd ~/$_dir
-}
-
-# find a project directory
-proj() {
-    local _usage='Usage: proj [<pattern>]'
-    [[ "$1" =~ '^(-h|--help)' ]] && { echo $_usage; return }
-    # If there's no pattern, go to the most recent project.
-    [[ -z "$1" ]] && { cd ~/(19|20)[0-9][0-9][01][0-9][0-3][0-9]-*(/om[1]); return }
-    local _this
-    local _choice=0
-    local _index=1
-    local _projects
-    typeset -a _projects
-    _projects=()
-    for _this in ~/(19|20)[0-9][0-9][01][0-9][0-3][0-9]-*$1*; do
-        [[ -d $_this ]] && _projects+=$_this
-    done 2>/dev/null
-    [[ $#_projects -eq 0 ]] && { echo 'No match.'; return }
-    [[ $#_projects -eq 1 ]] && { cd $_projects[1]; return }
-    for _this in $_projects[1,-2]; do
-        echo "  [$_index] $(basename $_this)"
-        _index=$(( $_index + 1 ))
-    done
-    echo "* [$_index] \e[0;31;47m$(basename $_projects[-1])\e[0m"
-    echo
-    until [[ $_choice -ge 1 && $_choice -le $#_projects ]]; do
-        printf 'select> '
-        read _choice
-        [[ -z "$_choice" ]] && { cd $_projects[-1]; return }
-    done
-    cd $_projects[$_choice]
-}
-
-# count something fed in on stdin
-alias count='sort | uniq -c | sort -n'
-
-# Strip comment / blank lines from an output
-alias stripcomments="egrep -v '^([\ \t]*#|$)'"
-
 alias ack='ack --smart-case'
-
-# Give me a list of the RPM package groups
-alias rpmgroups='cat /usr/share/doc/rpm-*/GROUPS'
-
-# Get my current public IP
-alias get-ip='curl --silent http://icanhazip.com'
-
-# less with no-wrap (oh-my-zsh default, could be useful sometimes)
-alias less-nowrap='less -S'
-
-# magic mv
-# mmv *.c.orig orig/*.c
-alias mmv='noglob zmv -W'
 
 # globbing cheat sheet
 globcheat() {
@@ -235,16 +258,6 @@ globcheat() {
 }
 
 alias cless='colordiff | less'
-
-alias pywebserver='python -m SimpleHTTPServer'
-# python 3 version:
-# python3 -m http.server 8000
-
-# 6core.net pasteboard
-6p() {
-    curl -k -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
-        -o /dev/null https://p.6core.net/
-}
 
 # fix ssh setup in a reattached tmux environment
 fixssh() {
@@ -272,12 +285,6 @@ else
 
     ### Things to do only if I am not root
 
-    set-window-title $(uname -n)
-    set-tab-title $(uname -n)
-
-    # No longer using these
-    #mkdir -p ~/.vim/tmp/{backup,swap,undo}
-
     if [[ -n "$(command -v tmux)" ]]; then
 
         alias tmux='tmux -u'
@@ -292,7 +299,7 @@ else
         fi
 
         # tmux magic alias to list, show, or attach
-        t() {
+        tm() {
             [[ -z "$1" ]] && { tmux_ls; return }
             local _detach_flag
             if [[ "$1" = "-d" ]]; then
@@ -300,11 +307,7 @@ else
                 shift
             fi
             export STY="[$1] $(uname -n)"
-            set-window-title $STY
-            set-tab-title $STY
             tmux -u new -s "$1" || tmux -u att $_detach_flag -t "$1"
-            set-window-title $(uname -n)
-            set-tab-title $(uname -n)
         }
 
     fi
@@ -314,20 +317,10 @@ fi
 # Mac-specific things
 if [[ "$(uname -s)" = "Darwin" ]]; then
 
-    #battery_charge_meter() { $HOME/.scripts/laptop_battery_charge }
-    #export RPROMPT='$(battery_charge_meter)'
-
-    alias ql='qlmanage -p "$@" >& /dev/null'
-    # telnet is no longer shipped with macOS
-    #alias telnet='/usr/bin/telnet -K'
     alias ldd='otool -L'
 
     # This shows which processes are using the network right now.
     alias netusers='lsof -P -i -n | cut -f 1 -d " " | uniq'
-
-    # This shows networks around you
-    # Ref: https://stackoverflow.com/questions/51136004/how-to-get-wi-fi-channels-on-mac-high-sierra
-    alias showwifi='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s'
 
     # This lets you use the keychain for https urls in Git
     alias gitkeychain='git config credential.helper osxkeychain'
@@ -336,5 +329,3 @@ fi
 
 # local settings override global ones
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
-
-__zshrc_load_complete=1
