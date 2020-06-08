@@ -20,7 +20,6 @@ my %vim_bundles = (
     'json' => 'elzr/vim-json',
     'my-ackmore' => 'tangledhelix/vim-ackmore',
     'my-endwise' => 'tangledhelix/vim-endwise',
-    'nerdtree' => 'scrooloose/nerdtree',
     'pathogen' => 'tpope/vim-pathogen',
     'perl' => 'vim-perl/vim-perl',
     'pgsql' => 'exu/pgsql.vim',
