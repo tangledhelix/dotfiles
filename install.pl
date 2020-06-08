@@ -9,24 +9,6 @@ use Cwd ('abs_path', 'getcwd');
 use File::Basename;
 use File::Path 'remove_tree';
 
-my %files = (
-    bash => [ 'bash', 'bash_profile', 'bashrc' ],
-    git  => [ 'gitconfig', 'gitignore' ],
-    misc => [ 'cvsrc', 'emacs', 'hgrc', 'ircrc', 'pryrc', 'screenrc', 'tcshrc', 'perldb',
-              'terminfo', 'tmux.conf', 'perltidyrc', 'inputrc', 'psqlrc', 'colordiffrc',
-              'pgclirc' ],
-    vim  => [ 'vim', 'vimrc' ],
-    zsh  => [ 'zlogin', 'zlogout', 'zshenv', 'zshrc' ]
-);
-
-# note: bash is not installed by default!
-my @files_all;
-foreach my $list ('zsh', 'vim', 'git', 'misc') {
-    foreach my $item (@{$files{$list}}) {
-        push @files_all, $item;
-    }
-}
-
 # For github repos, use shorthand "user/repo-name".
 # For non-github repos, use a full URL.
 # Only git repos are supported currently.
@@ -51,9 +33,7 @@ my %vim_bundles = (
     'autopairs' => 'jiangmiao/auto-pairs',
 );
 
-my $replace_all = 0;
 my $vim_do_updates = 0;
-my $vim_newmods_only = 0;
 
 my $basedir = dirname(abs_path($0));
 chdir $basedir;
@@ -70,63 +50,12 @@ foreach my $action (@ARGV) {
         # https is broken here; use ssh URLs for github
         $use_ssh = 1;
 
-    } elsif ($action eq 'bash') {
-        foreach my $file (@{$files{bash}}) {
-            determine_action($file, 'dotfile');
-        }
-
-    } elsif ($action eq 'zsh') {
-        foreach my $file (@{$files{zsh}}) {
-            determine_action($file, 'dotfile');
-        }
-        omz_cloner();
-
-    } elsif ($action eq 'update:zsh') {
-        omz_updater();
-
-    } elsif ($action eq 'omz') {
-        omz_cloner();
-
-    } elsif ($action eq 'vim') {
-        foreach my $file (@{$files{vim}}) {
-            determine_action($file, 'dotfile');
-        }
-        vim_bundle_installer();
-
     } elsif ($action eq 'update:vim') {
         vim_bundle_cleanup();
         vim_bundle_updater();
 
-    } elsif ($action eq 'new:vim') {
-        vim_newmods_installer();
-
     } elsif ($action eq 'cleanup:vim') {
         vim_bundle_cleanup();
-
-    } elsif ($action eq 'update:all') {
-        foreach my $file (@files_all) {
-            determine_action($file, 'dotfile');
-        }
-        scripts_installer();
-        omz_updater();
-        vim_bundle_cleanup();
-        vim_bundle_updater();
-
-    } elsif ($action eq 'git') {
-        foreach my $file (@{$files{git}}) {
-            determine_action($file, 'dotfile');
-        }
-
-    } elsif ($action eq 'scripts') {
-        scripts_installer();
-
-    } elsif ($action eq 'all') {
-        foreach my $file (@files_all) {
-            determine_action($file, 'dotfile');
-        }
-        scripts_installer();
-        vim_bundle_installer();
-        omz_cloner();
 
     } else {
         print "*** ERROR: Unknown action $action\n";
@@ -141,22 +70,8 @@ sub print_help {
 
 Usage: $0 <target>
 
-    all         - Install everything
-
-    bash        - Install bash files only
-    git         - Install git files only
-    zsh         - Install zsh files only
-    vim         - Install vim files and bundles only
-    scripts     - Install my motley collection of scripts
-
     update:vim  - Update vim bundles
-    update:zsh  - Update oh-my-zsh and its submodules
-
-    update      - Update both vim and zsh
-
-    update:all  - Install everything, update both vim and zsh
-
-    new:vim     - Install vim modules that aren't currently installed
+    cleanup:vim - Cleanup vim bundles
 
     --use-ssh   - Sub SSH urls instead of https for github
 
@@ -165,111 +80,9 @@ EOF
     exit;
 }
 
-sub determine_action {
-    my $file = shift;
-    my $type = shift;
-
-    my $src_path;
-    my $link_path;
-
-    if ($type eq 'dotfile') {
-        $src_path = "$basedir/$file";
-        $link_path = "$ENV{HOME}/.$file";
-    } elsif ($type eq 'script') {
-        $src_path = "$basedir/scripts/$file";
-        $link_path = "$ENV{HOME}/bin/$file";
-    } else {
-        die "*** determine_action(): Type is unknown!\n";
-    }
-
-    if (-l $link_path and (readlink($link_path) eq $src_path)) {
-        print "    skipping $link_path (already linked)\n";
-        return;
-    }
-
-    if (-d $link_path) {
-        warn "** $link_path is a directory!\n";
-        warn "** press any key to continue **";
-        my $foo = <STDIN>;
-        return;
-    }
-
-    if (-f $link_path or -l $link_path) {
-        if ($replace_all) {
-            replace_file($src_path, $link_path);
-        } else {
-            print "Overwrite ~/.$file? [yNaq] ";
-            chomp(my $choice = <STDIN>);
-            if ($choice eq 'a') {
-                $replace_all = 1;
-                replace_file($src_path, $link_path);
-            } elsif ($choice eq 'y') {
-                replace_file($src_path, $link_path);
-            } elsif ($choice eq 'q') {
-                exit;
-            } else {
-                print "    skipping $link_path\n";
-            }
-        }
-    } else {
-        link_file($src_path, $link_path);
-    }
-}
-
-sub link_file {
-    my $src_path = shift;
-    my $link_path = shift;
-
-    print " +  linking $link_path\n";
-    symlink $src_path, $link_path or warn "Unable to link $link_path\n";
-}
-
-sub replace_file {
-    my $src_path = shift;
-    my $link_path = shift;
-
-    print "    removing old $link_path\n";
-    unlink $link_path or warn "Could not remove $link_path";
-    link_file($src_path, $link_path);
-}
-
-# clone my omz repository
-sub omz_cloner {
-    my $omz_path = "$ENV{HOME}/.oh-my-zsh";
-    my $repo_url = 'https://github.com/tangledhelix/oh-my-zsh.git';
-    if ($use_ssh) {
-        $repo_url = 'git@github.com:tangledhelix/oh-my-zsh.git';
-    }
-    if (-f $omz_path or -d $omz_path) {
-        print "    $omz_path already exists, skipping\n";
-        print "To reinstall OMZ, rename or remove $omz_path and try again.\n";
-        return;
-    }
-    system 'git', 'clone', $repo_url, $omz_path;
-    my $old_cwd = getcwd;
-    chdir $omz_path;
-    system 'git', 'submodule', 'init';
-    if ($use_ssh) {
-        omz_remotes_set_ssh();
-    }
-    chdir $omz_path;
-    system 'git', 'submodule', 'update', '--recursive';
-    chdir $old_cwd;
-}
-
-# update the omz repository
-sub omz_updater {
-    my $omz_path = "$ENV{HOME}/.oh-my-zsh";
-    my $old_cwd = getcwd;
-    chdir $omz_path;
-    system 'git', 'pull';
-    system 'git', 'submodule', 'update', '--init', '--recursive';
-    chdir $old_cwd;
-}
-
 # install or update vim bundles
 sub vim_bundle_installer {
-    my $bundle_path = "$ENV{HOME}/.vim/bundle";
+    my $bundle_path = "${basedir}/vim/bundle";
     mkdir $bundle_path unless -d $bundle_path;
 
     foreach my $bundle (keys %vim_bundles) {
@@ -283,7 +96,6 @@ sub vim_bundle_installer {
         }
         my $this_bundle_path = "$bundle_path/$bundle";
         if (-d $this_bundle_path) {
-            next if $vim_newmods_only;
             if ($vim_do_updates) {
                 print "    updating vim bundle $bundle\n";
                 my $old_cwd = getcwd;
@@ -301,11 +113,6 @@ sub vim_bundle_installer {
 
 }
 
-sub vim_newmods_installer {
-    $vim_newmods_only = 1;
-    vim_bundle_installer();
-}
-
 sub vim_bundle_updater {
     $vim_do_updates = 1;
     vim_bundle_installer();
@@ -313,41 +120,12 @@ sub vim_bundle_updater {
 
 # clean out old vim bundles
 sub vim_bundle_cleanup {
-    my $bundle_path = "$ENV{HOME}/.vim/bundle";
+    my $bundle_path = "${basedir}/vim/bundle";
     foreach my $dir (glob "$bundle_path/*") {
         my $basename = basename $dir;
         unless ($vim_bundles{$basename}) {
             print "    cleaning up bundle $basename\n";
             remove_tree($dir);
-        }
-    }
-}
-
-# install script symlinks
-sub scripts_installer {
-    my $install_path = "$ENV{HOME}/bin";
-    mkdir $install_path, 0700 unless -d $install_path;
-    foreach my $script (glob "$basedir/scripts/*") {
-        determine_action(basename($script), 'script');
-    }
-}
-
-# stupid hack to get around ACLs; update submodules in omz to use ssh.
-sub omz_remotes_set_ssh {
-    chdir "$ENV{HOME}/.oh-my-zsh";
-    $ENV{PATH} = '/usr/local/bin:' . $ENV{PATH};
-
-    open my $fh, '-|', 'git submodule';
-    while (<$fh>) {
-        my @parts = split;
-        my $module_path = $parts[1];
-
-        open my $fh2, '-|', "git config --get submodule.${module_path}.url";
-        chomp(my $url = <$fh2>);
-        if ($url =~ /^https:/) {
-            $url =~ s{^https://}{git\@};
-            $url =~ s{/}{:};
-            system 'git', 'config', "submodule.${module_path}.url", $url;
         }
     }
 }

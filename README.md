@@ -28,43 +28,21 @@ I have written two blog posts on the subject of iTerm and iTerm2. Give them a re
 Shell colors
 ------------
 
-The colors in the Zsh shell prompts may assume a certain color scheme in the terminal; they may look odd in other schemes.
+The colors in the Zsh shell prompts may assume a certain color scheme in the terminal; they may look odd in other schemes. I change that color decision on a whim and may forget to update this README.
 
 Installation
 ------------
 
-I used to use the script noted below. I haven't been lately and it may be it no longer works properly. I've been using ansible-playbook and the code under the ansible directory lately. YMMV.
+I used to use a Perl script to install, but it's been unmaintained for a long time, so I deleted it. I'm using Ansible now.
 
 The Ansible setup requires a `hosts` inventory file. That is not present in this repository as it's specific to me. See Ansible's documentation for info about the format of the inventory file. (There is more than one available format.)
 
-    umask 0022
-    git clone https://github.com/tangledhelix/dotfiles.git ~/.dotfiles
-
-To install my dotfiles as *your* dotfiles, you can create symlinks with `./install.pl all`. If you do *not* run that command, everything will be isolated inside of the `~/.dotfiles` directory (or wherever you cloned it) and will not interfere with your existing environment.
-
-    cd ~/.dotfiles && ./install.pl all
-
-`install.pl` will ask you before overwriting any files that already exist.
-
-You can also install subsets of the environment using one of the following.
-
-    ./install.pl bash
-    ./install.pl zsh
-    ./install.pl vim
-    ./install.pl git
-
-Updating
---------
-
-I periodically change the Vim bundles I use. There are two update tasks for Vim. The first updates the bundles from their repositories.
+To install or update the Vim bundles, use the install.pl script. The list of Vim bundles is defined in that script. If you modify the list, you'll want to do an update (and maybe a cleanup, if you removed any modules.)
 
     ./install.pl update:vim
 
-The second cleans up any bundles which are no longer known. (Note that `update:vim` will run the cleanup before doing the update step.)
+To clean up old Vim bundles, if you removed any from the list:
 
     ./install.pl cleanup:vim
 
-You can refresh the zsh environment with
-
-    ./install.pl update:zsh
-
+Note this will just update the repository copy. To install them, use the Ansible playbook. Anything in the bundle directory will be installed on the target.
