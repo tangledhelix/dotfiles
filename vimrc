@@ -101,8 +101,6 @@ cnoremap <esc>[3~ <c-h>
 " go to location of last change
 nnoremap gl `.
 
-nnoremap <leader>f :NERDTreeToggle<cr>
-
 " ------------------------------------------------------------------------ }}}
 " Messages and alerts {{{
 
