@@ -500,13 +500,16 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 
 if has('gui_running')
     "set guifont=Mensch:h14
-    set guifont=Cascadia\ Code:h16
+    "set guifont=Cascadia\ Code:h16
+    set guifont=Fira\ Code:h14
     set antialias
     colorscheme solarized
     set background=light
 else
-    colorscheme one-light
-    set background=light
+    "This actually seems to make it worse
+    "let g:solarized_termcolors=256
+    colorscheme solarized
+    set background=dark
 endif
 
 " Mark Git-style conflict markers, and trailing whitespace.

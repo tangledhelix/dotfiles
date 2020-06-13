@@ -13,23 +13,24 @@ use File::Path 'remove_tree';
 # For non-github repos, use a full URL.
 # Only git repos are supported currently.
 my %vim_bundles = (
-    'ack' => 'mileszs/ack.vim',
-    'docker' => 'honza/dockerfile.vim',
-    'fugitive' => 'tpope/vim-fugitive',
+    'ack'        => 'mileszs/ack.vim',
+    'docker'     => 'honza/dockerfile.vim',
+    'fugitive'   => 'tpope/vim-fugitive',
     'ghmarkdown' => 'jtratner/vim-flavored-markdown',
-    'json' => 'elzr/vim-json',
+    'json'       => 'elzr/vim-json',
     'my-ackmore' => 'tangledhelix/vim-ackmore',
     'my-endwise' => 'tangledhelix/vim-endwise',
-    'pathogen' => 'tpope/vim-pathogen',
-    'perl' => 'vim-perl/vim-perl',
-    'pgsql' => 'exu/pgsql.vim',
-    'puppet' => 'puppetlabs/puppet-syntax-vim',
-    'quickrun' => 'thinca/vim-quickrun',
-    'repeat' => 'tpope/vim-repeat',
-    'statline' => 'millermedeiros/vim-statline',
-    'surround' => 'tpope/vim-surround',
-    'tcomment' => 'tomtom/tcomment_vim',
-    'autopairs' => 'jiangmiao/auto-pairs',
+    'pathogen'   => 'tpope/vim-pathogen',
+    'perl'       => 'vim-perl/vim-perl',
+    'pgsql'      => 'exu/pgsql.vim',
+    'puppet'     => 'puppetlabs/puppet-syntax-vim',
+    'quickrun'   => 'thinca/vim-quickrun',
+    'repeat'     => 'tpope/vim-repeat',
+    'solarized'  => 'altercation/vim-colors-solarized',
+    'statline'   => 'millermedeiros/vim-statline',
+    'surround'   => 'tpope/vim-surround',
+    'tcomment'   => 'tomtom/tcomment_vim',
+    'autopairs'  => 'jiangmiao/auto-pairs',
 );
 
 my $vim_do_updates = 0;
