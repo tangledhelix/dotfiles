@@ -55,6 +55,7 @@ homebrew_packages:
   - nvm
   - perl
   - postgresql
+  - pstree
   - python
   - python3
   - python@2
