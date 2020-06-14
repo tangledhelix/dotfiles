@@ -509,7 +509,7 @@ else
     "This actually seems to make it worse
     "let g:solarized_termcolors=256
     colorscheme solarized
-    set background=dark
+    set background=light
 endif
 
 " Mark Git-style conflict markers, and trailing whitespace.
