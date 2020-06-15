@@ -499,16 +499,12 @@ vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 " Fonts and colors {{{
 
 if has('gui_running')
-    "set guifont=Mensch:h14
-    "set guifont=Cascadia\ Code:h16
     set guifont=Fira\ Code:h14
     set antialias
-    colorscheme solarized
+    colorscheme one-light
     set background=light
 else
-    "This actually seems to make it worse
-    "let g:solarized_termcolors=256
-    colorscheme solarized
+    colorscheme one-light
     set background=light
 endif
 
