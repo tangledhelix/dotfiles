@@ -1,6 +1,6 @@
 - name: "Create .gnupg directory"
   file:
-    path: "{{ ansible_user_dir }}/.gnupg"
+    path: "~/.gnupg"
     state: directory
     mode: 0700
   tags:
@@ -8,9 +8,9 @@
     - gnupg
 
 - name: "Install gnupg config file"
-  copy:
-    src: "{{ dotfiles }}/gpg.conf"
-    dest: "{{ ansible_user_dir }}/.gnupg/gpg.conf"
+  template:
+    src: gpg.conf.j2
+    dest: "~/.gnupg/gpg.conf"
     mode: 0600
   tags:
     - gpg

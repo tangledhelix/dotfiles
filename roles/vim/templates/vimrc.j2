@@ -1,4 +1,5 @@
-" Bootstrap {{{
+" ------------------------------------------------------------------------
+" Bootstrap
 
 " Turn off vi compatibility. If I wanted vi, I would use vi.
 set nocompatible
@@ -18,8 +19,8 @@ if has('unix')
     endif
 endif
 
-" ------------------------------------------------------------------------ }}}
-" Pathogen {{{
+" ------------------------------------------------------------------------
+" Pathogen
 
 " vim-pathogen, for sane plugin management.
 " https://github.com/tpope/vim-pathogen
@@ -32,8 +33,8 @@ call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
 
-" ------------------------------------------------------------------------ }}}
-" General settings {{{
+" ------------------------------------------------------------------------
+" General settings
 
 let mapleader = ','
 let maplocalleader = '\'
@@ -53,8 +54,8 @@ set diffopt=iwhite
 " Prefer postgres SQL
 let g:sql_type_default = 'pgsql'
 
-" ------------------------------------------------------------------------ }}}
-" General keymaps {{{
+" ------------------------------------------------------------------------
+" General keymaps
 
 " Use jj to get back to command mode instead of Esc, which is out of the
 " way and on some keyboards hard to reach. Esc still works too.
@@ -101,8 +102,8 @@ cnoremap <esc>[3~ <c-h>
 " go to location of last change
 nnoremap gl `.
 
-" ------------------------------------------------------------------------ }}}
-" Messages and alerts {{{
+" ------------------------------------------------------------------------
+" Messages and alerts
 
 set noerrorbells
 set visualbell
@@ -118,8 +119,8 @@ if !has('gui_running')
     set t_vb=
 endif
 
-" ------------------------------------------------------------------------ }}}
-" Status and title bars {{{
+" ------------------------------------------------------------------------
+" Status and title bars
 
 " Always show the status bar
 set laststatus=2
@@ -143,8 +144,8 @@ endif
 " Activate Fugitive in statline
 let g:statline_fugitive = 1
 
-" ------------------------------------------------------------------------ }}}
-" Cursor and position indicators {{{
+" ------------------------------------------------------------------------
+" Cursor and position indicators
 
 " Show current cursor line position
 set cursorline
@@ -169,8 +170,8 @@ if exists('&colorcolumn')
     autocmd InsertLeave * set colorcolumn=""
 endif
 
-" ------------------------------------------------------------------------ }}}
-" Tabs and indenting {{{
+" ------------------------------------------------------------------------
+" Tabs and indenting
 
 set expandtab
 
@@ -188,8 +189,8 @@ set shiftround
 vnoremap > >gv
 vnoremap < <gv
 
-" ------------------------------------------------------------------------ }}}
-" Selecting {{{
+" ------------------------------------------------------------------------
+" Selecting
 
 " Reselect what was just pasted so I can so something with it.
 " (To reslect last selection even if it is not the last paste, use gv.)
@@ -198,8 +199,8 @@ nnoremap <leader>v `[v`]
 " Select current line, excluding leading and trailing whitespace
 nnoremap vv ^vg_
 
-" ------------------------------------------------------------------------ }}}
-" Copy and paste {{{
+" ------------------------------------------------------------------------
+" Copy and paste
 
 " Key combo to toggle paste-mode
 set pastetoggle=,p
@@ -208,8 +209,8 @@ set pastetoggle=,p
 " with any selection). Pastes duplicate at end of select region.
 vnoremap D y`>p
 
-" ------------------------------------------------------------------------ }}}
-" Formatting {{{
+" ------------------------------------------------------------------------
+" Formatting
 
 " Text formatting options, used by 'gq', 'gw' and elsewhere. :help fo-table
 set formatoptions=qrn1
@@ -232,8 +233,8 @@ nnoremap <silent> <leader>" :call Preserve("normal cs'\"")<cr>
 " Remap ~ to cycle through uppercase, lowercase, title-case.
 vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
 
-" ------------------------------------------------------------------------ }}}
-" Wrapping {{{
+" ------------------------------------------------------------------------
+" Wrapping
 
 " I use Vim mostly to write code. This doesn't auto-wrap lines, it only does
 " a soft wrap to the window width.
@@ -251,8 +252,8 @@ set nolinebreak
 " Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
 
-" ------------------------------------------------------------------------ }}}
-" Folding {{{
+" ------------------------------------------------------------------------
+" Folding
 
 " Use explicit markers for folding (triple curly-brace)
 set foldmethod=marker
@@ -266,8 +267,8 @@ nnoremap <leader>z zMzvzz
 " Fold current HTML tag.
 nnoremap <leader>Ft Vatzf
 
-" ------------------------------------------------------------------------ }}}
-" History, undo and caches {{{
+" ------------------------------------------------------------------------
+" History, undo and caches
 
 " What to store from an editing session in the viminfo file.
 " Can be used at next session.
@@ -286,8 +287,8 @@ set history=100
 "    set undodir=~/.vim/tmp/undo//   " undo files
 "endif
 
-" ------------------------------------------------------------------------ }}}
-" Search and replace {{{
+" ------------------------------------------------------------------------
+" Search and replace
 
 " Highlight matches, and use incremental search (like iTunes).
 set hlsearch
@@ -331,8 +332,8 @@ nnoremap \ ,
 " Open a Quickfix window for the last search.
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
 
-" ------------------------------------------------------------------------ }}}
-" Invisibles {{{
+" ------------------------------------------------------------------------
+" Invisibles
 
 " Do not show invisibles by default.
 set nolist
@@ -348,8 +349,8 @@ else
     set listchars=tab:>-,eol:$,extends:>,precedes:<
 endif
 
-" ------------------------------------------------------------------------ }}}
-" Expansion and completion {{{
+" ------------------------------------------------------------------------
+" Expansion and completion
 
 " Keystroke used for 'expansion' on the command line. Default is <c-e>.
 set wildchar=<tab>
@@ -363,8 +364,8 @@ set wildmode=list:longest
 " Toggle English-word completion from system dictionary. (^n, ^p)
 nnoremap <silent> <leader>E :call ToggleFlag('complete', 'k', 'English completion')<cr>
 
-" ------------------------------------------------------------------------ }}}
-" Text object 'N': number {{{
+" ------------------------------------------------------------------------
+" Text object 'N': number
 
 onoremap N :<c-u>call <sid>NumberTextObject(0)<cr>
 xnoremap N :<c-u>call <sid>NumberTextObject(0)<cr>
@@ -389,8 +390,8 @@ function! s:NumberTextObject(whole)
     endif
 endfunction
 
-" ------------------------------------------------------------------------ }}}
-" Spelling {{{
+" ------------------------------------------------------------------------
+" Spelling
 
 " System dictionary to use
 set dictionary=/usr/share/dict/words
@@ -401,8 +402,8 @@ set spelllang=en_us
 " Toggle spellcheck mode
 nnoremap <leader>s :set spell!<cr>
 
-" ------------------------------------------------------------------------ }}}
-" Windows and tabpages {{{
+" ------------------------------------------------------------------------
+" Windows and tabpages
 
 " Create new windows below/at right of current one, if no direction was specified.
 set splitbelow
@@ -430,16 +431,16 @@ nnoremap <c-t> :tabnext<cr>
 " Resize splits when the window is resized.
 autocmd VimResized * :wincmd =
 
-" ------------------------------------------------------------------------ }}}
-" GUI window size {{{
+" ------------------------------------------------------------------------
+" GUI window size
 
 if has('gui_running')
     set lines=40
     set columns=90
 endif
 
-" ------------------------------------------------------------------------ }}}
-" Finding and opening files {{{
+" ------------------------------------------------------------------------
+" Finding and opening files
 
 " List of directories to search when I specify a file with an edit command.
 set path=.
@@ -463,8 +464,8 @@ vnoremap <leader>ot :wincmd gf
 " Open a file browser
 nnoremap <leader>e :edit .<cr>
 
-" ------------------------------------------------------------------------ }}}
-" Shell and external commands {{{
+" ------------------------------------------------------------------------
+" Shell and external commands
 
 " Shell to use. Stick with the old standard.
 let &shell='/bin/sh'
@@ -495,8 +496,8 @@ endif
 nnoremap <leader>O :%!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 vnoremap <leader>O :!$HOME/bin/convert-to-one-string-per-line.rb<cr>
 
-" ------------------------------------------------------------------------ }}}
-" Fonts and colors {{{
+" ------------------------------------------------------------------------
+" Fonts and colors
 
 if has('gui_running')
     set guifont=Fira\ Code:h14
@@ -511,10 +512,10 @@ endif
 " Mark Git-style conflict markers, and trailing whitespace.
 match ErrorMsg '\(\s\+$\|\(^\(<\|=\|>\)\{7\}\([^=].\+\)\?$\)\)'
 
-" ------------------------------------------------------------------------ }}}
-" Syntax {{{
+" ------------------------------------------------------------------------
+" Syntax
 
-" Syntax: General {{{
+" Syntax: General
 
 " 'syntax enable' will turn on syntax highlighting without wiping out
 " any highlight commands already in place. 'syntax on' will reset it
@@ -544,43 +545,43 @@ nnoremap <leader>H :TOhtml<cr>
 " Ask Vim for the syntax type at cursor location
 nnoremap <leader>? :call SynStack()<cr>
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: BIND {{{
+" ------------------------------------------------------------------------
+" Syntax: BIND
 
 autocmd BufNewFile,BufRead *.com set filetype=bindzone
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Email and Exim {{{
+" ------------------------------------------------------------------------
+" Syntax: Email and Exim
 
 autocmd BufNewFile,BufRead aliases.* set filetype=mailaliases
 autocmd BufNewFile,BufRead exim.cf* set filetype=exim
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Epub {{{
+" ------------------------------------------------------------------------
+" Syntax: Epub
 
 " Look inside .epub files
 au BufReadCmd *.epub call zip#Browse(expand('<amatch>'))
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: help {{{
+" ------------------------------------------------------------------------
+" Syntax: help
 
 autocmd Filetype help nnoremap <buffer> <space> <PageDown>
 autocmd Filetype help nnoremap <buffer>  <PageUp>
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: JSON {{{
+" ------------------------------------------------------------------------
+" Syntax: JSON
 
 autocmd Filetype json nnoremap <leader>J <esc>:%!json_xs -f json -t json-pretty<cr>
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Make {{{
+" ------------------------------------------------------------------------
+" Syntax: Make
 
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
 autocmd Filetype make setlocal noexpandtab
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Markdown, MultiMarkdown, Octopress {{{
+" ------------------------------------------------------------------------
+" Syntax: Markdown, MultiMarkdown, Octopress
 
 " Octopress is a superset of Markdown so just use it everywhere.
 " Set line wrapping for convenience.
@@ -593,41 +594,41 @@ autocmd BufNewFile,BufRead *.md,*.mmd set filetype=ghmarkdown
 autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"
 autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Perl {{{
+" ------------------------------------------------------------------------
+" Syntax: Perl
 
 autocmd BufNewFile,BufRead *.t set filetype=perl
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: PHP {{{
+" ------------------------------------------------------------------------
+" Syntax: PHP
 
 autocmd BufNewFile,BufRead *.inc set filetype=php
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Shell {{{
+" ------------------------------------------------------------------------
+" Syntax: Shell
 
 autocmd BufNewFile,BufRead .bash/*,bash/* set filetype=sh
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Template Toolkit {{{
+" ------------------------------------------------------------------------
+" Syntax: Template Toolkit
 
 autocmd BufNewFile,BufRead *.tt2 set filetype=tt2html
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Text {{{
+" ------------------------------------------------------------------------
+" Syntax: Text
 
 autocmd BufNewFile,BufRead *.txt set filetype=text
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: Vim {{{
+" ------------------------------------------------------------------------
+" Syntax: Vim
 
 " Snippet files need real tabs, at least on the left margin.
 " This works out okay because when they're triggered, if expandtab
 " is set, they will be translated to spaces during expansion.
 autocmd FileType snippet setlocal noexpandtab
 
-" ------------------------------------------------------------------------ }}}
-" Syntax: YAML {{{
+" ------------------------------------------------------------------------
+" Syntax: YAML
 
 " EYAML is YAML, syntactically
 autocmd BufNewFile,BufRead *.eyaml set filetype=yaml
@@ -635,10 +636,9 @@ autocmd BufNewFile,BufRead *.eyaml set filetype=yaml
 " YAML requires spaces, not tabs
 autocmd FileType yaml setlocal expandtab ts=2 sts=2 sw=2
 
-" ------------------------------------------------------------------------ }}}
+" ------------------------------------------------------------------------
 
-" ------------------------------------------------------------------------ }}}
-" Highlight interesting words {{{
+" Highlight interesting words
 " A Steve Losh joint
 
 " This needs to be at or near the end of .vimrc for some reason, to work.
@@ -689,12 +689,12 @@ hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
 hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
 hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
-" ------------------------------------------------------------------------ }}}
-" Local customizations {{{
+" ------------------------------------------------------------------------
+" Local customizations
 
 " Override this file without modifying the master copy in git.
 if filereadable($HOME . '/.vimrc.local')
     source ~/.vimrc.local
 endif
 
-" ------------------------------------------------------------------------ }}}
+" ------------------------------------------------------------------------

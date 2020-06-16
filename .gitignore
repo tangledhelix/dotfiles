@@ -10,18 +10,17 @@
 .#*
 
 # Vim caches and metadata, backups, bundles, etc
-/vim/tmp
-/vim/.netrwhist
-/vim/yankring_history*.txt
-/vim/doc/tags
-/vim/doc/tags-ja
-/vim/bundle
+/roles/vim/files/vim/tmp
+/roles/vim/files/vim/.netrwhist
+/roles/vim/files/vim/yankring_history*.txt
+/roles/vim/files/vim/doc/tags
+/roles/vim/files/vim/doc/tags-ja
+/roles/vim/files/vim/bundle
 
 # Ansible files
-/ansible/site.retry
-/ansible/hosts
-/ansible/hosts.yml
+/site.retry
+/hosts
 
 .vstags
-/ansible/node_modules/
-/ansible/yarn.lock
+/node_modules/
+/yarn.lock

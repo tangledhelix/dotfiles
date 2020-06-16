@@ -1,15 +1,15 @@
 - name: "Install vimrc"
-  copy:
-    src: "{{ dotfiles }}/vimrc"
-    dest: "{{ ansible_user_dir }}/.vimrc"
+  template:
+    src: vimrc.j2
+    dest: "~/.vimrc"
     mode: 0644
   tags:
     - vim
 
 - name: "Install vim directory"
   synchronize:
-    src: "{{ dotfiles }}/vim/"
-    dest: "{{ ansible_user_dir }}/.vim"
+    src: "vim/"
+    dest: "~/.vim"
     delete: yes
     rsync_opts:
       - "--exclude=.git"

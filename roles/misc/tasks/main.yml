@@ -1,11 +1,12 @@
 - name: "Install misc files"
-  copy:
-    src: "{{ dotfiles }}/{{ item }}"
-    dest: "{{ ansible_user_dir }}/.{{ item }}"
+  template:
+    src: "{{ item }}.j2"
+    dest: "~/.{{ item }}"
     mode: 0644
   with_items:
     - colordiffrc
     - emacs
+    - inputrc
     - perldb
     - perltidyrc
     - pgclirc

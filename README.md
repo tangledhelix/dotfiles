@@ -11,7 +11,7 @@ Compatibility
 
 I am a Zsh user. This repo goes in conjunction with [Oh My Zsh](https://ohmyz.sh).
 
-I have used this setup with macOS, Solaris, FreeBSD, and Linux systems. Today I primarily use macOS and Linux (Debian and Redhat families).
+I use this setup with macOS, and Linux (RHEL, CentOS, Debian, Ubuntu).
 
 Some parts of the Zsh and Vim configs may assume you have 256 color support in your terminal. If you are using Apple Terminal before OS X Lion, you don't. Try [iTerm2][] instead.
 
@@ -31,16 +31,10 @@ The colors in the Zsh shell prompts may assume a certain color scheme in the ter
 Installation
 ------------
 
-I used to use a Perl script to install, but it's been unmaintained for a long time, so I deleted it. I'm using Ansible now.
+I use Ansible to deploy my dotfiles. This setup requires a `hosts` inventory file. That is not present in this repository as it's specific to me. See Ansible's documentation for info about the format of the inventory file. (There is more than one available format.)
 
-The Ansible setup requires a `hosts` inventory file. That is not present in this repository as it's specific to me. See Ansible's documentation for info about the format of the inventory file. (There is more than one available format.)
+To install or update the Vim bundles, use the update_vim.py script. The list of Vim bundles is defined in that script. If you modify the list, you'll want to do an update. This will refresh existing modules, install new ones, and clean out old ones no longer in the list.
 
-To install or update the Vim bundles, use the install.pl script. The list of Vim bundles is defined in that script. If you modify the list, you'll want to do an update (and maybe a cleanup, if you removed any modules.)
-
-    ./install.pl update:vim
-
-To clean up old Vim bundles, if you removed any from the list:
-
-    ./install.pl cleanup:vim
+    ./update_vim.py
 
 Note this will just update the repository copy. To install them, use the Ansible playbook. Anything in the bundle directory will be installed on the target.

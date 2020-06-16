@@ -3,7 +3,7 @@
     owner: dan
     group: staff
     mode: 0755
-    path: "{{ ansible_user_dir }}/.nbk"
+    path: "~/.nbk"
     state: directory
   tags:
     - nodejs
@@ -24,7 +24,7 @@
 - name: "Install nodebook service"
   template:
     src: com.tangledhelix.nbk.plist.j2
-    dest: "{{ ansible_user_dir }}/Library/LaunchAgents/com.tangledhelix.nbk.plist"
+    dest: "~/Library/LaunchAgents/com.tangledhelix.nbk.plist"
   tags:
     - nodejs
     - nodebook
