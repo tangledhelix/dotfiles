@@ -3,12 +3,9 @@
 # 2914 - main site
 # 2915 - tangledhelix.com preview
 # 2916 - cfn.tangledhelix.com preview
-# 2918 - free
 # 2920 - dojo-core-essentials
 # 2921 - dojo-widget-essentials
 # 2922 - intern-workshop
-# 2923 - mac-support
-# 2924 - free
 
 worker_processes  1;
 
@@ -109,22 +106,6 @@ http {
 
         location / {
             root   /usr/local/var/www/intern-workshop;
-            index  index.html index.htm;
-        }
-
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-    }
-
-    # mac-support
-    server {
-        listen       127.0.0.1:2923;
-        server_name  localhost;
-
-        location / {
-            root   /usr/local/var/www/mac-support;
             index  index.html index.htm;
         }
 
