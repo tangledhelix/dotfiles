@@ -7,7 +7,6 @@
     - { role: misc }
     - { role: gnupg }
     - { role: vim }
-    - { role: bash }
     - { role: scripts }
 
 - hosts: macos

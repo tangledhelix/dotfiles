@@ -11,11 +11,9 @@ Compatibility
 
 I am a Zsh user. This repo goes in conjunction with [Oh My Zsh](https://ohmyz.sh).
 
-Using Bash does not need any external repos. I used Bash for many years, and those files are fairly mature, but I am no longer paying a lot of attention to them.
-
 I have used this setup with macOS, Solaris, FreeBSD, and Linux systems. Today I primarily use macOS and Linux (Debian and Redhat families).
 
-Some parts of the Bash, Zsh, and Vim configs may assume you have 256 color support in your terminal. If you are using Apple Terminal before OS X Lion, you don't. Try [iTerm2][] instead.
+Some parts of the Zsh and Vim configs may assume you have 256 color support in your terminal. If you are using Apple Terminal before OS X Lion, you don't. Try [iTerm2][] instead.
 
 [iterm2]: http://sites.google.com/site/iterm2home/
 
