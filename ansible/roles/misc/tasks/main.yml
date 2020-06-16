@@ -6,11 +6,9 @@
   with_items:
     - colordiffrc
     - emacs
-    - ircrc
     - perldb
     - perltidyrc
     - pgclirc
-    - pryrc
     - psqlrc
     - screenrc
     - tcshrc
