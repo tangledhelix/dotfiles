@@ -5,7 +5,6 @@
     mode: 0644
   with_items:
     - gitignore
-    - hgrc
     - cvsrc
   tags:
     - vcs
