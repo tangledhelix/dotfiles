@@ -3,7 +3,7 @@
     owner: dan
     group: staff
     mode: 0755
-    path: "{{ ansible_user_dir }}/Dropbox/Apps/nbk"
+    path: "{{ ansible_user_dir }}/.nbk"
     state: directory
   tags:
     - nodejs

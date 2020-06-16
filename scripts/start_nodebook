@@ -1,7 +1,8 @@
 #!/bin/zsh
 
-BASEDIR="$HOME/Dropbox/Apps/nbk"
+BASEDIR="$HOME/.nbk"
 PORT="8085"
+PATH="/bin:/usr/bin:/usr/local/bin"
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
     echo "This is only meant to work on my Macs. Exiting."
