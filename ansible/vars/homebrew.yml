@@ -58,7 +58,6 @@ homebrew_packages:
   - pstree
   - python
   - python3
-  - python@2
   - reattach-to-user-namespace
   - ruby
   - shyaml
