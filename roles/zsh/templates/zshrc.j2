@@ -342,5 +342,7 @@ alias gitkeychain='git config credential.helper osxkeychain'
 
 {% endif -%}
 
+unsetopt SHARE_HISTORY
+
 # local settings override global ones
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
