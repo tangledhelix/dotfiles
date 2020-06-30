@@ -195,9 +195,11 @@ fi
 # Removed -F, it doesn't play well in a loop where you less, then vim...
 # Changed -R to -r because european accented letters were coming in as bracketed
 #
+# Added -n because I often page over huge log files
+#
 #export LESS='-g -i -M -r -w -X -x 4 -z-4'
 #export LESS="-R -i"
-export LESS="-RiFX"
+export LESS="-RiFXn"
 
 export ACK_PAGER="less"
 
