@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+// When people send me text/plain email with IP addresses or CIDR prefixes,
+// mimecast turns them into protection URLs. This undoes that.
+
+const https = require("https");
+const regex = /mimecast\.com/;
+
+if (! process.argv[2]) {
+    console.log("Missing argument: URL");
+    process.exit(1);
+}
+
+if (process.argv[3]) {
+    console.log("Error: too many arguments!");
+    console.log(`Usage: ${process.argv[1]} <url>`);
+    process.exit(1);
+}
+
+let url = process.argv[2];
+
+const fetchUrl = (url) => {
+    request = https
+        .request(url, function(response) {
+            if ("location" in response.headers) {
+                const url = response.headers["location"];
+                if (!url.match(regex)) {
+                    console.log(url.replace(/https?:\/\//, ""));
+                    process.exit(0);
+                }
+                fetchUrl(url);
+            } else {
+                console.log("Unexpected result: No more redirects!");
+                process.exit(1);
+            }
+        })
+        .end();
+};
+
+fetchUrl(url);
