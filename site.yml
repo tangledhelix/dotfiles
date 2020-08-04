@@ -14,4 +14,3 @@
     - { role: homebrew }
     - { role: puppet }
     - { role: jupyter }
-    - { role: nodebook }
