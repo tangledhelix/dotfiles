@@ -163,7 +163,8 @@ unset path_file
 # export LANG=en_US.UTF-8
 
 {% if ansible_os_family == 'Darwin' -%}
-export EDITOR='code -n -w'
+#export EDITOR='code -n -w'
+export EDITOR='vim'
 {% else -%}
 export EDITOR='vim'
 {% endif -%}
