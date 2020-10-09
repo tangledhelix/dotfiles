@@ -252,6 +252,9 @@ set nolinebreak
 " Backspace over indentation, end-of-line, and start-of-line.
 set backspace=indent,eol,start
 
+" Sometimes I want to quickly turn off wrapping
+nnoremap <leader>z :set wrap!<cr>
+
 " ------------------------------------------------------------------------
 " Folding
 
@@ -262,7 +265,7 @@ set foldmethod=marker
 nnoremap <space> za
 
 " Focus on the current fold
-nnoremap <leader>z zMzvzz
+"nnoremap <leader>z zMzvzz
 
 " Fold current HTML tag.
 nnoremap <leader>Ft Vatzf
