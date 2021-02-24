@@ -81,7 +81,11 @@ DISABLE_UPDATE_PROMPT="true"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
+{% if ansible_os_family == 'Darwin' -%}
 # DISABLE_AUTO_TITLE="true"
+{% else -%}
+DISABLE_AUTO_TITLE="true"
+{% endif -%}
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
