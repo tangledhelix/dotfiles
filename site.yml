@@ -13,4 +13,3 @@
   roles:
     - { role: homebrew }
     - { role: puppet }
-    - { role: jupyter }

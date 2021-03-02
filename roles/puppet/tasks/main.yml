@@ -2,8 +2,7 @@
   gem:
     name: hiera-eyaml
     state: present
-    executable: /usr/local/bin/gem
-    user_install: no
+    user_install: yes
   tags:
     - puppet
 
@@ -11,8 +10,7 @@
   gem:
     name: hiera-eyaml-gpg
     state: present
-    executable: /usr/local/bin/gem
-    user_install: no
+    user_install: yes
   tags:
     - puppet
 
@@ -20,27 +18,26 @@
   gem:
     name: gpgme
     state: present
-    executable: /usr/local/bin/gem
-    user_install: no
+    user_install: yes
   tags:
     - puppet
 
-- name: "Install yard gem"
-  gem:
-    name: yard
-    state: present
-    executable: /opt/puppetlabs/puppet/bin/gem
-    user_install: no
-  become: true
-  tags:
-    - puppet
+# - name: "Install yard gem"
+#   gem:
+#     name: yard
+#     state: present
+#     executable: /opt/puppetlabs/puppet/bin/gem
+#     user_install: no
+#   become: true
+#   tags:
+#     - puppet
 
-- name: "Install puppet-strings gem"
-  gem:
-    name: puppet-strings
-    state: present
-    executable: /opt/puppetlabs/puppet/bin/gem
-    user_install: no
-  become: true
-  tags:
-    - puppet
+# - name: "Install puppet-strings gem"
+#   gem:
+#     name: puppet-strings
+#     state: present
+#     executable: /opt/puppetlabs/puppet/bin/gem
+#     user_install: no
+#   become: true
+#   tags:
+#     - puppet
