@@ -2,9 +2,9 @@
   command: brew cleanup
   listen: "Brew administrative tasks"
 
-- name: Restart brew services
-  command: brew services restart --all
-  listen: "Brew administrative tasks"
+# - name: Restart brew services
+#   command: brew services restart --all
+#   listen: "Brew administrative tasks"
 
 - name: Install pylint
   command: pip3 install pylint

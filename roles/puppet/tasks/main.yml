@@ -2,7 +2,8 @@
   gem:
     name: hiera-eyaml
     state: present
-    user_install: yes
+    executable: /opt/homebrew/opt/ruby/bin/gem
+    user_install: no
   tags:
     - puppet
 
@@ -10,7 +11,8 @@
   gem:
     name: hiera-eyaml-gpg
     state: present
-    user_install: yes
+    executable: /opt/homebrew/opt/ruby/bin/gem
+    user_install: no
   tags:
     - puppet
 
@@ -18,7 +20,8 @@
   gem:
     name: gpgme
     state: present
-    user_install: yes
+    executable: /opt/homebrew/opt/ruby/bin/gem
+    user_install: no
   tags:
     - puppet
 
