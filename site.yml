@@ -7,9 +7,9 @@
     - { role: vim }
     - { role: scripts }
 
-- hosts: macos
-  vars_files:
-    - "./vars/homebrew.yml"
-  roles:
-    - { role: homebrew }
-    - { role: puppet }
+#- hosts: macos
+#  vars_files:
+#    - "./vars/homebrew.yml"
+#  roles:
+#    - { role: homebrew }
+#    - { role: puppet }
