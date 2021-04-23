@@ -1,4 +1,6 @@
 - hosts: all
+  vars_files:
+    - "./vars/gituser.yml"
   roles:
     - { role: zsh }
     - { role: vcs }
