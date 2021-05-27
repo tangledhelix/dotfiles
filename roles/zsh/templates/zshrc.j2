@@ -220,6 +220,9 @@ export PAGER="less"
 if [[ -x /usr/local/bin/npm && -d /usr/local/lib/node_modules ]]; then
     export NODE_PATH='/usr/local/lib/node_modules'
 fi
+if [[ -x /opt/homebrew/bin/npm && -d /opt/homebrew/lib/node_modules ]]; then
+    export NODE_PATH='/opt/homebrew/lib/node_modules'
+fi
 
 # Set the default Less options.
 #
