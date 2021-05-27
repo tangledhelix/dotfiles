@@ -2,21 +2,13 @@
 
 # Assumes Github repos. Use shorthand "user/repo-name".
 vim_bundles = {
-    "ack": "mileszs/ack.vim",
-    "ackmore": "tangledhelix/vim-ackmore",
     "autopairs": "jiangmiao/auto-pairs",
-    "docker": "honza/dockerfile.vim",
-    "endwise": "tangledhelix/vim-endwise",
-    "fugitive": "tpope/vim-fugitive",
+    "endwise": "tpope/vim-endwise",
     "ghmarkdown": "jtratner/vim-flavored-markdown",
-    "json": "elzr/vim-json",
     "pathogen": "tpope/vim-pathogen",
     "perl": "vim-perl/vim-perl",
     "pgsql": "exu/pgsql.vim",
     "puppet": "puppetlabs/puppet-syntax-vim",
-    "quickrun": "thinca/vim-quickrun",
-    "repeat": "tpope/vim-repeat",
-    "solarized": "altercation/vim-colors-solarized",
     "statline": "millermedeiros/vim-statline",
     "surround": "tpope/vim-surround",
     "tcomment": "tomtom/tcomment_vim"
