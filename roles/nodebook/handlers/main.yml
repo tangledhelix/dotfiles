@@ -1,3 +1,0 @@
-- name: Install nodebook service definition
-  command: launchctl load /Users/dan/Library/LaunchAgents/com.tangledhelix.nbk.plist
-  listen: "Set up nodebook"
