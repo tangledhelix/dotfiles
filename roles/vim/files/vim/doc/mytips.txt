@@ -26,5 +26,4 @@ External commands               |mytips-extcommands|
 Tips about plugin functionality
 
 Using surround                  |mytips-surround|   plugin: |surround|
-Using Fugitive                  |mytips-fugitive|   plugin: |fugitive|
 

@@ -20,11 +20,11 @@ Windows moving
 
 Creating a window
 
-  ,w          Open a vertical window to the right
+  :vsplit     Open a vertical window to the right
 
 Creating a tab
 
-  ,t          Create a new tab
+  :tabnew     Create a new tab
 
 Moving among tabs
 
