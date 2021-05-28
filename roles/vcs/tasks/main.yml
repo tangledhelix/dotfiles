@@ -10,11 +10,3 @@
   tags:
     - vcs
 
-- name: "Install git-credential-osxkeychain"
-  when: ansible_os_family == "Darwin"
-  copy:
-    src: "git-credential-osxkeychain"
-    dest: "~/bin/git-credential-osxkeychain"
-    mode: 0755
-  tags:
-    - vcs
