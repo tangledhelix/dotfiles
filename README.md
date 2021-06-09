@@ -54,12 +54,13 @@ a whim and may forget to update this README.
 Installation
 ------------
 
-I use Ansible to deploy my dotfiles. This setup requires a `hosts` inventory
-file. That is not present in this repository as it's specific to me. See
-Ansible's documentation for info about the format of the inventory file. (There
-is more than one available format.)
+I use Ansible to deploy my dotfiles. This setup requires an inventory file.
+That is not present in this repository as it's specific to me. See Ansible's
+documentation for info about the format of the inventory file. (There is more
+than one available format.) I keep my inventory files in the `inventory/`
+directory.
 
-I use a file vars/gituser.yml to define the .gitconfig `user.name` and
+I use a file `vars/gituser.yml` to define the .gitconfig `user.name` and
 `user.email` settings. That's so I can have a different value on my work
 laptop and personal laptop. This file is required, but isn't tracked in
 git. It looks like this:
@@ -70,10 +71,10 @@ gituser_name: John Doe
 gituser_email: jdoe@example.com
 ```
 
-To install or update the Vim bundles, use the update_vim.py script. The list of
-Vim bundles is defined in that script. If you modify the list, you'll want to
-do an update. This will refresh existing modules, install new ones, and clean
-out old ones no longer in the list.
+To install or update the Vim bundles, use the `update_vim.py` script. The list
+of Vim bundles is defined in that script. If you modify the list, you'll want
+to do an update. This will refresh existing modules, install new ones, and
+clean out old ones no longer in the list.
 
     ./update_vim.py
 
@@ -88,8 +89,9 @@ A minimal Ansible hosts file for your local system looks like this.
 
 A typical Ansible deploy to localhost looks something like this.
 
-    ansible-playbook -K -i hosts -l localhost site.yml
+    ansible-playbook -K -i inventory/hosts -l localhost playbooks/site.yml
 
 I don't want to write yet another Ansible tutorial so if you want to know more
 about Ansible or playbooks, you can look up Ansible's documentation for those
 things.
+

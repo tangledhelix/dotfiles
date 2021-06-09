@@ -1,0 +1,5 @@
+- hosts: all
+  tasks:
+    - shell: 'cat /etc/*-release; uname -a'
+      register: shell_result
+    - debug: var=shell_result.stdout_lines
