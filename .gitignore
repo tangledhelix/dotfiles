@@ -18,7 +18,8 @@
 /roles/vim/files/vim/bundle
 
 # Ansible files
-/playbooks/*.retry
+*.retry
+/playbooks/
 /inventory/
 /vars/gituser.yml
 

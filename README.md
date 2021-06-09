@@ -89,7 +89,7 @@ A minimal Ansible hosts file for your local system looks like this.
 
 A typical Ansible deploy to localhost looks something like this.
 
-    ansible-playbook -K -i inventory/hosts -l localhost playbooks/site.yml
+    ansible-playbook -K -i inventory/hosts -l localhost site.yml
 
 I don't want to write yet another Ansible tutorial so if you want to know more
 about Ansible or playbooks, you can look up Ansible's documentation for those
