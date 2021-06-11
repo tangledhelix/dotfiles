@@ -343,28 +343,42 @@ else
 
     if [[ -n "$(command -v tmux)" ]]; then
 
+        # Always support UTF-8
         alias tmux='tmux -u'
 
-        tmux_ls() {
-            echo "\n-- tmux sessions --\n$(tmux ls 2>/dev/null)"
-        }
+        # tmux_ls() {
+        #     echo "\n-- tmux sessions --\n$(tmux ls 2>/dev/null)"
+        # }
 
-        # List tmux sessions
-        if [[ -z "$TMUX" && -n "$(tmux ls 2>/dev/null)" ]]; then
-            tmux_ls
+        tmux ls >/dev/null 2>&1
+        _tmux_exit=$?
+
+        # If we're on an ssh/mosh connection, either attach to an existing
+        # tmux, or create a new tmux.
+        if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
+            if [[ $_tmux_exit -eq 0 ]]; then
+                tmux attach-session -t zmux
+            else
+                tmux new-session -s zmux
+            fi
         fi
 
+        # List tmux sessions
+        # if [[ -z "$TMUX" && -n "$(tmux ls 2>/dev/null)" ]]; then
+        #     tmux_ls
+        # fi
+
         # tmux magic alias to list, show, or attach
-        tm() {
-            [[ -z "$1" ]] && { tmux_ls; return }
-            local _detach_flag
-            if [[ "$1" = "-d" ]]; then
-                _detach_flag="-d"
-                shift
-            fi
-            export STY="[$1] $(uname -n)"
-            tmux -u new -s "$1" || tmux -u att $_detach_flag -t "$1"
-        }
+        # tm() {
+        #     [[ -z "$1" ]] && { tmux_ls; return }
+        #     local _detach_flag
+        #     if [[ "$1" = "-d" ]]; then
+        #         _detach_flag="-d"
+        #         shift
+        #     fi
+        #     export STY="[$1] $(uname -n)"
+        #     tmux -u new -s "$1" || tmux -u att $_detach_flag -t "$1"
+        # }
 
     fi
 
