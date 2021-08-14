@@ -1,6 +1,11 @@
 set nocompatible
 autocmd!
 
+" Use automatic regex engine (0) rather than selecting one.
+" Hopefully this avoids the error:
+" E363: pattern uses more memory than 'maxmempattern'
+set re=0
+
 " Let % match if/elsif/else/end, open/close, XML tags, etc.
 runtime macros/matchit.vim
 
