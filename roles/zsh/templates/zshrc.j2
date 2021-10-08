@@ -346,27 +346,27 @@ else
         # Always support UTF-8
         alias tmux='tmux -u'
 
-        # tmux_ls() {
-        #     echo "\n-- tmux sessions --\n$(tmux ls 2>/dev/null)"
-        # }
+        tmux_ls() {
+            echo "\n-- tmux sessions --\n$(tmux ls 2>/dev/null)"
+        }
 
-        tmux ls >/dev/null 2>&1
-        _tmux_exit=$?
+        # tmux ls >/dev/null 2>&1
+        # _tmux_exit=$?
 
         # If we're on an ssh/mosh connection, either attach to an existing
         # tmux, or create a new tmux.
-        if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
-            if [[ $_tmux_exit -eq 0 ]]; then
-                tmux attach-session -t zmux
-            else
-                tmux new-session -s zmux
-            fi
-        fi
+        # if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
+        #     if [[ $_tmux_exit -eq 0 ]]; then
+        #         tmux attach-session -t zmux
+        #     else
+        #         tmux new-session -s zmux
+        #     fi
+        # fi
 
         # List tmux sessions
-        # if [[ -z "$TMUX" && -n "$(tmux ls 2>/dev/null)" ]]; then
-        #     tmux_ls
-        # fi
+        if [[ -z "$TMUX" && -n "$(tmux ls 2>/dev/null)" ]]; then
+            tmux_ls
+        fi
 
         # tmux magic alias to list, show, or attach
         # tm() {
