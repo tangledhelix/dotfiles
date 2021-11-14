@@ -151,15 +151,19 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# 
+# Docker is disabled on macOS because it breaks the new
+# "pause" feature in Docker Desktop 4.2.
 plugins=(
     git
     common-aliases
     colored-man-pages
 {% if ansible_os_family == 'Darwin' -%}
     vscode
-{% endif -%}
+{% else -%}
     docker
     docker-compose
+{% endif -%}
 )
 # Possible ones to enable later:
 # ssh-agent
