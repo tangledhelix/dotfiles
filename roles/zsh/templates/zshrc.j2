@@ -152,17 +152,17 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # 
-# Docker is disabled on macOS because it breaks the new
-# "pause" feature in Docker Desktop 4.2.
+# If the Docker plugin is enabled on macOS, it breaks the new
+# "pause" feature in Docker Desktop 4.2. (Well, not breaks...
+# but it will unpause every time you trigger your shell prompt...)
 plugins=(
     git
     common-aliases
     colored-man-pages
 {% if ansible_os_family == 'Darwin' -%}
-    vscode
-{% else -%}
     docker
     docker-compose
+    vscode
 {% endif -%}
 )
 # Possible ones to enable later:
