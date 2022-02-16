@@ -159,9 +159,10 @@ plugins=(
     git
     common-aliases
     colored-man-pages
-{% if ansible_os_family == 'Darwin' -%}
     docker
     docker-compose
+    kubectl
+{% if ansible_os_family == 'Darwin' %}
     vscode
 {% endif -%}
 )
