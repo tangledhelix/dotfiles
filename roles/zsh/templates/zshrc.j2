@@ -162,9 +162,10 @@ plugins=(
     docker
     docker-compose
     kubectl
+    aws
 {% if ansible_os_family == 'Darwin' %}
     vscode
-{% endif -%}
+{% endif %}
 )
 # Possible ones to enable later:
 # ssh-agent
