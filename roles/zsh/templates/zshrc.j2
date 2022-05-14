@@ -95,6 +95,16 @@ ZSH_THEME="avit"
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
+# User at host, path, git branch, some git status. maybe.
+# Prompt chars are utf8, bit odd.
+#ZSH_THEME="dstufft"
+
+# User at host, path, git bfanch, some git status, error RPROMPT. Maybe.
+#ZSH_THEME="lukerandall"
+
+# Shows ssh.. user@host, path, git status, last exit code. multiline.
+ZSH_THEME="mortalscumbag"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -413,4 +423,7 @@ unsetopt SHARE_HISTORY
 bindkey -e
 
 # local settings override global ones
-[[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
+if [[ -s $HOME/.zshrc.local ]]; then
+    source $HOME/.zshrc.local
+fi
+
