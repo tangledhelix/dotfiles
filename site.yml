@@ -7,4 +7,5 @@
     - { role: misc }
     - { role: vim }
     - { role: scripts }
+    - { role: starship }
 

@@ -422,6 +422,8 @@ unsetopt SHARE_HISTORY
 
 bindkey -e
 
+eval "$(starship init zsh)"
+
 # local settings override global ones
 if [[ -s $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
