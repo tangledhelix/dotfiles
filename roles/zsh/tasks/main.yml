@@ -13,6 +13,21 @@
   tags:
     - zsh
 
+- name: Check if zsh-autosuggestions exists
+  stat:
+    path: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  register: stat_oh_my_zsh_autosuggestions_result
+  tags:
+    - zsh
+
+- name: Cloning zsh-autosuggestions
+  git:
+    repo=https://github.com/zsh-users/zsh-autosuggestions
+    dest=~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  when: not stat_oh_my_zsh_autosuggestions_result.stat.exists
+  tags:
+    - zsh
+
 - name: "Install .zshrc from template"
   template:
     src: zshrc.j2
