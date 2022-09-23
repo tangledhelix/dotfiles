@@ -1,0 +1,24 @@
+- name: "Create ~/.config/"
+  file:
+    path: "~/.config"
+    state: directory
+    mode: 0755
+  tags:
+    - neovim
+
+- name: "Create ~/.config/nvim"
+  file:
+    path: "~/.config/nvim"
+    state: directory
+    mode: 0755
+  tags:
+    - neovim
+
+- name: "Install neovim init file"
+  template:
+    src: init.lua.j2
+    dest: "~/.config/nvim/init.lua"
+    mode: 0644
+  tags:
+    - neovim
+
