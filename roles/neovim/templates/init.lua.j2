@@ -30,12 +30,12 @@ vim.g.mapleader = ' '
 -- <space>w : write file
 -- vim.keymap.set('n', '<leader>w', '<cmd>write<cr>', {desc = 'Save'})
 
+{% if ansible_os_family == 'Darwin' %}
 -- interact with system clipboard with 'cp' and 'cv'
 -- (works in normal or visual modes)
-{% if ansible_os_family == 'Darwin' -%}
 vim.keymap.set({'n', 'x'}, 'cp', '"+y')
 vim.keymap.set({'n', 'x'}, 'cv', '"+p')
-{% endif -%}
+{% endif %}
 
 -- better j,k line navigation when lines are wrapped
 vim.keymap.set({'n', 'x'}, 'j', 'gj', {noremap = true})
