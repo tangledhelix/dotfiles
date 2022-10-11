@@ -27,9 +27,9 @@ vim.opt.expandtab = true
 vim.opt.cursorline = true
 
 -- example leader binding
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 -- <space>w : write file
--- vim.keymap.set('n', '<leader>w', '<cmd>write<cr>', {desc = 'Save'})
+-- vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
 
 {% if ansible_os_family == 'Darwin' %}
 -- interact with system clipboard with 'cp' and 'cv'
@@ -39,10 +39,10 @@ vim.keymap.set({'n', 'x'}, 'cv', '"+p')
 {% endif %}
 
 -- better j,k line navigation when lines are wrapped
-vim.keymap.set({'n', 'x'}, 'j', 'gj', {noremap = true})
-vim.keymap.set({'n', 'x'}, 'k', 'gk', {noremap = true})
+vim.keymap.set({"n", "x"}, "j", "gj", {noremap = true})
+vim.keymap.set({"n", "x"}, "k", "gk", {noremap = true})
 
 -- an Esc key when I don't feel like stretching my delicate pinky
-vim.keymap.set('i', 'kj', '<esc>', {})
-vim.keymap.set('i', 'jj', '<esc>', {})
+vim.keymap.set("i", "kj", "<esc>", {})
+vim.keymap.set("i", "jj", "<esc>", {})
 
