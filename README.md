@@ -44,13 +44,6 @@ a read; color support is only one of several good reasons to switch.
 
 [iTerm2 > iTerm](http://tangledhelix.com/blog/2010/12/06/iterm2-iterm/)
 
-Shell colors
-------------
-
-The colors in the Zsh shell prompts may assume a certain color scheme in the
-terminal; they may look odd in other schemes. I change that color decision on
-a whim and may forget to update this README.
-
 Installation
 ------------
 
@@ -94,4 +87,24 @@ A typical Ansible deploy to localhost looks something like this.
 I don't want to write yet another Ansible tutorial so if you want to know more
 about Ansible or playbooks, you can look up Ansible's documentation for those
 things.
+
+macOS Neovim setup
+------------------
+
+Currently, the macOS setup for Neovim has some extra stuff that's not there
+otherwise. To set it up, install and then update [Packer][]:
+
+
+[Packer]: https://github.com/wbthomason/packer.nvim#quickstart
+
+```
+git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+```
+
+Then start Neovim and run the `:PackerUpdate` command to install
+any Packer plugins.
+
+You can also run `:PackerUpdate` at any time to update plugins
+to newer versions.
 
