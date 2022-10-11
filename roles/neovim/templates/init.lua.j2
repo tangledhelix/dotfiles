@@ -42,9 +42,9 @@ vim.g.mapleader = " "
 {% if ansible_os_family == "Darwin" %}
 -- interact with system clipboard
 -- (works in normal or visual modes)
---vim.keymap.set({"n", "x"}, "<leader>y", '"+y')
---vim.keymap.set({"n", "x"}, "<leader>p", '"+p')
---vim.keymap.set({"n", "x"}, "<leader>P", '"+P')
+vim.keymap.set({"n", "x"}, "<leader>y", '"+y')
+vim.keymap.set({"n", "x"}, "<leader>p", '"+p')
+vim.keymap.set({"n", "x"}, "<leader>P", '"+P')
 {% endif %}
 
 -- better j,k line navigation when lines are wrapped
