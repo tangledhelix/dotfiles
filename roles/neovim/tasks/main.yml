@@ -14,6 +14,14 @@
   tags:
     - neovim
 
+- name: "Create ~/.config/nvim/lua"
+  file:
+    path: "~/.config/nvim/lua"
+    state: directory
+    mode: 0755
+  tags:
+    - neovim
+
 - name: "Install neovim init file"
   template:
     src: init.lua.j2
@@ -22,3 +30,10 @@
   tags:
     - neovim
 
+- name: "Install neovim plugins.lua"
+  template:
+    src: lua/plugins.lua.j2
+    dest: "~/.config/nvim/lua/plugins.lua"
+    mode: 0644
+  tags:
+    - neovim
