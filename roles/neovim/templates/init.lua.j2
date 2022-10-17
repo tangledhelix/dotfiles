@@ -36,8 +36,8 @@ vim.opt.cursorline = true
 
 -- example leader binding
 vim.g.mapleader = " "
--- <space>w : write file
--- vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
+
+vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
 
 {% if ansible_os_family == "Darwin" %}
 -- interact with system clipboard
