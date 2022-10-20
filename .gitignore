@@ -19,7 +19,6 @@
 
 # Ansible files
 *.retry
-/playbooks/
 /inventory/
 /vars/gituser.yml
 
