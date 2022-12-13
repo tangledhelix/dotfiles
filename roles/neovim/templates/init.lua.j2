@@ -1,11 +1,3 @@
-{% if ansible_os_family == "Darwin" %}
-require("plugins")
-
--- colorscheme
--- https://github.com/EdenEast/nightfox.nvim
-vim.cmd("colorscheme nightfox")
-{% endif %}
-
 -- line numbers in gutter
 vim.opt.number = true
 vim.opt.relativenumber = true
