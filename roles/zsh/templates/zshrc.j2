@@ -221,11 +221,7 @@ unset path_file
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-{% if ansible_os_family == 'Darwin' -%}
-export EDITOR='nvim'
-{% else -%}
 export EDITOR='vim'
-{% endif -%}
 
 export VISUAL="$EDITOR"
 export PAGER="less"
@@ -296,14 +292,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-{% if ansible_os_family == 'Darwin' -%}
-alias vi='nvim'
-alias vim='nvim'
-alias view='nvim -R'
-{% else -%}
 alias vi='vim'
 alias view='vim -R'
-{% endif -%}
 
 # Show me time in GMT / UTC
 alias utc='TZ=UTC date'
