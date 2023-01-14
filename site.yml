@@ -6,7 +6,6 @@
     - { role: vcs }
     - { role: misc }
     - { role: vim }
-    - { role: neovim }
     - { role: scripts }
     - { role: starship }
 
