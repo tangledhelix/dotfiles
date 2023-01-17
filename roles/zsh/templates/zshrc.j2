@@ -416,7 +416,9 @@ fi
 
 unsetopt SHARE_HISTORY
 
-bindkey -e
+#bindkey -e
+# gotta wear out the Esc key somehow
+bindkey -v
 
 eval "$(starship init zsh)"
 
