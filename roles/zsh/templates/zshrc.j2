@@ -416,9 +416,18 @@ fi
 
 unsetopt SHARE_HISTORY
 
-#bindkey -e
 # gotta wear out the Esc key somehow
 bindkey -v
+
+# C-space or C-f will accept the currently shown suggestion.
+# So will the right arrow, by default, in -e or -v modes.
+# C-f is also usable by default, only in -e mode.
+bindkey '^ ' autosuggest-accept
+bindkey '^f' autosuggest-accept
+
+# How to add ^n, ^p for navigating history, if I keep using them in -v mode
+#bindkey '^p' up-history
+#bindkey '^n' down-history
 
 eval "$(starship init zsh)"
 
