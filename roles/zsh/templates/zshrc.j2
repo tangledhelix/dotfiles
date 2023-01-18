@@ -191,6 +191,10 @@ plugins=(
 # So this check is just broken, apparently?
 ZSH_DISABLE_COMPFIX="true"
 
+# Suggestion strategy can be history, completion, match_prev_cmd,
+# or any combination of those three. See zsh-autosuggestions documentation.
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
