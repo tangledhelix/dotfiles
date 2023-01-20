@@ -20,7 +20,7 @@
 # Ansible files
 *.retry
 /inventory/
-/vars/gituser.yml
+/vars/gituser.json
 
 .vstags
 /node_modules/
