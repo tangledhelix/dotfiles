@@ -1,11 +1,11 @@
 [
-    {
-        "name": "Install scripts",
-        "synchronize": {
-            "src": "scripts/",
-            "dest": "~/bin",
-            "delete": "no"
-        },
-        "tags": [ "scripts" ]
-    }
+  {
+    "name": "Install scripts",
+    "synchronize": {
+      "src": "scripts/",
+      "dest": "~/bin",
+      "delete": "no"
+    },
+    "tags": [ "scripts" ]
+  }
 ]

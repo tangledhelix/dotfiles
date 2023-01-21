@@ -1,14 +1,13 @@
 {
-    "hosts": "all",
-    "tasks": [
-        {
-            "shell": "tmux ls",
-            "register": "shell_result"
-        },
-        {
-            "debug": {
-                "var": "shell_result.stdout_lines"
-            }
-        }
-    ]
+  "hosts": "all",
+  "tasks": [
+    {
+      "shell": "tmux ls",
+      "register": "shell_result"
+    },
+    {
+      "debug": {
+      "var": "shell_result.stdout_lines"
+    }
+  ]
 }
