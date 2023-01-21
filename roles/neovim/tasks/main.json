@@ -77,7 +77,7 @@
       "dest": "~/.config/nvim/lua/plugins.lua",
       "mode": "0644"
     },
-    "tags": [ "NOTneovim" ]
+    "tags": [ "neovim" ]
   }
 ]
 
