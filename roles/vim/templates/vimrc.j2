@@ -42,6 +42,13 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
+" Sometimes Esc is soooooo faaaaaar awaaaaaay
+inoremap jj <Esc>
+
+" Bubble lines up / down, with reindenting
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 " Define 'del' char to be the same backspace (saves a LOT of trouble!)
 " As the angle notation cannot be use with the LeftHandSide
 " with mappings you must type this in *literally*!
@@ -112,9 +119,6 @@ set formatoptions=qrn1
 " Insert two spaces after a period with every joining of lines? No!
 set nojoinspaces
 
-" Remap ~ to cycle through uppercase, lowercase, title-case.
-vnoremap ~ ygv"=TwiddleCase(@")<cr>Pgv
-
 " I use Vim mostly to write code. This doesn't auto-wrap lines, it only does
 " a soft wrap to the window width.
 set wrap
@@ -147,10 +151,13 @@ set smartcase
 " Turn off vim's default regex and use normal regexes (behaves more
 " like Perl regex now...) - this is 'very magic' mode. Only alphanumerics
 " and underscore are *not* quoted with backslash. See ':help magic'.
-nnoremap / /\v
-vnoremap / /\v
-nnoremap ? ?\v
-vnoremap ? ?\v
+"
+" Disabling this for now because it doesn't affect :s (but 'magic' does).
+" It's better for the two to match, just rely on 'magic' for both.
+"nnoremap / /\v
+"vnoremap / /\v
+"nnoremap ? ?\v
+"vnoremap ? ?\v
 
 " Use 'magic' patterns (extended regex) in search patterns. ('\s\+').
 " This isn't used by the / search due to the / remaps. For :s and :g.
@@ -211,6 +218,13 @@ set showmatch
 " Modelines have security problems. Disable.
 set nomodeline
 set modelines=0
+
+" line numbering
+set number
+set relativenumber
+
+" keep some context on screen
+set scrolloff=4
 
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
