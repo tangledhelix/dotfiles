@@ -13,6 +13,14 @@ if vim.fn.has('nvim-0.5') == 1 then
             end
         })
 
+{% if ansible_distribution == "MacOSX" %}
+        use {
+            'nvim-telescope/telescope.nvim', tag = '0.1.1',
+            -- or                            , branch = '0.1.x',
+            requires = { {'nvim-lua/plenary.nvim'} }
+        }
+{% endif %}
+
     end)
 end
 

@@ -27,6 +27,24 @@
     "tags": [ "neovim" ]
   },
   {
+    "name": "Create ~/.config/nvim/after/",
+    "file": {
+      "path": "~/.config/nvim/after",
+      "state": "directory",
+      "mode": "0755"
+    },
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Create ~/.config/nvim/after/plugin/",
+    "file": {
+      "path": "~/.config/nvim/after/plugin",
+      "state": "directory",
+      "mode": "0755"
+    },
+    "tags": [ "neovim" ]
+  },
+  {
     "name": "Check whether packer is installed",
     "stat": {
       "path": "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
@@ -75,6 +93,15 @@
     "template": {
       "src": "lua/plugins.lua.j2",
       "dest": "~/.config/nvim/lua/plugins.lua",
+      "mode": "0644"
+    },
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Install after/plugin/telescope",
+    "template": {
+      "src": "after/plugin/telescope.lua.j2",
+      "dest": "~/.config/nvim/after/plugin/telescope.lua",
       "mode": "0644"
     },
     "tags": [ "neovim" ]
