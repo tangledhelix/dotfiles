@@ -10,19 +10,19 @@ if vim.fn.has('nvim-0.5') == 1 then
 
     vim.cmd [[packadd packer.nvim]]
 
-    return require("packer").startup(function(use)
-        use "wbthomason/packer.nvim"
+    return require('packer').startup(function(use)
+        use 'wbthomason/packer.nvim'
 
-        use({
+        use {
             'rose-pine/neovim',
             as = 'rose-pine',
             config = function()
-                require("rose-pine").setup()
+                require('rose-pine').setup()
                 vim.cmd('colorscheme rose-pine')
             end
-        })
+        }
 
-{% if ansible_distribution == "MacOSX" %}
+{% if ansible_distribution == 'MacOSX' %}
         use {
             'nvim-telescope/telescope.nvim', tag = '0.1.1',
             -- or                            , branch = '0.1.x',
@@ -37,10 +37,10 @@ if vim.fn.has('nvim-0.5') == 1 then
 
         if vim.fn.has('nvim-0.8') == 1 then
             use {
-                "folke/todo-comments.nvim",
-                requires = "nvim-lua/plenary.nvim",
+                'folke/todo-comments.nvim',
+                requires = 'nvim-lua/plenary.nvim',
                 config = function()
-                    require("todo-comments").setup {
+                    require('todo-comments').setup {
                         -- your configuration comes here
                         -- or leave it empty to use the default settings
                         -- refer to the configuration section below
@@ -49,7 +49,7 @@ if vim.fn.has('nvim-0.5') == 1 then
             }
         end
 
-        use('mbbill/undotree')
+        use 'mbbill/undotree'
 
     end)
 end
