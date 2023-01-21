@@ -105,6 +105,15 @@
       "mode": "0644"
     },
     "tags": [ "neovim" ]
+  },
+  {
+    "name": "Install after/plugin/harpoon",
+    "template": {
+      "src": "after/plugin/harpoon.lua.j2",
+      "dest": "~/.config/nvim/after/plugin/harpoon.lua",
+      "mode": "0644"
+    },
+    "tags": [ "neovim" ]
   }
 ]
 
