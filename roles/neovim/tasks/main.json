@@ -132,6 +132,24 @@
       "mode": "0644"
     },
     "tags": [ "neovim" ]
+  },
+  {
+    "name": "Install after/plugin/treesitter",
+    "template": {
+      "src": "after/plugin/treesitter.lua.j2",
+      "dest": "~/.config/nvim/after/plugin/treesitter.lua",
+      "mode": "0644"
+    },
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Install after/plugin/lsp",
+    "template": {
+      "src": "after/plugin/lsp.lua.j2",
+      "dest": "~/.config/nvim/after/plugin/lsp.lua",
+      "mode": "0644"
+    },
+    "tags": [ "neovim" ]
   }
 ]
 
