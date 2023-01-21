@@ -1,25 +1,31 @@
 [
-    {
-        "hosts": "all",
-        "vars_files": [
-            "./vars/gituser.json"
-        ],
-        "roles": [
-            { "role": "zsh" },
-            { "role": "vcs" },
-            { "role": "misc" },
-            { "role": "vim" },
-            { "role": "scripts" },
-            { "role": "starship" }
-        ]
-    },
-    {
-        "hosts": "macos",
-        "vars_files": [
-            "./vars/homebrew.json"
-        ],
-        "roles": [
-            { "role": "homebrew" }
-        ]
-    }
+  {
+    "hosts": "all",
+    "vars_files": [
+      "./vars/gituser.json"
+    ],
+    "roles": [
+      { "role": "zsh" },
+      { "role": "vcs" },
+      { "role": "misc" },
+      { "role": "vim" },
+      { "role": "scripts" },
+      { "role": "starship" }
+    ]
+  },
+  {
+    "hosts": "macos",
+    "vars_files": [
+      "./vars/homebrew.json"
+    ],
+    "roles": [
+      { "role": "homebrew" }
+    ]
+  },
+  {
+    "hosts": "local",
+    "roles": [
+      { "role": "neovim" }
+    ]
+  }
 ]

@@ -1,49 +1,84 @@
 [
-    {
-        "name": "Create ~/.config/",
-        "file": {
-            "path": "~/.config",
-            "state": "directory",
-            "mode": "0755"
-        },
-        "tags": [ "neovim" ]
+  {
+    "name": "Create ~/.config/",
+    "file": {
+      "path": "~/.config",
+      "state": "directory",
+      "mode": "0755"
     },
-    {
-        "name": "Create ~/.config/nvim",
-        "file": {
-            "path": "~/.config/nvim",
-            "state": "directory",
-            "mode": "0755"
-        },
-        "tags": [ "neovim" ]
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Create ~/.config/nvim/",
+    "file": {
+      "path": "~/.config/nvim",
+      "state": "directory",
+      "mode": "0755"
     },
-    {
-        "name": "Create ~/.config/nvim/lua",
-        "file": {
-            "path": "~/.config/nvim/lua",
-            "state": "directory",
-            "mode": "0755"
-        },
-        "tags": [ "neovim" ]
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Create ~/.config/nvim/lua/",
+    "file": {
+      "path": "~/.config/nvim/lua",
+      "state": "directory",
+      "mode": "0755"
     },
-    {
-        "name": "Install neovim init file",
-        "template": {
-            "src": "init.lua.j2",
-            "dest": "~/.config/nvim/init.lua",
-            "mode": "0644"
-        },
-        "tags": [ "neovim" ]
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Check whether packer is installed",
+    "stat": {
+      "path": "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
     },
-    {
-        "name": "Install neovim plugins.lua",
-        "template": {
-            "src": "lua/plugins.lua.j2",
-            "dest": "~/.config/nvim/lua/plugins.lua",
-            "mode": "0644"
-        },
-        "tags": [ "neovim" ]
-    }
+    "register": "stat_packer_result",
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Clone packer",
+    "git": {
+      "repo": "https://github.com/wbthomason/packer.nvim",
+      "dest": "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    },
+    "when": "not stat_packer_result.stat.exists",
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Install neovim init file",
+    "template": {
+      "src": "init.lua.j2",
+      "dest": "~/.config/nvim/init.lua",
+      "mode": "0644"
+    },
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Install neovim set.lua",
+    "template": {
+      "src": "lua/set.lua.j2",
+      "dest": "~/.config/nvim/lua/set.lua",
+      "mode": "0644"
+    },
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Install neovim remap.lua",
+    "template": {
+      "src": "lua/remap.lua.j2",
+      "dest": "~/.config/nvim/lua/remap.lua",
+      "mode": "0644"
+    },
+    "tags": [ "neovim" ]
+  },
+  {
+    "name": "Install neovim plugins.lua",
+    "template": {
+      "src": "lua/plugins.lua.j2",
+      "dest": "~/.config/nvim/lua/plugins.lua",
+      "mode": "0644"
+    },
+    "tags": [ "NOTneovim" ]
+  }
 ]
 
 

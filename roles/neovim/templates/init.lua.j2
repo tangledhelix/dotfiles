@@ -1,57 +1,5 @@
-{% if ansible_os_family == "Darwin" %}
-require("plugins")
 
--- colorscheme
--- https://github.com/EdenEast/nightfox.nvim
-vim.cmd("colorscheme nightfox")
-{% endif %}
+require("set")
+require("remap")
 
--- line numbers in gutter
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- mouse support (defaults to "nvi") - see :help 'mouse
---vim.opt.mouse = "a"     -- enable everything
---vim.opt.mouse = ""      -- disable everything
-
--- for searching
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.hlsearch = true
-
--- text wrapping, indenting
-vim.opt.wrap = true
-vim.opt.breakindent = false
-
--- tab stops
--- TODO: modify in certain syntaxes like yaml, maybe json
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
--- TODO: turn this off in certain files like Makefile
-vim.opt.expandtab = true
-
--- highlight the line the cursor is on
-vim.opt.cursorline = true
-
--- example leader binding
-vim.g.mapleader = " "
-
-vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
-
-{% if ansible_os_family == "Darwin" %}
--- interact with system clipboard
--- (works in normal or visual modes)
-vim.keymap.set({"n", "x"}, "<leader>y", '"+y')
-vim.keymap.set({"n", "x"}, "<leader>p", '"+p')
-vim.keymap.set({"n", "x"}, "<leader>P", '"+P')
-{% endif %}
-
--- better j,k line navigation when lines are wrapped
-vim.keymap.set({"n", "x"}, "j", "gj", {noremap = true})
-vim.keymap.set({"n", "x"}, "k", "gk", {noremap = true})
-
--- an Esc key when I don't feel like stretching my delicate pinky
-vim.keymap.set("i", "kj", "<esc>", {})
-vim.keymap.set("i", "jj", "<esc>", {})
 
