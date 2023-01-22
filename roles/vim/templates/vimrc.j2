@@ -19,6 +19,8 @@ endif
 " https://github.com/tpope/vim-pathogen
 let g:pathogen_disabled = []
 
+let g:mapleader = ' '
+
 filetype off
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
@@ -240,6 +242,9 @@ set relativenumber
 
 " keep some context on screen
 set scrolloff=4
+
+" jump to explorer (netrw)
+nnoremap <leader>e :Ex<CR>
 
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
