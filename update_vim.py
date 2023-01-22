@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 
 # Assumes Github repos. Use shorthand "user/repo-name".
+#
+# Note: if you change the URL that's not currently detected!
+#       A suggested workaround: comment out the plugin, run
+#       update_vim.py to remove it, then uncomment and change
+#       the URL, and run update_vim.py again to install the new one.
+
 vim_bundles = {
     # insert and delete parens, braces, etc in pairs
-    "autopairs": "jiangmiao/auto-pairs",
+    "autopairs": "LunarWatcher/auto-pairs",
     # automatically adds ending keyword to blocks (end, endif, ...)
     "endwise": "tpope/vim-endwise",
     # github-flavored markdown plugin
