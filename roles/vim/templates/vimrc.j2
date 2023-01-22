@@ -257,6 +257,27 @@ set relativenumber
 " keep some context on screen
 set scrolloff=4
 
+{% if ansible_distribution == 'MacOSX' %}
+" interact with the system paste buffer
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+
+nnoremap <leader>Y "+Y
+
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+
+nnoremap <leader>P "+P
+vnoremap <leader>P "+P
+{% else %}
+" tell user the paste buffer is not available here.
+" the 'v' variants don't output the text anyway, don't bother mapping them
+nnoremap <leader>y :echo 'system pasteboard not available'<CR>
+nnoremap <leader>Y :echo 'system pasteboard not available'<CR>
+nnoremap <leader>p :echo 'system pasteboard not available'<CR>
+nnoremap <leader>P :echo 'system pasteboard not available'<CR>
+{% endif %}
+
 " jump to explorer (netrw)
 nnoremap <leader>e :Ex<CR>
 
