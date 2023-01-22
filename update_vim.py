@@ -16,6 +16,8 @@ vim_bundles = {
     "endwise": "tpope/vim-endwise",
     # github-flavored markdown plugin
     "ghmarkdown": "jtratner/vim-flavored-markdown",
+    # NERDtree file navigator
+    "nerdtree": "preservim/nerdtree",
     # PaperColor theme, based on Material
     "papercolor": "NLKNguyen/papercolor-theme",
     # Vim plugin manager
