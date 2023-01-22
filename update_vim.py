@@ -5,6 +5,7 @@ vim_bundles = {
     "autopairs": "jiangmiao/auto-pairs",
     "endwise": "tpope/vim-endwise",
     "ghmarkdown": "jtratner/vim-flavored-markdown",
+    "papercolor": "NLKNguyen/papercolor-theme",
     "pathogen": "tpope/vim-pathogen",
     "perl": "vim-perl/vim-perl",
     "pgsql": "exu/pgsql.vim",
