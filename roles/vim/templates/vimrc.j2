@@ -27,6 +27,20 @@ call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
 
+" Configure persistent undo data in a local directory
+if has("persistent_undo")
+   let target_path = expand('~/.undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
+
 " Turn on mouse support
 set mouse=a
 
@@ -245,6 +259,9 @@ set scrolloff=4
 
 " jump to explorer (netrw)
 nnoremap <leader>e :Ex<CR>
+
+" toggle undotree panel
+nnoremap <leader>u :UndotreeToggle<CR>
 
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make

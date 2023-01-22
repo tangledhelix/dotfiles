@@ -29,7 +29,9 @@ vim_bundles = {
     # change surrounding things (quotes, parens, etc)
     "surround": "tpope/vim-surround",
     # easily comment / uncomment lines, blocks, selections...
-    "tcomment": "tomtom/tcomment_vim"
+    "tcomment": "tomtom/tcomment_vim",
+    # easily navigate your undo history
+    "undotree": "mbbill/undotree",
 }
 
 import os
