@@ -60,6 +60,12 @@ cnoremap  <c-h>
 inoremap <esc>[3~ <c-h>
 cnoremap <esc>[3~ <c-h>
 
+" Change the cursor shape based on mode. Assumes iTerm2 on macOS.
+" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
 " go to location of last change
 nnoremap gl `.
 
