@@ -284,6 +284,14 @@ nnoremap <leader>e :Ex<CR>
 " toggle undotree panel
 nnoremap <leader>u :UndotreeToggle<CR>
 
+" ctrlP mappings: leader ff, fb, fr
+"   open file finder
+let g:ctrlp_map = '<leader>ff'
+"   open buffer finder
+nnoremap <leader>fb :CtrlPBuffer<CR>
+"   open MRU finder
+nnoremap <leader>fr :CtrlPMRU<CR>
+
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
 autocmd Filetype make setlocal noexpandtab
