@@ -303,7 +303,9 @@ autocmd BufNewFile,BufRead *.md set filetype=ghmarkdown
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.tt2 set filetype=tt2html
 autocmd BufNewFile,BufRead *.eyaml set filetype=yaml
-autocmd FileType yaml setlocal expandtab ts=2 sts=2 sw=2
+
+" change indentation in certain filetypes
+autocmd FileType yaml,javascript,json setlocal expandtab ts=2 sts=2 sw=2
 
 " Override this file without modifying the master copy in git.
 if filereadable($HOME . '/.vimrc.local')
