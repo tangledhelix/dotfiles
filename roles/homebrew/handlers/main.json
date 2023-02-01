@@ -1,10 +1,5 @@
 [
   {
-    "name": "Clean up brew",
-    "command": "brew cleanup",
-    "listen": "Brew admin tasks"
-  },
-  {
     "name": "Install pylint",
     "command": "pip3 install pylint",
     "listen": "Brew admin tasks"
