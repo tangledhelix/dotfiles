@@ -37,6 +37,7 @@
     - "lua/set"
     - "lua/remap"
     - "lua/plugins"
+    - "lua/filetype"
     - "after/plugin/telescope"
     - "after/plugin/harpoon"
     - "after/plugin/todocomments"
