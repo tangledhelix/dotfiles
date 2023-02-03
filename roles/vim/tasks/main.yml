@@ -1,6 +1,6 @@
 - name: "Install vimrc"
-  template:
-    src: "vimrc.j2"
+  copy:
+    src: "vimrc"
     dest: "~/.vimrc"
     mode: "0644"
   tags:

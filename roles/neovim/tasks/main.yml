@@ -28,8 +28,8 @@
     - "neovim"
 
 - name: "Install neovim config files"
-  template:
-    src: "{{ item }}.lua.j2"
+  copy:
+    src: "{{ item }}.lua"
     dest: "~/.config/nvim/{{ item }}.lua"
     mode: "0644"
   with_items:

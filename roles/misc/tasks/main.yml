@@ -1,6 +1,6 @@
 - name: "Install misc files"
-  template:
-    src: "{{ item }}.j2"
+  copy:
+    src: "{{ item }}"
     dest: "~/.{{ item }}"
     mode: "0644"
   with_items:

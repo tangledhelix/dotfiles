@@ -1,11 +1,20 @@
-- name: "Install version-control configurations"
+- name: "Install version-control files"
+  copy:
+    src: "{{ item }}"
+    dest: "~/.{{ item }}"
+    mode: "0644"
+  with_items:
+    - "gitignore"
+    - "cvsrc"
+  tags:
+    - "vcs"
+
+- name: "Install .gitconfig" 
   template:
     src: "{{ item }}.j2"
     dest: "~/.{{ item }}"
     mode: "0644"
   with_items:
     - "gitconfig"
-    - "gitignore"
-    - "cvsrc"
   tags:
     - "vcs"
