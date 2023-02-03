@@ -19,7 +19,8 @@
       "./vars/homebrew.json"
     ],
     "roles": [
-      { "role": "homebrew" }
+      { "role": "homebrew" },
+      { "role": "neovim" }
     ]
   }
 ]
