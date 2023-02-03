@@ -1,6 +1,5 @@
 
-About
------
+# About
 
 This repository contains my personal dotfiles, which I use on unix systems of
 varying flavors, and on my Macs. They are published here because I occasionally
@@ -13,21 +12,19 @@ according to my needs. If you want to use these dotfiles, I would definitely
 suggest forking them to your own repo so you can selectively merge changes as
 you see fit. YMMV.
 
-Requirements
-------------
+# Requirements
 
 I use Ansible to deploy my shell files, that's just about the only requirement.
 If you want to use my Vim module updater, that's written in Python 3.
 
-Compatibility
--------------
+# Compatibility
 
 I am a Zsh user. This repo goes in conjunction with
 [Oh My Zsh](https://ohmyz.sh). It'll work fine if you use Bash or another
 shell, it just won't do anything to set those shells up.
 
-I'm a Vim user. If you use Emacs or something else, same as with Zsh... not
-a problem, but you won't get much Emacs functionality from these dotfiles.
+I'm a Vim/Neovim user. If you use Emacs or something else, same as with Zsh...
+not a problem, but you won't get much Emacs functionality from these dotfiles.
 
 I use this setup with macOS, and Linux (RHEL, CentOS, Debian, Ubuntu).
 
@@ -44,14 +41,15 @@ a read; color support is only one of several good reasons to switch.
 
 [iTerm2 > iTerm](http://tangledhelix.com/blog/2010/12/06/iterm2-iterm/)
 
-Installation
-------------
+# Installation
 
 I use Ansible to deploy my dotfiles. This setup requires an inventory file.
 That is not present in this repository as it's specific to me. See Ansible's
 documentation for info about the format of the inventory file. (There is more
 than one available format.) I keep my inventory files in the `inventory/`
-directory.
+directory, and the default paths is assumed to be `inventory/hosts`.
+
+## Git setup
 
 I use a file `vars/gituser.yml` to define the .gitconfig `user.name` and
 `user.email` settings. That's so I can have a different value on my work
@@ -63,6 +61,8 @@ gituser_name: "John Doe"
 gituser_email: "jdoe@example.com"
 ```
 
+## Vim
+
 To install or update the Vim bundles, use the `update_vim.py` script. The list
 of Vim bundles is defined in that script. If you modify the list, you'll want
 to do an update. This will refresh existing modules, install new ones, and
@@ -73,6 +73,35 @@ clean out old ones no longer in the list.
 Note this will just update the repository copy. To install them, use the
 Ansible playbook. Anything in the bundle directory will be installed on the
 target.
+
+## Neovim
+
+I'm a fan of [Neovim][], but unfortunately on most servers it's still pretty
+old on LTS versions. So I only push Neovim setup to local (which in my case
+means macOS).
+
+If you'd like to use my Neovim setup, push it wherever you want. Then run
+`:PackerSync` inside nvim to install the plugins. You might have to do it a few
+times to do the initial installation.
+
+My full Neovim setup assumes Neovim 0.8, but if you're on an earlier version,
+it will try to degrade gracefully by selectively omitting plugins to install
+that aren't compatible.
+
+Some of my plugins have underlying requirements. You can install this using
+your usual package manager, like `apt` on Ubuntu or `brew` on macOS.
+
+* tree-sitter for AST-based syntax highlighting
+* ripgrep for the telescope fuzzy finder
+
+If you're interested in Neovim, you can find plenty of videos on Youtube
+to help you get started. The most entertaining one is [ThePrimeagen][],
+but there are plenty of others.
+
+[neovim]: https://neovim.io/
+[theprimeagen]: https://www.youtube.com/channel/UC8ENHE5xdFSwx71u3fDH5Xw
+
+## Ansible host manifest
 
 A minimal Ansible hosts file for your local system looks like this.
 
