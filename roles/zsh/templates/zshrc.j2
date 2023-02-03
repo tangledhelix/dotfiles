@@ -225,7 +225,22 @@ unset path_file
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-export EDITOR='vim'
+# I only use Neovim on macOS because on most linux distros it's old.
+# Maybe in a few more years...
+if [[ "$(uname -s)" = "Darwin" && -n "$(command -v nvim)" ]]; then
+    export EDITOR="nvim"
+    alias vim="nvim"
+    alias vi="nvim"
+    alias view="nvim -R"
+elif [[ -n "$(command -v vim)" ]]; then
+    export EDITOR="vim"
+    alias vi="vim"
+    alias view="vim -R"
+else
+    export EDITOR="vi"
+    alias vim="vi"
+    alias view="vi"
+fi
 
 export VISUAL="$EDITOR"
 export PAGER="less"
@@ -295,9 +310,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias vi='vim'
-alias view='vim -R'
 
 # Show me time in GMT / UTC
 alias utc='TZ=UTC date'
