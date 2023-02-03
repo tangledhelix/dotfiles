@@ -53,16 +53,14 @@ documentation for info about the format of the inventory file. (There is more
 than one available format.) I keep my inventory files in the `inventory/`
 directory.
 
-I use a file `vars/gituser.json` to define the .gitconfig `user.name` and
+I use a file `vars/gituser.yml` to define the .gitconfig `user.name` and
 `user.email` settings. That's so I can have a different value on my work
 laptop and personal laptop. This file is required, but isn't tracked in
 git. It looks like this:
 
-```json
-{
-    "gituser_name": "John Doe",
-    "gituser_email": "jdoe@example.com"
-}
+```yaml
+gituser_name: "John Doe"
+gituser_email: "jdoe@example.com"
 ```
 
 To install or update the Vim bundles, use the `update_vim.py` script. The list

@@ -1,0 +1,6 @@
+hosts: "all"
+tasks:
+  - shell: "uptime"
+    register: "shell_result"
+  - debug:
+      var: "shell_result.stdout_lines"

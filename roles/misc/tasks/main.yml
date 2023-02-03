@@ -1,0 +1,17 @@
+- name: "Install misc files"
+  template:
+    src: "{{ item }}.j2"
+    dest: "~/.{{ item }}"
+    mode: "0644"
+  with_items:
+    - "colordiffrc"
+    - "emacs"
+    - "inputrc"
+    - "perldb"
+    - "perltidyrc"
+    - "psqlrc"
+    - "screenrc"
+    - "tcshrc"
+    - "tmux.conf"
+  tags:
+    - "misc"

@@ -1,0 +1,11 @@
+- name: "Install version-control configurations"
+  template:
+    src: "{{ item }}.j2"
+    dest: "~/.{{ item }}"
+    mode: "0644"
+  with_items:
+    - "gitconfig"
+    - "gitignore"
+    - "cvsrc"
+  tags:
+    - "vcs"
