@@ -64,9 +64,6 @@
 	editor = vim
 	quotepath = false
 	excludesfile = ~/.gitignore
-{% if ansible_os_family == 'Darwin' %}
-	ignoreCase = true
-{% endif %}
 
 [color]
 	branch = auto
@@ -101,10 +98,8 @@
 [fetch]
 	prune = true
 
-{% if ansible_os_family == 'Darwin' %}
 [credential]
 	helper = osxkeychain
-{% endif %}
 
 [pull]
 	rebase = true

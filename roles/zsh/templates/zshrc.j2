@@ -128,11 +128,9 @@ DISABLE_UPDATE_PROMPT="true"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-{% if ansible_os_family == 'Darwin' -%}
-# DISABLE_AUTO_TITLE="true"
-{% else -%}
-DISABLE_AUTO_TITLE="true"
-{% endif -%}
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    DISABLE_AUTO_TITLE="true"
+fi
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -172,10 +170,6 @@ plugins=(
     docker
     docker-compose
     kubectl
-{% if ansible_os_family == 'Darwin' %}
-    aws
-    vscode
-{% endif %}
     zsh-autosuggestions
 )
 # Possible ones to enable later:
@@ -412,23 +406,21 @@ else
 
 fi
 
-{% if ansible_os_family == 'Darwin' -%}
 # Mac-specific things
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    alias ldd='otool -L'
 
-alias ldd='otool -L'
+    # This shows which processes are using the network right now.
+    alias netusers='lsof -P -i -n | cut -f 1 -d " " | uniq'
 
-# This shows which processes are using the network right now.
-alias netusers='lsof -P -i -n | cut -f 1 -d " " | uniq'
+    # This lets you use the keychain for https urls in Git
+    alias gitkeychain='git config credential.helper osxkeychain'
 
-# This lets you use the keychain for https urls in Git
-alias gitkeychain='git config credential.helper osxkeychain'
-
-if [ -d /opt/homebrew ]; then
-    export HOMEBREW_PREFIX="/opt/homebrew"
-    export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+    if [ -d /opt/homebrew ]; then
+        export HOMEBREW_PREFIX="/opt/homebrew"
+        export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+    fi
 fi
-
-{% endif -%}
 
 unsetopt SHARE_HISTORY
 
