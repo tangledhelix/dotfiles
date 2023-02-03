@@ -71,6 +71,16 @@ if vim.fn.has('nvim-0.5') == 1 then
             end,
         }
 
+        use({
+            "kylechui/nvim-surround",
+            tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+            config = function()
+                require("nvim-surround").setup({
+                    -- Configuration here, or leave empty to use defaults
+                })
+            end
+        })
+
         -- if vim.fn.has('nvim-0.7') == 1 then
         --     use {
         --         'VonHeikemen/lsp-zero.nvim',
