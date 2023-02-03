@@ -2,11 +2,8 @@
 -- by this check
 if vim.fn.has('nvim-0.5') == 1 then
 
-    -- certain things require a recent neovim, and servers tend to not
-    -- have that, at least in my world. so some plugins are only set
-    -- up on macOS. that's a shorthand for "neovim is too old on
-    -- all the linuxes I use on servers and I'm too lazy to work out
-    -- upgrading those"
+    -- checking the nvim version is important because on servers,
+    -- neovim is often fairly old.
 
     vim.cmd [[packadd packer.nvim]]
 
