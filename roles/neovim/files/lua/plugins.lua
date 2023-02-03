@@ -47,7 +47,18 @@ if vim.fn.has('nvim-0.5') == 1 then
             }
         end
 
-        use 'mbbill/undotree'
+        if vim.fn.has('nvim-0.7') == 1 then
+            use {
+                'jiaoshijie/undotree',
+                config = function()
+                    require('undotree').setup()
+                end,
+                requires = {
+                    'nvim-lua/plenary.nvim',
+                },
+            }
+        end
+
         use 'rodjek/vim-puppet'
 
         -- only use this on mac because we need tree-sitter installed
