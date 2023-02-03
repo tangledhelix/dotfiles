@@ -1,17 +1,13 @@
 
 vim.g.mapleader = " "
 
-{% if ansible_distribution == "MacOSX" %}
--- Interact with system clipboard (works in normal or visual modes)
-vim.keymap.set({"n", "x"}, "<leader>y", '"+y')
-vim.keymap.set({"n", "x"}, "<leader>p", '"+p')
-vim.keymap.set({"n", "x"}, "<leader>P", '"+P')
-{% else %}
--- Remind user these mappings don't work here
-vim.keymap.set({"n", "x"}, "<leader>y", ":echo 'Sorry, no system clipboard here'<CR>")
-vim.keymap.set({"n", "x"}, "<leader>p", ":echo 'Sorry, no system clipboard here'<CR>")
-vim.keymap.set({"n", "x"}, "<leader>P", ":echo 'Sorry, no system clipboard here'<CR>")
-{% endif %}
+-- just learn to use "+ ... not so hard is it?
+-- if vim.fn.has('mac') == 1 then
+    -- Interact with system clipboard (works in normal or visual modes)
+    -- vim.keymap.set({"n", "x"}, "<leader>y", '"+y')
+    -- vim.keymap.set({"n", "x"}, "<leader>p", '"+p')
+    -- vim.keymap.set({"n", "x"}, "<leader>P", '"+P')
+-- end
 
 -- better j,k line navigation when lines are wrapped
 vim.keymap.set({"n", "x"}, "j", "gj", {noremap = true})

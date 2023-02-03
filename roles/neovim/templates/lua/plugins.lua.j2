@@ -22,13 +22,14 @@ if vim.fn.has('nvim-0.5') == 1 then
             end
         }
 
-{% if ansible_distribution == 'MacOSX' %}
-        use {
-            'nvim-telescope/telescope.nvim', tag = '0.1.1',
-            -- or                            , branch = '0.1.x',
-            requires = { {'nvim-lua/plenary.nvim'} }
-        }
-{% endif %}
+        -- only use this on mac because it needs ripgrep installed
+        if vim.fn.has('mac') == 1 then
+            use {
+                'nvim-telescope/telescope.nvim', tag = '0.1.1',
+                -- or                            , branch = '0.1.x',
+                requires = { {'nvim-lua/plenary.nvim'} }
+            }
+        end
 
         use {
             'ThePrimeagen/harpoon',
@@ -52,14 +53,15 @@ if vim.fn.has('nvim-0.5') == 1 then
         use 'mbbill/undotree'
         use 'rodjek/vim-puppet'
 
-{% if ansible_distribution == 'MacOSX' %}
-        if vim.fn.has('nvim-0.8') == 1 then
-            use {
-                'nvim-treesitter/nvim-treesitter',
-                run = ':TSUpdate'
-            }
+        -- only use this on mac because we need tree-sitter installed
+        if vim.fn.has('mac') == 1 then
+            if vim.fn.has('nvim-0.8') == 1 then
+                use {
+                    'nvim-treesitter/nvim-treesitter',
+                    run = ':TSUpdate'
+                }
+            end
         end
-{% endif %}
 
         if vim.fn.has('nvim-0.7') == 1 then
             -- Auto pairs
