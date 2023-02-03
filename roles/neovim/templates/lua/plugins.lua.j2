@@ -79,6 +79,13 @@ if vim.fn.has('nvim-0.5') == 1 then
             end
         })
 
+        use {
+            'terrortylor/nvim-comment',
+            config = function()
+                require('nvim_comment').setup()
+            end
+        }
+
         -- if vim.fn.has('nvim-0.7') == 1 then
         --     use {
         --         'VonHeikemen/lsp-zero.nvim',
