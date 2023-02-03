@@ -61,6 +61,16 @@ if vim.fn.has('nvim-0.5') == 1 then
         end
 {% endif %}
 
+        -- Auto pairs
+        use {
+            "windwp/nvim-autopairs",
+            wants = "nvim-treesitter",
+            module = { "nvim-autopairs.completion.cmp", "nvim-autopairs" },
+            config = function()
+                require("config.autopairs").setup()
+            end,
+        }
+
         -- if vim.fn.has('nvim-0.7') == 1 then
         --     use {
         --         'VonHeikemen/lsp-zero.nvim',
