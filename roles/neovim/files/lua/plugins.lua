@@ -96,6 +96,8 @@ if vim.fn.has('nvim-0.5') == 1 then
             end
         }
 
+        use 'numToStr/FTerm.nvim'
+
         -- if vim.fn.has('nvim-0.7') == 1 then
         --     use {
         --         'VonHeikemen/lsp-zero.nvim',

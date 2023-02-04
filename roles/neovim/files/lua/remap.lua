@@ -39,3 +39,7 @@ key("n", "<leader>e", vim.cmd.Ex)
 -- an Esc key when I don't feel like stretching my delicate pinky
 --key("i", "kj", "<esc>", {})
 --key("i", "jj", "<esc>", {})
+
+-- terminal toggle
+vim.keymap.set('n', '<C-t>', '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('t', '<C-t>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
