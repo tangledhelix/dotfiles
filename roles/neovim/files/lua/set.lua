@@ -34,3 +34,11 @@ opt.signcolumn = "yes"
 -- mark a column at this position (right margin indicator)
 opt.colorcolumn = "80"
 
+-- encodings
+opt.encoding = 'utf8'
+opt.fileencoding = 'utf8'
+
+-- split to the right & below... i don't like the defaults
+opt.splitright = true
+opt.splitbelow = true
+
