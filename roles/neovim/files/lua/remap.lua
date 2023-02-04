@@ -1,39 +1,41 @@
 
 vim.g.mapleader = " "
 
+local key = vim.keymap.set
+
 -- just learn to use "+ ... not so hard is it?
 -- if vim.fn.has('mac') == 1 then
     -- Interact with system clipboard (works in normal or visual modes)
-    -- vim.keymap.set({"n", "x"}, "<leader>y", '"+y')
-    -- vim.keymap.set({"n", "x"}, "<leader>p", '"+p')
-    -- vim.keymap.set({"n", "x"}, "<leader>P", '"+P')
+    -- key({"n", "x"}, "<leader>y", '"+y')
+    -- key({"n", "x"}, "<leader>p", '"+p')
+    -- key({"n", "x"}, "<leader>P", '"+P')
 -- end
 
 -- better j,k line navigation when lines are wrapped
-vim.keymap.set({"n", "x"}, "j", "gj", {noremap = true})
-vim.keymap.set({"n", "x"}, "k", "gk", {noremap = true})
+key({"n", "x"}, "j", "gj", {noremap = true})
+key({"n", "x"}, "k", "gk", {noremap = true})
 
 -- an Esc key when I don't feel like stretching my delicate pinky
---vim.keymap.set("i", "kj", "<esc>", {})
---vim.keymap.set("i", "jj", "<esc>", {})
+--key("i", "kj", "<esc>", {})
+--key("i", "jj", "<esc>", {})
 
 -- use J/K in visual mode to move lines (and re-indent)
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+key("v", "J", ":m '>+1<CR>gv=gv")
+key("v", "K", ":m '<-2<CR>gv=gv")
 
 -- keep cursor position when joining lines, using ^D / ^U
 -- or when using search navigation (n, N)
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+key("n", "J", "mzJ`z")
+key("n", "<C-d>", "<C-d>zz")
+key("n", "<C-u>", "<C-u>zz")
+key("n", "n", "nzzzv")
+key("n", "N", "Nzzzv")
 
 -- explorer
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+key("n", "<leader>e", vim.cmd.Ex)
 
---vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
+--key("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
 
 -- an Esc key when I don't feel like stretching my delicate pinky
---vim.keymap.set("i", "kj", "<esc>", {})
---vim.keymap.set("i", "jj", "<esc>", {})
+--key("i", "kj", "<esc>", {})
+--key("i", "jj", "<esc>", {})
