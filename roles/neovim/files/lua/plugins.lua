@@ -96,7 +96,15 @@ if vim.fn.has('nvim-0.5') == 1 then
             end
         }
 
-        use 'numToStr/FTerm.nvim'
+        use {
+            'numToStr/FTerm.nvim',
+            config = function()
+                require('FTerm').setup({
+                    border = 'double',
+                    blend = 10,
+                })
+            end
+        }
 
         -- if vim.fn.has('nvim-0.7') == 1 then
         --     use {
