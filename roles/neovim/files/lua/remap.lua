@@ -41,5 +41,6 @@ key("n", "<leader>e", vim.cmd.Ex)
 --key("i", "jj", "<esc>", {})
 
 -- terminal toggle
-vim.keymap.set('n', '<C-t>', '<CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set('t', '<C-t>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+key('n', '<C-t>', '<CMD>lua require("FTerm").toggle()<CR>')
+key('t', '<C-t>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+
