@@ -21,6 +21,9 @@ opt.wrap = true
 opt.hlsearch = true
 -- use incremental search
 opt.incsearch = true
+-- ignore case in search, unless uppercase is present, then pay attention
+opt.ignorecase = true
+opt.smartcase = true
 
 -- good colors in TUI
 opt.termguicolors = true
