@@ -28,6 +28,7 @@ homebrew_packages:
   - "sipcalc"
   - "telnet"
   - "the_silver_searcher"
+  - "tig"
   - "tmux"
   - "tree"
   - "tree-sitter"
