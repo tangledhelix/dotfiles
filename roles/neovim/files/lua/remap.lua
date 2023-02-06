@@ -40,12 +40,3 @@ key("n", "<leader>e", vim.cmd.Ex)
 --key("i", "kj", "<esc>", {})
 --key("i", "jj", "<esc>", {})
 
--- terminal toggle
-key('n', '<C-t>', '<CMD>lua require("FTerm").toggle()<CR>')
-key('t', '<C-t>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
-
--- not sure yet how to write this in lua
--- allows C-r <register> to paste into a terminal pane
-vim.cmd([[
-tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-]])

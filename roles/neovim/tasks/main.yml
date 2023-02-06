@@ -44,6 +44,7 @@
     - "after/plugin/undotree"
     - "after/plugin/treesitter"
     - "after/plugin/lsp"
+    - "after/plugin/fterm"
   tags:
     - "neovim"
 
