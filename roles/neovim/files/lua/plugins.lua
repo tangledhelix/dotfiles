@@ -51,7 +51,11 @@ if vim.fn.has('nvim-0.5') == 1 then
             use {
                 'jiaoshijie/undotree',
                 config = function()
-                    require('undotree').setup()
+                    require('undotree').setup({
+                        window = {
+                            winblend = 12,
+                        },
+                    })
                 end,
                 requires = {
                     'nvim-lua/plenary.nvim',
@@ -101,7 +105,7 @@ if vim.fn.has('nvim-0.5') == 1 then
             config = function()
                 require('FTerm').setup({
                     border = 'double',
-                    blend = 10,
+                    blend = 12,
                 })
             end
         }
