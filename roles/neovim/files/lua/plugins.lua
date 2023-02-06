@@ -143,6 +143,8 @@ if vim.fn.has('nvim-0.5') == 1 then
             tag = 'nightly' -- optional, updated every week. (see issue #1193)
         }
 
+        use 'kdheepak/lazygit.nvim'
+
         -- if vim.fn.has('nvim-0.7') == 1 then
             -- https://github.com/VonHeikemen/lsp-zero.nvim
         --     use {
