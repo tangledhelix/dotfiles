@@ -32,7 +32,7 @@ key("n", "n", "nzzzv")
 key("n", "N", "Nzzzv")
 
 -- explorer
--- key("n", "<leader>e", vim.cmd.Ex)
+key("n", "<leader>e", vim.cmd.Ex)
 
 --key("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
 

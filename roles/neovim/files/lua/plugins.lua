@@ -131,18 +131,6 @@ if vim.fn.has('nvim-0.5') == 1 then
             end
         }
 
-        -- https://github.com/nvim-tree/nvim-tree.lua
-        use {
-            'nvim-tree/nvim-tree.lua',
-            requires = {
-                'nvim-tree/nvim-web-devicons', -- optional, for file icons
-            },
-            config = function()
-                require('nvim-tree').setup()
-            end,
-            tag = 'nightly' -- optional, updated every week. (see issue #1193)
-        }
-
         use 'kdheepak/lazygit.nvim'
 
         -- if vim.fn.has('nvim-0.7') == 1 then
