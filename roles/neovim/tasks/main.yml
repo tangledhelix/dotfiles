@@ -45,6 +45,7 @@
     - "after/plugin/treesitter"
     - "after/plugin/lsp"
     - "after/plugin/fterm"
+    - "after/plugin/nvimtree"
   tags:
     - "neovim"
 
