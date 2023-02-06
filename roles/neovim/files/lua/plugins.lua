@@ -122,6 +122,15 @@ if vim.fn.has('nvim-0.5') == 1 then
             end
         }
 
+        -- https://github.com/nvim-lualine/lualine.nvim
+        use {
+            'nvim-lualine/lualine.nvim',
+            requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+            config = function()
+                require('lualine').setup()
+            end
+        }
+
         -- if vim.fn.has('nvim-0.7') == 1 then
             -- https://github.com/VonHeikemen/lsp-zero.nvim
         --     use {
