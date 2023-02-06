@@ -131,6 +131,7 @@ if vim.fn.has('nvim-0.5') == 1 then
             end
         }
 
+        -- https://github.com/kdheepak/lazygit.nvim
         use 'kdheepak/lazygit.nvim'
 
         if vim.fn.has('nvim-0.7') == 1 then
