@@ -33,8 +33,10 @@ homebrew_packages:
   - "tmux"
   - "tree"
   - "tree-sitter"
+  - "wget"
   - "xz"
   - "yamllint"
   - "yarn"
   - "youtube-dl"
   - "yq"
+
