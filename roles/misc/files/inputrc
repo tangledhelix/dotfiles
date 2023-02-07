@@ -17,8 +17,14 @@ set mark-symlinked-directories on
 # Append file-type indicator to end of filenames in completions (cf. ls -F).
 set visible-stats On
 
-# Edit mode for readline apps like psql (emacs or vi)
-set editing-mode emacs
+# Edit mode for readline apps like psql
+#
+# Emacs version:
+# set editing-mode emacs
+#
+# Vi version
+set editing-mode vi
+set keymap vi-insert
 
 # Be more intelligent when autocompleting by also looking at the text after
 # the cursor. For example, when the current line is "cd ~/src/mozil", and
