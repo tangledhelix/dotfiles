@@ -9,7 +9,7 @@ lsp.ensure_installed({
 })
 
 -- (Optional) Configure lua language server for neovim
--- lsp.nvim_workspace()
+lsp.nvim_workspace()
 
 lsp.setup()
 
