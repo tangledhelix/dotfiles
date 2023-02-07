@@ -1,4 +1,3 @@
-
 -- only use this on mac because it needs ripgrep
 if vim.fn.has('mac') == 1 then
     local builtin = require('telescope.builtin')

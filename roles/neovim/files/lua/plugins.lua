@@ -8,22 +8,15 @@ if vim.fn.has('nvim-0.5') == 1 then
     vim.cmd [[packadd packer.nvim]]
 
     return require('packer').startup(function(use)
-        -- https://github.com/wbthomason/packer.nvim
         use 'wbthomason/packer.nvim'
 
-        -- https://github.com/rose-pine/neovim
         use {
             'rose-pine/neovim',
             as = 'rose-pine',
-            config = function()
-                require('rose-pine').setup()
-                vim.cmd('colorscheme rose-pine')
-            end
         }
 
         -- only use this on mac because it needs ripgrep installed
         if vim.fn.has('mac') == 1 then
-            -- https://github.com/nvim-telescope/telescope.nvim
             use {
                 'nvim-telescope/telescope.nvim', tag = '0.1.1',
                 -- or                            , branch = '0.1.x',
@@ -31,51 +24,30 @@ if vim.fn.has('nvim-0.5') == 1 then
             }
         end
 
-        -- https://github.com/ThePrimeagen/harpoon
         use {
             'ThePrimeagen/harpoon',
             requires = { {'nvim-lua/plenary.nvim'} }
         }
 
         if vim.fn.has('nvim-0.8') == 1 then
-            -- https://github.com/folke/todo-comments.nvim
             use {
                 'folke/todo-comments.nvim',
                 requires = 'nvim-lua/plenary.nvim',
-                config = function()
-                    require('todo-comments').setup {
-                        -- your configuration comes here
-                        -- or leave it empty to use the default settings
-                        -- refer to the configuration section below
-                    }
-                end
             }
         end
 
         if vim.fn.has('nvim-0.7') == 1 then
-            -- https://github.com/jiaoshijie/undotree
             use {
                 'jiaoshijie/undotree',
-                config = function()
-                    require('undotree').setup({
-                        window = {
-                            winblend = 12,
-                        },
-                    })
-                end,
-                requires = {
-                    'nvim-lua/plenary.nvim',
-                },
+                requires = 'nvim-lua/plenary.nvim',
             }
         end
 
-        -- https://github.com/rodjek/vim-puppet
         use 'rodjek/vim-puppet'
 
         -- only use this on mac because we need tree-sitter installed
         if vim.fn.has('mac') == 1 then
             if vim.fn.has('nvim-0.8') == 1 then
-                -- https://github.com/nvim-treesitter/nvim-treesitter
                 use {
                     'nvim-treesitter/nvim-treesitter',
                     run = ':TSUpdate'
@@ -84,58 +56,25 @@ if vim.fn.has('nvim-0.5') == 1 then
         end
 
         if vim.fn.has('nvim-0.7') == 1 then
-            -- Auto pairs
-            -- https://github.com/windwp/nvim-autopairs
-            use {
-                "windwp/nvim-autopairs",
-                config = function() require("nvim-autopairs").setup {} end
-            }
+            use 'windwp/nvim-autopairs'
         end
 
-        -- https://github.com/kylechui/nvim-surround
         use({
             "kylechui/nvim-surround",
             tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-            config = function()
-                require("nvim-surround").setup({
-                    -- Configuration here, or leave empty to use defaults
-                })
-            end
         })
 
-        -- https://terrortylor/nvim-comment
-        use {
-            'terrortylor/nvim-comment',
-            config = function()
-                require('nvim_comment').setup()
-            end
-        }
+        use 'terrortylor/nvim-comment'
+        use 'numToStr/FTerm.nvim'
 
-        -- https://numToStr/FTerm.nvim
-        use {
-            'numToStr/FTerm.nvim',
-            config = function()
-                require('FTerm').setup({
-                    border = 'double',
-                    blend = 12,
-                })
-            end
-        }
-
-        -- https://github.com/nvim-lualine/lualine.nvim
         use {
             'nvim-lualine/lualine.nvim',
             requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-            config = function()
-                require('lualine').setup()
-            end
         }
 
-        -- https://github.com/kdheepak/lazygit.nvim
         use 'kdheepak/lazygit.nvim'
 
         if vim.fn.has('nvim-0.7') == 1 then
-            -- https://github.com/VonHeikemen/lsp-zero.nvim
             use {
                 'VonHeikemen/lsp-zero.nvim',
                 branch = 'v1.x',
@@ -161,14 +100,7 @@ if vim.fn.has('nvim-0.5') == 1 then
         end
 
         if vim.fn.has('nvim-0.7') == 1 then
-            -- https://github.com/lewis6991/gitsigns.nvim
-            use {
-                'lewis6991/gitsigns.nvim',
-                -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
-                config = function()
-                    require('gitsigns').setup()
-                end
-            }
+            use 'lewis6991/gitsigns.nvim'
         end
 
     end)

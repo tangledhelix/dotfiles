@@ -3,19 +3,25 @@
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 
+-- see below for more you can install in the UI (:Mason).
+-- I'm not sure what their names are to put them here, or
+-- how to find out in a consistent way.
 lsp.ensure_installed({
     'eslint',
     'sumneko_lua',
 })
 
 -- (Optional) Configure lua language server for neovim
+-- This is so it doesn't warn you of things like 'vim'
+-- not being a valid variable
 lsp.nvim_workspace()
 
 lsp.setup()
 
--- potential stuff to ensure_installed
--- these are the names in the mason UI; might differ
--- from name in this file
+-- potential stuff to install
+--
+-- these are names in the mason UI; might differ from name you'd use
+-- in ensure_installed()
 --
 -- ◍ ansible-language-server
 -- ◍ beautysh

@@ -1,4 +1,3 @@
-
 -- only use this on mac because we need tree-sitter installed
 if vim.fn.has('mac') == 1 then
     if vim.fn.has('nvim-0.8') == 1 then
