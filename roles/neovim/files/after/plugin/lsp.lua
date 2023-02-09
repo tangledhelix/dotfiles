@@ -18,6 +18,10 @@ lsp.nvim_workspace()
 
 lsp.setup()
 
+vim.diagnostic.config({
+    virtual_text = true
+})
+
 -- potential stuff to install
 --
 -- these are names in the mason UI; might differ from name you'd use
