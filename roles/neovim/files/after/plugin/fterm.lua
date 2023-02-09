@@ -1,6 +1,6 @@
 require('FTerm').setup({
     border = 'double',
-    blend = 12,
+    blend = 0,
 })
 
 -- terminal toggle
