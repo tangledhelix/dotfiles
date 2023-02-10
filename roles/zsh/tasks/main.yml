@@ -28,6 +28,21 @@
   tags:
     - "zsh"
 
+- name: "Check if zsh-syntax-highlighting exists"
+  stat:
+    path: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+  register: "stat_oh_my_zsh_syntax_highlighting_result"
+  tags:
+    - "zsh"
+
+- name: "Cloning zsh-syntax-highlighting"
+  git:
+    repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+  when: "not stat_oh_my_zsh_syntax_highlighting_result.stat.exists"
+  tags:
+    - "zsh"
+
 - name: "Install .zshrc"
   copy:
     src: "zshrc"
