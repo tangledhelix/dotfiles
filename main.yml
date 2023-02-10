@@ -10,8 +10,5 @@
     - { role: "starship" }
 
 - hosts: "local"
-  vars_files:
-    - "./vars/homebrew.yml"
   roles:
-    - { role: "homebrew" }
     - { role: "neovim" }
