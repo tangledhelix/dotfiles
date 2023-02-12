@@ -52,6 +52,7 @@ if vim.fn.has('nvim-0.5') == 1 then
                     'nvim-treesitter/nvim-treesitter',
                     run = ':TSUpdate'
                 }
+                use 'nvim-treesitter/nvim-treesitter-context'
             end
         end
 
