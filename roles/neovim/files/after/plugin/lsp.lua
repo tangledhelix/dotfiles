@@ -5,14 +5,6 @@ if vim.fn.has('nvim-0.7') == 1 then
     local lsp = require('lsp-zero')
     lsp.preset('recommended')
 
-    -- see below for more you can install in the UI (:Mason).
-    -- I'm not sure what their names are to put them here, or
-    -- how to find out in a consistent way.
-    lsp.ensure_installed({
-        'eslint',
-        'sumneko_lua',
-    })
-
     -- (Optional) Configure lua language server for neovim
     -- This is so it doesn't warn you of things like 'vim'
     -- not being a valid variable
