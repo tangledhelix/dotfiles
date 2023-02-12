@@ -36,7 +36,3 @@ key("n", "<leader>e", vim.cmd.Ex)
 
 --key("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
 
--- an Esc key when I don't feel like stretching my delicate pinky
---key("i", "kj", "<esc>", {})
---key("i", "jj", "<esc>", {})
-
