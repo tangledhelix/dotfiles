@@ -271,9 +271,6 @@ nnoremap <leader>fb :CtrlPBuffer<CR>
 "   open MRU finder
 nnoremap <leader>fr :CtrlPMRU<CR>
 
-" focus on NERDtree pane, opening it, if not open already
-nnoremap <leader>t :NERDTreeFocus<CR>
-
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
 autocmd Filetype make setlocal noexpandtab
