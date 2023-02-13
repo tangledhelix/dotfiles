@@ -20,3 +20,11 @@ autocmd('TextYankPost', {
     end,
 })
 
+-- delete trailing whitespace on lines, when saving.
+local TangledhelixGroup = augroup('Tangledhelix', {})
+autocmd({'BufWritePre'}, {
+    group = TangledhelixGroup,
+    pattern = '*',
+    command = [[%s/\s\+$//e]],
+})
+
