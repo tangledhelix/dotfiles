@@ -45,3 +45,9 @@ opt.fileencoding = 'utf8'
 opt.splitright = true
 opt.splitbelow = true
 
+-- undo history
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
+opt.undofile = true
+
