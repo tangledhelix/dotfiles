@@ -3,13 +3,12 @@ vim.g.mapleader = " "
 
 local key = vim.keymap.set
 
--- just learn to use "+ ... not so hard is it?
--- if vim.fn.has('mac') == 1 then
+if vim.fn.has('mac') == 1 then
     -- Interact with system clipboard (works in normal or visual modes)
-    -- key({"n", "x"}, "<leader>y", '"+y')
-    -- key({"n", "x"}, "<leader>p", '"+p')
-    -- key({"n", "x"}, "<leader>P", '"+P')
--- end
+    key({"n", "x"}, "<leader>y", '"+y')
+    key({"n", "x"}, "<leader>p", '"+p')
+    key({"n", "x"}, "<leader>P", '"+P')
+end
 
 -- better j,k line navigation when lines are wrapped
 key({"n", "x"}, "j", "gj", {noremap = true})
