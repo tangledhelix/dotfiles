@@ -21,6 +21,7 @@ homebrew_packages:
   - "neovim"
   - "nmap"
   - "node"
+  - "prettier"
   - "pstree"
   - "python3"
   - "ripgrep"

@@ -104,6 +104,8 @@ if vim.fn.has('nvim-0.5') == 1 then
             use 'lewis6991/gitsigns.nvim'
         end
 
+        use 'sbdchd/neoformat'
+
     end)
 end
 

@@ -38,6 +38,8 @@
     - "lua/plugins"
     - "lua/remap"
     - "lua/set"
+    - "lua/autocmd"
+    - "lua/autoformat"
     - "after/plugin/autopairs"
     - "after/plugin/colors"
     - "after/plugin/comment"
