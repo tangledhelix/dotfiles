@@ -22,11 +22,13 @@ key({"n", "x"}, "k", "gk", {noremap = true})
 key("v", "J", ":m '>+1<CR>gv=gv")
 key("v", "K", ":m '<-2<CR>gv=gv")
 
--- keep cursor position when joining lines, using ^D / ^U
+-- keep cursor position when joining lines, using ^D, ^U, ^F, ^B
 -- or when using search navigation (n, N)
 key("n", "J", "mzJ`z")
 key("n", "<C-d>", "<C-d>zz")
 key("n", "<C-u>", "<C-u>zz")
+key("n", "<C-f>", "<C-f>zz")
+key("n", "<C-b>", "<C-b>zz")
 key("n", "n", "nzzzv")
 key("n", "N", "Nzzzv")
 
