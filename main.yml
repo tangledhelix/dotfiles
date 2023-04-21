@@ -6,9 +6,9 @@
     - { role: "vcs" }
     - { role: "misc" }
     - { role: "vim" }
-    - { role: "scripts" }
-    - { role: "starship" }
 
 - hosts: "local"
   roles:
     - { role: "neovim" }
+    - { role: "scripts" }
+    - { role: "starship" }
