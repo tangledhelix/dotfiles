@@ -159,7 +159,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# 
+#
 # If the Docker plugin is enabled on macOS, it breaks the new
 # "pause" feature in Docker Desktop 4.2. (Well, not breaks...
 # but it will unpause every time you trigger your shell prompt...)
@@ -440,7 +440,10 @@ bindkey '^ ' autosuggest-accept
 #bindkey '^p' up-history
 #bindkey '^n' down-history
 
-eval "$(starship init zsh)"
+# starship isn't installed in all of my environments
+if [[ -n "$(command -v starship)" ]]; then
+    eval "$(starship init zsh)"
+fi
 
 # local settings override global ones
 if [[ -s $HOME/.zshrc.local ]]; then
