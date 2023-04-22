@@ -4,7 +4,7 @@ autocmd!
 " Use automatic regex engine (0) rather than selecting one.
 " Hopefully this avoids the error:
 " E363: pattern uses more memory than 'maxmempattern'
-set re=0
+" set re=0
 
 " Let % match if/elsif/else/end, open/close, XML tags, etc.
 runtime macros/matchit.vim
@@ -27,22 +27,8 @@ call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
 
-" Configure persistent undo data in a local directory
-if has("persistent_undo")
-   let target_path = expand('~/.undodir')
-
-    " create the directory and any parent directories
-    " if the location does not exist.
-    if !isdirectory(target_path)
-        call mkdir(target_path, "p", 0700)
-    endif
-
-    let &undodir=target_path
-    set undofile
-endif
-
-" Turn on mouse support
-set mouse=a
+" Turn off mouse support
+set mouse=
 
 " Allow 'hidden' buffers. :help hidden
 set hidden
@@ -60,12 +46,16 @@ nnoremap gk k
 
 " Sometimes Esc is soooooo faaaaaar awaaaaaay
 inoremap jj <Esc>
+inoremap kj <Esc>
 
 " Bubble lines up / down, with reindenting
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " Define 'del' char to be the same backspace (saves a LOT of trouble!)
+" I revisited this in 2023, thinking maybe it was old outdated SunOS
+" stuff. Nope, this still matters.
+"
 " As the angle notation cannot be use with the LeftHandSide
 " with mappings you must type this in *literally*!
 " map <c-v>127 <c-h>
@@ -78,9 +68,9 @@ cnoremap <esc>[3~ <c-h>
 
 " Change the cursor shape based on mode. Assumes iTerm2 on macOS.
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+" let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+" let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " go to location of last change
 "nnoremap gl `.
@@ -114,13 +104,13 @@ set cursorline
 set ruler
 
 " Restore cursor position from our last session, if known.
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute 'normal! g`"zvzz' | endif
+"autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute 'normal! g`"zvzz' | endif
 
 " Only show the 'margin' column in insert mode
-if exists('&colorcolumn')
-    autocmd InsertEnter * set colorcolumn=80
-    autocmd InsertLeave * set colorcolumn=""
-endif
+" if exists('&colorcolumn')
+"     autocmd InsertEnter * set colorcolumn=80
+"     autocmd InsertLeave * set colorcolumn=""
+" endif
 
 " tab/indent settings
 set expandtab
@@ -132,8 +122,8 @@ set shiftwidth=4
 set shiftround
 
 " Keep selection when indent/dedenting in select mode.
-vnoremap > >gv
-vnoremap < <gv
+" vnoremap > >gv
+" vnoremap < <gv
 
 " Text formatting options, used by 'gq', 'gw' and elsewhere. :help fo-table
 set formatoptions=qrn1
@@ -182,10 +172,11 @@ set smartcase
 "vnoremap ? ?\v
 
 " Use 'magic' patterns (extended regex) in search patterns. ('\s\+').
-" This isn't used by the / search due to the / remaps. For :s and :g.
+" This isn't used by the / search if the / remaps above are enabled.
+" Also for :s and :g.
 set magic
 
-" Do not show invisibles by default.
+" Do not show invisibles by default. Toggle with :set list!
 set nolist
 
 " How to display tabs, EOL, and other invisibles.
@@ -261,15 +252,15 @@ set scrolloff=4
 nnoremap <leader>e :Ex<CR>
 
 " toggle undotree panel
-nnoremap <leader>u :UndotreeToggle<CR>
+" nnoremap <leader>u :UndotreeToggle<CR>
 
 " ctrlP mappings: leader ff, fb, fr
 "   open file finder
-let g:ctrlp_map = '<leader>ff'
+" let g:ctrlp_map = '<leader>ff'
 "   open buffer finder
-nnoremap <leader>fb :CtrlPBuffer<CR>
+" nnoremap <leader>fb :CtrlPBuffer<CR>
 "   open MRU finder
-nnoremap <leader>fr :CtrlPMRU<CR>
+" nnoremap <leader>fr :CtrlPMRU<CR>
 
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make

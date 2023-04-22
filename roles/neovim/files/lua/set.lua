@@ -1,14 +1,17 @@
 local opt = vim.opt
 
 -- uncomment to have nvim not change the cursor style (thin, block, ...)
---opt.guicursor = ""
+opt.guicursor = ""
+
+-- disable mouse support (default is 'nvi')
+opt.mouse = ""
 
 -- line numbering
 opt.number = true
 opt.relativenumber = true
 
 -- indentation
-opt.tabstop = 4
+opt.tabstop = 8
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
@@ -35,7 +38,7 @@ opt.scrolloff = 4
 opt.signcolumn = "yes"
 
 -- mark a column at this position (right margin indicator)
-opt.colorcolumn = "80"
+-- opt.colorcolumn = "80"
 
 -- encodings
 opt.encoding = 'utf8'

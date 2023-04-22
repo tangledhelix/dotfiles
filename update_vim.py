@@ -10,8 +10,6 @@
 vim_bundles = {
     # insert and delete parens, braces, etc in pairs
     "autopairs": "LunarWatcher/auto-pairs",
-    # fuzzy finder
-    "ctrlp": "ctrlpvim/ctrlp.vim",
     # automatically adds ending keyword to blocks (end, endif, ...)
     "endwise": "tpope/vim-endwise",
     # github-flavored markdown plugin
@@ -24,16 +22,12 @@ vim_bundles = {
     "perl": "vim-perl/vim-perl",
     # postgres-flavored SQL support
     "pgsql": "exu/pgsql.vim",
-    # puppet configuration management server
-    "puppet": "rodjek/vim-puppet",
     # status line
     "statline": "millermedeiros/vim-statline",
     # change surrounding things (quotes, parens, etc)
     "surround": "tpope/vim-surround",
     # easily comment / uncomment lines, blocks, selections...
     "tcomment": "tomtom/tcomment_vim",
-    # easily navigate your undo history
-    "undotree": "mbbill/undotree",
 }
 
 import os
