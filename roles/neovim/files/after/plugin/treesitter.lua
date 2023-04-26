@@ -6,7 +6,7 @@ if vim.fn.has('mac') == 1 then
             -- A list of parser names, or "all"
             -- others I could add: c, typescript, perl, ruby...
             ensure_installed = {
-                "lua", "vim", "help", "javascript", "c", "python", "perl"
+                "lua", "vim", "javascript", "c", "python", "perl"
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
