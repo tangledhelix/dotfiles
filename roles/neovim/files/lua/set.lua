@@ -4,7 +4,7 @@ local opt = vim.opt
 opt.guicursor = ""
 
 -- disable mouse support (default is 'nvi')
-opt.mouse = ""
+-- opt.mouse = ""
 
 -- line numbering
 opt.number = true
