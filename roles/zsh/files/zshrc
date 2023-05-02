@@ -427,8 +427,7 @@ fi
 
 unsetopt SHARE_HISTORY
 
-# gotta wear out the Esc key somehow
-bindkey -v
+bindkey -e
 
 # C-space or C-f will accept the currently shown suggestion.
 # So will the right arrow, by default, in -e or -v modes.
