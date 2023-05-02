@@ -78,7 +78,7 @@ if vim.fn.has('nvim-0.5') == 1 then
         if vim.fn.has('nvim-0.7') == 1 then
             use {
                 'VonHeikemen/lsp-zero.nvim',
-                branch = 'v1.x',
+                branch = 'v2.x',
                 requires = {
                     -- LSP Support
                     {'neovim/nvim-lspconfig'},             -- Required
