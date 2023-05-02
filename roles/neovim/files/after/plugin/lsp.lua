@@ -9,6 +9,21 @@ if vim.fn.has('nvim-0.7') == 1 then
         suggest_lsp_servers = false,
     })
 
+    lsp.ensure_installed({
+        'ansiblels',        -- ansible
+        'clangd',           -- c, c++
+        'cssls',            -- css, scss, less
+        'html',             -- HTML
+        'jsonls',           -- JSON
+        'lua_ls',           -- lua
+        'marksman',         -- markdown
+        'perlnavigator',    -- perl
+        'pyright',          -- python
+        'sqlls',            -- sql
+        'tsserver',         -- javascript, typescript
+        'yamlls',           -- yaml
+    })
+
     -- (Optional) Configure lua language server for neovim
     -- This is so it doesn't warn you of things like 'vim'
     -- not being a valid variable
