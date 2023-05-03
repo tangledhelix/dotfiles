@@ -1,6 +1,9 @@
+-- Previously used blend mode, but emoji shows through at
+-- full brightness! Very bad look.
 require('FTerm').setup({
-    border = 'single',
-    blend = 15,
+    border = 'double',
+    -- blend = 15,
+    blend = 0,
 })
 
 -- terminal toggle
