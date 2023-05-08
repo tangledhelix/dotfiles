@@ -1,5 +1,7 @@
 if vim.fn.has('nvim-0.7') == 1 then
 
+    local lspconfig = require('lspconfig')
+
     -- Learn the keybindings, see :help lsp-zero-keybindings
     -- Learn to configure LSP servers, see :help lsp-zero-api-showcase
     local lsp = require('lsp-zero').preset({
@@ -36,8 +38,7 @@ if vim.fn.has('nvim-0.7') == 1 then
     })
 
     -- YAML specific
-    local lsp_yamlls = require('lspconfig').yamlls
-    lsp_yamlls.setup {
+    lspconfig.yamlls.setup {
         settings = {
             -- Do not include keyOrdering. This complains if keys
             -- aren't alphanumerically ordered.
