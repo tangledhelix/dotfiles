@@ -35,5 +35,15 @@ if vim.fn.has('nvim-0.7') == 1 then
         virtual_text = true
     })
 
+    -- YAML specific
+    local lsp_yamlls = require('lspconfig').yamlls
+    lsp_yamlls.setup {
+        settings = {
+            -- Do not include keyOrdering. This complains if keys
+            -- aren't alphanumerically ordered.
+            yaml = { keyOrdering = false }
+        }
+    }
+
 end
 
