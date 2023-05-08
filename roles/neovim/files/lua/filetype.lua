@@ -23,6 +23,10 @@ vim.filetype.add({
             indent_by_two()
             return 'yaml'
         end,
+        eyaml = function()
+            indent_by_two()
+            return 'yaml'
+        end,
         json = function()
             indent_by_two()
             return 'json'
