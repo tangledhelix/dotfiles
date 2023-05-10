@@ -10,9 +10,10 @@ if vim.fn.has('mac') == 1 then
     key({"n", "x"}, "<leader>P", '"+P')
 end
 
--- better j,k line navigation when lines are wrapped
-key({"n", "x"}, "j", "gj", {noremap = true})
-key({"n", "x"}, "k", "gk", {noremap = true})
+-- better j,k line navigation when lines are wrapped.
+-- interacts poorly with (n)j, (n)k jumps if 'wrap' is true.
+-- key({"n", "x"}, "j", "gj", {noremap = true})
+-- key({"n", "x"}, "k", "gk", {noremap = true})
 
 -- an Esc key when I don't feel like stretching my delicate pinky
 key("i", "kj", "<esc>", {})

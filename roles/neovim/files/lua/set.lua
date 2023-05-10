@@ -17,7 +17,9 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
 
--- line wrapping
+-- line wrapping. this is soft wrap - only wraps for display, not
+-- a real wrap of the line.
+-- NOTE: this doesn't interact well with j, k being remapped to gj, gk
 opt.wrap = true
 
 -- highlight search term after search ends
