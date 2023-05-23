@@ -3,6 +3,7 @@ vim.g.neoformat_enabled_javascript = { "prettier" }
 vim.g.neoformat_enabled_html = { "prettier" }
 vim.g.neoformat_enabled_css = { "prettier" }
 vim.g.neoformat_enabled_python = { "black" }
+vim.g.neoformat_enabled_lua = { "stylua" }
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
