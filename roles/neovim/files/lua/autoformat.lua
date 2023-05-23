@@ -14,6 +14,7 @@ autocmd({'BufWritePre'}, {
         if vim.bo[opts.buf].filetype == 'javascript' then vim.cmd[[Neoformat]] end
         if vim.bo[opts.buf].filetype == 'css' then vim.cmd[[Neoformat]] end
         if vim.bo[opts.buf].filetype == 'python' then vim.cmd[[Neoformat]] end
+        if vim.bo[opts.buf].filetype == 'lua' then vim.cmd[[Neoformat]] end
     end
 })
 
