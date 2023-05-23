@@ -1,13 +1,12 @@
-
 vim.g.mapleader = " "
 
 local key = vim.keymap.set
 
-if vim.fn.has('mac') == 1 then
-    -- Interact with system clipboard (works in normal or visual modes)
-    key({"n", "x"}, "<leader>y", '"+y')
-    key({"n", "x"}, "<leader>p", '"+p')
-    key({"n", "x"}, "<leader>P", '"+P')
+if vim.fn.has("mac") == 1 then
+	-- Interact with system clipboard (works in normal or visual modes)
+	key({ "n", "x" }, "<leader>y", '"+y')
+	key({ "n", "x" }, "<leader>p", '"+p')
+	key({ "n", "x" }, "<leader>P", '"+P')
 end
 
 -- better j,k line navigation when lines are wrapped.
@@ -37,4 +36,3 @@ key("v", "K", ":m '<-2<CR>gv=gv")
 key("n", "<leader>e", vim.cmd.Ex)
 
 --key("n", "<leader>w", "<cmd>write<cr>", {desc = "Save"})
-

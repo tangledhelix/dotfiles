@@ -1,5 +1,5 @@
-require('rose-pine').setup()
-vim.cmd('colorscheme rose-pine')
+require("rose-pine").setup()
+vim.cmd("colorscheme rose-pine")
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -15,4 +15,3 @@ vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { bg = "none" })
 vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = "none" })
 vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = "none" })
 vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = "none" })
-

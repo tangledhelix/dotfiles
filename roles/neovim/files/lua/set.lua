@@ -43,8 +43,8 @@ opt.signcolumn = "yes"
 -- opt.colorcolumn = "80"
 
 -- encodings
-opt.encoding = 'utf8'
-opt.fileencoding = 'utf8'
+opt.encoding = "utf8"
+opt.fileencoding = "utf8"
 
 -- split to the right & below... i don't like the defaults
 opt.splitright = true
@@ -53,6 +53,5 @@ opt.splitbelow = true
 -- undo history
 opt.swapfile = false
 opt.backup = false
-opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 opt.undofile = true
-
