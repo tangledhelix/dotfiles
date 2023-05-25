@@ -31,5 +31,8 @@ vim.filetype.add({
 			indent_by_two()
 			return "json"
 		end,
+		tt2 = function()
+			return "tt2html"
+		end,
 	},
 })
