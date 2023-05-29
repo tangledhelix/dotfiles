@@ -1,6 +1,0 @@
-require("plugins")
-require("set")
-require("remap")
-require("filetype")
-require("autocmd")
-require("autoformat")

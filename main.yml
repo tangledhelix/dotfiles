@@ -9,6 +9,5 @@
 
 - hosts: "local"
   roles:
-    - { role: "neovim" }
     - { role: "scripts" }
     - { role: "starship" }

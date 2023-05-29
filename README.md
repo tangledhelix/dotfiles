@@ -23,7 +23,7 @@ I am a Zsh user. This repo goes in conjunction with
 [Oh My Zsh](https://ohmyz.sh). It'll work fine if you use Bash or another
 shell, it just won't do anything to set those shells up.
 
-I'm a Vim/Neovim user. If you use Emacs or something else, same as with Zsh...
+I'm a Vim user. If you use Emacs or something else, same as with Zsh...
 not a problem, but you won't get much Emacs functionality from these dotfiles.
 
 I use this setup with macOS, and Linux (RHEL, CentOS, Debian, Ubuntu).
@@ -73,33 +73,6 @@ clean out old ones no longer in the list.
 Note this will just update the repository copy. To install them, use the
 Ansible playbook. Anything in the bundle directory will be installed on the
 target.
-
-## Neovim
-
-I'm a fan of [Neovim][], but unfortunately on most servers it's still pretty
-old on LTS versions. So I only push Neovim setup to local (which in my case
-means macOS).
-
-If you'd like to use my Neovim setup, push it wherever you want. Then run
-`:PackerSync` inside nvim to install the plugins. You might have to do it a few
-times to do the initial installation.
-
-My full Neovim setup assumes Neovim 0.8, but if you're on an earlier version,
-it will try to degrade gracefully by selectively omitting plugins to install
-that aren't compatible.
-
-Some of my plugins have underlying requirements. You can install this using
-your usual package manager, like `apt` on Ubuntu or `brew` on macOS.
-
-* tree-sitter for AST-based syntax highlighting
-* ripgrep for the telescope fuzzy finder
-
-If you're interested in Neovim, you can find plenty of videos on Youtube
-to help you get started. The most entertaining one is [ThePrimeagen][],
-but there are plenty of others.
-
-[neovim]: https://neovim.io/
-[theprimeagen]: https://www.youtube.com/channel/UC8ENHE5xdFSwx71u3fDH5Xw
 
 ## Ansible host manifest
 
