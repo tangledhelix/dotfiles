@@ -15,11 +15,11 @@ if vim.fn.has("nvim-0.7") == 1 then
 		"clangd", -- c, c++
 		"cssls", -- css, scss, less
 		"html", -- HTML
+		"jedi_language_server", -- python
 		"jsonls", -- JSON
 		"lua_ls", -- lua
 		"marksman", -- markdown
 		"perlnavigator", -- perl
-		"pyright", -- python
 		"sqlls", -- sql
 		"tsserver", -- javascript, typescript
 		"yamlls", -- yaml
