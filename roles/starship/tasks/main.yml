@@ -2,3 +2,11 @@
   shell: "~/bin/install_starship.sh -f -b ~/bin"
   tags:
     - "starship"
+
+- name: "Install starship.toml"
+  copy:
+    src: "starship.toml"
+    dest: "~/.config/starship.toml"
+    mode: "0644"
+  tags:
+    - "starship"

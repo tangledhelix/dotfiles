@@ -1,0 +1,4 @@
+
+# Timeout for commands (for prompt) in ms. Default: 500
+command_timeout = 1000
+
