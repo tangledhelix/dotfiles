@@ -10,4 +10,3 @@
 - hosts: "local"
   roles:
     - { role: "scripts" }
-    - { role: "starship" }

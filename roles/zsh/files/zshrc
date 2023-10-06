@@ -89,6 +89,9 @@ export ZSH=$HOME/.oh-my-zsh
 # all great on a light background
 #ZSH_THEME="steeef"
 
+# Nice and simple, I like.
+ZSH_THEME="refined"
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -103,7 +106,7 @@ export ZSH=$HOME/.oh-my-zsh
 #ZSH_THEME="lukerandall"
 
 # Shows ssh.. user@host, path, git status, last exit code. multiline.
-ZSH_THEME="mortalscumbag"
+#ZSH_THEME="mortalscumbag"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -440,9 +443,9 @@ bindkey '^ ' autosuggest-accept
 #bindkey '^n' down-history
 
 # starship isn't installed in all of my environments
-if [[ -n "$(command -v starship)" ]]; then
-    eval "$(starship init zsh)"
-fi
+# if [[ -n "$(command -v starship)" ]]; then
+#     eval "$(starship init zsh)"
+# fi
 
 # local settings override global ones
 if [[ -s $HOME/.zshrc.local ]]; then
