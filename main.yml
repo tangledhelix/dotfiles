@@ -10,3 +10,11 @@
 - hosts: "local"
   roles:
     - { role: "scripts" }
+
+- hosts: "neovim"
+  roles:
+    - { role: "neovim" }
+
+- hosts: "nvimappimg"
+  roles:
+    - { role: "nvimappimg" }

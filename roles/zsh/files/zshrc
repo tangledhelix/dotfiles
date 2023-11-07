@@ -90,7 +90,7 @@ export ZSH=$HOME/.oh-my-zsh
 #ZSH_THEME="steeef"
 
 # Nice and simple, I like.
-ZSH_THEME="refined"
+#ZSH_THEME="refined"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -107,6 +107,13 @@ ZSH_THEME="refined"
 
 # Shows ssh.. user@host, path, git status, last exit code. multiline.
 #ZSH_THEME="mortalscumbag"
+
+if [[ "$(uname -s)" = "Darwin" ]]
+then
+    ZSH_THEME="refined"
+else
+    ZSH_THEME="mortalscumbag"
+fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -225,9 +232,16 @@ unset path_file
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# I only use Neovim on macOS because on most linux distros it's old.
+# I usually only use Neovim on macOS because on most linux distros it's old.
 # Maybe in a few more years...
-if [[ "$(uname -s)" = "Darwin" && -n "$(command -v nvim)" ]]; then
+# But in a few cases I'll use the .appimage on Linux if I really want it.
+if [[ -x "$HOME/bin/nvim.appimage" ]]; then
+    export EDITOR="~/bin/nvim.appimage"
+    alias nvim="$EDITOR"
+    alias vim="$EDITOR"
+    alias vi="$EDITOR"
+    alias view="$EDITOR -R"
+elif [[ "$(uname -s)" = "Darwin" && -n "$(command -v nvim)" ]]; then
     export EDITOR="nvim"
     alias vim="nvim"
     alias vi="nvim"

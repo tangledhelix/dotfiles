@@ -1,0 +1,41 @@
+
+- name: "Check if ~/.config exists"
+  stat:
+    path: "~/.config"
+  register: "stat_dotconfig_result"
+  tags:
+    - "neovim"
+    - "nvim"
+
+- name: "Install ~/.config directory"
+  ansible.builtin.file:
+    path: "~/.config"
+    state: directory
+    mode: "0755"
+  when: "not stat_dotconfig_result.stat.exists"
+  tags:
+    - "neovim"
+    - "nvim"
+
+- name: "Check if ~/.config/nvim exists"
+  stat:
+    path: "~/.config/nvim"
+  register: "stat_dotconfig_nvim_result"
+  tags:
+    - "neovim"
+    - "nvim"
+
+- name: "Cloning init.lua"
+  git:
+    repo: "https://github.com/tangledhelix/init.lua"
+    dest: "~/.config/nvim"
+  when: "not stat_dotconfig_nvim_result.stat.exists"
+  tags:
+    - "neovim"
+    - "nvim"
+
+# Note if FUSE isn't present / working, an alternative
+# is to extract:
+#   ./nvim.appimage --appimage-extract
+# and then you can run like this:
+#   ./squashfs-root/AppRun --version
