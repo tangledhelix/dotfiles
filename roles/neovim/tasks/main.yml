@@ -34,8 +34,3 @@
     - "neovim"
     - "nvim"
 
-# Note if FUSE isn't present / working, an alternative
-# is to extract:
-#   ./nvim.appimage --appimage-extract
-# and then you can run like this:
-#   ./squashfs-root/AppRun --version

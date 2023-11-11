@@ -15,6 +15,3 @@
   roles:
     - { role: "neovim" }
 
-- hosts: "nvimappimg"
-  roles:
-    - { role: "nvimappimg" }
