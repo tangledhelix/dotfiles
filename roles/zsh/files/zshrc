@@ -238,7 +238,7 @@ if [[ -x "$HOME/bin/nvim.appimage" ]]; then
     alias vim="$EDITOR"
     alias vi="$EDITOR"
     alias view="$EDITOR -R"
-elif [[ "$(uname -s)" = "Darwin" && -n "$(command -v nvim)" ]]; then
+elif [[ "$(uname -s)" == "Darwin" && -n "$(command -v nvim)" ]]; then
     export EDITOR="nvim"
     alias vim="nvim"
     alias vi="nvim"
@@ -424,7 +424,7 @@ else
 fi
 
 # Mac-specific things
-if [[ "$(uname -s)" != "Darwin" ]]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
     alias ldd='otool -L'
 
     # This shows which processes are using the network right now.
