@@ -437,6 +437,20 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
         export HOMEBREW_PREFIX="/opt/homebrew"
         export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
     fi
+
+    if [[ -n "$(command -v code)" ]]; then
+        c() {
+            if [[ -n "$1" ]]; then
+                code -n "$1"
+            else
+                if [[ "$PWD" == "$HOME" ]]; then
+                    echo "Loading your entire \$HOME isn't a good idea"
+                else
+                    code -n .
+                fi
+            fi
+        }
+    fi
 fi
 
 unsetopt SHARE_HISTORY
