@@ -15,8 +15,8 @@
 .python_history
 
 # Visual Studio Code
-.vscode/
-.vstags
+# .vscode/
+# .vstags
 
 # Tern
 .tern-project
