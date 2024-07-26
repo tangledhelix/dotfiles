@@ -457,7 +457,8 @@ fi
 
 unsetopt SHARE_HISTORY
 
-bindkey -e
+#bindkey -e
+set -o vi
 
 # C-space or C-f will accept the currently shown suggestion.
 # So will the right arrow, by default, in -e or -v modes.
