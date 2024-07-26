@@ -12,7 +12,7 @@
     - { role: "scripts" }
     - { role: "starship" }
 
-- hosts: "neovim"
-  roles:
-    - { role: "neovim" }
+# - hosts: "neovim"
+#   roles:
+#     - { role: "neovim" }
 
