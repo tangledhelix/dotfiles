@@ -74,6 +74,8 @@ Note this will just update the repository copy. To install them, use the
 Ansible playbook. Anything in the bundle directory will be installed on the
 target.
 
+I have an entirely separate repo for my [Neovim configuration](https://github.com/tangledhelix/init.lua).
+
 ## Ansible host manifest
 
 A minimal Ansible hosts file for your local system looks like this.
