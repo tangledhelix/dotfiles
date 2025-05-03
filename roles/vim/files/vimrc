@@ -265,6 +265,10 @@ let g:netrw_bufsettings = 'nomodifiable nomodified number relativenumber nowrap 
 "   open MRU finder
 " nnoremap <leader>fr :CtrlPMRU<CR>
 
+" harpoon (Harpwn)
+nnoremap <silent> <leader><leader> :HarpwnMenu<CR>
+nnoremap <silent> <leader>a :HarpwnAdd<CR>
+
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
 autocmd Filetype make setlocal noexpandtab
