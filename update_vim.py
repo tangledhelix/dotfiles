@@ -10,6 +10,8 @@
 vim_bundles = {
     # insert and delete parens, braces, etc in pairs
     "autopairs": "LunarWatcher/auto-pairs",
+    # ctrlp - fuzzy finder for files, buffers, etc
+    "ctrlp": "ctrlpvim/ctrlp.vim",
     # automatically adds ending keyword to blocks (end, endif, ...)
     "endwise": "tpope/vim-endwise",
     # github-flavored markdown plugin

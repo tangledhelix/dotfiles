@@ -259,11 +259,13 @@ let g:netrw_bufsettings = 'nomodifiable nomodified number relativenumber nowrap 
 
 " ctrlP mappings: leader ff, fb, fr
 "   open file finder
-" let g:ctrlp_map = '<leader>ff'
+"let g:ctrlp_map = '<leader>ff'
+nnoremap <leader>ff :CtrlP<CR>
 "   open buffer finder
-" nnoremap <leader>fb :CtrlPBuffer<CR>
+nnoremap <leader>fb :CtrlPBuffer<CR>
 "   open MRU finder
-" nnoremap <leader>fr :CtrlPMRU<CR>
+nnoremap <leader>fr :CtrlPMRU<CR>
+" file, buffer, mru all at once! -- :CtrlPMixed
 
 " harpoon (Harpwn)
 nnoremap <silent> <leader><leader> :HarpwnMenu<CR>
