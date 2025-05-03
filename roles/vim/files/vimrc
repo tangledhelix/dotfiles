@@ -270,6 +270,8 @@ nnoremap <leader>fr :CtrlPMRU<CR>
 " harpoon (Harpwn)
 nnoremap <silent> <leader><leader> :HarpwnMenu<CR>
 nnoremap <silent> <leader>a :HarpwnAdd<CR>
+"nnoremap <silent> > :HarpwnNext 1<CR>
+"nnoremap <silent> < :HarpwnNext -1<CR>
 
 " Makefile requires real tabs, not spaces, enforce that
 autocmd BufNewFile,BufRead [Mm]akefile* set filetype=make
