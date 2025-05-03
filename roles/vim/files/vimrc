@@ -251,6 +251,9 @@ set scrolloff=4
 " jump to explorer (netrw)
 nnoremap <leader>e :Ex<CR>
 
+" line numbers in explorer/netrw for nav
+let g:netrw_bufsettings = 'nomodifiable nomodified number relativenumber nowrap readonly nobuflisted'
+
 " toggle undotree panel
 " nnoremap <leader>u :UndotreeToggle<CR>
 
