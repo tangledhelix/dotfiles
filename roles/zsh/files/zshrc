@@ -232,18 +232,22 @@ unset path_file
 # I usually only use Neovim on macOS because on most linux distros it's old.
 # Maybe in a few more years...
 # But in a few cases I'll use the .appimage on Linux if I really want it.
-if [[ -x "$HOME/bin/nvim.appimage" ]]; then
-    export EDITOR="~/bin/nvim.appimage"
-    alias nvim="$EDITOR"
-    alias vim="$EDITOR"
-    alias vi="$EDITOR"
-    alias view="$EDITOR -R"
-elif [[ "$(uname -s)" == "Darwin" && -n "$(command -v nvim)" ]]; then
-    export EDITOR="nvim"
-    alias vim="nvim"
-    alias vi="nvim"
-    alias view="nvim -R"
-elif [[ -n "$(command -v vim)" ]]; then
+#if [[ -x "$HOME/bin/nvim.appimage" ]]; then
+#    export EDITOR="~/bin/nvim.appimage"
+#    alias nvim="$EDITOR"
+#    alias vim="$EDITOR"
+#    alias vi="$EDITOR"
+#    alias view="$EDITOR -R"
+#elif [[ "$(uname -s)" == "Darwin" && -n "$(command -v nvim)" ]]; then
+#    export EDITOR="nvim"
+#    alias vim="nvim"
+#    alias vi="nvim"
+#    alias view="nvim -R"
+
+# Focusing in on vim; it's available everywhere and neovim sadly is
+# not on many Linuxes, still. Where it is, there's often another trouble
+# like npm isn't there for all the language servers and the like.
+if [[ -n "$(command -v vim)" ]]; then
     export EDITOR="vim"
     alias vi="vim"
     alias view="vim -R"
