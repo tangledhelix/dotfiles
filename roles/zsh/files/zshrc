@@ -8,6 +8,7 @@ path_candidates=(
     ~/config/tools/mpls
     ~/config/tools/scripts
     /opt/gums/sbin
+    ~/.local/bin
     ~/local/bin
     ~/bin
     /usr/local/share/npm/bin
