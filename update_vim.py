@@ -26,6 +26,8 @@ vim_bundles = {
     "perl": "vim-perl/vim-perl",
     # postgres-flavored SQL support
     "pgsql": "exu/pgsql.vim",
+    # puppet configuration management server
+    "puppet": "rodjek/vim-puppet",
     # status line
     "statline": "millermedeiros/vim-statline",
     # change surrounding things (quotes, parens, etc)
