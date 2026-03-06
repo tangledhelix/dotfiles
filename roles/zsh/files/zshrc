@@ -177,7 +177,6 @@ plugins=(
     colored-man-pages
     docker
     docker-compose
-    kubectl
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
