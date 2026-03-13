@@ -1,22 +1,19 @@
 # macOS
 .DS_Store
 
-# Vim
+# Editors
 .*.swp
-
-# Emacs
 *~
-
-# Sublime Text
 *.sublime-workspace
 *.sublime-project
+# .vscode/
+# .vstags
 
 # Python
 .python_history
 
-# Visual Studio Code
-# .vscode/
-# .vstags
-
 # Tern
 .tern-project
+
+# clankers
+.claude/
