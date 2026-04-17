@@ -18,7 +18,7 @@ vim.g.mapleader = ' '
 require('orgmode').setup({
   org_agenda_files = '~/orgfiles/**/*',
   org_default_notes_file = '~/orgfiles/refile.org',
-  org_todo_keywords = { 'TODO', 'WAITING', 'DOING', '|', 'DONE', 'DELEGATED' },
+  org_todo_keywords = { 'TODO', 'NEXT', '|', 'DONE' },
 
   -- overview, content, showeverything, inherit
   org_startup_folded = 'showeverything',
