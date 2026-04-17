@@ -25,12 +25,21 @@
     - "neovim"
     - "nvim"
 
-- name: "Cloning init.lua"
-  git:
-    repo: "https://github.com/tangledhelix/init.lua"
-    dest: "~/.config/nvim"
-  when: "not stat_dotconfig_nvim_result.stat.exists"
+- name: "Install init.lua"
+  copy:
+    src: "init.lua"
+    dest: "~/.config/nvim/init.lua"
+    mode: "0644"
   tags:
     - "neovim"
     - "nvim"
+
+#- name: "Cloning init.lua"
+#  git:
+#    repo: "https://github.com/tangledhelix/init.lua"
+#    dest: "~/.config/nvim"
+#  when: "not stat_dotconfig_nvim_result.stat.exists"
+#  tags:
+#    - "neovim"
+#    - "nvim"
 
