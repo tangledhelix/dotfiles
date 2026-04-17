@@ -30,12 +30,9 @@ require('orgmode').setup({
   -- not because I use LaTeX
   org_highlight_latex_and_related = 'entities',
 
-  -- this is not working.
-  --org_todo_keyword_faces = {
-  --  WAITING = ':foreground blue :weight bold',
-  --  DELEGATED = ':background #FFFFFF :slant italic :underline on',
-  --  TODO = ':background #000000 :foreground red', -- overrides builtins
-  --},
+  org_todo_keyword_faces = {
+    NEXT = ':foreground #16181D :background #9AFFFF :weight bold :slant italic',
+  },
 })
 
 vim.api.nvim_create_autocmd('FileType', {
