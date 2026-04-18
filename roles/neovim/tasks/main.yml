@@ -25,6 +25,16 @@
     - "neovim"
     - "nvim"
 
+- name: "Install ~/.config/nvim directory"
+  ansible.builtin.file:
+    path: "~/.config/nvim"
+    state: directory
+    mode: "0755"
+  when: "not stat_dotconfig_nvim_result.stat.exists"
+  tags:
+    - "neovim"
+    - "nvim"
+
 - name: "Install init.lua"
   copy:
     src: "init.lua"
