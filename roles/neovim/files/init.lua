@@ -39,6 +39,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'org',
   callback = function()
     vim.opt.shiftwidth = 2
+    vim.opt.softtabstop = 2
 
     -- add another item to current headings or list
     vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
@@ -148,6 +149,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
       timeout = 40,
     })
   end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'lua',
+  callback = function()
+    vim.opt.shiftwidth = 2
+    vim.opt.softtabstop = 2
+  end
 })
 
 if vim.fn.has('mac') == 1 then
