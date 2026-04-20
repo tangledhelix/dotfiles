@@ -47,8 +47,8 @@ vim.api.nvim_create_autocmd('FileType', {
     })
 
     -- indent or outdent by shiftwidth
-    vim.keymap.set('i', '<S-Left>', '<Esc><<A', { silent = true, buffer = true })
-    vim.keymap.set('i', '<S-Right>', '<Esc>>>A', { silent = true, buffer = true })
+    vim.keymap.set('i', '<Tab>', '<Esc>>>A', { silent = true, buffer = true })
+    vim.keymap.set('i', '<S-Tab>', '<Esc><<A', { silent = true, buffer = true })
   end
 })
 
