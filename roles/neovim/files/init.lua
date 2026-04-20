@@ -77,7 +77,9 @@ vim.keymap.set('t', '<C-t>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>'
 --tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 --]])
 
-require('lualine').setup({})
+require('lualine').setup({
+  options = { theme = 'powerline_dark' },
+})
 
 vim.keymap.set('n', '<leader>g', require('lazygit').lazygit, { noremap = true, silent = true })
 
