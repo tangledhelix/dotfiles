@@ -21,7 +21,7 @@ require('orgmode').setup({
   org_todo_keywords = { 'TODO', 'NEXT', '|', 'DONE' },
 
   -- overview, content, showeverything, inherit
-  org_startup_folded = 'showeverything',
+  org_startup_folded = 'content',
 
   -- default 1 (Mon), set 0 for Sun
   calendar_week_start_day = 0,
