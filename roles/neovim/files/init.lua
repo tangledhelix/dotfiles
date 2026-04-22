@@ -170,3 +170,15 @@ end
 
 vim.keymap.set('n', '<leader>e', vim.cmd.Ex)
 
+vim.api.nvim_create_user_command("Orgstart", function()
+  vim.cmd("cd ~/orgfiles")
+  vim.cmd("edit main.org")
+  vim.cmd("vsplit")
+  vim.cmd("wincmd h")
+  vim.cmd("edit refile.org")
+  vim.cmd("wincmd l")
+  vim.cmd("Org agenda a")
+  vim.cmd("2sleep")
+  vim.cmd("norm vd.")
+end, {})
+
