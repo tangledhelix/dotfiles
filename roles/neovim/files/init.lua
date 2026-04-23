@@ -174,6 +174,12 @@ vim.keymap.set('n', '<leader>e', vim.cmd.Ex)
 vim.keymap.set('i', 'kj', '<Esc>', {})
 vim.keymap.set('i', 'jj', '<Esc>', {})
 
+-- and Ctrl... see :h CTRL-W
+-- these are all window commands
+for key in ('hjklxbcdfinopqrstvwzHJKLPRTWF+-=><]^_'):gmatch('.') do
+  vim.keymap.set('n', '<leader>w' .. key, ':wincmd ' .. key .. '<CR>', { silent = true })
+end
+
 vim.api.nvim_create_user_command("Orgstart", function()
   vim.cmd("cd ~/orgfiles")
   vim.cmd("edit main.org")
