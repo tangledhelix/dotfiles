@@ -170,6 +170,10 @@ end
 
 vim.keymap.set('n', '<leader>e', vim.cmd.Ex)
 
+-- stretch for Esc less...
+vim.keymap.set('i', 'kj', '<Esc>', {})
+vim.keymap.set('i', 'jj', '<Esc>', {})
+
 vim.api.nvim_create_user_command("Orgstart", function()
   vim.cmd("cd ~/orgfiles")
   vim.cmd("edit main.org")
