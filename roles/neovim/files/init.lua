@@ -194,8 +194,5 @@ vim.api.nvim_create_user_command("Orgstart", function()
   vim.cmd("norm vd.")
 end, {})
 
-require("org-links").setup({
-  filetypes = { "org" },
-  hl_group = "Underlined",
-})
+require('org-links').setup()
 
