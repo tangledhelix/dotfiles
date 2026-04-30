@@ -9,6 +9,7 @@ vim.pack.add({
   { src = 'https://github.com/nvim-telescope/telescope.nvim' },
   { src = 'https://github.com/akinsho/org-bullets.nvim' },
   { src = 'https://github.com/nvim-orgmode/telescope-orgmode.nvim' },
+  { src = 'https://github.com/tangledhelix/org-links.nvim' },
 })
 
 vim.g.mapleader = ' '
@@ -192,4 +193,9 @@ vim.api.nvim_create_user_command("Orgstart", function()
   vim.cmd("2sleep")
   vim.cmd("norm vd.")
 end, {})
+
+require("org-links").setup({
+  filetypes = { "org" },
+  hl_group = "Underlined",
+})
 
