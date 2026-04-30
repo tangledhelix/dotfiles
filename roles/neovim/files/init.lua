@@ -50,6 +50,10 @@ vim.api.nvim_create_autocmd('FileType', {
     -- indent or outdent by shiftwidth
     vim.keymap.set('i', '<Tab>', '<Esc>>>A', { silent = true, buffer = true })
     vim.keymap.set('i', '<S-Tab>', '<Esc><<A', { silent = true, buffer = true })
+
+    -- reclaim {, } functionality taken over by orgmode
+    vim.keymap.set('n', 'g{', '{', { noremap = true })
+    vim.keymap.set('n', 'g}', '}', { noremap = true })
   end
 })
 
