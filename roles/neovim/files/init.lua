@@ -149,8 +149,12 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.keymap.set('n', '<leader>z', ':set wrap!<CR>:set wrap?<CR>')
+-- break at word, not mid-word, if wrap is on
+vim.opt.linebreak = true
+-- visually indicate a break at left window edge
+vim.opt.showbreak = '⟩⟩'
 
 vim.opt.cursorline = true
 
