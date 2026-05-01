@@ -41,8 +41,6 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.opt.shiftwidth = 2
     vim.opt.softtabstop = 2
-    -- why? because otherwise org-links leaves virtual blank lines
-    vim.opt.wrap = false
 
     -- add another item to current headings or list
     vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
