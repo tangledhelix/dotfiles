@@ -194,6 +194,12 @@ vim.keymap.set('i', 'jj', '<Esc>', {})
 -- and Ctrl...
 vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
+-- saner j,k movements
+vim.keymap.set({'n', 'x'}, 'j', 'gj', { noremap = true })
+vim.keymap.set({'n', 'x'}, 'k', 'gk', { noremap = true })
+vim.keymap.set({'n', 'x'}, 'gj', 'j', { noremap = true })
+vim.keymap.set({'n', 'x'}, 'gk', 'k', { noremap = true })
+
 vim.api.nvim_create_user_command("Orgstart", function()
   vim.cmd("cd ~/orgfiles")
   vim.cmd("edit main.org")
