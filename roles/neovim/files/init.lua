@@ -60,6 +60,14 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'orgagenda',
+  callback = function()
+    vim.keymap.set('n', '>', ':wincmd +<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<', ':wincmd -<CR>', { noremap = true, silent = true })
+  end
+})
+
 -- Experimental LSP support
 vim.lsp.enable('org')
 
