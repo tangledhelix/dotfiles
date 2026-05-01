@@ -86,11 +86,9 @@ require('FTerm').setup({ border = 'double', blend = 0 })
 vim.keymap.set('n', '<C-t>', '<CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<C-t>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 
--- this should paste from the yank buffer into FTerm with ^r,
--- but isn't working. it used to work.
---vim.cmd([[
---tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
---]])
+-- ^G plus a register name pastes to FTerm panel (e.g. ^Ga for register a)
+-- default register doesn't work with this.
+vim.cmd([[tnoremap <expr> <C-G> '<C-\><C-N>"'.nr2char(getchar()).'pi']])
 
 require('lualine').setup({
   options = { theme = 'powerline_dark' },
