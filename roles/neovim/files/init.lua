@@ -17,12 +17,12 @@ vim.pack.add({
 -- terrortylor/nvim-comment
 --
 -- folke/todo-comments.nvim
---vim.keymap.set("n", "]t", function()
---  require("todo-comments").jump_next()
---end, { desc = "Next todo comment" })
---vim.keymap.set("n", "[t", function()
---  require("todo-comments").jump_prev()
---end, { desc = "Previous todo comment" })
+--vim.keymap.set('n', ']t', function()
+--  require('todo-comments').jump_next()
+--end, { desc = 'Next todo comment' })
+--vim.keymap.set('n', '[t', function()
+--  require('todo-comments').jump_prev()
+--end, { desc = 'Previous todo comment' })
 --
 -- windwp/nvim-autopairs
 --
@@ -183,10 +183,10 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 2
 
 -- uncomment to have nvim not change the cursor style (thin, block, ...)
---opt.guicursor = ""
+--opt.guicursor = ''
 
 -- disable mouse support (default is 'nvi')
---opt.mouse = ""
+--opt.mouse = ''
 
 -- when yanking text, briefly flash a selection visually to show what was
 -- yanked (40ms)
@@ -252,20 +252,20 @@ vim.keymap.set({'n', 'x'}, 'gj', 'j', { noremap = true })
 vim.keymap.set({'n', 'x'}, 'gk', 'k', { noremap = true })
 
 -- use J/K in visual mode to move lines (and re-indent)
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
-vim.api.nvim_create_user_command("Orgstart", function()
-  vim.cmd("cd ~/orgfiles")
-  vim.cmd("edit main.org")
+vim.api.nvim_create_user_command('Orgstart', function()
+  vim.cmd('cd ~/orgfiles')
+  vim.cmd('edit main.org')
   require('harpoon'):list():add()
-  vim.cmd("vsplit")
-  vim.cmd("edit refile.org")
+  vim.cmd('vsplit')
+  vim.cmd('edit refile.org')
   require('harpoon'):list():add()
-  vim.cmd("wincmd l")
-  vim.cmd("Org agenda a")
-  vim.cmd("2sleep")
-  vim.cmd("norm vd.")
+  vim.cmd('wincmd l')
+  vim.cmd('Org agenda a')
+  vim.cmd('2sleep')
+  vim.cmd('norm vd.')
 end, {})
 
 require('nvim-surround').setup()
