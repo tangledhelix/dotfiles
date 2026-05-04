@@ -39,8 +39,8 @@ require('orgmode').setup({
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'org',
   callback = function()
-    vim.opt.shiftwidth = 2
-    vim.opt.softtabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.softtabstop = 2
 
     -- add another item to current headings or list
     vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
@@ -171,8 +171,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'lua',
   callback = function()
-    vim.opt.shiftwidth = 2
-    vim.opt.softtabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.softtabstop = 2
   end
 })
 
