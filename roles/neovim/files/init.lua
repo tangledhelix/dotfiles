@@ -12,6 +12,26 @@ vim.pack.add({
   { src = 'https://github.com/kylechui/nvim-surround', version = vim.version.range('4.x') },
 })
 
+-- Plugins to look at later:
+--
+-- terrortylor/nvim-comment
+--
+-- folke/todo-comments.nvim
+--vim.keymap.set("n", "]t", function()
+--  require("todo-comments").jump_next()
+--end, { desc = "Next todo comment" })
+--vim.keymap.set("n", "[t", function()
+--  require("todo-comments").jump_prev()
+--end, { desc = "Previous todo comment" })
+--
+-- windwp/nvim-autopairs
+--
+-- RRethy/nvim-treesitter-endwise
+--
+-- lewis6991/gitsigns.nvim
+--
+-- tpope/vim-characterize
+
 vim.g.mapleader = ' '
 
 -- https://github.com/nvim-orgmode/orgmode/blob/master/docs/configuration.org
@@ -162,6 +182,14 @@ vim.opt.cursorline = true
 
 vim.opt.scrolloff = 2
 
+-- uncomment to have nvim not change the cursor style (thin, block, ...)
+--opt.guicursor = ""
+
+-- disable mouse support (default is 'nvi')
+--opt.mouse = ""
+
+-- when yanking text, briefly flash a selection visually to show what was
+-- yanked (40ms)
 vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
   callback = function()
@@ -171,6 +199,27 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     })
   end,
 })
+
+-- line numbers in quickfix/location windows
+--vim.api.nvim_create_autocmd('Filetype', {
+--  pattern = 'qf',
+--  callback = function()
+--    vim.bo.number = true
+--    vim.bo.relativenumber = false
+--  end,
+--})
+
+-- delete trailing whitespace on lines, when saving.
+-- Except if it's markdown, then don't. Markdown can use EOL spaces
+-- for paragraph formatting, which I want sometimes.
+--vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+--  pattern = '*',
+--  callback = function()
+--    if vim.bo.filetype ~= 'markdown' then
+--      vim.cmd([[%s/\s\+$//e]])
+--    end
+--  end,
+--})
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'lua',
@@ -202,6 +251,10 @@ vim.keymap.set({'n', 'x'}, 'k', 'gk', { noremap = true })
 vim.keymap.set({'n', 'x'}, 'gj', 'j', { noremap = true })
 vim.keymap.set({'n', 'x'}, 'gk', 'k', { noremap = true })
 
+-- use J/K in visual mode to move lines (and re-indent)
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
 vim.api.nvim_create_user_command("Orgstart", function()
   vim.cmd("cd ~/orgfiles")
   vim.cmd("edit main.org")
@@ -216,3 +269,44 @@ vim.api.nvim_create_user_command("Orgstart", function()
 end, {})
 
 require('nvim-surround').setup()
+
+-- https://neovim.io/doc/user/lua.html#vim.filetype.add()
+
+local function indent_by_two()
+  vim.opt.tabstop = 2
+  vim.opt.softtabstop = 2
+  vim.opt.shiftwidth = 2
+end
+
+vim.filetype.add({
+  pattern = {
+    ['.*%.lua%.j2'] = 'lua',
+  },
+  extension = {
+    js = function()
+      indent_by_two()
+      return 'javascript'
+    end,
+    yaml = function()
+      indent_by_two()
+      return 'yaml'
+    end,
+    yml = function()
+      indent_by_two()
+      return 'yaml'
+    end,
+    eyaml = function()
+      indent_by_two()
+      return 'yaml'
+    end,
+    json = function()
+      indent_by_two()
+      return 'json'
+    end,
+    tt2 = function()
+      return 'tt2html'
+    end,
+  },
+})
+
+
