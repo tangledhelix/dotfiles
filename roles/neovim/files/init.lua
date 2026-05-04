@@ -41,6 +41,10 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.bo.shiftwidth = 2
     vim.bo.softtabstop = 2
 
+    -- improve display of links.
+    vim.wo.conceallevel = 2
+    vim.wo.concealcursor = 'nc'
+
     -- add another item to current headings or list
     vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
       silent = true,
