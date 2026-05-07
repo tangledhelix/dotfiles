@@ -157,7 +157,7 @@ vim.keymap.set('n', '<leader>fol', orgext.insert_link, { desc = 'Org insert link
 
 require('org-bullets').setup()
 
-vim.opt.number = false
+vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.ignorecase = true
