@@ -65,6 +65,7 @@ vim.api.nvim_create_autocmd('FileType', {
     -- improve display of links.
     vim.wo.conceallevel = 2
     vim.wo.concealcursor = 'nc'
+    vim.wo.wrap = false
 
     -- add another item to current headings or list
     vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
