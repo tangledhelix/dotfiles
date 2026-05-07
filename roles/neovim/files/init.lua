@@ -182,8 +182,10 @@ vim.opt.cursorline = true
 
 vim.opt.scrolloff = 2
 
--- uncomment to have nvim not change the cursor style (thin, block, ...)
---opt.guicursor = ''
+vim.opt.guicursor = 'n-v-c-sm:block-blinkon500-blinkoff500,'
+                 .. 'i-ci-ve:ver25-blinkon500-blinkoff500,'
+                 .. 'r-cr-o:hor20-blinkon500-blinkoff500,'
+                 .. 't:block-blinkon500-blinkoff500-TermCursor'
 
 -- disable mouse support (default is 'nvi')
 --opt.mouse = ''
