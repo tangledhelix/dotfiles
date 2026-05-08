@@ -142,6 +142,15 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'g{', '{', { noremap = true })
     vim.keymap.set('n', 'g}', '}', { noremap = true })
 
+    -- show or hide links
+    vim.keymap.set('n', '<leader>olh', function()
+      if vim.wo.conceallevel == 2 then
+        vim.wo.conceallevel = 0
+      else
+        vim.wo.conceallevel = 2
+      end
+    end, { noremap = true })
+
     -- Toggle wrap mode when switching into insert mode.
     -- I prefer wrap be on while editing, but off when viewing because of
     -- concealed link display (specific to orgmode and conceallevel 2).
