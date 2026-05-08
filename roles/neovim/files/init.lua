@@ -126,6 +126,7 @@ vim.api.nvim_create_autocmd('FileType', {
     -- Improve display of links
     vim.wo.conceallevel = 2
     vim.wo.concealcursor = 'nc'
+    --vim.wo.wrap = false
 
     -- shift-enter: add another item to list, or add a heading
     vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
@@ -144,16 +145,16 @@ vim.api.nvim_create_autocmd('FileType', {
     -- Toggle wrap mode when switching into insert mode.
     -- I prefer wrap be on while editing, but off when viewing because of
     -- concealed link display (specific to orgmode and conceallevel 2).
-    vim.api.nvim_create_autocmd('InsertEnter', {
-      callback = function()
-        vim.wo.wrap = true
-      end,
-    })
-    vim.api.nvim_create_autocmd('InsertLeave', {
-      callback = function()
-        vim.wo.wrap = false
-      end,
-    })
+    --vim.api.nvim_create_autocmd('InsertEnter', {
+    --  callback = function()
+    --    vim.wo.wrap = true
+    --  end,
+    --})
+    --vim.api.nvim_create_autocmd('InsertLeave', {
+    --  callback = function()
+    --    vim.wo.wrap = false
+    --  end,
+    --})
 
   end
 })
