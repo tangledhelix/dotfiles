@@ -253,6 +253,7 @@ vim.keymap.set('n', '<leader>fhc', builtin.command_history, { desc = 'Find in Co
 vim.keymap.set('n', '<leader>fhs', builtin.search_history, { desc = 'Find in Search History' })
 vim.keymap.set('n', '<leader>fj', builtin.jumplist, { desc = 'Find in jumplist' })
 vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Find Mark' })
+vim.keymap.set('n', '<leader>fr', builtin.registers, { desc = 'Find Registers' })
 vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = 'Find String' })
 --vim.keymap.set('n', '<leader>ft', builtin.treesitter, { desc = 'Find in tree-sitter' })
 vim.keymap.set('n', '<leader>f.', builtin.current_buffer_fuzzy_find, { desc = 'Find in current buffer' })
