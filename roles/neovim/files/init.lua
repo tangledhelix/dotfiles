@@ -129,7 +129,7 @@ vim.api.nvim_create_autocmd('FileType', {
     --vim.wo.wrap = false
 
     -- shift-enter: add another item to list, or add a heading
-    vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
+    vim.keymap.set('i', '<C-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
       silent = true,
       buffer = true,
     })
