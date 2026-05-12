@@ -99,8 +99,8 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- https://github.com/nvim-orgmode/orgmode/blob/master/docs/configuration.org
 require('orgmode').setup({
-  org_agenda_files = '~/orgfiles/**/*',
-  org_default_notes_file = '~/orgfiles/refile.org',
+  org_agenda_files = '~/org/**/*',
+  org_default_notes_file = '~/org/refile.org',
   org_todo_keywords = { 'TODO', 'NEXT', '|', 'DONE' },
 
   -- [overview, content, showeverything, inherit]
@@ -185,7 +185,7 @@ require('org-bullets').setup()
 
 -- start up orgmode how I like it
 vim.api.nvim_create_user_command('Orgstart', function()
-  vim.cmd('cd ~/orgfiles')
+  vim.cmd('cd ~/org')
   vim.cmd('edit main.org')
   require('harpoon'):list():add()
   vim.cmd('norm zMzX')
