@@ -1,3 +1,5 @@
+---
+
 - name: "Check if ~/.config/emacs exists"
   ansible.builtin.stat:
     path: "~/.config/emacs"
@@ -20,13 +22,13 @@
 
 # only when ~/.config/doom did not exist
 - name: "Installing doomemacs"
-  ansible.builtin.shell: "~/.config/emacs/bin/doom install --no-env"
+  ansible.builtin.shell: "~/.config/emacs/bin/doom install --no-env --no-color"
   when: "not stat_config_doom_result.stat.exists"
   tags: ["doom", "emacs", "doomemacs"]
 
 # only when ~/.config/doom existed
 - name: "Upgrading doomemacs"
-  ansible.builtin.shell: "~/.config/emacs/bin/doom upgrade"
+  ansible.builtin.shell: "~/.config/emacs/bin/doom upgrade --force --no-color"
   when: "stat_config_doom_result.stat.exists"
   tags: ["doom", "emacs", "doomemacs"]
 
