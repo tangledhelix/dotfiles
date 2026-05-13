@@ -8,8 +8,11 @@
     - { role: "vim" }
 
 - hosts: "local"
+  vars_files:
+    - "./vars/homebrew.yml"
   roles:
     - { role: "neovim" }
     - { role: "scripts" }
     - { role: "starship" }
+    - { role: "homebrew" }
 
