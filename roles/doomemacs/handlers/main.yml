@@ -1,0 +1,2 @@
+- name: "Run doom sync"
+  ansible.builtin.shell: "~/.config/emacs/bin/doom sync"

@@ -30,10 +30,25 @@
   when: "stat_config_doom_result.stat.exists"
   tags: ["doom", "emacs", "doomemacs"]
 
-#- name: "Install .zshrc"
-#  copy:
-#    src: "zshrc"
-#    dest: "~/.zshrc"
-#    mode: "0644"
-#  tags:
-#    - "zsh"
+- name: "Install doomemacs config.el"
+  copy:
+    src: "config.el"
+    dest: "~/.config/doom/config.el"
+    mode: "0644"
+  tags: ["doom", "emacs", "doomemacs"]
+
+- name: "Install doomemacs init.el"
+  copy:
+    src: "init.el"
+    dest: "~/.config/doom/init.el"
+    mode: "0644"
+  notify: "Run doom sync"
+  tags: ["doom", "emacs", "doomemacs"]
+
+- name: "Install doomemacs packages.el"
+  copy:
+    src: "packages.el"
+    dest: "~/.config/doom/packages.el"
+    mode: "0644"
+  notify: "Run doom sync"
+  tags: ["doom", "emacs", "doomemacs"]
