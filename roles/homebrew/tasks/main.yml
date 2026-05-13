@@ -1,8 +1,17 @@
 - name: "Install homebrew packages"
-  homebrew:
+  community.general.homebrew:
     update_homebrew: "yes"
     upgrade_all: "yes"
     name: "{{ homebrew_packages }}"
+    state: "latest"
+  tags:
+    - "homebrew"
+
+- name: "Install homebrew casks"
+  community.general.homebrew_cask:
+    update_homebrew: "no"
+    upgrade_all: "yes"
+    name: "{{ homebrew_casks }}"
     state: "latest"
   tags:
     - "homebrew"
