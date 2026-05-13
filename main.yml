@@ -1,20 +1,20 @@
+---
 - hosts: "all"
   vars_files:
     - "./vars/gituser.yml"
   roles:
-    - { role: "zsh" }
-    - { role: "vcs" }
-    - { role: "misc" }
-    - { role: "vim" }
+    - {role: "zsh"}
+    - {role: "vcs"}
+    - {role: "misc"}
+    - {role: "vim"}
 
 - hosts: "local"
   vars_files:
     - "./vars/homebrew.yml"
   roles:
-    - { role: "neovim" }
-    - { role: "scripts" }
-    - { role: "starship" }
-    - { role: "homebrew" }
-    - { role: "fonts" }
-    - { role: "doomemacs" }
-
+    - {role: "neovim"}
+    - {role: "scripts"}
+    - {role: "starship"}
+    - {role: "homebrew"}
+    - {role: "fonts"}
+    - {role: "doomemacs"}
