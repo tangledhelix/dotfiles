@@ -25,6 +25,7 @@ path_candidates=(
     /opt/puppetlabs/bin
     ~/tools
     ~/.cabal/bin
+    ~/.config/emacs/bin
 )
 
 for path_candidate in $path_candidates; do

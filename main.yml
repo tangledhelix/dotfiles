@@ -16,4 +16,5 @@
     - { role: "starship" }
     - { role: "homebrew" }
     - { role: "fonts" }
+    - { role: "doomemacs" }
 

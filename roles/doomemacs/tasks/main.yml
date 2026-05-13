@@ -1,0 +1,39 @@
+- name: "Check if ~/.config/emacs exists"
+  ansible.builtin.stat:
+    path: "~/.config/emacs"
+  register: "stat_config_emacs_result"
+  tags: ["doom", "emacs", "doomemacs"]
+
+- name: "Cloning doomemacs"
+  ansible.builtin.git:
+    repo: "https://github.com/doomemacs/doomemacs"
+    dest: "~/.config/emacs"
+    depth: 1
+  when: "not stat_config_emacs_result.stat.exists"
+  tags: ["doom", "emacs", "doomemacs"]
+
+- name: "Check if ~/.config/doom exists"
+  ansible.builtin.stat:
+    path: "~/.config/doom"
+  register: "stat_config_doom_result"
+  tags: ["doom", "emacs", "doomemacs"]
+
+# only when ~/.config/doom did not exist
+- name: "Installing doomemacs"
+  ansible.builtin.shell: "~/.config/emacs/bin/doom install --no-env"
+  when: "not stat_config_doom_result.stat.exists"
+  tags: ["doom", "emacs", "doomemacs"]
+
+# only when ~/.config/doom existed
+- name: "Upgrading doomemacs"
+  ansible.builtin.shell: "~/.config/emacs/bin/doom upgrade"
+  when: "stat_config_doom_result.stat.exists"
+  tags: ["doom", "emacs", "doomemacs"]
+
+#- name: "Install .zshrc"
+#  copy:
+#    src: "zshrc"
+#    dest: "~/.zshrc"
+#    mode: "0644"
+#  tags:
+#    - "zsh"
