@@ -1,8 +1,24 @@
-
+---
 - name: "Install Symbola font"
   copy:
     src: "Symbola-AjYx.ttf"
     dest: "~/Library/Fonts/Symbola-AjYx.ttf"
+    mode: "0644"
+  tags:
+    - "fonts"
+
+- name: "Install SymbolsNerdFont font"
+  copy:
+    src: "SymbolsNerdFont-Regular.ttf"
+    dest: "~/Library/Fonts/SymbolsNerdFont-Regular.ttf"
+    mode: "0644"
+  tags:
+    - "fonts"
+
+- name: "Install SymbolsNerdFontMono font"
+  copy:
+    src: "SymbolsNerdFontMono-Regular.ttf"
+    dest: "~/Library/Fonts/SymbolsNerdFontMono-Regular.ttf"
     mode: "0644"
   tags:
     - "fonts"
