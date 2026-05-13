@@ -4,6 +4,13 @@
     upgrade_all: "yes"
     name: "{{ homebrew_packages }}"
     state: "latest"
+  register: "brew_install_result"
+  tags:
+    - "homebrew"
+
+- name: "List of changed Homebrew packages"
+  debug:
+    var: "brew_install_result.changed_pkgs"
   tags:
     - "homebrew"
 
@@ -15,3 +22,27 @@
     state: "latest"
   tags:
     - "homebrew"
+
+- name: "Add tap for railwaycat/emacsmacport"
+  community.general.homebrew_tap:
+    name: "railwaycat/emacsmacport"
+  tags:
+    - "homebrew"
+
+- name: "Install emacs-mac --with-modules --with-native-compilation"
+  community.general.homebrew:
+    update_homebrew: "no"
+    upgrade_all: "no"
+    name: "emacs-mac"
+    state: "latest"
+    install_options: "with-modules,with-native-compilation"
+  register: "brew_install_emacs_result"
+  tags:
+    - "homebrew"
+
+- name: "List of changed emacs packages"
+  debug:
+    var: "brew_install_emacs_result.changed_pkgs"
+  tags:
+    - "homebrew"
+
