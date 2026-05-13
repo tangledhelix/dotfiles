@@ -54,3 +54,4 @@
 ;; (unpin! t)
 
 (package! evil-commentary)
+(package! evil-surround)
