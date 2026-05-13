@@ -1,0 +1,8 @@
+
+- name: "Install Symbola font"
+  copy:
+    src: "Symbola-AjYx.ttf"
+    dest: "~/Library/Fonts/Symbola-AjYx.ttf"
+    mode: "0644"
+  tags:
+    - "fonts"

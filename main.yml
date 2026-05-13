@@ -15,4 +15,5 @@
     - { role: "scripts" }
     - { role: "starship" }
     - { role: "homebrew" }
+    - { role: "fonts" }
 
