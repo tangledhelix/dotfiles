@@ -29,13 +29,13 @@
   tags:
     - "homebrew"
 
-- name: "Install emacs-mac --with-modules --with-native-compilation"
+- name: "Install emacs-mac --with-modules"
   community.general.homebrew:
     update_homebrew: "no"
     upgrade_all: "no"
     name: "emacs-mac"
     state: "latest"
-    install_options: "with-modules,with-native-compilation"
+    install_options: "with-modules"
   register: "brew_install_emacs_result"
   tags:
     - "homebrew"
