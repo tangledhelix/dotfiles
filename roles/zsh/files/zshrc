@@ -261,6 +261,13 @@ fi
 export VISUAL="$EDITOR"
 export PAGER="less"
 
+# Doom Emacs
+if [[ -n "$(command -v emacs)" && -n "$(command -v doom)" ]]; then
+  alias de="doom emacs -nw"
+else
+  alias de="echo Doom Emacs not installed"
+fi
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
