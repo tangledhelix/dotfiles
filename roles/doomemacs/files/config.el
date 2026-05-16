@@ -74,3 +74,97 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+
+(xterm-mouse-mode 1)
+
+(setq scroll-margin 2)
+
+
+;; swap j,k and gj,gk for saner movements in line-wrap mode
+(map! :n "j"  #'evil-next-visual-line
+      :n "gj" #'evil-next-line
+      :n "k"  #'evil-previous-visual-line
+      :n "gk" #'evil-previous-line)
+
+
+;; reach for the <escape> key less
+(after! evil-escape
+  (setq evil-escape-key-sequence "kj")
+  (setq evil-escape-delay 0.3))
+
+
+;; org-mode: ^k in insert mode to enter digraphs
+(after! org
+  (define-key evil-insert-state-local-map (kbd "C-k") #'evil-insert-digraph))
+
+
+;; toggle line number gutter with <leader>n
+(defun my/toggle-line-number-gutter ()
+  "Toggle line number gutter (includes git signs)."
+  (interactive)
+  (if (eq display-line-numbers 'relative)
+      (setq display-line-numbers nil)
+    (setq display-line-numbers 'relative))
+  (diff-hl-mode 'toggle))
+
+(map! :leader "n" #'my/toggle-line-number-gutter)
+
+
+;; macos system pasteboard interaction
+(defun my/copy-to-clipboard (start end)
+  "Copy region or current line to macOS clipboard."
+  (interactive (if (use-region-p)
+                   (list (region-beginning) (region-end))
+                 (list (line-beginning-position) (line-end-position))))
+  (shell-command-on-region start end "pbcopy")
+  (deactivate-mark))
+
+(defun my/paste-from-clipboard ()
+  "Paste from macOS clipboard."
+  (interactive)
+  (insert (shell-command-to-string "pbpaste")))
+
+(defun my/paste-before-from-clipboard ()
+  "Paste from macOS clipboard before cursor."
+  (interactive)
+  (save-excursion
+    (insert (shell-command-to-string "pbpaste"))))
+
+(map! :leader
+      :desc "Copy to clipboard"             "y" #'my/copy-to-clipboard
+      :desc "Paste from clipboard"          "p" #'my/paste-from-clipboard
+      :desc "Paste (before) from clipboard" "P" #'my/paste-before-from-clipboard)
+
+
+;; start with content display at 2 levels unfolded
+(after! org
+  (setq org-startup-folded 'show2levels))
+
+
+;; org-mode todo keywords
+(after! org
+  (setq org-todo-keywords
+        '((sequence "TODO" "NEXT" "|" "DONE")))
+  (setq org-todo-keyword-faces
+        '(("TODO"      . (:foreground "green"      :weight bold))
+          ("NEXT"      . (:foreground "orange"     :weight bold))
+          ("DONE"      . (:foreground "slate gray" :weight bold)))))
+
+
+;; change cursor shape by mode, reset on exit
+(defun my/set-cursor-shape (shape)
+  "Send escape sequence to set terminal cursor shape."
+  (let ((seq (pcase shape
+               ('box  "\e[1 q")
+               ('bar  "\e[5 q")
+               ('hbar "\e[3 q"))))
+    (when seq (send-string-to-terminal seq))))
+
+(add-hook 'evil-insert-state-entry-hook  (lambda () (my/set-cursor-shape 'bar)))
+(add-hook 'evil-replace-state-entry-hook (lambda () (my/set-cursor-shape 'hbar)))
+(add-hook 'evil-normal-state-entry-hook  (lambda () (my/set-cursor-shape 'box)))
+(add-hook 'evil-visual-state-entry-hook  (lambda () (my/set-cursor-shape 'box)))
+(add-hook 'evil-emacs-state-entry-hook   (lambda () (my/set-cursor-shape 'hbar)))
+
+(add-hook 'kill-emacs-hook (lambda () (my/set-cursor-shape 'box)))
