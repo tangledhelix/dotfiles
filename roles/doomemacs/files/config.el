@@ -82,10 +82,11 @@
 
 
 ;; swap j,k and gj,gk for saner movements in line-wrap mode
-(map! :n "j"  #'evil-next-visual-line
-      :n "gj" #'evil-next-line
-      :n "k"  #'evil-previous-visual-line
-      :n "gk" #'evil-previous-line)
+;; -- disabling this, it messes with jumps like 5j ...
+;(map! :n "j"  #'evil-next-visual-line
+;      :n "gj" #'evil-next-line
+;      :n "k"  #'evil-previous-visual-line
+;      :n "gk" #'evil-previous-line)
 
 
 ;; reach for the <escape> key less
