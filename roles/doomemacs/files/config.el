@@ -78,6 +78,7 @@
 
 (xterm-mouse-mode 1)
 
+;; like vim's "scrolloff"
 (setq scroll-margin 2)
 
 
@@ -112,7 +113,13 @@
 (map! :leader "n" #'my/toggle-line-number-gutter)
 
 
-;; macos system pasteboard interaction
+;; macos system pasteboard interaction:
+;;
+;; - if a region is marked, copy to system clipboard with <leader>y
+;;   - if no region marked, copy current line instead
+;; - paste from system clipboard with <leader>p
+;;   - paste before cursor with <leader>P
+
 (defun my/copy-to-clipboard (start end)
   "Copy region or current line to macOS clipboard."
   (interactive (if (use-region-p)
@@ -138,12 +145,12 @@
       :desc "Paste (before) from clipboard" "P" #'my/paste-before-from-clipboard)
 
 
-;; start with content display at 2 levels unfolded
+;; org-mode: start with content display at 2 levels unfolded
 (after! org
   (setq org-startup-folded 'show2levels))
 
 
-;; org-mode todo keywords
+;; org-mode: todo keywords
 (after! org
   (setq org-todo-keywords
         '((sequence "TODO" "NEXT" "|" "DONE")))
@@ -153,7 +160,7 @@
           ("DONE"      . (:foreground "slate gray" :weight bold)))))
 
 
-;; change cursor shape by mode, reset on exit
+;; change cursor shape by mode. reset on exit.
 (defun my/set-cursor-shape (shape)
   "Send escape sequence to set terminal cursor shape."
   (let ((seq (pcase shape
@@ -169,3 +176,4 @@
 (add-hook 'evil-emacs-state-entry-hook   (lambda () (my/set-cursor-shape 'hbar)))
 
 (add-hook 'kill-emacs-hook (lambda () (my/set-cursor-shape 'box)))
+
