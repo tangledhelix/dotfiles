@@ -179,3 +179,17 @@
 
 (add-hook 'kill-emacs-hook (lambda () (my/set-cursor-shape 'box)))
 
+
+;; org-mode: how to open links
+;; most of this is default value; I added jpg, png and changed pdf to use `open`
+(after! org
+  (setq org-file-apps '((remote . emacs)
+                        (auto-mode . emacs)
+                        (directory . emacs)
+                        ("\\.mm\\'" . default)
+                        ("\\.x?html?\\'" . default)
+                        ("\\.pdf\\'" . "open %s")
+                        ("\\.jpg\\'" . "open %s")
+                        ("\\.png\\'" . "open %s"))))
+
+
