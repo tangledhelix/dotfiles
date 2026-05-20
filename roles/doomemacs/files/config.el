@@ -153,11 +153,13 @@
 ;; org-mode: todo keywords
 (after! org
   (setq org-todo-keywords
-        '((sequence "TODO" "NEXT" "|" "DONE")))
+        '((sequence "TODO" "NEXT" "|" "DONE" "CANCELED" "DELEGATED" )))
   (setq org-todo-keyword-faces
         '(("TODO"      . (:foreground "green"      :weight bold))
           ("NEXT"      . (:foreground "orange"     :weight bold))
-          ("DONE"      . (:foreground "slate gray" :weight bold)))))
+          ("DONE"      . (:foreground "slate gray" :weight bold))
+          ("CANCELED"  . (:foreground "slate gray" :weight bold))
+          ("DELEGATED" . (:foreground "slate gray" :weight bold)))))
 
 
 ;; change cursor shape by mode. reset on exit.
