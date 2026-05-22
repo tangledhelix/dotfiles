@@ -81,25 +81,12 @@
 ;; like vim's "scrolloff"
 (setq scroll-margin 2)
 
-
 ;; swap j,k and gj,gk for saner movements in line-wrap mode
 ;; -- disabling this, it messes with jumps like 5j ...
 ;(map! :n "j"  #'evil-next-visual-line
 ;      :n "gj" #'evil-next-line
 ;      :n "k"  #'evil-previous-visual-line
 ;      :n "gk" #'evil-previous-line)
-
-
-;; reach for the <escape> key less
-(after! evil-escape
-  (setq evil-escape-key-sequence "kj")
-  (setq evil-escape-delay 0.3))
-
-
-;; org-mode: ^k in insert mode to enter digraphs
-(after! org
-  (define-key evil-insert-state-local-map (kbd "C-k") #'evil-insert-digraph))
-
 
 ;; toggle line number gutter with <leader>n
 (defun my/toggle-line-number-gutter ()
@@ -111,7 +98,6 @@
   (diff-hl-mode 'toggle))
 
 (map! :leader "n" #'my/toggle-line-number-gutter)
-
 
 ;; macos system pasteboard interaction:
 ;;
@@ -144,24 +130,6 @@
       :desc "Paste from clipboard"          "p" #'my/paste-from-clipboard
       :desc "Paste (before) from clipboard" "P" #'my/paste-before-from-clipboard)
 
-
-;; org-mode: start with content display at 2 levels unfolded
-(after! org
-  (setq org-startup-folded 'show2levels))
-
-
-;; org-mode: todo keywords
-(after! org
-  (setq org-todo-keywords
-        '((sequence "TODO" "NEXT" "|" "DONE" "CANCELED" "DELEGATED" )))
-  (setq org-todo-keyword-faces
-        '(("TODO"      . (:foreground "green"      :weight bold))
-          ("NEXT"      . (:foreground "orange"     :weight bold))
-          ("DONE"      . (:foreground "slate gray" :weight bold))
-          ("CANCELED"  . (:foreground "slate gray" :weight bold))
-          ("DELEGATED" . (:foreground "slate gray" :weight bold)))))
-
-
 ;; change cursor shape by mode. reset on exit.
 (defun my/set-cursor-shape (shape)
   "Send escape sequence to set terminal cursor shape."
@@ -179,10 +147,37 @@
 
 (add-hook 'kill-emacs-hook (lambda () (my/set-cursor-shape 'box)))
 
+;; open vterm with ^T
+(map! :n "C-t" #'vterm)
 
-;; org-mode: how to open links
-;; most of this is default value; I added jpg, png and changed pdf to use `open`
+
+(after! evil
+  ;; reach for the <escape> key less
+  (setq evil-escape-key-sequence "kj")
+  (setq evil-escape-delay 0.3)
+
+  ;; swap j,k for gj,gk
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line))
+
+
+
 (after! org
+  ;; start with content display at 2 levels unfolded
+  (setq org-startup-folded 'show2levels)
+
+  ;; org-mode: todo keywords
+  (setq org-todo-keywords
+        '((sequence "TODO" "NEXT" "|" "DONE" "CANCELED" "DELEGATED" )))
+  (setq org-todo-keyword-faces
+        '(("TODO"      . (:foreground "green"      :weight bold))
+          ("NEXT"      . (:foreground "orange"     :weight bold))
+          ("DONE"      . (:foreground "slate gray" :weight bold))
+          ("CANCELED"  . (:foreground "slate gray" :weight bold))
+          ("DELEGATED" . (:foreground "slate gray" :weight bold))))
+
+  ;; how to open links
+  ;; most of this is defaults; I added jpg, png and changed pdf to use `open`
   (setq org-file-apps '((remote . emacs)
                         (auto-mode . emacs)
                         (directory . emacs)
@@ -191,5 +186,3 @@
                         ("\\.pdf\\'" . "open %s")
                         ("\\.jpg\\'" . "open %s")
                         ("\\.png\\'" . "open %s"))))
-
-

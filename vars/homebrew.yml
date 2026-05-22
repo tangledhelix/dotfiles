@@ -29,6 +29,7 @@ homebrew_packages:
   - "jq"
   - "lazydocker"
   - "lazygit"
+  - "libtool"
   - "lua"
   - "m4"
   - "mosh"
