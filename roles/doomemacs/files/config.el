@@ -81,13 +81,6 @@
 ;; like vim's "scrolloff"
 (setq scroll-margin 2)
 
-;; swap j,k and gj,gk for saner movements in line-wrap mode
-;; -- disabling this, it messes with jumps like 5j ...
-;(map! :n "j"  #'evil-next-visual-line
-;      :n "gj" #'evil-next-line
-;      :n "k"  #'evil-previous-visual-line
-;      :n "gk" #'evil-previous-line)
-
 ;; toggle line number gutter with <leader>n
 (defun my/toggle-line-number-gutter ()
   "Toggle line number gutter (includes git signs)."
@@ -97,7 +90,8 @@
     (setq display-line-numbers 'relative))
   (diff-hl-mode 'toggle))
 
-(map! :leader "n" #'my/toggle-line-number-gutter)
+(map! :leader
+      :desc "Toggle line number gutter" "n" #'my/toggle-line-number-gutter)
 
 ;; macos system pasteboard interaction:
 ;;
@@ -148,7 +142,7 @@
 (add-hook 'kill-emacs-hook (lambda () (my/set-cursor-shape 'box)))
 
 ;; open vterm with ^T
-(map! :n "C-t" #'vterm)
+(map! :n :desc "Activate vterm terminal window" "C-t" #'vterm)
 
 
 (after! evil
@@ -159,7 +153,6 @@
   ;; swap j,k for gj,gk
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line))
-
 
 
 (after! org
@@ -185,4 +178,13 @@
                         ("\\.x?html?\\'" . default)
                         ("\\.pdf\\'" . "open %s")
                         ("\\.jpg\\'" . "open %s")
-                        ("\\.png\\'" . "open %s"))))
+                        ("\\.png\\'" . "open %s")))
+
+  (add-hook! 'org-mode-hook
+    ;; digraph support with ^k, in insert mode, in org-mode.
+    ;; this took a surprising number of rounds back and forth with claude
+    ;; to find something that actually worked.
+    (evil-local-set-key 'insert (kbd "C-k") #'evil-insert-digraph)
+    ;; { and } to jump among headings in org files
+    (evil-local-set-key 'normal (kbd "{") #'org-previous-visible-heading)
+    (evil-local-set-key 'normal (kbd "}") #'org-next-visible-heading)))
