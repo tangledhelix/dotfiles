@@ -56,4 +56,3 @@
 (package! evil-commentary)
 (package! evil-surround)
 (package! bbcode-mode)
-(package! jinja2-mode)
