@@ -1,5 +1,4 @@
 ---
-
 - name: "Check if ~/.config/emacs exists"
   ansible.builtin.stat:
     path: "~/.config/emacs"

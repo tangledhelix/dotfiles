@@ -1,3 +1,4 @@
+---
 - hosts: "local"
   vars_files:
     - "./vars/homebrew.yml"

@@ -1,3 +1,4 @@
+---
 - name: "Install starship"
   shell: "~/bin/install_starship.sh -f -b ~/bin"
   tags:

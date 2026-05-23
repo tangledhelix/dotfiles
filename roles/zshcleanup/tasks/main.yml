@@ -1,3 +1,4 @@
+---
 - name: "Remove old zsh files"
   file:
     path: "~/.{{ item }}"

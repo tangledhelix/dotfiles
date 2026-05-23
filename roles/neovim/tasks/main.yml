@@ -1,4 +1,4 @@
-
+---
 - name: "Check if ~/.config exists"
   stat:
     path: "~/.config"
@@ -44,12 +44,11 @@
     - "neovim"
     - "nvim"
 
-#- name: "Cloning init.lua"
-#  git:
-#    repo: "https://github.com/tangledhelix/init.lua"
-#    dest: "~/.config/nvim"
-#  when: "not stat_dotconfig_nvim_result.stat.exists"
-#  tags:
-#    - "neovim"
-#    - "nvim"
-
+# - name: "Cloning init.lua"
+#   git:
+#     repo: "https://github.com/tangledhelix/init.lua"
+#     dest: "~/.config/nvim"
+#   when: "not stat_dotconfig_nvim_result.stat.exists"
+#   tags:
+#     - "neovim"
+#     - "nvim"

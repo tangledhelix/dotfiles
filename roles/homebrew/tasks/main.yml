@@ -1,3 +1,4 @@
+---
 - name: "Install homebrew packages"
   community.general.homebrew:
     update_homebrew: "yes"
@@ -45,4 +46,3 @@
     var: "brew_install_emacs_result.changed_pkgs"
   tags:
     - "homebrew"
-

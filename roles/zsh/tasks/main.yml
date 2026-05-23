@@ -1,3 +1,4 @@
+---
 - name: "Check if .oh-my-zsh exists"
   stat:
     path: "~/.oh-my-zsh"

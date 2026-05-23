@@ -1,3 +1,4 @@
+---
 - name: "Install vimrc"
   copy:
     src: "vimrc"
