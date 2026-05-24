@@ -124,6 +124,9 @@
       :desc "Paste from clipboard"          "p" #'my/paste-from-clipboard
       :desc "Paste (before) from clipboard" "P" #'my/paste-before-from-clipboard)
 
+;; do not send cut/kill-ring text to system clipboard automatically
+(setq select-enable-clipboard nil)
+
 ;; change cursor shape by mode. reset on exit.
 (defun my/set-cursor-shape (shape)
   "Send escape sequence to set terminal cursor shape."
