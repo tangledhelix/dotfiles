@@ -90,8 +90,7 @@
     (setq display-line-numbers 'relative))
   (diff-hl-mode 'toggle))
 
-(map! :leader
-      :desc "Toggle line number gutter" "n" #'my/toggle-line-number-gutter)
+(map! :leader :desc "Toggle line number gutter" "n" #'my/toggle-line-number-gutter)
 
 ;; macos system pasteboard interaction:
 ;;

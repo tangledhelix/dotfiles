@@ -6,12 +6,14 @@
     name: "{{ homebrew_packages }}"
     state: "latest"
   register: "brew_install_result"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "homebrew"
 
 - name: "List of changed Homebrew packages"
   debug:
     var: "brew_install_result.changed_pkgs"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "homebrew"
 
@@ -21,12 +23,14 @@
     upgrade_all: "yes"
     name: "{{ homebrew_casks }}"
     state: "latest"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "homebrew"
 
 - name: "Add tap for railwaycat/emacsmacport"
   community.general.homebrew_tap:
     name: "railwaycat/emacsmacport"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "homebrew"
 
@@ -38,11 +42,13 @@
     state: "latest"
     install_options: "formula,with-modules"
   register: "brew_install_emacs_result"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "homebrew"
 
 - name: "List of changed emacs packages"
   debug:
     var: "brew_install_emacs_result.changed_pkgs"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "homebrew"

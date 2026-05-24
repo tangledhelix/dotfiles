@@ -3,6 +3,7 @@
   ansible.builtin.stat:
     path: "~/.config/emacs"
   register: "stat_config_emacs_result"
+  when: ansible_facts['os_family'] == "Darwin"
   tags: ["doom", "emacs", "doomemacs"]
 
 - name: "Cloning doomemacs"
@@ -10,25 +11,32 @@
     repo: "https://github.com/doomemacs/doomemacs"
     dest: "~/.config/emacs"
     depth: 1
-  when: "not stat_config_emacs_result.stat.exists"
+  when:
+    - ansible_facts['os_family'] == "Darwin"
+    - not stat_config_emacs_result.stat.exists
   tags: ["doom", "emacs", "doomemacs"]
 
 - name: "Check if ~/.config/doom exists"
   ansible.builtin.stat:
     path: "~/.config/doom"
   register: "stat_config_doom_result"
+  when: ansible_facts['os_family'] == "Darwin"
   tags: ["doom", "emacs", "doomemacs"]
 
 # only when ~/.config/doom did not exist
 - name: "Installing doomemacs"
   ansible.builtin.shell: "~/.config/emacs/bin/doom install --no-env --no-color"
-  when: "not stat_config_doom_result.stat.exists"
+  when:
+    - ansible_facts['os_family'] == "Darwin"
+    - not stat_config_doom_result.stat.exists
   tags: ["doom", "emacs", "doomemacs"]
 
 # only when ~/.config/doom existed
 - name: "Upgrading doomemacs"
   ansible.builtin.shell: "~/.config/emacs/bin/doom upgrade --force --no-color"
-  when: "stat_config_doom_result.stat.exists"
+  when:
+    - ansible_facts['os_family'] == "Darwin"
+    - stat_config_doom_result.stat.exists
   tags: ["doom", "emacs", "doomemacs"]
 
 - name: "Install doomemacs config.el"
@@ -36,6 +44,7 @@
     src: "config.el"
     dest: "~/.config/doom/config.el"
     mode: "0644"
+  when: ansible_facts['os_family'] == "Darwin"
   tags: ["doom", "emacs", "doomemacs"]
 
 - name: "Install doomemacs init.el"
@@ -43,6 +52,7 @@
     src: "init.el"
     dest: "~/.config/doom/init.el"
     mode: "0644"
+  when: ansible_facts['os_family'] == "Darwin"
   notify: "Run doom sync"
   tags: ["doom", "emacs", "doomemacs"]
 
@@ -51,5 +61,6 @@
     src: "packages.el"
     dest: "~/.config/doom/packages.el"
     mode: "0644"
+  when: ansible_facts['os_family'] == "Darwin"
   notify: "Run doom sync"
   tags: ["doom", "emacs", "doomemacs"]

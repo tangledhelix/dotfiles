@@ -4,6 +4,7 @@
     src: "Symbola-AjYx.ttf"
     dest: "~/Library/Fonts/Symbola-AjYx.ttf"
     mode: "0644"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "fonts"
 
@@ -12,6 +13,7 @@
     src: "SymbolsNerdFont-Regular.ttf"
     dest: "~/Library/Fonts/SymbolsNerdFont-Regular.ttf"
     mode: "0644"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "fonts"
 
@@ -20,5 +22,6 @@
     src: "SymbolsNerdFontMono-Regular.ttf"
     dest: "~/Library/Fonts/SymbolsNerdFontMono-Regular.ttf"
     mode: "0644"
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - "fonts"
