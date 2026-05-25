@@ -478,9 +478,11 @@ set -o vi
 # bindkey '^ ' autosuggest-accept
 bindkey '^f' autosuggest-accept
 
-# How to add ^n, ^p for navigating history, if I keep using them in -v mode
+# okay, but I do want *some* of the emacs binds...
 bindkey '^p' up-history
 bindkey '^n' down-history
+bindkey '^r' history-incremental-search-backward
+bindkey '^s' history-incremental-search-forward
 
 # starship isn't installed in all of my environments
 if [[ -n "$(command -v starship)" ]]; then
