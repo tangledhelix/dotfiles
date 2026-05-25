@@ -1,0 +1,7 @@
+---
+- hosts: "all"
+  tasks:
+    - name: "Remove ~/bin"
+      file:
+        path: "~/bin"
+        state: "absent"

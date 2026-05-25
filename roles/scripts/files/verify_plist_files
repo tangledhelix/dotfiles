@@ -1,5 +1,0 @@
-#!/bin/sh
-
-sudo plutil -s ~/Library/Preferences/*.plist
-sudo plutil -s /Library/Preferences/*.plist
-
