@@ -143,11 +143,8 @@
 
 (add-hook 'kill-emacs-hook (lambda () (my/set-cursor-shape 'box)))
 
-;; open vterm with ^T
-(map! :n :desc "Activate vterm terminal window" "C-t" #'vterm)
 
-
-(after! evil
+(with-eval-after-load 'evil
   ;; reach for the <escape> key less
   (setq evil-escape-key-sequence "kj")
   (setq evil-escape-delay 0.3)
@@ -157,7 +154,7 @@
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line))
 
 
-(after! org
+(with-eval-after-load 'org
   ;; start with content display at 2 levels unfolded
   (setq org-startup-folded 'show2levels)
 
