@@ -155,8 +155,7 @@
 
 
 (with-eval-after-load 'org
-  ;; start with content display at 2 levels unfolded
-  (setq org-startup-folded 'show2levels)
+  (setq org-startup-folded 'content)
 
   ;; org-mode: todo keywords
   (setq org-todo-keywords
