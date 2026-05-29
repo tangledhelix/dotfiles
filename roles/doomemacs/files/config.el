@@ -149,9 +149,12 @@
   (setq evil-escape-key-sequence "kj")
   (setq evil-escape-delay 0.3)
 
-  ;; swap j,k for gj,gk
+  ;; move up/down by line visually even with line wrap on
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line))
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+  (evil-global-set-key 'normal (kbd "C-a") #'evil-numbers/inc-at-pt-incremental)
+  (evil-global-set-key 'normal (kbd "C-x") #'evil-numbers/dec-at-pt-incremental))
 
 
 (with-eval-after-load 'org
