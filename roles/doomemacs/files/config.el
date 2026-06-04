@@ -81,16 +81,28 @@
 ;; like vim's "scrolloff"
 (setq scroll-margin 2)
 
-;; toggle line number gutter with <leader>n
-(defun my/toggle-line-number-gutter ()
-  "Toggle line number gutter (includes git signs)."
+;; toggle line numbers <leader>n (lower)
+;; this version (n) does NOT mess with the git-signs column.
+(defun my/toggle-line-numbers ()
+  "Toggle line numbers (excludes git signs)."
+  (interactive)
+  (if (eq display-line-numbers 'relative)
+      (setq display-line-numbers nil)
+    (setq display-line-numbers 'relative)))
+
+(map! :leader :desc "Toggle line number gutter" "n" #'my/toggle-line-numbers)
+
+;; toggle line number / git-signs gutter with <leader>N (upper)
+;; this version (N) ALSO toggles the git-signs column.
+(defun my/toggle-linenum-git-gutter ()
+  "Toggle line number gutter (INCLUDES git signs)."
   (interactive)
   (if (eq display-line-numbers 'relative)
       (setq display-line-numbers nil)
     (setq display-line-numbers 'relative))
   (diff-hl-mode 'toggle))
 
-(map! :leader :desc "Toggle line number gutter" "n" #'my/toggle-line-number-gutter)
+(map! :leader :desc "Toggle line numbers and git signs" "N" #'my/toggle-linenum-git-gutter)
 
 ;; macos system pasteboard interaction:
 ;;
@@ -153,6 +165,7 @@
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
+  ;; vim-style incr/decr for numeric values
   (evil-global-set-key 'normal (kbd "C-a") #'evil-numbers/inc-at-pt-incremental)
   (evil-global-set-key 'normal (kbd "C-x") #'evil-numbers/dec-at-pt-incremental))
 
