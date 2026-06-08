@@ -81,29 +81,6 @@
 ;; like vim's "scrolloff"
 (setq scroll-margin 2)
 
-;; toggle line numbers <leader>n (lower)
-;; this version (n) does NOT mess with the git-signs column.
-(defun my/toggle-line-numbers ()
-  "Toggle line numbers (excludes git signs)."
-  (interactive)
-  (if (eq display-line-numbers 'relative)
-      (setq display-line-numbers nil)
-    (setq display-line-numbers 'relative)))
-
-(map! :leader :desc "Toggle line number gutter" "n" #'my/toggle-line-numbers)
-
-;; toggle line number / git-signs gutter with <leader>N (upper)
-;; this version (N) ALSO toggles the git-signs column.
-(defun my/toggle-linenum-git-gutter ()
-  "Toggle line number gutter (INCLUDES git signs)."
-  (interactive)
-  (if (eq display-line-numbers 'relative)
-      (setq display-line-numbers nil)
-    (setq display-line-numbers 'relative))
-  (diff-hl-mode 'toggle))
-
-(map! :leader :desc "Toggle line numbers and git signs" "N" #'my/toggle-linenum-git-gutter)
-
 ;; macos system pasteboard interaction:
 ;;
 ;; - if a region is marked, copy to system clipboard with <leader>y
