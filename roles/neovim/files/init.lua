@@ -35,9 +35,10 @@ vim.pack.add({
 vim.g.mapleader = ' '
 
 -- line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.keymap.set('n', '<leader>n', ':set number!<CR>:set relativenumber!<CR>', { silent = true })
+vim.opt.number = false
+vim.opt.relativenumber = false
+-- match the doom emacs map
+vim.keymap.set('n', '<leader>tl', ':set number!<CR>:set relativenumber!<CR>', { silent = true })
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
