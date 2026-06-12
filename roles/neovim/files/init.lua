@@ -1,14 +1,10 @@
 vim.pack.add({
   { src = 'https://github.com/nvim-lua/plenary.nvim' },
-  { src = 'https://github.com/nvim-orgmode/orgmode' },
-  { src = 'https://github.com/ThePrimeagen/harpoon', version = 'harpoon2' },
   { src = 'https://github.com/numToStr/FTerm.nvim' },
   { src = 'https://github.com/kyazdani42/nvim-web-devicons' },
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
   { src = 'https://github.com/kdheepak/lazygit.nvim' },
   { src = 'https://github.com/nvim-telescope/telescope.nvim' },
-  { src = 'https://github.com/akinsho/org-bullets.nvim' },
-  { src = 'https://github.com/nvim-orgmode/telescope-orgmode.nvim' },
   { src = 'https://github.com/kylechui/nvim-surround', version = vim.version.range('4.x') },
 })
 
@@ -96,124 +92,6 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- --------------------------------------------------------------------------
--- orgmode
-
--- https://github.com/nvim-orgmode/orgmode/blob/master/docs/configuration.org
-require('orgmode').setup({
-  org_agenda_files = '~/org/**/*',
-  org_default_notes_file = '~/org/refile.org',
-  org_todo_keywords = { 'TODO', 'NEXT', '|', 'DONE' },
-
-  -- [overview, content, showeverything, inherit]
-  org_startup_folded = 'content',
-
-  -- Default 1 (Mon), set 0 for Sun
-  calendar_week_start_day = 0,
-
-  -- Avoids weird highlight of '$'; I don't use LaTeX
-  org_highlight_latex_and_related = 'entities',
-
-  org_todo_keyword_faces = {
-    NEXT = ':foreground #16181D :background #9AFFFF :weight bold :slant italic',
-  },
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'org',
-  callback = function()
-    vim.bo.shiftwidth = 2
-    vim.bo.softtabstop = 2
-
-    -- Improve display of links
-    vim.wo.conceallevel = 2
-    vim.wo.concealcursor = 'nc'
-    --vim.wo.wrap = false
-
-    -- shift-enter: add another item to list, or add a heading
-    vim.keymap.set('i', '<C-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
-      silent = true,
-      buffer = true,
-    })
-
-    -- insert mode: tab indents or outdents by shiftwidth
-    vim.keymap.set('i', '<Tab>', '<Esc>>>A', { silent = true, buffer = true })
-    vim.keymap.set('i', '<S-Tab>', '<Esc><<A', { silent = true, buffer = true })
-
-    -- reclaim the { } functionality taken over by orgmode
-    vim.keymap.set('n', 'g{', '{', { noremap = true })
-    vim.keymap.set('n', 'g}', '}', { noremap = true })
-
-    -- show or hide links
-    vim.keymap.set('n', '<leader>olh', function()
-      if vim.wo.conceallevel == 2 then
-        vim.wo.conceallevel = 0
-      else
-        vim.wo.conceallevel = 2
-      end
-    end, { noremap = true })
-
-    -- Toggle wrap mode when switching into insert mode.
-    -- I prefer wrap be on while editing, but off when viewing because of
-    -- concealed link display (specific to orgmode and conceallevel 2).
-    --vim.api.nvim_create_autocmd('InsertEnter', {
-    --  callback = function()
-    --    vim.wo.wrap = true
-    --  end,
-    --})
-    --vim.api.nvim_create_autocmd('InsertLeave', {
-    --  callback = function()
-    --    vim.wo.wrap = false
-    --  end,
-    --})
-
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'orgagenda',
-  callback = function()
-    -- grow or shrink agenda window with >, <
-    vim.keymap.set('n', '>', ':wincmd +<CR>', { noremap = true, silent = true })
-    vim.keymap.set('n', '<', ':wincmd -<CR>', { noremap = true, silent = true })
-  end
-})
-
--- Experimental LSP support
-vim.lsp.enable('org')
-
--- prettification of bullets
-require('org-bullets').setup()
-
--- start up orgmode how I like it
-vim.api.nvim_create_user_command('Orgstart', function()
-  vim.cmd('cd ~/org')
-  vim.cmd('edit main.org')
-  require('harpoon'):list():add()
-  vim.cmd('norm zMzX')
-  vim.cmd('vsplit')
-  vim.cmd('edit refile.org')
-  require('harpoon'):list():add()
-  vim.cmd('wincmd l')
-  vim.cmd('Org agenda a')
-  vim.cmd('2sleep')
-  vim.cmd('norm vd.')
-end, {})
-
--- --------------------------------------------------------------------------
--- Harpoon
-
-local harpoon = require('harpoon')
-harpoon:setup({
-  settings = {
-    save_on_toggle = true,
-    --sync_on_ui_close = true,
-  }
-})
-
-vim.keymap.set('n', '<leader>a', function() harpoon:list():add() end)
-vim.keymap.set('n', '<leader><leader>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
--- --------------------------------------------------------------------------
 -- FTerm - terminal window popover
 
 require('FTerm').setup({ border = 'double', blend = 0 })
@@ -234,7 +112,7 @@ require('lualine').setup({
 -- --------------------------------------------------------------------------
 -- lazygit
 
-vim.keymap.set('n', '<leader>g', require('lazygit').lazygit, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>gg', require('lazygit').lazygit, { noremap = true, silent = true })
 
 -- --------------------------------------------------------------------------
 -- Telescope
@@ -258,6 +136,7 @@ vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = 'Find Command' })
 --vim.keymap.set('n', '<leader>fC', builtin.colorscheme, { desc = 'Find colorscheme' })
 --vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Find Diagnostics' })
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find File' })
+vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Find File' })
 vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = 'Find file in Git' })
 vim.keymap.set('n', '<leader>fhc', builtin.command_history, { desc = 'Find in Command History' })
 vim.keymap.set('n', '<leader>fhs', builtin.search_history, { desc = 'Find in Search History' })
@@ -269,13 +148,6 @@ vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = 'Find String' })
 vim.keymap.set('n', '<leader>f.', builtin.current_buffer_fuzzy_find, { desc = 'Find in current buffer' })
 
 --vim.keymap.set('n', 'gr', builtin.lsp_references, { desc = 'Open a telescope window with references'})
-
-require('telescope').load_extension('orgmode')
-local orgext = require('telescope').extensions.orgmode
-vim.keymap.set('n', '<leader>foh', orgext.search_headings, { desc = 'Org headlines' })
-vim.keymap.set('n', '<leader>fot', orgext.search_tags, { desc = 'Org tags' })
-vim.keymap.set('n', '<leader>for', orgext.refile_heading, { desc = 'Org refile' })
-vim.keymap.set('n', '<leader>fol', orgext.insert_link, { desc = 'Org insert link' })
 
 -- --------------------------------------------------------------------------
 -- nvim-surround plugin
