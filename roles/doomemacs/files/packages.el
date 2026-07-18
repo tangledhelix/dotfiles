@@ -58,3 +58,4 @@
 (package! bbcode-mode)
 (package! tt-mode)
 (package! puppet-mode)
+(package! jinja2-mode)
