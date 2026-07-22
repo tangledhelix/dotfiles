@@ -1,4 +1,11 @@
 ---
+- name: "Add tap for jandedobbeleer/oh-my-posh"
+  community.general.homebrew_tap:
+    name: "jandedobbeleer/oh-my-posh"
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+    - "homebrew"
+
 - name: "Install homebrew packages"
   community.general.homebrew:
     update_homebrew: "yes"

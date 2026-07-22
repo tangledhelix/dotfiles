@@ -39,6 +39,7 @@ homebrew_packages:
   - "neovim"
   - "nmap"
   - "node"
+  - "oh-my-posh"
   - "pandoc"
   - "perltidy"
   - "pipx"
@@ -70,6 +71,4 @@ homebrew_packages:
 
 homebrew_casks:
   - "copilot-cli"
-  - "wireshark"
-  - "wireshark-app"
   - "xquartz"
