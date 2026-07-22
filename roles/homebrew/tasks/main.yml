@@ -6,6 +6,12 @@
   tags:
     - "homebrew"
 
+- name: "Trust tap jandedobbeleer/oh-my-posh"
+  ansible.builtin.shell: "brew trust jandedobbeleer/oh-my-posh"
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+    - "homebrew"
+
 - name: "Install homebrew packages"
   community.general.homebrew:
     update_homebrew: "yes"
