@@ -152,13 +152,14 @@
 
   ;; org-mode: todo keywords
   (setq org-todo-keywords
-        '((sequence "TODO" "NEXT" "|" "DONE" "CANCELED" "DELEGATED" )))
+        '((sequence "TODO" "NEXT" "|" "DONE" "CANCELED" "DELEGATED" "DUPLICATE" )))
   (setq org-todo-keyword-faces
         '(("TODO"      . (:foreground "green"      :weight bold))
           ("NEXT"      . (:foreground "orange"     :weight bold))
           ("DONE"      . (:foreground "slate gray" :weight bold))
           ("CANCELED"  . (:foreground "slate gray" :weight bold))
-          ("DELEGATED" . (:foreground "slate gray" :weight bold))))
+          ("DELEGATED" . (:foreground "slate gray" :weight bold))
+          ("DUPLICATE" . (:foreground "slate gray" :weight bold))))
 
   ;; how to open links
   ;; most of this is defaults; I added jpg, png and changed pdf to use `open`
