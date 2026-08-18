@@ -170,7 +170,8 @@
                         ("\\.x?html?\\'" . default)
                         ("\\.pdf\\'" . "open %s")
                         ("\\.jpg\\'" . "open %s")
-                        ("\\.png\\'" . "open %s")))
+                        ("\\.png\\'" . "open %s")
+                        ("\\.docx\\'" . "open %s")))
 
   (add-hook! 'org-mode-hook
     ;; digraph support with ^k, in insert mode, in org-mode.
