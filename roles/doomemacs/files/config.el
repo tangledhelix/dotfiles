@@ -81,6 +81,9 @@
 ;; like vim's "scrolloff"
 (setq scroll-margin 2)
 
+;; because of fun, weird unicode characters in pptext and ppgen...
+(set-char-table-range char-width-table (cons #x2600 #x26FF) 2)
+
 ;; macos system pasteboard interaction:
 ;;
 ;; - if a region is marked, copy to system clipboard with <leader>y
