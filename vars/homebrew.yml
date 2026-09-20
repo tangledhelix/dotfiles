@@ -25,7 +25,6 @@ homebrew_packages:
   - "go"
   - "grep"
   - "htop"
-  - "hugo"
   - "jless"
   - "jq"
   - "lazydocker"
